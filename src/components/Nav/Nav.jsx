@@ -55,7 +55,7 @@ class Nav extends Component {
 
     return (
       <div>
-        <header className={`nav__header ${headerClassAddon}`} style={{ height: this.props.height }}>
+        <header className={`nav__header ${headerClassAddon}`}>
           {this.renderLogo()}
           {this.renderUserLogo()}
           <IconMenu

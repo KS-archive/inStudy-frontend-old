@@ -8,14 +8,13 @@ import '../../js/font_awesome/fontawesome';
 
 class Index extends Component {
   render() {
-    const navHeight = 60;
-    const bodyMargin = (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja')
-      ? { marginTop: navHeight, minHeight: `calc(100vh - ${navHeight}px)` }
+    const bodyMargin = (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja' && this.props.location.pathname !== '/logowanie')
+      ? { marginTop: 60, minHeight: 'calc(100vh - 60px)' }
       : { minHeight: '100vh' };
 
     return (
       <div className="index__container">
-        <Nav height={navHeight} />
+        <Nav />
         <div className="index__body" style={bodyMargin}>
           {this.props.children}
         </div>
