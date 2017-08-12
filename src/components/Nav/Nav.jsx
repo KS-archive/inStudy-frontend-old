@@ -34,7 +34,7 @@ class Nav extends Component {
   }
 
   renderUserLogo() {
-    if (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja' && this.props.location.pathname !== '/logowanie') {
+    if (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja' && this.props.location.pathname !== '/logowanie' && this.props.location.pathname !== '/odzyskiwanie_hasla') {
       return (
         <div className="nav__loggedUser">
           <img className="nav__userLogo" src="http://via.placeholder.com/100x100" alt="to replace" />
@@ -47,7 +47,7 @@ class Nav extends Component {
   render() {
     let headerClassAddon;
 
-    if (this.props.location.pathname === '/' || ((this.props.location.pathname === '/rejestracja' || this.props.location.pathname === '/logowanie') && window.innerWidth > 800 && window.innerHeight > 900)) {
+    if (this.props.location.pathname === '/' || ((this.props.location.pathname === '/rejestracja' || this.props.location.pathname === '/logowanie' || this.props.location.pathname === '/odzyskiwanie_hasla') && window.innerWidth > 800 && window.innerHeight > 900)) {
       headerClassAddon = 'transparent';
     } else {
       headerClassAddon = 'clasic';
