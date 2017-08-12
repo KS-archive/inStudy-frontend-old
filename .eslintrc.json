@@ -1,0 +1,19 @@
+{
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "parserOptions": {
+      "allowImportExportEverywhere": true
+    },
+    "globals": {
+      "window": true,
+      "document": true,
+      "fetch": false,
+      "localStorage": false
+    },
+    "rules": {
+      "jsx-a11y/href-no-hash": "off",
+      "react/prefer-stateless-function": "off",
+      "react/prop-types": "off",
+      "class-methods-use-this": "off"
+    }
+}
