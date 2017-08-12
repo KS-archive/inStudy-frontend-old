@@ -9,7 +9,6 @@ class Hero extends Component {
     const heroContainerStyle = {
       backgroundColor: (detectIE()) ? this.props.muiTheme.palette.primary2Color : null,
     };
-
     return (
       <div className="hero__container" style={heroContainerStyle}>
         <div className="hero__content">

@@ -9,14 +9,14 @@ import '../../js/font_awesome/fontawesome';
 class Index extends Component {
   render() {
     const navHeight = 60;
-    const bodyHeight = (this.props.location.pathname !== '/')
-      ? { height: `calc(100vh - ${navHeight}px)` }
-      : { height: '100vh' };
+    const bodyMargin = (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja')
+      ? { marginTop: navHeight, minHeight: `calc(100vh - ${navHeight}px)` }
+      : { minHeight: '100vh' };
 
     return (
       <div className="index__container">
         <Nav height={navHeight} />
-        <div className="index__body" style={bodyHeight}>
+        <div className="index__body" style={bodyMargin}>
           {this.props.children}
         </div>
       </div>
