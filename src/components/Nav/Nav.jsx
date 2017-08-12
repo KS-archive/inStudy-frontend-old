@@ -34,7 +34,7 @@ class Nav extends Component {
   }
 
   renderUserLogo() {
-    if (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja') {
+    if (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja' && this.props.location.pathname !== '/logowanie') {
       return (
         <div className="nav__loggedUser">
           <img className="nav__userLogo" src="http://via.placeholder.com/100x100" alt="to replace" />
@@ -44,27 +44,18 @@ class Nav extends Component {
     return null;
   }
 
-  renderFiller() {
-    if (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja') {
-      return <div className="nav__filler" style={{ height: this.props.height }} />;
-    }
-    return null;
-  }
-
   render() {
-    let headerStyle;
-    if (this.props.location.pathname === '/' || (this.props.location.pathname === '/rejestracja' && window.innerWidth > 800 && window.innerHeight > 900)) {
-      headerStyle = { height: this.props.height, backgroundColor: 'transparent', boxShadow: 'none', marginTop: 30 };
-    } else if (this.props.location.pathname === '/rejestracja' && (window.innerWidth <= 800 || window.innerHeight <= 900)) {
-      console.log('obj');
-      headerStyle = { height: this.props.height, boxShadow: 'none' };
+    let headerClassAddon;
+
+    if (this.props.location.pathname === '/' || ((this.props.location.pathname === '/rejestracja' || this.props.location.pathname === '/logowanie') && window.innerWidth > 800 && window.innerHeight > 900)) {
+      headerClassAddon = 'transparent';
     } else {
-      headerStyle = { height: this.props.height };
+      headerClassAddon = 'clasic';
     }
 
     return (
       <div>
-        <header className="nav__header" style={headerStyle}>
+        <header className={`nav__header ${headerClassAddon}`} style={{ height: this.props.height }}>
           {this.renderLogo()}
           {this.renderUserLogo()}
           <IconMenu
@@ -83,7 +74,6 @@ class Nav extends Component {
             <MenuItem primaryText="Wyloguj" value="/wyloguj" />
           </IconMenu>
         </header>
-        {this.renderFiller()}
       </div>
     );
   }

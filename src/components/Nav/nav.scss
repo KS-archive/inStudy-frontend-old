@@ -11,8 +11,17 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 60px;
-  background-color: $primary-color-dark;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+  &.clasic {
+    background-color: $primary-color-dark;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.27);
+  }
+
+  &.transparent {
+    margin-top: 30px;
+    background-color: transparent;
+    box-shadow: none;
+  }
 
   @media (max-width: 500px) {
     padding: 0 30px;
@@ -28,6 +37,7 @@
   overflow: hidden;
   width: 40px;
   height: 40px;
+  margin-left: auto;
   border-radius: 20px;
   display: flex;
   align-items: center;

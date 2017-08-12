@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import axios from 'axios';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -13,13 +14,19 @@ const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 class SignUp extends Component {
   onSubmit = (values) => {
     console.log(values);
+    axios.post('http://localhost:8080/api/user/register', values).then((res) => {
+      console.log(res);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
-  renderTextField(name, label) {
+  renderTextField(name, label, type) {
     return (
       <Field
         className="signup__field"
         name={name}
+        type={type}
         component={TextField}
         floatingLabelText={label}
         floatingLabelFocusStyle={{ fontWeight: 500 }}
@@ -56,12 +63,12 @@ class SignUp extends Component {
         <div className="signup__content">
           <form className="signup__form" onSubmit={handleSubmit(this.onSubmit)}>
             <h1 className="signup__header">Rejestracja</h1>
-            {this.renderTextField('email', 'E-mail')}
-            {this.renderTextField('password', 'Hasło')}
-            {this.renderTextField('password2', 'Powtórz hasło')}
+            {this.renderTextField('email', 'E-mail', 'text')}
+            {this.renderTextField('password', 'Hasło', 'password')}
+            {this.renderTextField('password2', 'Powtórz hasło', 'password')}
             {this.renderSelectField('city', 'Miasto', cities)}
             {this.renderSelectField('university', 'Uczelnia', universities)}
-            {this.renderTextField('name', 'Nazwa aktywności')}
+            {this.renderTextField('name', 'Nazwa aktywności', 'text')}
             {this.renderSelectField('type', 'Typ aktywności', types)}
             {this.renderSelectField('category', 'Kategoria', categories)}
             {this.renderSelectField('subcategory', 'Podkategoria', subcategories)}
