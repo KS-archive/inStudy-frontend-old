@@ -15,8 +15,8 @@ class SignUp extends Component {
     console.log(values);
     axios.post('http://localhost:8080/api/user/register', values).then((res) => {
       console.log(res);
-    }, (err) => {
-      console.log(err);
+    }, ({ response }) => {
+      console.log(response.data.message);
     });
   }
 

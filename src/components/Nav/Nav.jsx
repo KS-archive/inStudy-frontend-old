@@ -11,7 +11,18 @@ class Nav extends Component {
     this.state = {
       open: false,
       value: '',
+      pathname: '',
     };
+  }
+
+  componentWillMount() {
+    this.setState({ pathname: this.props.location.pathname });
+  }
+
+  componentDidUpdate() {
+    if (this.props.location.pathname !== this.state.pathname) {
+      this.setState({ pathname: this.props.location.pathname });
+    }
   }
 
   handleRoute = (e, value) => {
@@ -20,11 +31,11 @@ class Nav extends Component {
   }
 
   renderLogo() {
-    if (this.props.location.pathname !== '/') {
+    if (this.state.pathname !== '/') {
       return (
         <img
           className="nav__logo"
-          src="./img/logo-instudy.png"
+          src="/img/logo-instudy.png"
           alt="Logo inStudy"
           onClick={() => { this.props.history.push('/'); }}
         />
@@ -34,7 +45,8 @@ class Nav extends Component {
   }
 
   renderUserLogo() {
-    if (this.props.location.pathname !== '/' && this.props.location.pathname !== '/rejestracja' && this.props.location.pathname !== '/logowanie' && this.props.location.pathname !== '/odzyskiwanie_hasla') {
+    const path = this.state.pathname;
+    if (path !== '/' && path !== '/rejestracja' && path !== '/logowanie' && !path.includes('/odzyskiwanie_hasla')) {
       return (
         <div className="nav__loggedUser">
           <img className="nav__userLogo" src="http://via.placeholder.com/100x100" alt="to replace" />
@@ -46,8 +58,9 @@ class Nav extends Component {
 
   render() {
     let headerClassAddon;
+    const path = this.state.pathname;
 
-    if (this.props.location.pathname === '/' || ((this.props.location.pathname === '/rejestracja' || this.props.location.pathname === '/logowanie' || this.props.location.pathname === '/odzyskiwanie_hasla') && window.innerWidth > 800 && window.innerHeight > 900)) {
+    if (path === '/' || ((path === '/rejestracja' || path === '/logowanie' || path.includes('/odzyskiwanie_hasla')) && window.innerWidth > 800 && window.innerHeight > 900)) {
       headerClassAddon = 'transparent';
     } else {
       headerClassAddon = 'clasic';

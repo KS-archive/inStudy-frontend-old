@@ -12,9 +12,9 @@ class SignIn extends Component {
   onSubmit = (values) => {
     console.log(values);
     axios.post('http://localhost:8080/api/user/login', values).then((res) => {
-      console.log(res);
-    }, (err) => {
-      console.log(err);
+      console.log(res.data.message);
+    }, ({ response }) => {
+      console.log(response.data.message);
     });
   }
 
@@ -53,6 +53,10 @@ class SignIn extends Component {
                 primary
               />
             </div>
+            <p
+              className="signin__recovery"
+              onClick={() => { this.props.history.push('/odzyskiwanie_hasla'); }}
+            >Zapomniałem hasła</p>
           </form>
           <div className="signin__bottom">
             <p className="signin__bottomText">Nie posiadasz jeszcze konta?</p>
