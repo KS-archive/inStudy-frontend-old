@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { SelectField, TextField } from 'redux-form-material-ui';
-import { cities, universities, types, categories, subcategories } from './helper';
+import { cities, universities, types, categories, subcategories } from '../../js/selectHelper';
 import './signUp.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);

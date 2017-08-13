@@ -1,5 +1,7 @@
 export const cities = [
   { id: 1, text: 'Wrocław' },
+  { id: 2, text: 'Wrocław' },
+  { id: 3, text: 'Wrocław' },
 ];
 
 export const universities = [

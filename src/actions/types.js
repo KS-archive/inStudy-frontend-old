@@ -1,0 +1,2 @@
+export const UPDATE_FILTER = 'UPDATE_FILTER';
+export const DELETE_FILTER = 'DELETE_FILTER';
