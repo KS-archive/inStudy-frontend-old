@@ -27,7 +27,7 @@ class Filter extends Component {
           : { borderBottomWidth: '1px', borderBottomColor: '#bbbbbb' }
         }
       >
-        {items.map(item => <MenuItem key={item.id} value={item.id} primaryText={item.text} />)}
+        {Object.keys(items).map(key => <MenuItem key={key} value={key} primaryText={items[key]} />)}
       </SelectField>
     );
   }

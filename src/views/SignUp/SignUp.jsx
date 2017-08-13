@@ -49,7 +49,10 @@ class SignUp extends Component {
         validate={required}
         autoWidth
       >
-        {items.map(value => <MenuItem key={value.id} value={value.id} primaryText={value.text} />)}
+        {Object.keys(items).map((key) => {
+          console.log(items[key]);
+          return <MenuItem key={key} value={key} primaryText={items[key]} />
+        })}
       </Field>
     );
   }

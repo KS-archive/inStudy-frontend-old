@@ -11,9 +11,15 @@ class SearchFilters extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
+      open: false,
       activeFilters: 0,
+      filtersHeight: 221,
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.setFiltersHeight);
+    this.setFiltersHeight();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,6 +29,20 @@ class SearchFilters extends Component {
       if (filters[key].length > 0) activeFilters += 1;
     });
     this.setState({ activeFilters });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setFiltersHeight);
+  }
+
+  setFiltersHeight = () => {
+    const width = window.innerWidth;
+    let filtersHeight = 221;
+    if (width <= 960) filtersHeight = 313;
+    if (width <= 674) filtersHeight = 560;
+    if (this.state.filtersHeight !== filtersHeight) {
+      this.setState({ filtersHeight });
+    }
   }
 
   clearFilters = () => {
@@ -35,7 +55,7 @@ class SearchFilters extends Component {
   render() {
     const activeFilters = this.state.activeFilters;
     return (
-      <div className="searchFilters__wraper" style={{ height: (this.state.open) ? 221 : 20 }}>
+      <div className="searchFilters__wraper" style={{ height: (this.state.open) ? this.state.filtersHeight : 20 }}>
         <div className="searchFilters__container">
           <div className={'searchFilters__filters'}>
             <Filter id={'cities'} label="Miasto" items={this.props.constElements.cities} />

@@ -1,27 +1,27 @@
 export default function () {
   return {
-    cities: [
-      { id: 1, text: 'Wrocław' },
-      { id: 2, text: 'Warszawa' },
-      { id: 3, text: 'Kraków' },
-    ],
-    types: [
-      { id: 1, text: 'Koło Naukowe' },
-      { id: 2, text: 'Organizacja Studencka' },
-      { id: 3, text: 'Fundacja' },
-      { id: 4, text: 'Stowarzyszenie' },
-      { id: 5, text: 'Inny' },
-    ],
-    categories: [
-      { id: 1, text: 'Ogólne' },
-      { id: 2, text: 'Humanistyczne' },
-      { id: 3, text: 'Medyczne' },
-      { id: 4, text: 'Przyrodnicze' },
-      { id: 5, text: 'Społeczne' },
-      { id: 6, text: 'Sportowe' },
-      { id: 7, text: 'Sztuka' },
-      { id: 8, text: 'Ścisłe' },
-      { id: 9, text: 'Techniczne' },
-    ],
+    cities: {
+      1: 'Wrocław',
+      2: 'Warszawa',
+      3: 'Kraków',
+    },
+    types: {
+      1: 'Koło Naukowe',
+      2: 'Organizacja Studencka',
+      3: 'Fundacja',
+      4: 'Stowarzyszenie',
+      5: 'Inny',
+    },
+    categories: {
+      1: 'Ogólne',
+      2: 'Humanistyczne',
+      3: 'Medyczne',
+      4: 'Przyrodnicze',
+      5: 'Społeczne',
+      6: 'Sportowe',
+      7: 'Sztuka',
+      8: 'Ścisłe',
+      9: 'Techniczne',
+    },
   };
 }
