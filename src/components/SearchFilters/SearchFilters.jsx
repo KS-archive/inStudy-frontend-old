@@ -5,7 +5,6 @@ import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import { deleteFilter } from '../../actions/filters';
 import Filter from '../Filter/Filter';
-import { cities, universities, types, categories, subcategories } from '../../js/selectHelper';
 import './searchFilters.scss';
 
 class SearchFilters extends Component {
@@ -39,11 +38,11 @@ class SearchFilters extends Component {
       <div className="searchFilters__wraper" style={{ height: (this.state.open) ? 221 : 20 }}>
         <div className="searchFilters__container">
           <div className={'searchFilters__filters'}>
-            <Filter id={0} label="Miasto" items={cities} />
-            <Filter id={1} label="Uczelnia" items={universities} />
-            <Filter id={2} label="Typ aktywności" items={types} />
-            <Filter id={3} label="Kategoria" items={categories} />
-            <Filter id={4} label="Podkategoria" items={subcategories} />
+            <Filter id={'cities'} label="Miasto" items={this.props.constElements.cities} />
+            <Filter id={'universities'} label="Uczelnia" items={this.props.universities} />
+            <Filter id={'types'} label="Typ aktywności" items={this.props.constElements.types} />
+            <Filter id={'categories'} label="Kategoria" items={this.props.constElements.categories} />
+            <Filter id={'subcategories'} label="Podkategoria" items={this.props.subcategories} />
             <div className={`seatchFilters__remove ${(activeFilters > 0) && 'active'}`} onClick={this.clearFilters}>Wyczyść filtry</div>
           </div>
           {
@@ -70,6 +69,9 @@ class SearchFilters extends Component {
 function mapStateToProps(state) {
   return {
     filters: state.filters,
+    constElements: state.constElements,
+    universities: state.universities,
+    subcategories: state.subcategories,
   };
 }
 

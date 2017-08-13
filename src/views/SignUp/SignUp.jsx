@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { SelectField, TextField } from 'redux-form-material-ui';
-import { cities, universities, types, categories, subcategories } from '../../js/selectHelper';
 import './signUp.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
@@ -65,12 +65,12 @@ class SignUp extends Component {
             {this.renderTextField('email', 'E-mail', 'text')}
             {this.renderTextField('password', 'Hasło', 'password')}
             {this.renderTextField('password2', 'Powtórz hasło', 'password')}
-            {this.renderSelectField('city', 'Miasto', cities)}
-            {this.renderSelectField('university', 'Uczelnia', universities)}
+            {this.renderSelectField('city', 'Miasto', this.props.constElements.cities)}
+            {this.renderSelectField('university', 'Uczelnia', this.props.universities)}
             {this.renderTextField('name', 'Nazwa aktywności', 'text')}
-            {this.renderSelectField('type', 'Typ aktywności', types)}
-            {this.renderSelectField('category', 'Kategoria', categories)}
-            {this.renderSelectField('subcategory', 'Podkategoria', subcategories)}
+            {this.renderSelectField('type', 'Typ aktywności', this.props.constElements.types)}
+            {this.renderSelectField('category', 'Kategoria', this.props.constElements.categories)}
+            {this.renderSelectField('subcategory', 'Podkategoria', this.props.subcategories)}
             {this.renderTextField('tags', 'Tagi')}
             <div className="signup__buttonContainer">
               <RaisedButton
@@ -112,7 +112,15 @@ function validate(values) {
   return errors;
 }
 
+function mapStateToProps(state) {
+  return {
+    constElements: state.constElements,
+    universities: state.universities,
+    subcategories: state.subcategories,
+  };
+}
+
 export default reduxForm({
   validate,
   form: 'SignUpForm',
-})(SignUp);
+})(connect(mapStateToProps)(SignUp));
