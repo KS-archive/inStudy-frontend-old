@@ -46,7 +46,7 @@ class Nav extends Component {
 
   renderUserLogo() {
     const path = this.state.pathname;
-    if (path !== '/' && path !== '/rejestracja' && path !== '/logowanie' && !path.includes('/odzyskiwanie_hasla')) {
+    if (path !== '/' && path !== '/rejestracja' && path !== '/logowanie' && !path.includes('/odzyskiwanie_hasla') && !path.includes('/potwierdz_email')) {
       return (
         <div className="nav__loggedUser">
           <img className="nav__userLogo" src="http://via.placeholder.com/100x100" alt="to replace" />
@@ -60,7 +60,7 @@ class Nav extends Component {
     let headerClassAddon;
     const path = this.state.pathname;
 
-    if (path === '/' || ((path === '/rejestracja' || path === '/logowanie' || path.includes('/odzyskiwanie_hasla')) && window.innerWidth > 800 && window.innerHeight > 900)) {
+    if (path === '/' || ((path === '/rejestracja' || path === '/logowanie' || path.includes('/odzyskiwanie_hasla') || path.includes('/potwierdz_email')) && window.innerWidth > 800 && window.innerHeight > 900)) {
       headerClassAddon = 'transparent';
     } else {
       headerClassAddon = 'clasic';
@@ -80,11 +80,11 @@ class Nav extends Component {
             value={this.state.value}
           >
             <MenuItem primaryText="Strona główna" value="/" />
-            <MenuItem primaryText="O projekcie" value="/o_projekcie" />
+            <MenuItem primaryText="Lista kół" value="/inicjatywy" />
             <MenuItem primaryText="Logowanie" value="/logowanie" />
             <MenuItem primaryText="Rejestracja" value="/rejestracja" />
-            <MenuItem primaryText="Kontakt" value="/kontakt" />
-            <MenuItem primaryText="Wyloguj" value="/wyloguj" />
+            <MenuItem primaryText="Nowe hasło" value="/odzyskiwanie_hasla/123" />
+            <MenuItem primaryText="Potwierdzenie maila" value="/potwierdz_email/123" />
           </IconMenu>
         </header>
       </div>

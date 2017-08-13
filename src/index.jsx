@@ -25,6 +25,7 @@ import Circles from './views/Circles/Circles';
 import PublicProfile from './views/PublicProfile/PublicProfile';
 import EditProfile from './views/EditProfile/EditProfile';
 import PasswordRecoveryNew from './views/PasswordRecoveryNew/PasswordRecoveryNew';
+import ConfirmEmail from './views/ConfirmEmail/ConfirmEmail';
 
 // Main styles import.
 import './scss/global.scss';
@@ -64,11 +65,12 @@ ReactDOM.render(
       <BrowserRouter>
         <Index>
           <Switch>
-            <Route path="/kolo/edit" component={EditProfile} />
-            <Route path="/kolo/:url" component={PublicProfile} />
-            <Route path="/kola" component={Circles} />
+            <Route path="/inicjatywy/edit" component={EditProfile} />
+            <Route path="/inicjatywy/:url" component={PublicProfile} />
+            <Route path="/inicjatywy" component={Circles} />
             <Route path="/odzyskiwanie_hasla/:token" component={PasswordRecoveryNew} />
             <Route path="/odzyskiwanie_hasla" component={PasswordRecovery} />
+            <Route path="/potwierdz_email/:token" component={ConfirmEmail} />
             <Route path="/rejestracja" component={SignUp} />
             <Route path="/logowanie" component={SignIn} />
             <Route path="/" component={Hero} />

@@ -17,7 +17,7 @@ class Hero extends Component {
           <div className="hero__buttons">
             <RaisedButton
               className="hero__button"
-              label="Odkryj koła"
+              label="Odkryj inicjatywy"
               labelColor={this.props.muiTheme.palette.primary2Color}
               labelStyle={{ fontSize: 16 }}
               style={{ marginRight: 20 }}

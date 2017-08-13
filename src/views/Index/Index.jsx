@@ -9,7 +9,7 @@ import '../../js/font_awesome/fontawesome';
 class Index extends Component {
   render() {
     const path = this.props.location.pathname;
-    const bodyMargin = (path !== '/' && path !== '/rejestracja' && path !== '/logowanie' && !path.includes('/odzyskiwanie_hasla'))
+    const bodyMargin = (path !== '/' && path !== '/rejestracja' && path !== '/logowanie' && !path.includes('/odzyskiwanie_hasla') && !path.includes('/potwierdz_email'))
       ? { marginTop: 60, minHeight: 'calc(100vh - 60px)' }
       : { minHeight: '100vh' };
 
