@@ -1,0 +1,19 @@
+@import '../../scss/variables';
+
+.simpleText__container {
+  line-height: 1.5;
+  white-space: pre-wrap;
+
+  h1, h2, h3, h4, h5, h6 { font-weight: 500; color: $primary-text-color; }
+  ol { list-style: decimal; }
+  ul { list-style: disc; }
+  a { color: $primary-color !important; text-decoration: underline !important; }
+  strong { font-weight: 500; }
+  h1 { font-size: 48px; }
+  h2 { font-size: 36px; }
+  h3 { font-size: 30px; }
+  h4 { font-size: 24px; }
+  h5 { font-size: 20px; }
+  h6 { font-size: 16px; text-transform: uppercase; }
+  p, ol, ul { font-size: 20px; color: $secondary-text-color; margin-bottom: 10px;}
+}

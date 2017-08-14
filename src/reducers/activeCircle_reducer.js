@@ -25,6 +25,102 @@ export default function () {
       link: 'https://www.twitter.com/knwd',
     },
     ],
-    modules: [],
+    modules: [
+      {
+        _id: 'asdfasdfdsrgbu3487erwkjt34e',
+        kind: 'SimpleText',
+        title: 'Kilka słów o nas',
+        content: `Jesteśmy najmłodszym kołem naukowym działającym na Uniwersytecie Ekonomicznym we Wrocławiu.
+        Powstaliśmy, aby połączyć pasje i umiejętności studentów, poszerzyć wiedzę na temat web designu i dziedzin pokrewnych oraz zastosować je do realizacji wartościowych pomysłów.Łącząc siły pragniemy stworzyć miejsce, w którym każda osoba zainteresowana wspomnianą tematyką będzie mogła rozwijać i poszerzać swoje kompetencje poprzez praktyczne projekty, warsztaty oraz wymianę wiedzy z innymi. W ramach koła posiadamy 4 obszary tematyczne, dzięki czemu każdy odnajdzie coś dla siebie.`,
+        textAlign: 'center',
+      },
+      {
+        _id: 'icvx32jk7dsffd954kDSF',
+        kind: 'ProjectsTiles',
+        title: 'Nasze projekty',
+        colors: [2, 3, 5, 3, 3], // Active label, aktualne, archiwalne, otwarte, cykliczne
+        startGrey: false,
+        rowsLimit: 1,
+        randomize: false,
+        tiles: [
+          {
+            _id: 'sad438dfg345ksaDSF',
+            name: 'Bring to the table',
+            coverImage: 'http://lorempixel.com/360/360/',
+            header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
+            description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
+            images: ['http://lorempixel.com/360/280/', 'http://lorempixel.com/300/260/', 'http://lorempixel.com/240/280/', 'http://lorempixel.com/280/280/'],
+            labels: ['aktualne', 'otwarte'],
+            socials: [
+              {
+                name: 'facebook',
+                link: 'https://www.facebook.com/knwd',
+              },
+              {
+                name: 'twitter',
+                link: 'https://www.twitter.com/knwd',
+              },
+            ],
+          },
+          {
+            _id: 'sad43425fg345ksaDSF',
+            name: 'Bring to the table',
+            coverImage: 'http://lorempixel.com/361/361/',
+            header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
+            description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
+            images: ['http://lorempixel.com/360/280/', 'http://lorempixel.com/300/260/', 'http://lorempixel.com/240/280/', 'http://lorempixel.com/280/280/'],
+            labels: ['archiwalne'],
+            socials: [
+              {
+                name: 'facebook',
+                link: 'https://www.facebook.com/knwd',
+              },
+              {
+                name: 'twitter',
+                link: 'https://www.twitter.com/knwd',
+              },
+            ],
+          },
+          {
+            _id: '4i4359fd43r8jdsfa',
+            name: 'Bring to the table',
+            coverImage: 'http://lorempixel.com/362/362/',
+            header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
+            description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
+            images: ['http://lorempixel.com/360/280/', 'http://lorempixel.com/300/260/', 'http://lorempixel.com/240/280/', 'http://lorempixel.com/280/280/'],
+            labels: ['cykliczne'],
+            socials: [
+              {
+                name: 'facebook',
+                link: 'https://www.facebook.com/knwd',
+              },
+              {
+                name: 'twitter',
+                link: 'https://www.twitter.com/knwd',
+              },
+            ],
+          },
+          {
+            _id: 'ASD5342F4rgfWS35',
+            name: 'Bring to the table',
+            coverImage: 'http://lorempixel.com/363/363/',
+            header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
+            description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
+            images: ['http://lorempixel.com/360/280/', 'http://lorempixel.com/300/260/', 'http://lorempixel.com/240/280/', 'http://lorempixel.com/280/280/'],
+            labels: ['aktualne'],
+            socials: [
+              {
+                name: 'facebook',
+                link: 'https://www.facebook.com/knwd',
+              },
+              {
+                name: 'twitter',
+                link: 'https://www.twitter.com/knwd',
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 }
