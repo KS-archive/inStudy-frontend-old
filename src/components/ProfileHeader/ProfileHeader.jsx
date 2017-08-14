@@ -6,7 +6,7 @@ export default class ProfileHeader extends Component {
   renderSocials = (socials) => {
     return map(socials, social => (
       <a className="profileHeader__social" href={social.link} target="_blank" key={social.name}>
-        <i className={`fa fa-${social.name}`} aria-hidden="true" />
+        <i className={`fa fa-${social.name} social__${social.name}`} aria-hidden="true" />
       </a>
     ));
   }

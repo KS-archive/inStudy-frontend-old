@@ -24,7 +24,7 @@ export default class CircleCard extends Component {
     return (
       <div className="circleCard__container" onClick={onClick}>
         <div className="circleCard__logoContainer">
-          <img src={logo} alt={`${name} - logo`} className="circleCard__logo" />
+          <img src={(logo) || './img/placeholders/logo.png'} alt={`${name} - logo`} className="circleCard__logo" />
         </div>
         <h3 className="circleCard__name">{name}</h3>
         <p className="circleCard__category">{`${category}, ${subcategory}`}</p>
