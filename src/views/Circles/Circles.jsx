@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import CircleCard from '../../components/CircleCard/CircleCard';
 import './circles.scss';
 
-export default class Circles extends Component {
+class Circles extends Component {
   render() {
     return (
       <div className="circles__container">
@@ -14,20 +15,23 @@ export default class Circles extends Component {
             <SearchFilters />
           </div>
           <div className="circles__circlesList">
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
-            <CircleCard />
+            {
+              this.props.circles.map(circle => <CircleCard {...circle} />)
+            }
           </div>
         </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    circles: state.circles,
+    constElements: state.constElements,
+    universities: state.universities,
+    subcategories: state.subcategories,
+  };
+}
+
+export default connect(mapStateToProps)(Circles);

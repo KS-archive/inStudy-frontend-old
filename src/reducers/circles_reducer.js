@@ -8,7 +8,7 @@ export default function () {
       subcategory: 2,
       university: 1,
       logo: 'https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/14556695_544284189099788_897738006810832929_o.jpg?oh=158b4b81a56ea64479688309df1553d8&oe=59EB5BF7',
-      flags: ['recruitment'],
+      flags: ['recruitment', 'open_projects'],
     },
     {
       _id: 'dsasd34Faqw1H43G764acx2',
