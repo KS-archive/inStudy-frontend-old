@@ -26,9 +26,9 @@ class CircleCard extends Component {
     const category = this.props.helpers.categories[this.props.category];
     const subcategory = this.props.helpers.subcategories[this.props.subcategory];
     const university = this.props.helpers.universities[this.props.university];
-
+    console.log(this.props);
     return (
-      <div className="circleCard__container" key={this.props.key}>
+      <div className="circleCard__container" key={this.props.key} onClick={this.props.onClick}>
         <div className="circleCard__logoContainer">
           <img src={this.props.logo} alt={`${this.props.name} - logo`} className="circleCard__logo" />
         </div>

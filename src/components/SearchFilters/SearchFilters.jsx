@@ -61,7 +61,7 @@ class SearchFilters extends Component {
             <Filter id={'cities'} label="Miasto" items={this.props.helpers.cities} />
             <Filter id={'universities'} label="Uczelnia" items={this.props.helpers.universities} multiple />
             <Filter id={'types'} label="Typ aktywności" items={this.props.helpers.types} multiple />
-            <Filter id={'categories'} label="Kategoria" items={this.props.helpers.categories} multiple />
+            <Filter id={'categories'} label="Kategoria" items={this.props.helpers.categories} />
             <Filter id={'subcategories'} label="Podkategoria" items={this.props.helpers.subcategories} multiple />
             <div className={`seatchFilters__remove ${(activeFilters > 0) && 'active'}`} onClick={this.clearFilters}>Wyczyść filtry</div>
           </div>

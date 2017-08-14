@@ -16,7 +16,7 @@ class Circles extends Component {
           </div>
           <div className="circles__circlesList">
             {
-              this.props.circles.map(circle => <CircleCard key={circle._id} {...circle} />)
+              this.props.circles.map(circle => <CircleCard key={circle._id} onClick={() => { this.props.history.push('/inicjatywy/dsafg2345DS43#$%G764acx2'); }} {...circle} />)
             }
           </div>
         </div>
