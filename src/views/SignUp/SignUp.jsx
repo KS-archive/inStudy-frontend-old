@@ -47,7 +47,6 @@ class SignUp extends Component {
         floatingLabelShrinkStyle={{ fontWeight: 900 }}
         style={{ width: 295, fontWeight: 500 }}
         validate={required}
-        autoWidth
       >
         {Object.keys(items).map((key) => {
           console.log(items[key]);

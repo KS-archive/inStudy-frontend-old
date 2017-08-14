@@ -1,7 +1,7 @@
 export default function () {
   return [
     {
-      _id: 'dsafg2345DS43G764acx2',
+      _id: 'dsafg2345DS43#$%G764acx2',
       name: 'Koło Naukowe Web Designu',
       type: 1,
       category: 9,
@@ -11,7 +11,7 @@ export default function () {
       flags: ['recruitment', 'open_projects'],
     },
     {
-      _id: 'dsasd34Faqw1H43G764acx2',
+      _id: 'dsasd34Faqw1H4!3G764acx2',
       name: 'Koło Naukowe Design Thinking',
       type: 2,
       category: 1,
@@ -21,7 +21,7 @@ export default function () {
       flags: ['recruitment', 'open_projects'],
     },
     {
-      _id: 'dsasd34Faqw1H43G764acx2',
+      _id: 'dsasd34Faqw1H43G764acfcx2',
       name: 'Koło Naukowe Brandico',
       type: 1,
       category: 5,
@@ -31,7 +31,7 @@ export default function () {
       flags: [],
     },
     {
-      _id: 'dsasd34Faqw1H43G764acx2',
+      _id: 'dsasd34Faqw1H43bnG764acx2',
       name: 'Forum Edukacji Biznesowej',
       type: 3,
       category: 2,
@@ -41,7 +41,7 @@ export default function () {
       flags: [],
     },
     {
-      _id: 'dsasd34Faqw1H43G764acx2',
+      _id: 'dsasd34Faqw4561H43G764acx2',
       name: 'Hossa Pro Capital',
       type: 3,
       category: 2,
@@ -51,7 +51,7 @@ export default function () {
       flags: ['open_projects'],
     },
     {
-      _id: 'dsasd34Faqw1H43G764acx2',
+      _id: 'dsasd34Faqdsfaw1H43G764acx2',
       name: 'WIGGOR',
       type: 3,
       category: 2,

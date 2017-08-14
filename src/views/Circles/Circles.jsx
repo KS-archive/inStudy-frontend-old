@@ -16,7 +16,7 @@ class Circles extends Component {
           </div>
           <div className="circles__circlesList">
             {
-              this.props.circles.map(circle => <CircleCard {...circle} />)
+              this.props.circles.map(circle => <CircleCard key={circle._id} {...circle} />)
             }
           </div>
         </div>

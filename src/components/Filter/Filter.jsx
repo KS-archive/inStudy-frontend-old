@@ -8,7 +8,7 @@ import './filter.scss';
 
 class Filter extends Component {
   render() {
-    const { label, items } = this.props;
+    const { label, items, multiple } = this.props;
     const filterValue = this.props.filters[this.props.id];
 
     return (
@@ -20,7 +20,7 @@ class Filter extends Component {
         }
         onChange={(event, index, value) => { this.props.updateFilter(this.props.id, value); }}
         value={filterValue}
-        multiple
+        multiple={multiple}
         style={{ minWidth: 200, margin: '0 20px 20px' }}
         underlineStyle={(filterValue && filterValue.length > 0)
           ? { borderBottomWidth: '2px', borderBottomColor: '#303F9F' }

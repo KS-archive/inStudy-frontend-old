@@ -19,16 +19,16 @@ class CircleCard extends Component {
       default: icon = '?';
     }
 
-    return <div className="circleCard__typeIcon" data-tip={this.props.constElements.types[type]}>{icon}</div>;
+    return <div className="circleCard__typeIcon" data-tip={this.props.helpers.types[type]}>{icon}</div>;
   }
 
   render() {
-    const category = this.props.constElements.categories[this.props.category];
-    const subcategory = this.props.subcategories[this.props.subcategory];
-    const university = this.props.universities[this.props.university];
+    const category = this.props.helpers.categories[this.props.category];
+    const subcategory = this.props.helpers.subcategories[this.props.subcategory];
+    const university = this.props.helpers.universities[this.props.university];
 
     return (
-      <div className="circleCard__container">
+      <div className="circleCard__container" key={this.props.key}>
         <div className="circleCard__logoContainer">
           <img src={this.props.logo} alt={`${this.props.name} - logo`} className="circleCard__logo" />
         </div>
@@ -52,9 +52,7 @@ class CircleCard extends Component {
 
 function mapStateToProps(state) {
   return {
-    constElements: state.constElements,
-    universities: state.universities,
-    subcategories: state.subcategories,
+    helpers: state.helpers,
   };
 }
 
