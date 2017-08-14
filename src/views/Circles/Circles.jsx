@@ -16,7 +16,7 @@ class Circles extends Component {
           </div>
           <div className="circles__circlesList">
             {
-              this.props.circles.map(circle => <CircleCard key={circle._id} onClick={() => { this.props.history.push('/inicjatywy/dsafg2345DS43#$%G764acx2'); }} {...circle} />)
+              this.props.circles.map(circle => <CircleCard key={circle._id} onClick={() => { this.props.history.push('/inicjatywy/knwd'); }} {...circle} />)
             }
           </div>
         </div>
@@ -28,9 +28,6 @@ class Circles extends Component {
 function mapStateToProps(state) {
   return {
     circles: state.circles,
-    constElements: state.constElements,
-    universities: state.universities,
-    subcategories: state.subcategories,
   };
 }
 

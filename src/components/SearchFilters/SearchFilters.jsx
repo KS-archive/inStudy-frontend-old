@@ -58,11 +58,11 @@ class SearchFilters extends Component {
       <div className="searchFilters__wraper" style={{ height: (this.state.open) ? this.state.filtersHeight : 20 }}>
         <div className="searchFilters__container">
           <div className={'searchFilters__filters'}>
-            <Filter id={'cities'} label="Miasto" items={this.props.helpers.cities} />
-            <Filter id={'universities'} label="Uczelnia" items={this.props.helpers.universities} multiple />
-            <Filter id={'types'} label="Typ aktywności" items={this.props.helpers.types} multiple />
-            <Filter id={'categories'} label="Kategoria" items={this.props.helpers.categories} />
-            <Filter id={'subcategories'} label="Podkategoria" items={this.props.helpers.subcategories} multiple />
+            <Filter id={'cities'} label="Miasto" items={this.props.selectHelpers.cities} />
+            <Filter id={'universities'} label="Uczelnia" items={this.props.selectHelpers.universities} multiple />
+            <Filter id={'types'} label="Typ aktywności" items={this.props.selectHelpers.types} multiple />
+            <Filter id={'categories'} label="Kategoria" items={this.props.selectHelpers.categories} />
+            <Filter id={'subcategories'} label="Podkategoria" items={this.props.selectHelpers.subcategories} multiple />
             <div className={`seatchFilters__remove ${(activeFilters > 0) && 'active'}`} onClick={this.clearFilters}>Wyczyść filtry</div>
           </div>
           {
@@ -89,7 +89,7 @@ class SearchFilters extends Component {
 function mapStateToProps(state) {
   return {
     filters: state.filters,
-    helpers: state.helpers,
+    selectHelpers: state.selectHelpers,
   };
 }
 

@@ -49,7 +49,6 @@ class SignUp extends Component {
         validate={required}
       >
         {Object.keys(items).map((key) => {
-          console.log(items[key]);
           return <MenuItem key={key} value={key} primaryText={items[key]} />
         })}
       </Field>
@@ -67,12 +66,12 @@ class SignUp extends Component {
             {this.renderTextField('email', 'E-mail', 'text')}
             {this.renderTextField('password', 'Hasło', 'password')}
             {this.renderTextField('password2', 'Powtórz hasło', 'password')}
-            {this.renderSelectField('city', 'Miasto', this.props.constElements.cities)}
-            {this.renderSelectField('university', 'Uczelnia', this.props.universities)}
+            {this.renderSelectField('city', 'Miasto', this.props.selectHelpers.cities)}
+            {this.renderSelectField('university', 'Uczelnia', this.props.selectHelpers.universities)}
             {this.renderTextField('name', 'Nazwa aktywności', 'text')}
-            {this.renderSelectField('type', 'Typ aktywności', this.props.constElements.types)}
-            {this.renderSelectField('category', 'Kategoria', this.props.constElements.categories)}
-            {this.renderSelectField('subcategory', 'Podkategoria', this.props.subcategories)}
+            {this.renderSelectField('type', 'Typ aktywności', this.props.selectHelpers.types)}
+            {this.renderSelectField('category', 'Kategoria', this.props.selectHelpers.categories)}
+            {this.renderSelectField('subcategory', 'Podkategoria', this.props.selectHelpers.subcategories)}
             {this.renderTextField('tags', 'Tagi')}
             <div className="signup__buttonContainer">
               <RaisedButton
@@ -116,9 +115,7 @@ function validate(values) {
 
 function mapStateToProps(state) {
   return {
-    constElements: state.constElements,
-    universities: state.universities,
-    subcategories: state.subcategories,
+    selectHelpers: state.selectHelpers,
   };
 }
 

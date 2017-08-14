@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
 import './nav.scss';
 
@@ -73,7 +74,7 @@ class Nav extends Component {
           {this.renderUserLogo()}
           <IconMenu
             className="nav__menu"
-            iconButtonElement={<IconButton><i className="far fa-bars nav__menuIcon" /></IconButton>}
+            iconButtonElement={<IconButton iconStyle={{ minWidth: 30, minHeight: 30, marginTop: -2 }}><MenuIcon color="#fff" /></IconButton>}
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
             onChange={this.handleRoute}
