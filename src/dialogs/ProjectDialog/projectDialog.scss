@@ -1,0 +1,95 @@
+@import '../../scss/variables';
+
+.projectDialog__container {
+  box-sizing: border-box;
+  display: flex;
+  padding: 60px !important;
+}
+
+
+.projectDialog__images {
+  width: 375px;
+  margin-right: 50px;
+}
+
+.projectDialog__mainImage {
+  width: 375px;
+  height: 375px;
+  border-radius: 2px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.projectDialog__carousel {
+  display: flex;
+  justify-content: space-between;
+  width: 375px;
+  height: 100px;
+  margin-top: 25px;
+}
+
+.projectDialog__arrow {
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  i {
+    font-size: 24px;
+    color: $divider-color;
+  }
+}
+
+.projectDialog__carouselWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  height: 100px;
+}
+
+.projectDialog__miniImg {
+  width: 70px;
+  height: 70px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: .5;
+}
+
+.projectDialog__mainMiniImg {
+  width: 120px;
+  height: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.projectDialog__textContent {
+  line-height: 1.3;
+}
+
+.projectDialog__name {
+  margin-bottom: 5px;
+  font-size: 36px;
+  font-weight: 900;
+  color: $primary-text-color;
+}
+
+.projectDialog__header {
+  margin-bottom: 35px;
+  font-size: 22px;
+  color: $secondary-text-color;
+
+}
+
+.projectDialog__description {
+  color: $secondary-text-color;
+}
+
+.projectDialog__socials {
+
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProjectsTile from '../ProjectsTile/ProjectsTile';
+import ProjectDialog from '../../dialogs/ProjectDialog/ProjectDialog';
 import './projectsTiles.scss';
 
 export default class ProjectsTiles extends Component {
@@ -10,6 +11,8 @@ export default class ProjectsTiles extends Component {
         wszystkie: [],
       },
       activeLabel: 'wszystkie',
+      dialog: false,
+      dialogData: {},
     };
   }
 
@@ -33,6 +36,15 @@ export default class ProjectsTiles extends Component {
     if (this.state.activeLabel !== label) {
       this.setState({ activeLabel: label });
     }
+  }
+
+  openDialog = (id) => {
+    const dialogData = this.props.tiles.filter(tile => (tile._id === id));
+    this.setState({ dialog: true, dialogData: dialogData[0] });
+  }
+
+  closeDialog = () => {
+    this.setState({ dialog: false });
   }
 
   render() {
@@ -60,10 +72,11 @@ export default class ProjectsTiles extends Component {
               this.state.labels[this.state.activeLabel].map((id) => {
                 let tile = this.props.tiles.filter(el => (el._id === id));
                 tile = tile[0];
-                return <ProjectsTile {...tile} key={tile._id} mainColors={this.props.mainColors} />
+                return <ProjectsTile {...tile} key={tile._id} mainColors={this.props.mainColors} labelColors={this.props.colors} openDialog={() => { this.openDialog(tile._id); }} />
               })
             }
           </div>
+          <ProjectDialog closeDialog={this.closeDialog} open={this.state.dialog} {...this.state.dialogData} />
         </div>
       </div>
     );

@@ -38,18 +38,18 @@ export default function () {
         _id: 'icvx32jk7dsffd954kDSF',
         kind: 'ProjectsTiles',
         title: 'Nasze projekty',
-        colors: [2, 3, 5, 3, 3], // Active label, aktualne, archiwalne, otwarte, cykliczne
+        colors: [2, 2, 4, 2, 2], // Active label, aktualne, archiwalne, otwarte, cykliczne
         startGrey: false,
         rowsLimit: 1,
         randomize: false,
         tiles: [
           {
             _id: 'sad438dfg345ksaDSF',
-            name: 'Bring to the table',
-            coverImage: 'http://lorempixel.com/360/360/',
+            name: 'Bring to the table. At the end of the day, going forward',
+            coverImage: 'https://pbs.twimg.com/profile_images/724613493912121344/dvVht0q6.jpg',
             header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
-            description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
-            images: ['http://lorempixel.com/360/280/', 'http://lorempixel.com/300/260/', 'http://lorempixel.com/240/280/', 'http://lorempixel.com/280/280/'],
+            description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
+            images: ['https://www.w3schools.com/css/img_fjords.jpg', 'https://www.w3schools.com/css/img_lights.jpg', 'http://www.jqueryscript.net/images/jQuery-Plugin-For-Fullscreen-Image-Viewer-Chroma-Gallery.jpg'],
             labels: ['aktualne', 'otwarte'],
             socials: [
               {

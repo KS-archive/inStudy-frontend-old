@@ -1,55 +1,125 @@
-.social__bitbucket:hover {
-  color: #205081;
+.social__bitbucket {
+  &.textHover:hover {
+    color: #205081;
+  }
+  &.bgHover:hover {
+    backgroundColor: #205081;
+  }
 }
 
-.social__behance:hover {
-  color: #0B7CFF;
+.social__behance {
+  &.textHover:hover {
+    color: #0B7CFF;
+  }
+  &.bgHover:hover {
+    backgroundColor: #0B7CFF;
+  }
 }
 
-.social__codepen:hover {
-  color: #000000;
+.social__codepen {
+  &.textHover:hover {
+    color: #000000;
+  }
+  &.bgHover:hover {
+    backgroundColor: #000000;
+  }
 }
 
-.social__dribbble:hover {
-  color: #E84C88;
+.social__dribbble {
+  &.textHover:hover {
+    color: #E84C88;
+  }
+  &.bgHover:hover {
+    backgroundColor: #E84C88;
+  }
 }
 
-.social__facebook:hover {
-  color: #3B5998;
+.social__facebook {
+  &.textHover:hover {
+    color: #3B5998;
+  }
+  &.bgHover:hover {
+    backgroundColor: #3B5998;
+  }
 }
 
-.social__flickr:hover {
-  color: #0063DB;
+.social__flickr {
+  &.textHover:hover {
+    color: #0063DB;
+  }
+  &.bgHover:hover {
+    backgroundColor: #0063DB;
+  }
 }
 
-.social__github:hover {
-  color: #7F0081;
+.social__github {
+  &.textHover:hover {
+    color: #7F0081;
+  }
+  &.bgHover:hover {
+    backgroundColor: #7F0081;
+  }
 }
 
-.social__instagram:hover {
-  color: #D40D5E;
+.social__instagram {
+  &.textHover:hover {
+    color: #D40D5E;
+  }
+  &.bgHover:hover {
+    backgroundColor: #D40D5E;
+  }
 }
 
-.social__linkedin:hover {
-  color: #1B84BB;
+.social__linkedin {
+  &.textHover:hover {
+    color: #1B84BB;
+  }
+  &.bgHover:hover {
+    backgroundColor: #1B84BB;
+  }
 }
 
-.social__medium:hover {
-  color: #18B475;
+.social__medium {
+  &.textHover:hover {
+    color: #18B475;
+  }
+  &.bgHover:hover {
+    backgroundColor: #18B475;
+  }
 }
 
-.social__pinterest:hover {
-  color: #BD081B;
+.social__pinterest {
+  &.textHover:hover {
+    color: #BD081B;
+  }
+  &.bgHover:hover {
+    backgroundColor: #BD081B;
+  }
 }
 
-.social__snapchat:hover {
-  color: #EFE200;
+.social__snapchat {
+  &.textHover:hover {
+    color: #EFE200;
+  }
+  &.bgHover:hover {
+    backgroundColor: #EFE200;
+  }
 }
 
-.social__twitter:hover {
-  color: #6FAEDC;
+.social__twitter {
+  &.textHover:hover {
+    color: #6FAEDC;
+  }
+  &.bgHover:hover {
+    backgroundColor: #6FAEDC;
+  }
 }
 
-.social__youtube:hover {
-  color: #BC3428;
+.social__youtube {
+  &.textHover:hover {
+    color: #BC3428;
+  }
+  &.bgHover:hover {
+    backgroundColor: #BC3428;
+  }
 }
