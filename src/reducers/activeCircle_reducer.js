@@ -108,16 +108,7 @@ export default function () {
             description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
             images: ['http://lorempixel.com/360/280/', 'http://lorempixel.com/300/260/', 'http://lorempixel.com/240/280/', 'http://lorempixel.com/280/280/'],
             labels: ['aktualne'],
-            socials: [
-              {
-                name: 'facebook',
-                link: 'https://www.facebook.com/knwd',
-              },
-              {
-                name: 'twitter',
-                link: 'https://www.twitter.com/knwd',
-              },
-            ],
+            socials: [],
           },
         ],
       },

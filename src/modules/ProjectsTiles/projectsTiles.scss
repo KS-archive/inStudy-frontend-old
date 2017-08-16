@@ -44,3 +44,26 @@
     justify-content: center;
   }
 }
+
+.projectsTiles__more {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  margin: 30px auto 0;
+  border: 1px solid $divider-color;
+  padding-top: -5px;
+  font-size: 24px;
+  font-weight: 900;
+  color: $secondary-text-color;
+  transition: all .3s;
+
+  &:hover {
+    cursor: pointer;
+    border-color: $secondary-text-color;
+    background-color: $secondary-text-color;
+    color: #fff;
+  }
+}

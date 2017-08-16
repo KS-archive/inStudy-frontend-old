@@ -14,15 +14,10 @@ export default class ProjectDialog extends Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.mainImage === this.state.mainImage && nextProps.open === this.props.open) return false;
-    return true;
-  }
-
-  componentDidUpdate() {
-    if (this.state.mainImage === null && this.props.open) {
-      const images = this.props.images;
-      images.unshift(this.props.coverImage);
+  componentWillReceiveProps(nextProps) {
+    if (this.state.mainImage === null && nextProps.open) {
+      const images = nextProps.images;
+      if (!images.includes(nextProps.coverImage)) images.unshift(nextProps.coverImage);
 
       let nextImage = null; let prevImage = null; const mainImage = 0;
 
@@ -33,40 +28,45 @@ export default class ProjectDialog extends Component {
 
       this.setState({ images, prevImage, nextImage, mainImage });
     }
-    if (!this.props.open) {
+    if (!nextProps.open) {
       this.setState({ images: [], prevImage: null, nextImage: null, mainImage: null });
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const mainImage = this.state.mainImage;
+    const open = this.props.open;
+    if (nextState.mainImage === mainImage && nextProps.open === open) return false;
+    return true;
   }
 
   carouselRight = () => {
     const prevImage = this.state.mainImage;
     const mainImage = this.state.nextImage;
-    const nextImage = (this.state.nextImage >= this.state.images.length - 1) ? 0 : (this.state.nextImage + 1);
+    const nextImage = (this.state.nextImage >= this.state.images.length - 1)
+      ? 0
+      : (this.state.nextImage + 1);
 
     this.setState({ prevImage, nextImage, mainImage });
   }
 
   carouselLeft = () => {
-    const prevImage = (this.state.prevImage <= 0) ? (this.state.images.length - 1) : (this.state.prevImage - 1);
+    const prevImage = (this.state.prevImage <= 0)
+      ? (this.state.images.length - 1)
+      : (this.state.prevImage - 1);
     const mainImage = this.state.prevImage;
     const nextImage = this.state.mainImage;
 
     this.setState({ prevImage, nextImage, mainImage });
   }
 
-  renderSocials = () => {
-    return this.props.socials.map((social) => {
-      return (
-        <a className={`projectDialog__socialCircle social__${social.name} bg borderHover textHover`} href={social.link} key={social.name}>
-          <i className={`fa fa-${social.name}`} aria-hidden="true" />
-        </a>
-      );
-    });
-  }
+  renderSocials = () => this.props.socials.map(social => (
+    <a className={`projectDialog__socialCircle social__${social.name} bg borderHover textHover`} href={social.link} key={social.name}>
+      <i className={`fa fa-${social.name}`} aria-hidden="true" />
+    </a>
+  ));
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
     const mainImage = { backgroundImage: `url(${this.state.images[this.state.mainImage]})` };
     return (
       <Dialog
@@ -96,7 +96,9 @@ export default class ProjectDialog extends Component {
         </div>
         <div className="projectDialog__textContent">
           <h1 className="projectDialog__name">{this.props.name}</h1>
-          <h2 className="projectDialog__header">{this.props.header}</h2>
+          {(this.props.header) &&
+            <h2 className="projectDialog__header">{this.props.header}</h2>
+          }
           <div className="projectDialog__description">
             {this.props.description &&
               <ReactMarkdown source={this.props.description} />

@@ -13,6 +13,7 @@ export default class ProjectsTiles extends Component {
       activeLabel: 'wszystkie',
       dialog: false,
       dialogData: {},
+      showAll: false,
     };
   }
 
@@ -23,10 +24,11 @@ export default class ProjectsTiles extends Component {
   getLabels = () => {
     const labels = this.state.labels;
     this.props.tiles.map((tile) => {
-      labels.wszystkie.push(tile._id);
+      const id = tile._id;
+      labels.wszystkie.push(id);
       tile.labels.map((label) => {
-        if (!labels[label]) labels[label] = [tile._id];
-        else labels[label].push(tile._id);
+        if (!labels[label]) labels[label] = [id];
+        else labels[label].push(id);
       });
     });
     this.setState({ labels });
@@ -45,6 +47,22 @@ export default class ProjectsTiles extends Component {
 
   closeDialog = () => {
     this.setState({ dialog: false });
+  }
+
+  renderTiles = () => {
+    return this.state.labels[this.state.activeLabel].map((id, index) => {
+      let tile = this.props.tiles.filter(el => (el._id === id));
+      tile = tile[0];
+      if (index < this.props.rowsLimit * 3 || this.state.showAll || !this.props.rowsLimit) {
+        return (<ProjectsTile
+          key={tile._id}
+          mainColors={this.props.mainColors}
+          labelColors={this.props.colors}
+          openDialog={() => { this.openDialog(tile._id); }}
+          {...tile}
+        />);
+      }
+    });
   }
 
   render() {
@@ -68,15 +86,16 @@ export default class ProjectsTiles extends Component {
               )}
           </div>
           <div className="projectsTiles__list">
-            {
-              this.state.labels[this.state.activeLabel].map((id) => {
-                let tile = this.props.tiles.filter(el => (el._id === id));
-                tile = tile[0];
-                return <ProjectsTile {...tile} key={tile._id} mainColors={this.props.mainColors} labelColors={this.props.colors} openDialog={() => { this.openDialog(tile._id); }} />
-              })
-            }
+            {this.renderTiles()}
           </div>
-          <ProjectDialog closeDialog={this.closeDialog} open={this.state.dialog} {...this.state.dialogData} />
+          {(!this.state.showAll && this.props.rowsLimit !== 0) &&
+            <div className="projectsTiles__more" onClick={() => { this.setState({ showAll: true }); }}>...</div>
+          }
+          <ProjectDialog
+            closeDialog={this.closeDialog}
+            open={this.state.dialog}
+            {...this.state.dialogData}
+          />
         </div>
       </div>
     );

@@ -111,6 +111,7 @@
 
   @media (max-width: 960px) {
     margin: 0 10px 10px;
+    &:last-child { margin-right: 10px; }
   }
 }
 
