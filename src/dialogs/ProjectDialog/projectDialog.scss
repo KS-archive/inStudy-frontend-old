@@ -3,13 +3,13 @@
 .projectDialog__container {
   box-sizing: border-box;
   display: flex;
-  padding: 60px !important;
+  padding: 50px !important;
 }
 
 
 .projectDialog__images {
   width: 375px;
-  margin-right: 50px;
+  margin-right: 40px;
 }
 
 .projectDialog__mainImage {
@@ -69,7 +69,12 @@
 }
 
 .projectDialog__textContent {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  max-height: 95vh;
   line-height: 1.3;
+  padding: 0 10px;
 }
 
 .projectDialog__name {
@@ -91,5 +96,30 @@
 }
 
 .projectDialog__socials {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 40px;
+  padding-top: 40px;
+}
 
+.projectDialog__socialCircle {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  margin-left: 20px;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  transition: all .6s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #fff !important;
+  }
 }

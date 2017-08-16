@@ -53,6 +53,16 @@ export default class ProjectDialog extends Component {
     this.setState({ prevImage, nextImage, mainImage });
   }
 
+  renderSocials = () => {
+    return this.props.socials.map((social) => {
+      return (
+        <a className={`projectDialog__socialCircle social__${social.name} bg borderHover textHover`} href={social.link}>
+          <i className={`fa fa-${social.name}`} aria-hidden="true" />
+        </a>
+      );
+    });
+  }
+
   render() {
     console.log(this.props);
     console.log(this.state);
@@ -87,8 +97,12 @@ export default class ProjectDialog extends Component {
           <h1 className="projectDialog__name">{this.props.name}</h1>
           <h2 className="projectDialog__header">{this.props.header}</h2>
           <p className="projectDialog__description">{this.props.description}</p>
+          {(this.props.socials && this.props.socials.length !== 0) &&
+            <div className="projectDialog__socials">
+              {this.renderSocials()}
+            </div>
+          }
         </div>
-        <div className="projectDialog__socials"></div>
       </Dialog>
     );
   }
