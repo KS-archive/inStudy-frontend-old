@@ -49,21 +49,20 @@ export default class ProjectsTiles extends Component {
     this.setState({ dialog: false });
   }
 
-  renderTiles = () => {
-    return this.state.labels[this.state.activeLabel].map((id, index) => {
-      let tile = this.props.tiles.filter(el => (el._id === id));
-      tile = tile[0];
-      if (index < this.props.rowsLimit * 3 || this.state.showAll || !this.props.rowsLimit) {
-        return (<ProjectsTile
-          key={tile._id}
-          mainColors={this.props.mainColors}
-          labelColors={this.props.colors}
-          openDialog={() => { this.openDialog(tile._id); }}
-          {...tile}
-        />);
-      }
-    });
-  }
+  renderTiles = () => this.state.labels[this.state.activeLabel].map((id, index) => {
+    let tile = this.props.tiles.filter(el => (el._id === id));
+    tile = tile[0];
+    if (index < this.props.rowsLimit * 3 || this.state.showAll || !this.props.rowsLimit) {
+      return (<ProjectsTile
+        key={tile._id}
+        mainColors={this.props.mainColors}
+        labelColors={this.props.colors}
+        openDialog={() => { this.openDialog(tile._id); }}
+        {...tile}
+      />);
+    }
+    return null;
+  });
 
   render() {
     const activeLabelStyle = {

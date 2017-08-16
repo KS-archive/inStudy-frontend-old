@@ -112,6 +112,29 @@ export default function () {
           },
         ],
       },
+      {
+        _id: 'asdfasFDS435kjt34e',
+        kind: 'IconText',
+        title: 'Czym się zajmujemy?',
+        color: 2,
+        content: [
+          {
+            icon: 'paint-brush',
+            title: 'Projektowanie WWW',
+            description: 'Curabitur porta cursus orci, at rutrum nulla fringilla sed. Morbi ultrices elementum dolor in tincidunt. Proin molestie dolor in eros sodales viverra. Sed pharetra ante nec dui accumsan, nec molestie justo varius. Cras maximus mauris vel diam dignissim, sed sollicitudin augue tristique.',
+          },
+          {
+            icon: 'code',
+            title: 'Web Development',
+            description: 'Sed nec lacus sollicitudin, dignissim ipsum vitae, mattis nisl. Donec a volutpat ipsum. In vel risus vitae ligula dapibus rutrum id sed velit. Phasellus tempor metus neque, ac lobortis neque iaculis a. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
+          },
+          {
+            icon: 'users',
+            title: 'Warsztaty i szkolenia',
+            description: 'Cras in imperdiet purus. Nulla cursus semper nibh ultricies laoreet. Nunc eget iaculis leo. In hac habitasse platea dictumst. Quisque id pulvinar felis, ut facilisis lorem.',
+          },
+        ],
+      },
     ],
   };
 }

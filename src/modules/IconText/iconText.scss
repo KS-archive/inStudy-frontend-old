@@ -1,0 +1,51 @@
+@import '../../scss/variables';
+
+.iconText__container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.iconText__element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  margin-bottom: 60px;
+  padding: 0 40px;
+
+  @media (max-width: 960px) {
+    width: 500px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 0;
+  }
+}
+
+.iconText__icon {
+  margin-bottom: 30px;
+  font-size: 48px;
+}
+
+.iconText__title {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: $primary-text-color;
+
+  @media (max-width: 960px) {
+    font-size: 22px;
+  }
+}
+
+.iconText__description {
+  color: $secondary-text-color;
+  line-height: 1.5;
+
+  @media (max-width: 960px) {
+    font-size: 18px;
+  }
+}

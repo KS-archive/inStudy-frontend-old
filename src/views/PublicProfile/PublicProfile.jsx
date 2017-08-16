@@ -4,6 +4,7 @@ import { pick, omit } from 'lodash';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import SimpleText from '../../modules/SimpleText/SimpleText';
 import ProjectsTiles from '../../modules/ProjectsTiles/ProjectsTiles';
+import IconText from '../../modules/IconText/IconText';
 import './publicProfile.scss';
 
 class PublicProfile extends Component {
@@ -12,6 +13,7 @@ class PublicProfile extends Component {
     switch (module.kind) {
       case 'SimpleText': newComponent = <SimpleText {...module} />; break;
       case 'ProjectsTiles': newComponent = <ProjectsTiles {...module} mainColors={colors} />; break;
+      case 'IconText': newComponent = <IconText {...module} mainColors={colors} />; break;
       default: newComponent = null;
     }
     return (
