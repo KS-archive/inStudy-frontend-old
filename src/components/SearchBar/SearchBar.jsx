@@ -86,6 +86,7 @@ export default class SearchBar extends Component {
   render() {
     const styles = getStyles(this.props, this.state);
     const { value } = this.state;
+    const data = ['Koło Naukowe Web Designu', 'Koło Naukowe Design Thinking', 'Koło Noukowe Brandico', 'Forum Edukacji Biznesowej', 'Hossa Pro Capital', 'WIGGOR']
 
     return (
       <Paper zDepth={1} style={{ ...styles.root }} >
@@ -98,8 +99,10 @@ export default class SearchBar extends Component {
             onFocus={() => this.handleFocus()}
             fullWidth
             underlineShow={false}
-            filter={AutoComplete.noFilter}
-            dataSource={['x']}
+            // filter={AutoComplete.noFilter} Odkomentowac jak sugestie będą z backendu.
+            filter={AutoComplete.fuzzyFilter}
+            maxSearchResults={3}
+            dataSource={data}
             hintText="Wyszukaj inicjatywy"
           />
         </div>

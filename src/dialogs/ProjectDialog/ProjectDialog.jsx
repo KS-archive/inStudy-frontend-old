@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
+import ReactMarkdown from 'react-markdown';
 import './projectDialog.scss';
 
 export default class ProjectDialog extends Component {
@@ -56,7 +57,7 @@ export default class ProjectDialog extends Component {
   renderSocials = () => {
     return this.props.socials.map((social) => {
       return (
-        <a className={`projectDialog__socialCircle social__${social.name} bg borderHover textHover`} href={social.link}>
+        <a className={`projectDialog__socialCircle social__${social.name} bg borderHover textHover`} href={social.link} key={social.name}>
           <i className={`fa fa-${social.name}`} aria-hidden="true" />
         </a>
       );
@@ -83,9 +84,9 @@ export default class ProjectDialog extends Component {
                 <i className="fa fa-angle-left" aria-hidden="true" onClick={this.carouselLeft} />
               </div>
               <div className="projectDialog__carouselWrapper">
-                <div className="projectDialog__miniImg" style={{ backgroundImage: `url(${this.state.images[this.state.prevImage]})` }} />
+                <div className="projectDialog__miniImg" style={{ backgroundImage: `url(${this.state.images[this.state.prevImage]})` }} onClick={this.carouselLeft} />
                 <div className="projectDialog__mainMiniImg" style={{ backgroundImage: `url(${this.state.images[this.state.mainImage]})` }} />
-                <div className="projectDialog__miniImg" style={{ backgroundImage: `url(${this.state.images[this.state.nextImage]})` }} />
+                <div className="projectDialog__miniImg" style={{ backgroundImage: `url(${this.state.images[this.state.nextImage]})` }} onClick={this.carouselRight} />
               </div>
               <div className="projectDialog__arrow">
                 <i className="fa fa-angle-right" aria-hidden="true" onClick={this.carouselRight} />
@@ -96,7 +97,11 @@ export default class ProjectDialog extends Component {
         <div className="projectDialog__textContent">
           <h1 className="projectDialog__name">{this.props.name}</h1>
           <h2 className="projectDialog__header">{this.props.header}</h2>
-          <p className="projectDialog__description">{this.props.description}</p>
+          <div className="projectDialog__description">
+            {this.props.description &&
+              <ReactMarkdown source={this.props.description} />
+            }
+          </div>
           {(this.props.socials && this.props.socials.length !== 0) &&
             <div className="projectDialog__socials">
               {this.renderSocials()}
