@@ -135,6 +135,26 @@ export default function () {
           },
         ],
       },
+      {
+        _id: 'asdfasFD345Dqwet34e',
+        kind: 'Numbers',
+        title: 'Koło w liczbach',
+        color: 2,
+        content: [
+          {
+            number: '30',
+            description: 'Członków',
+          },
+          {
+            number: '6',
+            description: 'Projektów',
+          },
+          {
+            number: '250',
+            description: 'Polubień na facebooku',
+          },
+        ],
+      },
     ],
   };
 }
