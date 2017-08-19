@@ -72,7 +72,7 @@ export default class ProjectsTiles extends Component {
     return (
       <div className="projectsTiles__wrapper">
         <h1 className="body__sectionHeader">{this.props.title}</h1>
-        <div className="projectsTiles__container" style={{ textAlign: this.props.textAlign }}>
+        <div className="projectsTiles__container">
           <div className="projectsTiles__labels">
             {
               Object.keys(this.state.labels).map(label => (
