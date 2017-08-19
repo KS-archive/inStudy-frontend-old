@@ -195,17 +195,17 @@ export default function () {
           {
             name: 'Slack',
             src: 'https://cdn.worldvectorlogo.com/logos/slack-1.svg',
-            link: 'https://www.slack.com/',
+            link: '',
           },
           {
-            name: 'GitHub',
+            name: '',
             src: 'https://cdn.worldvectorlogo.com/logos/github-icon.svg',
             link: 'https://www.github.com/',
           },
           {
-            name: 'Tesla',
+            name: '',
             src: 'https://cdn.worldvectorlogo.com/logos/tesla-motors.svg',
-            link: 'https://www.tesla.com/',
+            link: '',
           },
           {
             name: 'Coca-Cola',

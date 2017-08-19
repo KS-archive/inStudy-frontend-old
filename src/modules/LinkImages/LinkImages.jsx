@@ -19,13 +19,23 @@ export default class Collapsible extends Component {
     this.setState({ firstLoad: false, elements });
   }
 
-  renderElement = () => this.state.elements.map((element, index) =>
-    (index < this.props.rowsLimit * 4 || this.state.showAll || !this.props.rowsLimit)
-    && (
-      <a href={element.link} className="linkImages__imageLink" key={element.name || `Obraz ${index}`} style={this.state.grayScale}>
-        <img src={element.src} alt={element.name || `Obraz ${index}`} className="linkImages__image" />
-      </a>
-    ));
+  renderElement = () => this.state.elements.map((element, index) => {
+    if (index < this.props.rowsLimit * 4 || this.state.showAll || !this.props.rowsLimit) {
+      if (element.link) {
+        return (
+          <a href={element.link} className="linkImages__imageLink" key={element.name || `Obraz ${index}`} style={this.state.grayScale}>
+            <img src={element.src} alt={element.name || `Obraz ${index}`} className="linkImages__image" />
+          </a>
+        );
+      }
+      return (
+        <div className="linkImages__imageLink disabled" key={element.name || `Obraz ${index}`} style={this.state.grayScale}>
+          <img src={element.src} alt={element.name || `Obraz ${index}`} className="linkImages__image" />
+        </div>
+      );
+    }
+    return null;
+  });
 
   render() {
     const color = this.props.mainColors[this.props.color];
