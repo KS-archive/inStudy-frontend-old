@@ -1,5 +1,9 @@
 @import '../../scss/variables';
 
+.numbers__wrapper {
+  margin-bottom: -60px;
+}
+
 .numbers__container {
   display: flex;
   justify-content: center;

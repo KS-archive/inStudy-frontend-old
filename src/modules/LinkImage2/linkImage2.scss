@@ -1,0 +1,47 @@
+@import '../../scss/variables';
+
+.linkImages2__imageLink {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 163px;
+  height: 163px;
+  border: 1px solid $divider-color;
+  transition: all .3s;
+
+  &:hover {
+    cursor: pointer;
+    filter: grayscale(0) !important;
+    .linkImages2__image {
+      max-width: 120px;
+      max-height: 120px;
+    }
+  }
+
+  &.disabled:hover {
+    cursor: default;
+  }
+
+  @media (min-width: 1201px) {
+    margin-right: 32px;
+    margin-bottom: 32px;
+    &:nth-child(6n) {
+      margin-right: 0px;
+    }
+  }
+
+  @media (max-width: 1200px) and (min-width: 961px) {
+
+  }
+
+  @media (max-width: 960px) {
+
+  }
+}
+
+.linkImages2__image {
+  max-width: 110px;
+  max-height: 110px;
+  transition: all .3s;
+}

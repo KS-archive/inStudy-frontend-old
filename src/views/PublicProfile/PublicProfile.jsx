@@ -21,10 +21,7 @@ class PublicProfile extends Component {
       case 'Numbers': newComponent = <Numbers {...module} mainColors={colors} />; break;
       case 'Collapsible': newComponent = <Collapsible {...module} mainColors={colors} />; break;
       case 'MembersTiles': newComponent = <MembersTiles {...module} mainColors={colors} />; break;
-      case 'LinkImages': {
-        if (module.type === 1) newComponent = <LinkImages {...module} mainColors={colors} />;
-        break;
-      }
+      case 'LinkImages': newComponent = <LinkImages {...module} mainColors={colors} />; break;
       default: newComponent = null;
     }
     return (

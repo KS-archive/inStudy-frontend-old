@@ -612,6 +612,48 @@ export default function () {
           },
         ],
       },
+      {
+        _id: 'gfdIO83kds8SDKk349',
+        kind: 'LinkImages',
+        type: 2,
+        title: 'Nasze narzędzia',
+        startGray: true,
+        rowsLimit: 1,
+        randomize: true,
+        color: 4,
+        content: [
+          {
+            name: 'Facebook',
+            src: 'https://cdn.worldvectorlogo.com/logos/facebook-3.svg',
+            link: 'https://www.facebook.com/',
+          },
+          {
+            name: 'Slack',
+            src: 'https://cdn.worldvectorlogo.com/logos/slack-1.svg',
+            link: '',
+          },
+          {
+            name: '',
+            src: 'https://cdn.worldvectorlogo.com/logos/github-icon.svg',
+            link: 'https://www.github.com/',
+          },
+          {
+            name: '',
+            src: 'https://cdn.worldvectorlogo.com/logos/tesla-motors.svg',
+            link: '',
+          },
+          {
+            name: 'Coca-Cola',
+            src: 'https://cdn.worldvectorlogo.com/logos/coca-cola.svg',
+            link: 'https://www.cocacola.com/',
+          },
+          {
+            name: 'Volvo',
+            src: 'https://cdn.worldvectorlogo.com/logos/volvo-3.svg',
+            link: 'https://www.volvo.com/',
+          },
+        ],
+      },
     ],
   };
 }

@@ -1,5 +1,9 @@
 @import '../../scss/variables';
 
+.iconText__wrapper {
+  margin-bottom: -60px;
+}
+
 .iconText__container {
   display: flex;
   justify-content: space-around;
