@@ -13,8 +13,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Redux
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
+import reducers from './reducers';
 
 // Views
 import Index from './views/Index/Index';

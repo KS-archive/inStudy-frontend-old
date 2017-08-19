@@ -27,10 +27,9 @@
 .collapsible__descriptionContainer {
   overflow: hidden;
   box-sizing: border-box;
-  height: 0px;
+  height: 0;
   border-width: 1px;
   border-style: solid;
-  transition: height 1s;
 
   &.active {
     height: auto;
