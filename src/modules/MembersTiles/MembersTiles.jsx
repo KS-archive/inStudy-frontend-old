@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { shuffle } from 'lodash';
 import MembersTile from '../MembersTile/MembersTile';
+import MembersTile2 from '../MembersTile2/MembersTile2';
 import MembersDialog from '../../dialogs/MembersDialog/MembersDialog';
 import './membersTiles.scss';
 
@@ -32,19 +33,27 @@ export default class MembersTiles extends Component {
     this.setState({ dialog: false });
   }
 
-  renderTiles = () => this.state.elements.map((tile, index) => {
-    if (index < this.props.rowsLimit * 4 || this.state.showAll || !this.props.rowsLimit) {
-      return (<MembersTile
-        key={tile._id}
-        grayScale={this.state.grayScale}
-        mainColors={this.props.mainColors}
-        roleColor={this.props.color}
-        openDialog={() => { this.openDialog(tile._id); }}
-        {...tile}
-      />);
+  renderTiles = () => {
+    let Members;
+    switch (this.props.type) {
+      case 1: Members = MembersTile; break;
+      case 2: Members = MembersTile2; break;
+      default: Members = null;
     }
-    return null;
-  });
+    return this.state.elements.map((tile, index) => {
+      if (index < this.props.rowsLimit * 4 || this.state.showAll || !this.props.rowsLimit) {
+        return (<Members
+          key={tile._id}
+          grayScale={this.state.grayScale}
+          mainColors={this.props.mainColors}
+          roleColor={this.props.color}
+          openDialog={() => { this.openDialog(tile._id); }}
+          {...tile}
+        />);
+      }
+      return null;
+    });
+  }
 
   render() {
     return (

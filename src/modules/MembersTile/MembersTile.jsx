@@ -17,7 +17,6 @@ export default class MembersTile extends Component {
   ));
 
   render() {
-    console.log(this.props);
     return (
       <div className="membersTile__container" style={{ backgroundImage: `url(${this.props.coverImage})`, ...this.props.grayScale }} onClick={this.props.openDialog}>
         <div className="membersTile__dataContainer">
