@@ -1,12 +1,13 @@
 @import '../../scss/variables';
 
-.membersTile2__container {
+.membersTile3__container {
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 265px;
-  margin-bottom: 50px;
+  border-radius: 2px 2px 0 0;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
   transition: all .3s;
 
   &:hover {
@@ -15,31 +16,34 @@
 
   @media (min-width: 1201px) {
     margin-right: 25px;
+    margin-bottom: 25px;
     &:nth-child(4n), &:last-child { margin-right: 0 }
   }
 
   @media (max-width: 1200px) and (min-width: 961px) {
     width: 273px;
     margin-right: 40px;
+    margin-bottom: 40px;
     &:nth-child(3n), &:last-child { margin-right: 0 }
   }
 
   @media (max-width: 960px) and (min-width: 701px) {
     width: 310px;
     margin-right: 40px;
+    margin-bottom: 40px;
     &:nth-child(2n) { margin-right: 0 }
   }
 
   @media (max-width: 700px) {
     width: 300px;
+    margin-bottom: 40px;
   }
 }
 
-.membersTile2__image {
-  width: 165px;
-  height: 165px;
-  margin-bottom: 10px;
-  border-radius: 100%;
+.membersTile3__image {
+  width: 265px;
+  height: 265px;
+  border-radius: 2px 2px 0 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -47,42 +51,61 @@
   &:hover {
     cursor: pointer;
   }
+
+  @media (max-width: 1200px) and (min-width: 961px) {
+    width: 273px;
+    height: 273px;
+  }
+
+  @media (max-width: 960px) and (min-width: 701px) {
+    width: 310px;
+    height: 310px;
+  }
+
+  @media (max-width: 700px) {
+    width: 300px;
+    height: 300px;
+  }
 }
 
-.membersTile2__name {
+.membersTile3__data {
+  padding: 20px 5px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.membersTile3__name {
   margin-bottom: 5px;
   font-size: 24px;
   color: $primary-text-color;
+  text-align: center;
   font-weight: 500;
   line-height: 1.3;
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
-.membersTile2__role {
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  &:hover {
-    cursor: pointer;
-  }
+.membersTile3__role {
+  text-align: center;
+  line-height: 1.3;
 }
 
-.membersTile2__socials {
+.membersTile3__socials {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
-  font-size: 20px;
+  width: 100%;
+  min-height: 45px;
+  margin-top: auto;
+  font-size: 24px;
   text-align: center;
-  color: $divider-color;
+  background-color: #eef1fe;
+  color: $secondary-text-color;
   transition: all .3s;
 }
 
-.membersTile2__social {
+.membersTile3__social {
   margin-right: 15px;
+
   &:hover {
     cursor: pointer;
   }

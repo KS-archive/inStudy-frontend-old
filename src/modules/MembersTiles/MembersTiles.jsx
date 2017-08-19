@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { shuffle } from 'lodash';
 import MembersTile from '../MembersTile/MembersTile';
 import MembersTile2 from '../MembersTile2/MembersTile2';
+import MembersTile3 from '../MembersTile3/MembersTile3';
 import MembersDialog from '../../dialogs/MembersDialog/MembersDialog';
 import './membersTiles.scss';
 
@@ -38,6 +39,7 @@ export default class MembersTiles extends Component {
     switch (this.props.type) {
       case 1: Members = MembersTile; break;
       case 2: Members = MembersTile2; break;
+      case 3: Members = MembersTile3; break;
       default: Members = null;
     }
     return this.state.elements.map((tile, index) => {

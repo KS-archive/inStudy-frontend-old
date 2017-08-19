@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './membersTile2.scss';
 
-export default class MembersTile extends Component {
+export default class MembersTile2 extends Component {
   shouldComponentUpdate(nextProps) {
     const propsToCheck = ['firstname', 'surname', 'coverImage', 'role', 'description', 'socials'];
     propsToCheck.map((prop) => {
@@ -11,7 +11,7 @@ export default class MembersTile extends Component {
   }
 
   renderSocials = () => this.props.socials.map(social => (
-    <a className={`membersTile2__social social__${social.name} textHover`} href={social.link} key={social.name}>
+    <a className={`membersTile2__social social__${social.name} textHover`} href={social.link} key={social.name} target="_blank">
       <i className={`fa fa-${social.name}`} aria-hidden="true" />
     </a>
   ));

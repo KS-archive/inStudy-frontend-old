@@ -11,7 +11,7 @@ export default class MembersTile extends Component {
   }
 
   renderSocials = () => this.props.socials.map(social => (
-    <a className={`membersTile__social social__${social.name} textHover`} href={social.link} key={social.name}>
+    <a className={`membersTile__social social__${social.name} textHover`} href={social.link} key={social.name} target="_blank">
       <i className={`fa fa-${social.name}`} aria-hidden="true" />
     </a>
   ));
