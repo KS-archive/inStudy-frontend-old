@@ -7,6 +7,7 @@ import ProjectsTiles from '../../modules/ProjectsTiles/ProjectsTiles';
 import IconText from '../../modules/IconText/IconText';
 import Numbers from '../../modules/Numbers/Numbers';
 import Collapsible from '../../modules/Collapsible/Collapsible';
+import LinkImages from '../../modules/LinkImages/LinkImages';
 import './publicProfile.scss';
 
 class PublicProfile extends Component {
@@ -18,6 +19,10 @@ class PublicProfile extends Component {
       case 'IconText': newComponent = <IconText {...module} mainColors={colors} />; break;
       case 'Numbers': newComponent = <Numbers {...module} mainColors={colors} />; break;
       case 'Collapsible': newComponent = <Collapsible {...module} mainColors={colors} />; break;
+      case 'LinkImages': {
+        if (module.type === 1) newComponent = <LinkImages {...module} mainColors={colors} />;
+        break;
+      }
       default: newComponent = null;
     }
     return (
