@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -60,6 +61,10 @@ module.exports = {
     }),
 
     new ExtractTextPlugin('styles.css'),
+
+    new webpack.DefinePlugin({
+      __ROOT_URL__: JSON.stringify("http://localhost:8080/"),
+    }),
 
   ],
   resolve: {

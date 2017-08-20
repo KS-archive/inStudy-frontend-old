@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
@@ -65,6 +65,10 @@ module.exports = {
     // Create visualization of javascript files used in project.
     new BundleAnalyzerPlugin({
       openAnalyzer: false,
+    }),
+
+    new webpack.DefinePlugin({
+      __ROOT_URL__: JSON.stringify("http://localhost:8080/"),
     }),
 
   ],

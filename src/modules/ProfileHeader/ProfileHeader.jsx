@@ -12,7 +12,7 @@ export default class ProfileHeader extends Component {
   }
 
   render() {
-    const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, socials, colors } = this.props;
+    const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, socials, colors, editable } = this.props;
 
     const date = `${dateCreated.getDate()}.${dateCreated.getMonth() + 1}.${dateCreated.getFullYear()}`
 
@@ -27,10 +27,21 @@ export default class ProfileHeader extends Component {
     return (
       <div className="profileHeader__container">
         <div className="profileHeader__background" style={backgroundStyle} />
+        {editable &&
+          <i className="fa fa-pencil-square-o profileHeader__backgroundEdit" aria-hidden="true" />
+        }
         <div className="profileHeader__card">
+          {editable &&
+            <i className="fa fa-pencil-square-o profileHeader__cardEdit" aria-hidden="true" />
+          }
           <div className="profileHeader__mainData">
             <div className="profileHeader__logoContainer">
-              <img src={logo} alt="Logo inicjatywy" className="profileHeader__logo"/>
+              <img src={logo} alt="Logo inicjatywy" className="profileHeader__logo" />
+              {editable &&
+                <div className="profileHeader__logoEdit">
+                  <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                </div>
+              }
             </div>
             <div className="profileHeader__dataContainer">
               <h1 className="profileHeader__name">{name}</h1>
@@ -73,6 +84,11 @@ export default class ProfileHeader extends Component {
           <div className="profileHeader__socials" style={{ backgroundColor: colors[0] }}>
             <div className="profileHeader__socialsContainer">
               {this.renderSocials(socials)}
+              {editable &&
+                <div className="profileHeader__socialEdit">
+                  <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                </div>
+              }
             </div>
           </div>
         </div>

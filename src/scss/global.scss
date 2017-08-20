@@ -50,6 +50,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .body__container {
+  z-index: -2;
   width: 1140px;
   margin: 0 auto;
 

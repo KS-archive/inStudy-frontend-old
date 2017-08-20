@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
+import { getCircles } from '../../actions/circles';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import CircleCard from '../../components/CircleCard/CircleCard';
 import './circles.scss';
 
 class Circles extends Component {
+  componentDidMount() {
+    this.props.getCircles(1, 10);
+  }
+
   render() {
     return (
       <div className="circles__container">
@@ -31,4 +37,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Circles);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getCircles }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Circles);

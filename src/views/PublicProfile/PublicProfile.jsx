@@ -39,7 +39,7 @@ class PublicProfile extends Component {
     return (
       <div className="publicProfile__container">
         <div className="body__container">
-          <ProfileHeader {...header} />
+          <ProfileHeader {...header} editable={false} />
           {
             modules.modules.map(module => this.renderModule(module, header.colors))
           }

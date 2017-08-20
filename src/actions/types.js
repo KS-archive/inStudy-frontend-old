@@ -1,3 +1,6 @@
+export const GET_CIRCLES = 'GET_CIRCLES';
+
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const DELETE_FILTER = 'DELETE_FILTER';
+
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
