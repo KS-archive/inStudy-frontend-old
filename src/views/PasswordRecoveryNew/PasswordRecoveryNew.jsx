@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import reduxForm from 'redux-form/lib/reduxForm';
+import Field from 'redux-form/lib/Field';
 import RaisedButton from 'material-ui/RaisedButton';
-import { TextField } from 'redux-form-material-ui';
+import TextField from 'redux-form-material-ui/lib/TextField';
 import './passwordRecoveryNew.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);

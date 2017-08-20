@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { shuffle } from 'lodash';
+import shuffle from 'lodash/shuffle';
 import MembersTile from '../MembersTile/MembersTile';
 import MembersTile2 from '../MembersTile2/MembersTile2';
 import MembersTile3 from '../MembersTile3/MembersTile3';

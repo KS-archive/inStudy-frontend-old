@@ -3,7 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // React Router
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
+import Route from 'react-router-dom/Route';
+import Switch from 'react-router-dom/Switch';
 
 // Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -11,8 +13,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 // Redux
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import Provider from 'react-redux/lib/components/Provider';
+import applyMiddleware from 'redux/lib/applyMiddleware';
+import createStore from 'redux/lib/createStore';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 

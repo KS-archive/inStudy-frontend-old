@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
 import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import { deleteFilter } from '../../actions/filters';

@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Nav from '../../components/Nav/Nav';
 import './index.scss';
-import '../../js/font_awesome/brands.min';
-import '../../js/font_awesome/regular.min';
-import '../../js/font_awesome/fontawesome';
 
 class Index extends Component {
   render() {

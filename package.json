@@ -7,12 +7,12 @@
   "scripts": {
     "start": "webpack --watch",
     "clean": "rimraf ./../build",
-    "build": "npm run clean && webpack"
+    "build": "npm run clean && webpack --config webpack.config.prod.js -p"
   },
   "author": "Konrad Szwarc",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^6.4.1",

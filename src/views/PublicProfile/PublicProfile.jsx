@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { pick, omit } from 'lodash';
+import connect from 'react-redux/lib/connect/connect';
+import pick from 'lodash/pick';
+import omit from 'lodash/omit';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import SimpleText from '../../modules/SimpleText/SimpleText';
 import ProjectsTiles from '../../modules/ProjectsTiles/ProjectsTiles';

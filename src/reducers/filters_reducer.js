@@ -1,4 +1,4 @@
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import { UPDATE_FILTER, DELETE_FILTER } from '../actions/types';
 
 export default function (state = {}, action) {

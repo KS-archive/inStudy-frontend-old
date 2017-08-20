@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import combineReducers from 'redux/lib/combineReducers';
+import formReducer from 'redux-form/lib/reducer';
 import filtersReducer from './filters_reducer';
 import circlesReducer from './circles_reducer';
 import selectHelpersReducer from './selectHelpers_reducer';

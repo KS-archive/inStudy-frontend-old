@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import reduxForm from 'redux-form/lib/reduxForm';
+import Field from 'redux-form/lib/Field';
 import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import { TextField } from 'redux-form-material-ui';
+import TextField from 'redux-form-material-ui/lib/TextField';
 import './signIn.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import connect from 'react-redux/lib/connect/connect';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import CircleCard from '../../components/CircleCard/CircleCard';

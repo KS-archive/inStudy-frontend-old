@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { shuffle } from 'lodash';
+import shuffle from 'lodash/shuffle';
 import LinkImage from '../LinkImage/LinkImage';
 import LinkImage2 from '../LinkImage2/LinkImage2';
 import './linkImages.scss';
