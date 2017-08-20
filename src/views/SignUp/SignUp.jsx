@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
 import axios from 'axios';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
+import { addNotification } from '../../actions/notifications';
 import './signUp.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
 class SignUp extends Component {
   onSubmit = (values) => {
-    console.log(values);
     axios.post('http://localhost:8080/api/user/register', values).then((res) => {
-      console.log(res);
+      this.props.addNotification('Zarejestrowano', res.data.message, 'success');
+      this.props.history.push('/');
     }, ({ response }) => {
-      console.log(response.data.message);
+      this.props.addNotification('Wystąpił błąd', response.data.message, 'error');
     });
   }
 
@@ -50,9 +52,7 @@ class SignUp extends Component {
         style={{ width: 295, fontWeight: 500 }}
         validate={required}
       >
-        {Object.keys(items).map((key) => {
-          return <MenuItem key={key} value={key} primaryText={items[key]} />
-        })}
+        {Object.keys(items).map(key => <MenuItem key={key} value={key} primaryText={items[key]} />)}
       </Field>
     );
   }
@@ -121,7 +121,11 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addNotification }, dispatch);
+}
+
 export default reduxForm({
   validate,
   form: 'SignUpForm',
-})(connect(mapStateToProps)(SignUp));
+})(connect(mapStateToProps, mapDispatchToProps)(SignUp));

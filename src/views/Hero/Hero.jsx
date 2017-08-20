@@ -21,6 +21,7 @@ class Hero extends Component {
               labelColor={this.props.muiTheme.palette.primary2Color}
               labelStyle={{ fontSize: 16 }}
               style={{ marginRight: 20 }}
+              onClick={() => { this.props.history.push('/inicjatywy'); }}
             />
             <RaisedButton
               className="hero__button"

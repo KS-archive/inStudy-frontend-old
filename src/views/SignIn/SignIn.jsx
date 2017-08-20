@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
+import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
 import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
+import { addNotification } from '../../actions/notifications';
 import './signIn.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
 class SignIn extends Component {
   onSubmit = (values) => {
-    console.log(values);
     axios.post('http://localhost:8080/api/user/login', values).then((res) => {
-      console.log(res.data.message);
+      this.props.addNotification('Zalogowano', res.data.message, 'success');
     }, ({ response }) => {
-      console.log(response.data.message);
+      this.props.addNotification('Wystąpił błąd', response.data.message, 'error');
     });
   }
 
@@ -83,7 +85,11 @@ function validate(values) {
   return errors;
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addNotification }, dispatch);
+}
+
 export default reduxForm({
   validate,
   form: 'SignInForm',
-})(SignIn);
+})(connect(null, mapDispatchToProps)(SignIn));
