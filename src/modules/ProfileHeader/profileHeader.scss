@@ -19,7 +19,7 @@
 .profileHeader__backgroundEdit {
   position: absolute;
   right: 30px;
-  top: 475px;
+  top: 90px;
   font-size: 36px;
   color: #fff;
   opacity: .6;
@@ -28,6 +28,10 @@
   &:hover {
     cursor: pointer;
     opacity: 1;
+  }
+
+  @media (max-width: 700px) {
+    display: none;
   }
 }
 
@@ -52,6 +56,10 @@
   &:hover {
     cursor: pointer;
     opacity: 1;
+  }
+
+  @media (max-width: 700px) {
+    display: none;
   }
 }
 
@@ -115,6 +123,10 @@
   i {
     opacity: .6;
     color: #fff;
+  }
+
+  @media (max-width: 700px) {
+    display: none;
   }
 }
 
@@ -274,13 +286,12 @@
     }
   }
 
-  &:last-of-type {
+  &:last-child {
     margin-right: 0;
   }
 }
 
 .profileHeader__socialEdit {
-  margin: 0 40px;
   font-size: 24px;
   text-align: center;
   color: #fff;
@@ -290,5 +301,9 @@
   &:hover {
     cursor: pointer;
     opacity: 1;
+  }
+
+  @media (max-width: 700px) {
+    display: none;
   }
 }

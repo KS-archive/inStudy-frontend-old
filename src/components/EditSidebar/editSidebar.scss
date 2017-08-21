@@ -1,0 +1,45 @@
+@import '../../scss/variables';
+
+.editSidebar__container {
+  z-index: 1;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 150px;
+  height: 100vh;
+  background-color: $primary-color-dark;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+  transition: all .3s linear;
+
+  &.hidden {
+    left: -150px;
+    .editSidebar__containerArrow {
+      left: 0;
+    }
+  }
+}
+
+.editSidebar__containerArrow {
+  z-index: 0;
+  position: fixed;
+  top: 100px;
+  left: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 80px;
+  border-radius: 0 2px 2px 0;
+  background-color: $primary-color-dark;
+  box-shadow: rgba(0, 0, 0, 0.16) 4px 3px 7px, rgba(0, 0, 0, 0.23) 4px 3px 7px;
+  transition: all .3s linear;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  i {
+    font-size: 18px;
+    color: #fff;
+  }
+}

@@ -32,11 +32,15 @@
   }
 
   @media (max-width: 1200px) and (min-width: 961px) {
-
+    margin-right: 21px;
+    margin-bottom: 21px;
+    &:nth-child(5n) {
+      margin-right: 0px;
+    }
   }
 
   @media (max-width: 960px) {
-
+    margin: 0 30px 50px;
   }
 }
 

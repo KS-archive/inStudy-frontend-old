@@ -12,12 +12,11 @@ export function getCircles(page, limit, query, city, university, type, category,
   const request = axios.get(url);
 
   return (dispatch) => {
-    request.then((data) => {
-      console.log(data);
-      // dispatch({
-      //   type: GET_CIRCLES,
-      //   payload: circles,
-      // });
+    request.then(({ data }) => {
+      dispatch({
+        type: GET_CIRCLES,
+        payload: data,
+      });
     });
   };
 }

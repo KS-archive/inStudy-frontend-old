@@ -31,9 +31,9 @@ export default class CircleCard extends Component {
         <div className="circleCard__bottomLine">
           <img className="circleCard__university" data-tip={university} src={`./img/universities/${university}.png`} alt={`${university} - logo`} />
           <div className="circleCard__infoIcons">
-            {(flags.includes('recruitment'))
+            {(flags && flags.includes('recruitment'))
               && <div className="circleCard__infoIcon" data-tip="Rekrutuje"><Recruitment color="#fff" style={{ maxHeight: 20 }} /></div>}
-            {(flags.includes('open_projects'))
+            {(flags && flags.includes('open_projects'))
               && <div className="circleCard__infoIcon" data-tip="Otwarte projekty"><OpenProjects color="#fff" style={{ maxHeight: 20 }} /></div>}
             {this.renderTypeIcon(type)}
           </div>

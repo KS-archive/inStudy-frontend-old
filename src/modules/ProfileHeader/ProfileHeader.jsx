@@ -24,9 +24,11 @@ export default class ProfileHeader extends Component {
         backgroundBlendMode: 'multiply',
       };
 
+    const editableBackground = editable ? { top: 0 } : {};
+
     return (
       <div className="profileHeader__container">
-        <div className="profileHeader__background" style={backgroundStyle} />
+        <div className="profileHeader__background" style={{ ...backgroundStyle, ...editableBackground }} />
         {editable &&
           <i className="fa fa-pencil-square-o profileHeader__backgroundEdit" aria-hidden="true" />
         }

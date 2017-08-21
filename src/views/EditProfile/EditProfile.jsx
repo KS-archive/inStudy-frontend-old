@@ -10,6 +10,7 @@ import Numbers from '../../modules/Numbers/Numbers';
 import Collapsible from '../../modules/Collapsible/Collapsible';
 import LinkImages from '../../modules/LinkImages/LinkImages';
 import MembersTiles from '../../modules/MembersTiles/MembersTiles';
+import EditSidebar from '../../components/EditSidebar/EditSidebar';
 import './editProfile.scss';
 
 class PublicProfile extends Component {
@@ -44,6 +45,7 @@ class PublicProfile extends Component {
             modules.modules.map(module => this.renderModule(module, header.colors))
           }
         </div>
+        <EditSidebar />
       </div>
     );
   }

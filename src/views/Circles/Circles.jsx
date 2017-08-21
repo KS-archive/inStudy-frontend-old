@@ -9,7 +9,7 @@ import './circles.scss';
 
 class Circles extends Component {
   componentDidMount() {
-    this.props.getCircles(1, 10);
+    this.props.getCircles(0, 10);
   }
 
   render() {
