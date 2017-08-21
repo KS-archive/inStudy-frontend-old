@@ -34,7 +34,7 @@ export default class ProfileHeader extends Component {
         }
         <div className="profileHeader__card">
           {editable &&
-            <i className="fa fa-pencil-square-o profileHeader__cardEdit" aria-hidden="true" />
+            <i className="fa fa-pencil-square-o profileHeader__cardEdit" aria-hidden="true" onClick={() => { this.props.openDialog('card', { name, type, category, subcategory, university, city, email, phone, dateCreated, motto }); }} />
           }
           <div className="profileHeader__mainData">
             <div className="profileHeader__logoContainer">

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
-import ReactMarkdown from 'react-markdown';
 import './membersDialog.scss';
 
 export default class MembersDialog extends Component {
@@ -11,7 +10,6 @@ export default class MembersDialog extends Component {
   ));
 
   render() {
-    console.log(this.props);
     return (
       <Dialog
         open={this.props.open}

@@ -81,7 +81,25 @@ body::-webkit-scrollbar-thumb {
 
   @media (max-width: 700px) {
     width: 90% !important;
-    transform: translate(0px, 20px) !important;
+    transform: translate(0px, 75px) !important;
+  }
+}
+
+.modal__container.edit > div > div {
+  width: 990px !important;
+  max-width: unset !important;
+
+  @media (max-width: 1200px) {
+    width: 750px !important;
+  }
+
+  @media (max-width: 960px) {
+    width: 530px !important;
+  }
+
+  @media (max-width: 700px) {
+    width: calc(90% - 150px) !important;
+    transform: translate(0px, 75px) !important;
   }
 }
 
