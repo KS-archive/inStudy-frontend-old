@@ -1,5 +1,7 @@
 export const GET_CIRCLES = 'GET_CIRCLES';
 
+export const FETCH_ACTIVE_CIRCLE = 'FETCH_ACTIVE_CIRCLE';
+
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const DELETE_FILTER = 'DELETE_FILTER';
 

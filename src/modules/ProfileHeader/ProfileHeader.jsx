@@ -12,9 +12,12 @@ export default class ProfileHeader extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, socials, colors, editable } = this.props;
 
-    const date = `${dateCreated.getDate()}.${dateCreated.getMonth() + 1}.${dateCreated.getFullYear()}`
+    const date = (dateCreated)
+      ? `${dateCreated.getDate()}.${dateCreated.getMonth() + 1}.${dateCreated.getFullYear()}`
+      : null;
 
     const backgroundStyle = (backgroundImg)
       ? { backgroundImage: backgroundImg }

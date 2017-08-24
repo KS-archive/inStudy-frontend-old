@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
@@ -10,9 +11,14 @@ import Numbers from '../../modules/Numbers/Numbers';
 import Collapsible from '../../modules/Collapsible/Collapsible';
 import LinkImages from '../../modules/LinkImages/LinkImages';
 import MembersTiles from '../../modules/MembersTiles/MembersTiles';
+import { getActiveCircle } from '../../actions/circles';
 import './publicProfile.scss';
 
 class PublicProfile extends Component {
+  componentWillMount() {
+    this.props.getActiveCircle(this.props.match.params.url);
+  }
+
   renderModule = (module, colors) => {
     let newComponent;
     switch (module.kind) {
@@ -33,19 +39,22 @@ class PublicProfile extends Component {
   }
 
   render() {
-    const header = omit(this.props.activeCircle, 'modules');
-    const modules = pick(this.props.activeCircle, 'modules');
-
-    return (
-      <div className="publicProfile__container">
-        <div className="body__container">
-          <ProfileHeader {...header} editable={false} />
-          {
-            modules.modules.map(module => this.renderModule(module, header.colors))
-          }
+    if (this.props.activeCircle._id) {
+      console.log(this.props.activeCircle);
+      const header = omit(this.props.activeCircle, 'modules');
+      const modules = pick(this.props.activeCircle, 'modules');
+      return (
+        <div className="publicProfile__container">
+          <div className="body__container">
+            <ProfileHeader {...header} editable={false} />
+            {(modules.modules) &&
+              modules.modules.map(module => this.renderModule(module, header.colors))
+            }
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    return null;
   }
 }
 
@@ -55,4 +64,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(PublicProfile);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getActiveCircle }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PublicProfile);

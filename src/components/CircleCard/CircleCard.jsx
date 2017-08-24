@@ -20,6 +20,7 @@ export default class CircleCard extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { type, onClick, logo, name, category, subcategory, university, flags } = this.props;
     return (
       <div className="circleCard__container" onClick={onClick}>
