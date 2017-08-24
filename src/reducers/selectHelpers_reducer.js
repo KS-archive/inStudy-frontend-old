@@ -6,7 +6,6 @@ export default function (state = {}, action) {
       return { ...state, cities: action.payload.data };
 
     case FETCH_UNIVERSITIES:
-    console.log(action.payload.city[0]);
       return { ...state, universities: action.payload.city[0].universites };
 
     case FETCH_TYPES:

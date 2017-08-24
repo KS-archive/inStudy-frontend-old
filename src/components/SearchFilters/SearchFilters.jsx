@@ -4,6 +4,8 @@ import bindActionCreators from 'redux/lib/bindActionCreators';
 import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import { deleteFilter } from '../../actions/filters';
+import { fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories } from '../../actions/helpers';
+
 import Filter from '../Filter/Filter';
 import './searchFilters.scss';
 
@@ -18,6 +20,9 @@ class SearchFilters extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchCities();
+    this.props.fetchTypes();
+    this.props.fetchCategories();
     window.addEventListener('resize', this.setFiltersHeight);
     this.setFiltersHeight();
   }
@@ -26,7 +31,7 @@ class SearchFilters extends Component {
     let activeFilters = 0;
     const filters = nextProps.filters;
     Object.keys(filters).forEach((key) => {
-      if (filters[key].length > 0) activeFilters += 1;
+      if ((Array.isArray(filters) && filters[key].length > 0) || !Array.isArray(filters)) activeFilters += 1;
     });
     this.setState({ activeFilters });
   }
@@ -58,11 +63,36 @@ class SearchFilters extends Component {
       <div className="searchFilters__wraper" style={{ height: (this.state.open) ? this.state.filtersHeight : 20 }}>
         <div className="searchFilters__container">
           <div className={'searchFilters__filters'}>
-            <Filter id={'cities'} label="Miasto" items={this.props.selectHelpers.cities} />
-            <Filter id={'universities'} label="Uczelnia" items={this.props.selectHelpers.universities} multiple />
-            <Filter id={'types'} label="Typ aktywności" items={this.props.selectHelpers.types} multiple />
-            <Filter id={'categories'} label="Kategoria" items={this.props.selectHelpers.categories} />
-            <Filter id={'subcategories'} label="Podkategoria" items={this.props.selectHelpers.subcategories} multiple />
+            <Filter
+              id={'cities'}
+              label="Miasto"
+              items={this.props.selectHelpers.cities}
+              changeHandler={(id) => { this.props.fetchUniversities(id); }}
+            />
+            <Filter
+              id={'universities'}
+              label="Uczelnia"
+              items={this.props.selectHelpers.universities}
+              multiple
+            />
+            <Filter
+              id={'types'}
+              label="Typ aktywności"
+              items={this.props.selectHelpers.types}
+              multiple
+            />
+            <Filter
+              id={'categories'}
+              label="Kategoria"
+              items={this.props.selectHelpers.categories}
+              changeHandler={(id) => { this.props.fetchSubactegories(id); }}
+            />
+            <Filter
+              id={'subcategories'}
+              label="Podkategoria"
+              items={this.props.selectHelpers.subcategories}
+              multiple
+            />
             <div className={`seatchFilters__remove ${(activeFilters > 0) && 'active'}`} onClick={this.clearFilters}>Wyczyść filtry</div>
           </div>
           {
@@ -94,7 +124,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ deleteFilter }, dispatch);
+  return bindActionCreators({ deleteFilter, fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilters);

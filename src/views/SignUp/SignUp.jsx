@@ -65,6 +65,20 @@ class SignUp extends Component {
         </Field>
       );
     }
+    return (
+      <Field
+        className="signup__field"
+        name={name}
+        component={SelectField}
+        floatingLabelText={label}
+        floatingLabelFocusStyle={{ fontWeight: 500 }}
+        floatingLabelShrinkStyle={{ fontWeight: 900 }}
+        style={{ width: 295, fontWeight: 500 }}
+        validate={required}
+        onChange={changefc}
+        disabled
+      />
+    );
   }
 
   render() {
