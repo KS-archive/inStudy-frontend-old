@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
+import { fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories } from '../../actions/helpers';
 import './cardEditDialog.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
@@ -22,16 +23,37 @@ class CardEditDialog extends Component {
     };
   }
 
+  componentWillMount() {
+    this.props.fetchCities();
+    this.props.fetchTypes();
+    this.props.fetchCategories();
+  }
+
   componentDidUpdate() {
-    const { name, email, phone, date, motto } = this.props;
-    if (!this.state.initialized) {
-      this.props.initialize({ name, email, phone, date, motto });
+    const { name, email, phone, date, motto, selectHelpers } = this.props;
+    if (!selectHelpers.universities && selectHelpers.cities && this.props.city && selectHelpers.categories && this.props.category) {
+      this.props.fetchUniversities(this.getIdByName('cities', 'city'));
+      this.props.fetchSubactegories(this.getIdByName('categories', 'category'));
+    }
+    if (!this.state.initialized && name && selectHelpers.universities && selectHelpers.subcategories) {
+      const city = this.getIdByName('cities', 'city');
+      const university = this.getIdByName('universities', 'university');
+      const type = this.getIdByName('types', 'type');
+      const category = this.getIdByName('categories', 'category');
+      const subcategory = this.getIdByName('subcategories', 'subcategory');
+      this.props.initialize({ name, email, phone, date, motto, city, university, type, category, subcategory });
       this.setState({ initialized: true });
     }
   }
 
   onSubmit = (values) => {
     console.log(values);
+  }
+
+  getIdByName = (arrName, elName) => {
+    let id;
+    this.props.selectHelpers[arrName].map((el) => { if (el.name === this.props[elName]) id = el.id; });
+    return id;
   }
 
   renderTextField(name, label, type, isRequired) {
@@ -51,6 +73,22 @@ class CardEditDialog extends Component {
   }
 
   renderSelectField(name, label, items) {
+    if (items && items.length !== 0) {
+      return (
+        <Field
+          className="cardEditDialog__field"
+          name={name}
+          component={SelectField}
+          floatingLabelText={label}
+          floatingLabelFocusStyle={{ fontWeight: 500 }}
+          floatingLabelShrinkStyle={{ fontWeight: 900 }}
+          style={{ fontWeight: 500 }}
+          validate={required}
+        >
+          {Object.keys(items).map(key => <MenuItem key={key} value={items[key].id} primaryText={items[key].name} />)}
+        </Field>
+      );
+    }
     return (
       <Field
         className="cardEditDialog__field"
@@ -60,10 +98,8 @@ class CardEditDialog extends Component {
         floatingLabelFocusStyle={{ fontWeight: 500 }}
         floatingLabelShrinkStyle={{ fontWeight: 900 }}
         style={{ fontWeight: 500 }}
-        validate={required}
-      >
-        {Object.keys(items).map(key => <MenuItem key={key} value={key} primaryText={items[key]} />)}
-      </Field>
+        disabled
+      />
     );
   }
 
@@ -129,7 +165,11 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories }, dispatch);
+}
+
 export default reduxForm({
   validate,
   form: 'CardEditDialogForm',
-})(connect(mapStateToProps)(CardEditDialog));
+})(connect(mapStateToProps, mapDispatchToProps)(CardEditDialog));

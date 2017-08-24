@@ -5,7 +5,7 @@ export default function () {
     url: 'knwd',
     type: 'Koło Naukowe',
     category: 'Techniczne',
-    subcategory: 'IT',
+    subcategory: 'Mechanika',
     university: 'Uniwersytet Ekonomiczny we Wrocławiu',
     city: 'Wrocław',
     email: 'kontakt@knwd.pl',
