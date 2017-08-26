@@ -28,7 +28,7 @@ export default class ProfileHeader extends Component {
       <div className="profileHeader__container">
         <div className="profileHeader__background" style={{ ...backgroundStyle, ...editableBackground }} />
         {editable &&
-          <i className="fa fa-pencil-square-o profileHeader__backgroundEdit" aria-hidden="true" />
+          <i className="fa fa-pencil-square-o profileHeader__backgroundEdit" aria-hidden="true" onClick={() => { this.props.openDialog('background', backgroundImg); }} />
         }
         <div className="profileHeader__card">
           {editable &&

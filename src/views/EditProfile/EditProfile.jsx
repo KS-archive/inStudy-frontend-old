@@ -40,7 +40,11 @@ class EditProfile extends Component {
     this.setState({ dialog: null });
   }
 
-  changeSocials = (values) => {
+  changeSocials = (value) => {
+    this.closeDialog();
+  }
+
+  changeBackground = (value) => {
     this.closeDialog();
   }
 
@@ -105,6 +109,17 @@ class EditProfile extends Component {
             height={310}
             maxSize={100000}
             title="Edytuj logo"
+            data={this.state.dialogData}
+          />
+          <ImageDialog
+            closeDialog={this.closeDialog}
+            open={this.state.dialog === 'background'}
+            sidebar={this.state.sidebar}
+            submitFunction={this.changeBackground}
+            width={1920}
+            height={540}
+            maxSize={200000}
+            title="Edytuj zdjęcie w tle"
             data={this.state.dialogData}
           />
         </div>
