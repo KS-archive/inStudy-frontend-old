@@ -75,6 +75,11 @@ class EditProfile extends Component {
 
       return (
         <div className="editProfile__container">
+          <EditSidebar
+            sidebar={this.state.sidebar}
+            toggleSidebar={() => { this.setState({ sidebar: !this.state.sidebar }); }}
+            {...this.props.activeCircle}
+          />
           <div className="body__container">
             <ProfileHeader
               openDialog={this.openDialog}
@@ -86,7 +91,6 @@ class EditProfile extends Component {
               modules.modules.map((module, index) => this.renderModule(module, header.colors, index))
             }
           </div>
-          <EditSidebar sidebar={this.state.sidebar} toggleSidebar={() => { this.setState({ sidebar: !this.state.sidebar }); }} />
           <CardEditDialog
             closeDialog={this.closeDialog}
             open={this.state.dialog === 'card'}
