@@ -29,7 +29,7 @@ export function getActiveCircle(circleURL) {
     request.then(({ data }) => {
       dispatch({
         type: FETCH_ACTIVE_CIRCLE,
-        payload: data.data[0],
+        payload: data.data,
       });
     });
   };

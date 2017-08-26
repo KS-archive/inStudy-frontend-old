@@ -12,12 +12,7 @@ export default class ProfileHeader extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, socials, colors, editable } = this.props;
-
-    const date = (dateCreated)
-      ? `${dateCreated.getDate()}.${dateCreated.getMonth() + 1}.${dateCreated.getFullYear()}`
-      : null;
 
     const backgroundStyle = (backgroundImg)
       ? { backgroundImage: backgroundImg }
@@ -76,7 +71,7 @@ export default class ProfileHeader extends Component {
                 {(dateCreated) &&
                 <div className="profileHeader__textRow">
                   <p className="profileHeader__textTitle">Data założenia</p>
-                  <p className="profileHeader__textContent">{date}</p>
+                  <p className="profileHeader__textContent">{dateCreated}</p>
                 </div>}
                 {(motto) &&
                 <div className="profileHeader__textRow">
@@ -91,7 +86,7 @@ export default class ProfileHeader extends Component {
               {this.renderSocials(socials)}
               {editable &&
                 <div className="profileHeader__socialEdit">
-                  <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                  <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={() => { this.props.openDialog('socials', socials); }} />
                 </div>
               }
             </div>

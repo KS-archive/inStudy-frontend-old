@@ -40,7 +40,6 @@ class PublicProfile extends Component {
 
   render() {
     if (this.props.activeCircle._id) {
-      console.log(this.props.activeCircle);
       const header = omit(this.props.activeCircle, 'modules');
       const modules = pick(this.props.activeCircle, 'modules');
       return (
