@@ -4,7 +4,6 @@ import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
-import axios from 'axios';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -27,6 +26,14 @@ class CardEditDialog extends Component {
     this.props.fetchCities();
     this.props.fetchTypes();
     this.props.fetchCategories();
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (!nextProps.open && !this.props.open) {
+      console.log('dont update');
+      return false;
+    }
+    return true;
   }
 
   componentDidUpdate() {

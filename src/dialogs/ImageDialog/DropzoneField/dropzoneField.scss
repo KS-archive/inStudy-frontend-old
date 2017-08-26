@@ -1,0 +1,60 @@
+@import '../../../scss/variables';
+
+.dropzoneField__container {
+
+}
+
+.dropzoneField__dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 300px;
+  border: 2px dashed $divider-color;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: all .3s;
+
+  &:hover {
+    cursor: pointer;
+
+    .dropzoneField__text {
+      background-color: $primary-text-color;
+    }
+  }
+
+  @media (max-width: 960px) {
+    width: 450px;
+  }
+}
+
+.dropzoneField__withImg {
+  border: 1px dashed rgba($divider-color, .5);
+
+  .dropzoneField__text {
+    opacity: .5;
+  }
+
+  &:hover .dropzoneField__text {
+    opacity: 1;
+  }
+}
+
+.dropzoneField__active {
+
+}
+
+.dropzoneField__text {
+  border-radius: 2px;
+  padding: 10px;
+  background-color: $secondary-text-color;
+  color: #fff;
+  transition: all .3s;
+}
+
+.dropzoneField__error {
+  margin-top: 10px;
+  text-align: center;
+  color: red;
+}

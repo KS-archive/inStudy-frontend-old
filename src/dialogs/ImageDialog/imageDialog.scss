@@ -1,0 +1,83 @@
+@import '../../scss/variables';
+
+.imageDialog__container {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px !important;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-track {
+  	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  	border-radius: 10px;
+  	background-color: #F5F5F5;
+  }
+  &::-webkit-scrollbar {
+  	width: 8px;
+  	background-color: #F5F5F5;
+  }
+  &::-webkit-scrollbar-thumb {
+  	border-radius: 10px;
+  	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  	background-color: $primary-text-color;
+  }
+}
+
+.imageDialog__form {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.imageDialog__header {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color: $primary-color;
+}
+
+.imageDialog__file {
+
+}
+
+.imageDialog__buttonContainer {
+  margin-top: 40px;
+}
+
+.imageDialog__button {
+  &:first-child {
+    margin-right: 15px !important;
+  }
+}
+
+.imageDialog__info {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  background-color: $accent-color;
+  text-align: center;
+  color: #fff;
+  transition: all .3s;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+    background-color: darken($accent-color, 5%);
+  }
+}

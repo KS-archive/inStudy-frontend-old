@@ -38,7 +38,7 @@ export default class ProfileHeader extends Component {
             <div className="profileHeader__logoContainer">
               <img src={logo} alt="Logo inicjatywy" className="profileHeader__logo" />
               {editable &&
-                <div className="profileHeader__logoEdit">
+                <div className="profileHeader__logoEdit" onClick={() => { this.props.openDialog('logo', logo); }}>
                   <i className="fa fa-pencil-square-o" aria-hidden="true" />
                 </div>
               }

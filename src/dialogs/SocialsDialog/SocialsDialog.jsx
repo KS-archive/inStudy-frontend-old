@@ -11,11 +11,10 @@ class SocialsDialog extends Component {
   render() {
     const { handleSubmit, submitting, pristine, reset } = this.props;
     const dialogStyle = this.props.sidebar ? { width: 'calc(100vw - 150px)', marginLeft: 150 } : {};
-    console.log(this.props);
     return (
       <Dialog
         open={this.props.open}
-        onRequestClose={this.props.closeDialog}
+        onRequestClose={() => { this.props.closeDialog(); reset(); }}
         className="modal__container edit"
         bodyClassName="socialsDialog__container"
         style={dialogStyle}
@@ -50,12 +49,6 @@ class SocialsDialog extends Component {
   }
 }
 
-function validate(values) {
-  const errors = {};
-  return errors;
-}
-
 export default reduxForm({
-  validate,
   form: 'SocialsDialogForm',
 })(SocialsDialog);

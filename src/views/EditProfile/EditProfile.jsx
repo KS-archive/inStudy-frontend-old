@@ -14,6 +14,7 @@ import MembersTiles from '../../modules/MembersTiles/MembersTiles';
 import EditSidebar from '../../components/EditSidebar/EditSidebar';
 import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
+import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import { getActiveCircle } from '../../actions/circles';
 import './editProfile.scss';
 
@@ -40,7 +41,6 @@ class EditProfile extends Component {
   }
 
   changeSocials = (values) => {
-    console.log(values);
     this.closeDialog();
   }
 
@@ -94,6 +94,17 @@ class EditProfile extends Component {
             open={this.state.dialog === 'socials'}
             sidebar={this.state.sidebar}
             submitFunction={this.changeSocials}
+            data={this.state.dialogData}
+          />
+          <ImageDialog
+            closeDialog={this.closeDialog}
+            open={this.state.dialog === 'logo'}
+            sidebar={this.state.sidebar}
+            submitFunction={this.changeSocials}
+            width={310}
+            height={310}
+            maxSize={100000}
+            title="Edytuj logo"
             data={this.state.dialogData}
           />
         </div>
