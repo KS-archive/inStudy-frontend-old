@@ -72,7 +72,8 @@
 }
 
 .editSidebar__modules {
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,21 +103,47 @@
   }
 }
 
-.editSidebar__moduleIcon {
+.editSidebar__iconWrapper {
   position: relative;
   left: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 60px;
+  max-height: 60px;
   min-width: 60px;
   min-height: 60px;
   border-radius: 100%;
   margin-bottom: 30px;
   background-color: #fff;
+  font-size: 24px;
+  color: $primary-color-dark;
+  opacity: .8;
+  transition: all .3s;
 
   &:last-child {
     margin-bottom: 0;
   }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+}
+
+.editSidebar__icon {
+  max-width: 30px;
+  max-height: 30px;
+  fill: $primary-color-dark;
+}
+
+.editSidebar__bottomIcons {
+  position: relative;
+  bottom: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
 }
 
 .editSidebar__specialBtn {
@@ -138,4 +165,9 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.editSidebar__tooltip {
+  font-size: 16px !important;
+  transition: opacity .3s !important;
 }
