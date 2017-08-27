@@ -15,7 +15,8 @@ export default class EditSidebar extends Component {
     const IconComponent = (module.icon)
       ? module.icon
       : accesibleModules.filter(m => (m.kind === module.kind))[0].icon;
-    return <IconComponent className="editSidebar__icon" />;
+    const moduleData = (module.icon) ? {} : module;
+    return <IconComponent className="editSidebar__icon" onClick={() => { this.props.openDialog(module.kind, moduleData); }} />;
   }
 
   render() {
