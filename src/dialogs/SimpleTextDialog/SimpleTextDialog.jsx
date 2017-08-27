@@ -29,7 +29,12 @@ class SimpleTextDialog extends Component {
   }
 
   onSubmit = (values) => {
-    console.log(values);
+    if (this.props.data.kind) console.log('obj');
+    else console.log(values);
+  }
+
+  makeActivityInfoUpdateHandler = () => {
+    this.activityFormButton.click();
   }
 
   render() {
@@ -47,7 +52,7 @@ class SimpleTextDialog extends Component {
       <RaisedButton
         className="simpleTextDialog__button"
         label="Zapisz zmiany"
-        type="submit"
+        onTouchTap={this.makeActivityInfoUpdateHandler}
         labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
         disabled={submitting}
         primary
@@ -91,6 +96,7 @@ class SimpleTextDialog extends Component {
             style={{ fontWeight: 500 }}
             validate={required}
           />
+          <button style={{ visibility: 'hidden' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />
         </form>
       </Dialog>
     );

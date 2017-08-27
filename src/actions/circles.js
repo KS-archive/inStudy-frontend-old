@@ -34,3 +34,10 @@ export function getActiveCircle(circleURL) {
     });
   };
 }
+
+export function setActiveCircle(circle) {
+  return {
+    type: FETCH_ACTIVE_CIRCLE,
+    payload: circle,
+  };
+}
