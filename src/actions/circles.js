@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookie } from '../js/cookies';
 import { GET_CIRCLES, FETCH_ACTIVE_CIRCLE } from './types';
 
 export function getCircles(page, limit, query, city, university, type, category, subcategory) {
@@ -21,15 +22,21 @@ export function getCircles(page, limit, query, city, university, type, category,
   };
 }
 
-export function getActiveCircle(circleURL) {
-  const url = `${__ROOT_URL__}api/circle?circle=${circleURL}`;
-  const request = axios.get(url);
+export function getActiveCircle() {
+  const url = `${__ROOT_URL__}api//user/getInfo`;
+  const header = {
+    Authorization: `cos ${getCookie('token')}`,
+  };
+  console.log(header);
+  const request = axios.post(url, null, {
+    headers: header,
+  });
 
   return (dispatch) => {
     request.then(({ data }) => {
       dispatch({
         type: FETCH_ACTIVE_CIRCLE,
-        payload: data.data,
+        payload: data.user,
       });
     });
   };

@@ -8,7 +8,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import { addNotification } from '../../actions/notifications';
-import { setActiveCircle } from '../../actions/circles';
 import { setCookie } from '../../js/cookies';
 import './signIn.scss';
 
@@ -17,9 +16,7 @@ const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 class SignIn extends Component {
   onSubmit = (values) => {
     axios.post('http://localhost:8080/api/user/login', values).then((res) => {
-      console.log(res);
-      setCookie('token', res.data.token)
-      this.props.setActiveCircle(res.data.user);
+      setCookie('token', res.data.token);
       this.props.history.push('/inicjatywy/edit');
       this.props.addNotification('Zalogowano', res.data.message, 'success');
     }, ({ response }) => {
@@ -92,7 +89,7 @@ function validate(values) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addNotification, setActiveCircle }, dispatch);
+  return bindActionCreators({ addNotification }, dispatch);
 }
 
 export default reduxForm({

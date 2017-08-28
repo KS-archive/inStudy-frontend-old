@@ -29,6 +29,10 @@ class EditProfile extends Component {
     };
   }
 
+  componentWillMount() {
+    this.props.getActiveCircle();
+  }
+
   openDialog = (name, data) => {
     this.setState({ dialog: name, dialogData: data });
   }
@@ -143,4 +147,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(EditProfile);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getActiveCircle }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
