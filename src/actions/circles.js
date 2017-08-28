@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getCookie } from '../js/cookies';
-import { GET_CIRCLES, FETCH_ACTIVE_CIRCLE } from './types';
+import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, CHANGE_LOGO } from './types';
 
 export function getCircles(page, limit, query, city, university, type, category, subcategory) {
   const queryString = query ? `&query=${query}` : '';
@@ -24,13 +24,10 @@ export function getCircles(page, limit, query, city, university, type, category,
 
 export function getActiveCircle() {
   const url = `${__ROOT_URL__}api//user/getInfo`;
-  const header = {
+  const headers = {
     Authorization: `cos ${getCookie('token')}`,
   };
-  console.log(header);
-  const request = axios.post(url, null, {
-    headers: header,
-  });
+  const request = axios.post(url, null, { headers });
 
   return (dispatch) => {
     request.then(({ data }) => {
@@ -42,9 +39,34 @@ export function getActiveCircle() {
   };
 }
 
-export function setActiveCircle(circle) {
-  return {
-    type: FETCH_ACTIVE_CIRCLE,
-    payload: circle,
+export function getPublicCircle(circleURL) {
+  const url = `${__ROOT_URL__}api/circle?circle=${circleURL}`;
+  const request = axios.get(url);
+
+  return (dispatch) => {
+    request.then(({ data }) => {
+      dispatch({
+        type: FETCH_PUBLIC_CIRCLE,
+        payload: data.data,
+      });
+    });
+  };
+}
+
+export function changeLogo(file) {
+  const url = `${__ROOT_URL__}api//user/getInfo`;
+  const headers = {
+    Authorization: `cos ${getCookie('token')}`,
+  };
+  const request = axios.post(url, file, { headers });
+
+  return (dispatch) => {
+    request.then(({ data }) => {
+      console.log(data);
+      dispatch({
+        type: CHANGE_LOGO,
+        payload: data.user,
+      });
+    });
   };
 }

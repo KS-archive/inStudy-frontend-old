@@ -29,6 +29,7 @@ class SearchFilters extends Component {
 
   componentWillReceiveProps(nextProps) {
     let activeFilters = 0;
+    console.log(nextProps.filters);
     const filters = nextProps.filters;
     Object.keys(filters).forEach((key) => {
       if ((Array.isArray(filters) && filters[key].length > 0) || !Array.isArray(filters)) activeFilters += 1;

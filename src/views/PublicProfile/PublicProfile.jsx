@@ -11,12 +11,12 @@ import Numbers from '../../modules/Numbers/Numbers';
 import Collapsible from '../../modules/Collapsible/Collapsible';
 import LinkImages from '../../modules/LinkImages/LinkImages';
 import MembersTiles from '../../modules/MembersTiles/MembersTiles';
-import { getActiveCircle } from '../../actions/circles';
+import { getPublicCircle } from '../../actions/circles';
 import './publicProfile.scss';
 
 class PublicProfile extends Component {
   componentWillMount() {
-    this.props.getActiveCircle(this.props.match.params.url);
+    this.props.getPublicCircle(this.props.match.params.url);
   }
 
   renderModule = (module, colors) => {
@@ -39,9 +39,9 @@ class PublicProfile extends Component {
   }
 
   render() {
-    if (this.props.activeCircle._id) {
-      const header = omit(this.props.activeCircle, 'modules');
-      const modules = pick(this.props.activeCircle, 'modules');
+    if (this.props.publicCircle._id) {
+      const header = omit(this.props.publicCircle, 'modules');
+      const modules = pick(this.props.publicCircle, 'modules');
       return (
         <div className="publicProfile__container">
           <div className="body__container">
@@ -59,12 +59,12 @@ class PublicProfile extends Component {
 
 function mapStateToProps(state) {
   return {
-    activeCircle: state.activeCircle,
+    publicCircle: state.publicCircle,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getActiveCircle }, dispatch);
+  return bindActionCreators({ getPublicCircle }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublicProfile);

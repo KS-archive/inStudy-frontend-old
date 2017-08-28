@@ -6,6 +6,7 @@ export const fetchCities = () => {
   const request = axios.get(url);
   return (dispatch) => {
     request.then(({ data }) => {
+      console.log(data);
       dispatch({
         type: FETCH_CITIES,
         payload: data,

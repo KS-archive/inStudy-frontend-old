@@ -4,6 +4,7 @@ import filtersReducer from './filters_reducer';
 import circlesReducer from './circles_reducer';
 import selectHelpersReducer from './selectHelpers_reducer';
 import activeCircleReducer from './activeCircle_reducer';
+import publicCircleReducer from './publicCircle_reducer';
 import socialsReducer from './socials_reducer';
 import notificationsReducer from './notifications_reducer';
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   circles: circlesReducer,
   socials: socialsReducer,
   activeCircle: activeCircleReducer,
+  publicCircle: publicCircleReducer,
   selectHelpers: selectHelpersReducer,
   notifications: notificationsReducer,
 });

@@ -16,7 +16,7 @@ import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import SimpleTextDialog from '../../dialogs/SimpleTextDialog/SimpleTextDialog';
-import { getActiveCircle } from '../../actions/circles';
+import { getActiveCircle, changeLogo } from '../../actions/circles';
 import './editProfile.scss';
 
 class EditProfile extends Component {
@@ -42,6 +42,11 @@ class EditProfile extends Component {
   }
 
   changeSocials = (value) => {
+    this.closeDialog();
+  }
+
+  changeLogo = (value) => {
+    this.props.changeLogo(value);
     this.closeDialog();
   }
 
@@ -110,7 +115,7 @@ class EditProfile extends Component {
             closeDialog={this.closeDialog}
             open={this.state.dialog === 'logo'}
             sidebar={this.state.sidebar}
-            submitFunction={this.changeSocials}
+            submitFunction={this.changeLogo}
             width={310}
             height={310}
             maxSize={100000}
@@ -148,7 +153,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getActiveCircle }, dispatch);
+  return bindActionCreators({ getActiveCircle, changeLogo }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
