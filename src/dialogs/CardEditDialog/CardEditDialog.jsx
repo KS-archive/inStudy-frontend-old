@@ -10,6 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
 import { fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories } from '../../actions/helpers';
+import { changeCardData } from '../../actions/circles';
 import './cardEditDialog.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
@@ -54,7 +55,7 @@ class CardEditDialog extends Component {
   }
 
   onSubmit = (values) => {
-    console.log(values);
+    this.props.changeCardData(values, this.props.closeDialog);
   }
 
   getIdByName = (arrName, elName) => {
@@ -113,7 +114,6 @@ class CardEditDialog extends Component {
   render() {
     const { handleSubmit } = this.props;
     const dialogStyle = this.props.sidebar ? { width: 'calc(100vw - 150px)', marginLeft: 150 } : {};
-    console.log(this.props);
 
     return (
       <Dialog
@@ -141,12 +141,13 @@ class CardEditDialog extends Component {
               className="cardEditDialog__button"
               label="Anuluj"
               labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
-              type="submit"
+              onClick={this.props.closeDialog}
             />
             <RaisedButton
               className="cardEditDialog__button"
               label="Zapisz zmiany"
               labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
+              type="submit"
               primary
             />
           </div>
@@ -173,7 +174,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories }, dispatch);
+  return bindActionCreators({ fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories, changeCardData }, dispatch);
 }
 
 export default reduxForm({

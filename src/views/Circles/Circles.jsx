@@ -13,6 +13,7 @@ class Circles extends Component {
   }
 
   render() {
+    console.log(this.props.circles);
     return (
       <div className="circles__container">
         <div className="body__container">

@@ -9,7 +9,7 @@ export default class CircleCard extends Component {
     let icon;
     switch (type) {
       case 'Koło Naukowe': icon = 'K'; break;
-      case 'Organizacja Studencka': icon = 'O'; break;
+      case 'Organizacja': icon = 'O'; break;
       case 'Fundacja': icon = 'F'; break;
       case 'Stowarzyszenie': icon = 'S'; break;
       case 'Inny': icon = 'I'; break;

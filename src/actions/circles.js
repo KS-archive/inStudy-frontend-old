@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getCookie } from '../js/cookies';
-import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, CHANGE_LOGO } from './types';
+import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, CHANGE_LOGO, CHANGE_CARD_DATA } from './types';
 
 export function getCircles(page, limit, query, city, university, type, category, subcategory) {
   const queryString = query ? `&query=${query}` : '';
@@ -16,7 +16,7 @@ export function getCircles(page, limit, query, city, university, type, category,
     request.then(({ data }) => {
       dispatch({
         type: GET_CIRCLES,
-        payload: data,
+        payload: data.data,
       });
     });
   };
@@ -31,9 +31,10 @@ export function getActiveCircle() {
 
   return (dispatch) => {
     request.then(({ data }) => {
+      console.log(data);
       dispatch({
         type: FETCH_ACTIVE_CIRCLE,
-        payload: data.user,
+        payload: data[0],
       });
     });
   };
@@ -54,7 +55,7 @@ export function getPublicCircle(circleURL) {
 }
 
 export function changeLogo(file) {
-  const url = `${__ROOT_URL__}api//user/getInfo`;
+  const url = `${__ROOT_URL__}api/user/getInfo`;
   const headers = {
     Authorization: `cos ${getCookie('token')}`,
   };
@@ -62,11 +63,29 @@ export function changeLogo(file) {
 
   return (dispatch) => {
     request.then(({ data }) => {
-      console.log(data);
       dispatch({
         type: CHANGE_LOGO,
         payload: data.user,
       });
+    });
+  };
+}
+
+export function changeCardData(newData, callback) {
+  const url = `${__ROOT_URL__}api/edit/basics`;
+  const headers = {
+    Authorization: `cos ${getCookie('token')}`,
+  };
+  const request = axios.put(url, newData, { headers });
+
+  return (dispatch) => {
+    request.then(({ data }) => {
+      console.log(data);
+      dispatch({
+        type: CHANGE_CARD_DATA,
+        payload: newData,
+      });
+      callback();
     });
   };
 }

@@ -69,6 +69,7 @@ body::-webkit-scrollbar-thumb {
 
 .modal__container > div > div {
   width: 1140px !important;
+  max-width: unset !important;
 
   @media (max-width: 1200px) {
     width: 900px !important;

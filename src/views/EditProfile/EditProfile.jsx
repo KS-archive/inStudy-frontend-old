@@ -74,7 +74,6 @@ class EditProfile extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.activeCircle._id) {
       const header = omit(this.props.activeCircle, 'modules');
       const modules = pick(this.props.activeCircle, 'modules');
@@ -98,12 +97,15 @@ class EditProfile extends Component {
               modules.modules.map((module, index) => this.renderModule(module, header.colors, index))
             }
           </div>
+          {(this.state.dialog === 'card') &&
           <CardEditDialog
             closeDialog={this.closeDialog}
             open={this.state.dialog === 'card'}
             sidebar={this.state.sidebar}
+            fetchCircle={this.props.getActiveCircle}
             {...this.state.dialogData}
           />
+          }
           <SocialsDialog
             closeDialog={this.closeDialog}
             open={this.state.dialog === 'socials'}
