@@ -1,15 +1,16 @@
-@import '../../scss/variables';
+import styled from 'styled-components';
+import { colorPalette } from '../../js/constants';
 
-.searchFilters__wraper {
+export const Container = styled.div`
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all .6s ease-in-out .1s;
-}
+  transition: all 0.6s ease-in-out 0.1s;
+`;
 
-.searchFilters__container {
+export const Wrapper = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -17,20 +18,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+`;
 
-.searchFilters__filters {
+export const Filters = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   width: 100%;
-}
+`;
 
-.searchFilters__label {
+export const FilterLabel = styled.p`
   display: flex;
   align-items: center;
   margin-top: 20px;
-  transition: all .3s;
+  transition: all 0.3s;
   font-weight: 500;
 
   &:hover {
@@ -38,24 +39,26 @@
     color: $primary-color;
     text-decoration: underline;
   }
-}
+`;
 
-.seatchFilters__remove {
+export const RemoveFilters = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: flex-end;
   width: 256px;
   height: 63px;
   padding-bottom: 5px;
-  border-bottom: 1px solid #BBBBBB;
   margin: 0 20px;
-  color: #BBBBBB;
+  color: ${props => props.anyActive
+    ? colorPalette.textColor
+    : '#bbb'};
+  border-bottom: ${props => props.anyActive
+    ? `2px solid ${colorPalette.primary1Color}`
+    : '1px solid #e0e0e0'};
 
-  &.active {
-    color: $primary-text-color;
-    border-bottom: 2px solid $primary-color;
-    &:hover {
-      cursor: pointer;
-    }
+  &:hover {
+    cursor: ${props => props.anyActive
+    ? 'pointer'
+    : 'default'};
   }
-}
+`;

@@ -3,11 +3,10 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
-import { deleteFilter } from '../../actions/filters';
-import { fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories } from '../../actions/helpers';
-
 import Filter from '../Filter/Filter';
-import './searchFilters.scss';
+import { deleteFilter } from '../../actions/filters';
+import { Container, Wrapper, Filters, FilterLabel, RemoveFilters } from './SearchFilters_styles';
+import { fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories } from '../../actions/helpers';
 
 class SearchFilters extends Component {
   constructor(props) {
@@ -29,7 +28,6 @@ class SearchFilters extends Component {
 
   componentWillReceiveProps(nextProps) {
     let activeFilters = 0;
-    console.log(nextProps.filters);
     const filters = nextProps.filters;
     Object.keys(filters).forEach((key) => {
       if ((Array.isArray(filters) && filters[key].length > 0) || !Array.isArray(filters)) activeFilters += 1;
@@ -59,69 +57,64 @@ class SearchFilters extends Component {
   }
 
   render() {
-    const activeFilters = this.state.activeFilters;
+    const { open, filtersHeight, activeFilters } = this.state;
+    const { cities, universities, types, categories, subcategories } = this.props.selectHelpers;
     return (
-      <div className="searchFilters__wraper" style={{ height: (this.state.open) ? this.state.filtersHeight : 20 }}>
-        <div className="searchFilters__container">
-          <div className={'searchFilters__filters'}>
+      <Container style={{ height: (open) ? filtersHeight : 20 }}>
+        <Wrapper>
+          <Filters>
             <Filter
               id={'cities'}
               label="Miasto"
-              items={this.props.selectHelpers.cities}
+              items={cities}
               changeHandler={(id) => { this.props.fetchUniversities(id); }}
             />
             <Filter
               id={'universities'}
               label="Uczelnia"
-              items={this.props.selectHelpers.universities}
+              items={universities}
               multiple
             />
             <Filter
               id={'types'}
               label="Typ aktywności"
-              items={this.props.selectHelpers.types}
+              items={types}
               multiple
             />
             <Filter
               id={'categories'}
               label="Kategoria"
-              items={this.props.selectHelpers.categories}
+              items={categories}
               changeHandler={(id) => { this.props.fetchSubactegories(id); }}
             />
             <Filter
               id={'subcategories'}
               label="Podkategoria"
-              items={this.props.selectHelpers.subcategories}
+              items={subcategories}
               multiple
             />
-            <div className={`seatchFilters__remove ${(activeFilters > 0) && 'active'}`} onClick={this.clearFilters}>Wyczyść filtry</div>
-          </div>
-          {
-            (this.state.open)
-              ? <p
-                className="searchFilters__label"
-                onClick={() => { this.setState({ open: false }); }}
-              >
-                Ukryj filtry <ArrowDown />
-              </p>
-              : <p
-                className="searchFilters__label"
-                onClick={() => { this.setState({ open: true }); }}
-              >
-                Rozwiń filtry {(activeFilters > 0) && `(aktywne: ${activeFilters})` } <ArrowUp />
-              </p>
+            <RemoveFilters anyActive={activeFilters > 0} onClick={this.clearFilters}>
+              Wyczyść filtry
+            </RemoveFilters>
+          </Filters>
+          {(open) ?
+            <FilterLabel onClick={() => { this.setState({ open: false }); }}>
+              Ukryj filtry <ArrowDown />
+            </FilterLabel>
+            :
+            <FilterLabel onClick={() => { this.setState({ open: true }); }}>
+              Rozwiń filtry {(activeFilters > 0) && `(aktywne: ${activeFilters})` } <ArrowUp />
+            </FilterLabel>
           }
-        </div>
-      </div>
+        </Wrapper>
+      </Container>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    filters: state.filters,
-    selectHelpers: state.selectHelpers,
-  };
+  const { filters, selectHelpers } = state;
+  return { filters, selectHelpers };
 }
 
 function mapDispatchToProps(dispatch) {

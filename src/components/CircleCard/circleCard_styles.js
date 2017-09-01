@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Tooltip from 'react-tooltip';
-import { colorPalette } from '../../js/constants';
+import { colorPalette, media } from '../../js/constants';
 
 export const Container = styled.div`
   box-sizing: border-box;
@@ -22,21 +22,19 @@ export const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.19) 0 10px 30px, rgba(0, 0, 0, 0.23) 0 6px 10px;
   }
 
-  @media (min-width: 1201px) {
+  ${media.x_large`
     &:nth-child(4n) {
       margin-right: 0;
     }
-  }
-
-  @media (max-width: 1200px) and (min-width: 961px) {
+  `}
+  ${media.medium__large`
     margin-right: 57px;
 
     &:nth-child(3n) {
       margin-right: 0;
     }
-  }
-
-  @media (max-width: 960px) and (min-width: 701px) {
+  `}
+  ${media.small__medium`
     width: 300px;
     height: 400px;
     margin-right: 80px;
@@ -44,16 +42,15 @@ export const Container = styled.div`
     &:nth-child(2n) {
       margin-right: 0;
     }
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     box-sizing: content-box !important;
     border-right: 10px solid transparent;
     border-left: 10px solid transparent;
     margin: 0 auto 30px;
     width: 300px;
     height: 450px;
-  }
+  `}
 `;
 
 export const LogoContainer = styled.div`
@@ -62,19 +59,17 @@ export const LogoContainer = styled.div`
   justify-content: center;
   height: 150px;
   width: 100%;
-
-  @media (max-width: 700px) {
+  ${media.small`
     height: 200px;
-  }
+  `}
 `;
 
 export const Logo = styled.img`
   max-width: 100%;
   max-height: 150px;
-
-  @media (max-width: 700px) {
+  ${media.small`
     max-height: 200px;
-  }
+  `}
 `;
 
 export const Name = styled.h3`
@@ -86,15 +81,13 @@ export const Name = styled.h3`
   text-align: center;
   line-height: 1.3;
   color: ${colorPalette.textColor};
-
-  @media (max-width: 960px) {
+  ${media.medium`
     font-size: 22px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     margin-top: 30px;
     font-size: 24px;
-  }
+  `}
 `;
 
 export const Category = styled.p`
@@ -103,14 +96,12 @@ export const Category = styled.p`
   text-align: center;
   line-height: 1.3;
   color: ${colorPalette.accent3Color};
-
-  @media (max-width: 960px) {
+  ${media.medium`
     font-size: 16px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     font-size: 18px;
-  }
+  `}
 `;
 
 export const BottomLine = styled.div`
@@ -119,29 +110,25 @@ export const BottomLine = styled.div`
   align-items: center;
   width: 100%;
   height: 30px;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     height: 40px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     height: 50px;
-  }
+  `}
 `;
 
 export const UniversityLogo = styled.img`
   max-width: 50px;
   max-height: 30px;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     max-width: 60px;
     max-height: 40px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     max-width: 70px;
     max-height: 45px;
-  }
+  `}
 `;
 
 export const InfoIcons = styled.div`
@@ -159,16 +146,14 @@ export const InfoIcon = styled.div`
   border-radius: 100%;
   margin-right: 10px;
   background-color: ${colorPalette.primary1Color};
-
-  @media (max-width: 960px) {
+  ${media.medium`
     width: 40px;
     height: 40px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     width: 45px;
     height: 45px;
-  }
+  `}
 `;
 
 export const TypeIcon = styled.div`
@@ -183,18 +168,16 @@ export const TypeIcon = styled.div`
   font-weight: 500;
   text-align: center;
   color: #fff;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     width: 40px;
     height: 40px;
     font-size: 20px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     width: 45px;
     height: 45px;
     font-size: 24px;
-  }
+  `}
 `;
 
 export const ReactTooltip = styled(Tooltip)`
@@ -202,7 +185,10 @@ export const ReactTooltip = styled(Tooltip)`
   line-height: 1.3;
   &.show { opacity: 0.4 !important; }
 
-  @media (max-width: 960px) { font-size: 18px !important; }
-
-  @media (max-width: 700px) { font-size: 20px !important; }
+  ${media.medium`
+    font-size: 18px !important;
+  `}
+  ${media.small`
+    font-size: 20px !important;
+  `}
 `;

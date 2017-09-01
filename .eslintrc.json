@@ -18,6 +18,7 @@
       "jsx-a11y/no-noninteractive-element-interactions": "off",
       "jsx-a11y/no-static-element-interactions": "off",
       "no-underscore-dangle": "off",
-      "array-callback-return": "off"
+      "array-callback-return": "off",
+      "no-confusing-arrow": "off"
     }
 }

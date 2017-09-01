@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
-import './nav.scss';
+import { Header, AppLogo, LoggedUser, UserLogo, IconMenu } from './Nav_styles';
 
 class Nav extends Component {
   constructor(props) {
@@ -17,13 +16,13 @@ class Nav extends Component {
   }
 
   componentWillMount() {
-    this.setState({ pathname: this.props.location.pathname });
+    const { pathname } = this.props.location;
+    this.setState({ pathname });
   }
 
   componentDidUpdate() {
-    if (this.props.location.pathname !== this.state.pathname) {
-      this.setState({ pathname: this.props.location.pathname });
-    }
+    const { pathname } = this.props.location;
+    if (pathname !== this.state.pathname) this.setState({ pathname });
   }
 
   handleRoute = (e, value) => {
@@ -34,8 +33,7 @@ class Nav extends Component {
   renderLogo() {
     if (this.state.pathname !== '/') {
       return (
-        <img
-          className="nav__logo"
+        <AppLogo
           src="/img/logo-instudy.png"
           alt="Logo inStudy"
           onClick={() => { this.props.history.push('/'); }}
@@ -47,33 +45,34 @@ class Nav extends Component {
 
   renderUserLogo() {
     const path = this.state.pathname;
-    if (path !== '/' && path !== '/rejestracja' && path !== '/logowanie' && !path.includes('/odzyskiwanie_hasla') && !path.includes('/potwierdz_email')) {
-      return (
-        <div className="nav__loggedUser">
-          <img className="nav__userLogo" src="http://via.placeholder.com/100x100" alt="to replace" />
-        </div>
+    (path !== '/'
+    && path !== '/rejestracja'
+    && path !== '/logowanie'
+    && !path.includes('/odzyskiwanie_hasla')
+    && !path.includes('/potwierdz_email'))
+    && (
+      <LoggedUser>
+        <UserLogo src="http://via.placeholder.com/100x100" alt="to replace" />
+      </LoggedUser>
       );
-    }
-    return null;
   }
 
   render() {
-    let headerClassAddon;
     const path = this.state.pathname;
-
-    if (path === '/' || ((path === '/rejestracja' || path === '/logowanie' || path.includes('/odzyskiwanie_hasla') || path.includes('/potwierdz_email')) && window.innerWidth > 800 && window.innerHeight > 900)) {
-      headerClassAddon = 'transparent';
-    } else {
-      headerClassAddon = 'clasic';
-    }
-
+    const transparentMode = (
+      path === '/'
+      || ((path === '/rejestracja'
+      || path === '/logowanie'
+      || path.includes('/odzyskiwanie_hasla')
+      || path.includes('/potwierdz_email'))
+      && window.innerWidth > 800
+      && window.innerHeight > 900));
     return (
       <div>
-        <header className={`nav__header ${headerClassAddon}`}>
+        <Header transparent={transparentMode}>
           {this.renderLogo()}
           {this.renderUserLogo()}
           <IconMenu
-            className="nav__menu"
             iconButtonElement={<IconButton iconStyle={{ minWidth: 30, minHeight: 30, marginTop: -2 }}><MenuIcon color="#fff" /></IconButton>}
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -87,7 +86,7 @@ class Nav extends Component {
             <MenuItem primaryText="Nowe hasło" value="/odzyskiwanie_hasla/123" />
             <MenuItem primaryText="Potwierdzenie maila" value="/potwierdz_email/123" />
           </IconMenu>
-        </header>
+        </Header>
       </div>
     );
   }

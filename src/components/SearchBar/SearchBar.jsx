@@ -5,7 +5,6 @@ import Paper from 'material-ui/Paper';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { grey500 } from 'material-ui/styles/colors';
-import './searchBar.scss';
 
 const getStyles = (props, state) => {
   const { value } = state;
@@ -66,9 +65,7 @@ export default class SearchBar extends Component {
 
   handleBlur = () => {
     this.setState({ focus: false });
-    if (this.state.value.trim().length === 0) {
-      this.setState({ value: '' });
-    }
+    if (this.state.value.trim().length === 0) this.setState({ value: '' });
   }
 
   handleInput = (e) => {
@@ -80,9 +77,7 @@ export default class SearchBar extends Component {
   }
 
   handleKeyPressed = (e) => {
-    if (e.charCode === 13) {
-      this.onRequestSearch();
-    }
+    if (e.charCode === 13) this.onRequestSearch();
   }
 
   render() {

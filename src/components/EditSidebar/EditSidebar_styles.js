@@ -1,29 +1,28 @@
-@import '../../scss/variables';
+import styled from 'styled-components';
+import Tooltip from 'react-tooltip';
+import { colorPalette, media } from '../../js/constants';
 
-.editSidebar__container {
+export const Container = styled.div`
   z-index: 2001;
   position: fixed;
   top: 60px;
-  left: 0;
+  left: ${props => props.open ? 0 : '-150px'};
   width: 150px;
   height: 100vh;
-  background-color: $primary-color-dark;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
-  transition: all .3s linear;
+  background-color: ${colorPalette.primary2Color};
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 10px, rgba(0, 0, 0, 0.23) 0 3px 10px;
+  transition: all 0.3s linear;
 
-  &.hidden {
-    left: -150px;
-    .editSidebar__containerArrow {
-      left: 0;
-    }
+  > div {
+    left: ${props => props.open || 0};
   }
 
-  @media (max-width: 700px) {
+  ${media.small`
     display: none;
-  }
-}
+  `}
+`;
 
-.editSidebar__containerArrow {
+export const ContainerArrow = styled.div`
   z-index: 0;
   position: fixed;
   top: 100px;
@@ -34,9 +33,9 @@
   width: 30px;
   height: 80px;
   border-radius: 0 2px 2px 0;
-  background-color: $primary-color-dark;
+  background-color: ${colorPalette.primary2Color};
   box-shadow: rgba(0, 0, 0, 0.16) 4px 3px 7px, rgba(0, 0, 0, 0.23) 4px 3px 7px;
-  transition: all .3s linear;
+  transition: all 0.3s linear;
 
   &:hover {
     cursor: pointer;
@@ -46,9 +45,9 @@
     font-size: 18px;
     color: #fff;
   }
-}
+`;
 
-.editSidebar__wrapper {
+export const Wrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -56,9 +55,9 @@
   width: 100%;
   height: 100%;
   padding: 20px 15px;
-}
+`;
 
-.editSidebar__title {
+export const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,9 +68,9 @@
   text-transform: uppercase;
   text-align: center;
   color: #fff;
-}
+`;
 
-.editSidebar__modules {
+export const Modules = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   display: flex;
@@ -82,28 +81,28 @@
   margin: 20px 0;
 
   &::-webkit-scrollbar-track {
-  	border-radius: 10px;
-  	background-color:trensparent;
+    border-radius: 10px;
+    background-color: trensparent;
   }
 
   &::-webkit-scrollbar {
-  	width: 8px;
-  	background-color: trensparent;
-    transition: all .3s;
+    width: 8px;
+    background-color: trensparent;
+    transition: all 0.3s;
   }
 
   &::-webkit-scrollbar-thumb {
-  	border-radius: 10px;
-  	background-color: rgba(#fff, .2);
-    transition: all .3s;
+    border-radius: 10px;
+    background-color: rgba(#fff, 0.2);
+    transition: all 0.3s;
 
     &:hover {
-      background-color: rgba(#fff, .8);
+      background-color: rgba(#fff, 0.8);
     }
   }
-}
+`;
 
-.editSidebar__iconWrapper {
+export const IconWrapper = styled.div`
   position: relative;
   left: 4px;
   display: flex;
@@ -117,9 +116,9 @@
   margin-bottom: 30px;
   background-color: #fff;
   font-size: 24px;
-  color: $primary-color-dark;
-  opacity: .8;
-  transition: all .3s;
+  color: ${colorPalette.primary2Color};
+  opacity: 0.8;
+  transition: all 0.3s;
 
   &:last-child {
     margin-bottom: 0;
@@ -129,45 +128,47 @@
     cursor: pointer;
     opacity: 1;
   }
-}
+`;
 
-.editSidebar__icon {
-  max-width: 30px;
-  max-height: 30px;
-  fill: $primary-color-dark;
-}
+export const SidebarIcon = styled.div`
+  > svg {
+    max-width: 30px;
+    max-height: 30px;
+    fill: ${colorPalette.primary2Color};
+  }
+`;
 
-.editSidebar__bottomIcons {
+export const BottomIcons = styled.div`
   position: relative;
   bottom: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: auto;
-}
+`;
 
-.editSidebar__specialBtn {
+export const ReactTooltip = styled(Tooltip)`
+  font-size: 16px !important;
+  transition: opacity 0.3s !important;
+`;
+
+export const SpecialBtn = styled.i`
   font-size: 36px;
   color: #fff;
-  transition: all .3s;
+  transition: all 0.3s;
 
   &:hover {
     cursor: pointer;
   }
-}
+`;
 
-.editSidebar__settings {
+export const SettingsIcon = styled.i`
   margin-top: 20px;
   font-size: 36px;
   color: #fff;
-  transition: all .3s;
+  transition: all 0.3s;
 
   &:hover {
     cursor: pointer;
   }
-}
-
-.editSidebar__tooltip {
-  font-size: 16px !important;
-  transition: opacity .3s !important;
-}
+`;

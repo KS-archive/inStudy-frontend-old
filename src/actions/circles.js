@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { getCookie } from '../js/cookies';
+import map from 'lodash/map';
+import { getTokenHeader } from '../js/utils';
 import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, CHANGE_LOGO, CHANGE_CARD_DATA } from './types';
 
 export function getCircles(page, limit, query, city, university, type, category, subcategory) {
-  const queryString = query ? `&query=${query}` : '';
-  const cityString = city ? `&city=${city}` : '';
-  const universityString = university ? `&university=${university}` : '';
-  const typeString = type ? `&type=${type}` : '';
-  const categoryString = category ? `&category=${category}` : '';
-  const subcategoryString = subcategory ? `&subcategory=${subcategory}` : '';
-  const url = `${__ROOT_URL__}api/circles?page=${page}&limit=${limit}${queryString}${cityString}${universityString}${typeString}${categoryString}${subcategoryString}`;
+  const optionalParams = { query, city, university, type, category, subcategory };
+  let urlDetails = '';
+  map(optionalParams, (value, key) => {
+    if (value) urlDetails += `&${key}=${key}`;
+  });
+  const url = `${__ROOT_URL__}api/circles?page=${page}&limit=${limit}${urlDetails}`;
   const request = axios.get(url);
 
   return (dispatch) => {
@@ -24,14 +24,11 @@ export function getCircles(page, limit, query, city, university, type, category,
 
 export function getActiveCircle() {
   const url = `${__ROOT_URL__}api//user/getInfo`;
-  const headers = {
-    Authorization: `cos ${getCookie('token')}`,
-  };
+  const headers = getTokenHeader();
   const request = axios.post(url, null, { headers });
 
   return (dispatch) => {
     request.then(({ data }) => {
-      console.log(data);
       dispatch({
         type: FETCH_ACTIVE_CIRCLE,
         payload: data[0],
@@ -56,9 +53,7 @@ export function getPublicCircle(circleURL) {
 
 export function changeLogo(file) {
   const url = `${__ROOT_URL__}api/user/getInfo`;
-  const headers = {
-    Authorization: `cos ${getCookie('token')}`,
-  };
+  const headers = getTokenHeader();
   const request = axios.post(url, file, { headers });
 
   return (dispatch) => {
@@ -73,14 +68,11 @@ export function changeLogo(file) {
 
 export function changeCardData(newData, callback) {
   const url = `${__ROOT_URL__}api/edit/basics`;
-  const headers = {
-    Authorization: `cos ${getCookie('token')}`,
-  };
+  const headers = getTokenHeader();
   const request = axios.put(url, newData, { headers });
 
   return (dispatch) => {
     request.then(({ data }) => {
-      console.log(data);
       dispatch({
         type: CHANGE_CARD_DATA,
         payload: newData,
