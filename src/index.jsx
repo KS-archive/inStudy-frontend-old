@@ -31,6 +31,8 @@ import EditProfile from './views/EditProfile/EditProfile';
 import PasswordRecoveryNew from './views/PasswordRecoveryNew/PasswordRecoveryNew';
 import ConfirmEmail from './views/ConfirmEmail/ConfirmEmail';
 
+import { colorPalette } from './js/constants';
+
 // Main styles import.
 import './scss/global.scss';
 
@@ -47,16 +49,7 @@ const store = createStoreWithMiddleware(
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: '#3F51B5',
-    primary2Color: '#303F9F',
-    primary3Color: '#C5CAE9',
-    accent1Color: '#4CAF50',
-    accent2Color: '#BDBDBD',
-    accent3Color: '#757575',
-    textColor: '#212121',
-    pickerHeaderColor: '#3F51B5',
-  },
+  palette: colorPalette,
   button: {
     height: 50,
     minwidth: 190,

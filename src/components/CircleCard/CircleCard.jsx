@@ -1,46 +1,49 @@
 import React, { Component } from 'react';
-import ReactTooltip from 'react-tooltip';
-import Recruitment from 'material-ui/svg-icons/social/notifications-active';
-import OpenProjects from 'material-ui/svg-icons/social/people';
-import './circleCard.scss';
+import find from 'lodash/find';
+import { Container, LogoContainer, Logo, Name, Category, BottomLine, UniversityLogo, InfoIcons, InfoIcon, TypeIcon, ReactTooltip } from './circleCard_styles';
+import { InitiativeTypes, CircleFlags } from '../../js/constants';
 
 export default class CircleCard extends Component {
   renderTypeIcon = (type) => {
-    let icon;
-    switch (type) {
-      case 'Koło Naukowe': icon = 'K'; break;
-      case 'Organizacja': icon = 'O'; break;
-      case 'Fundacja': icon = 'F'; break;
-      case 'Stowarzyszenie': icon = 'S'; break;
-      case 'Inny': icon = 'I'; break;
-      default: icon = '?';
-    }
+    const InitiativeType = find(InitiativeTypes, o => o.type === type);
+    const icon = (InitiativeType) ? InitiativeType.icon : '?';
+    return <TypeIcon data-tip={type}>{icon}</TypeIcon>;
+  }
 
-    return <div className="circleCard__typeIcon" data-tip={type}>{icon}</div>;
+  renderFlags = (flags) => {
+    if (flags && flags.length) {
+      const InfoIconStyle = { color: '#fff', style: { maxHeight: 20 } };
+      return flags.map((flag) => {
+        const IconComponent = CircleFlags[flag];
+        return (
+          <InfoIcon data-tip="Rekrutuje">
+            <IconComponent {...InfoIconStyle} />
+          </InfoIcon>
+        );
+      });
+    }
+    return null;
   }
 
   render() {
-    console.log(this.props);
     const { type, onClick, logo, name, category, subcategory, university, flags } = this.props;
+    const logoSrc = logo || './img/placeholders/logo.png';
     return (
-      <div className="circleCard__container" onClick={onClick}>
-        <div className="circleCard__logoContainer">
-          <img src={(logo) || './img/placeholders/logo.png'} alt={`${name} - logo`} className="circleCard__logo" />
-        </div>
-        <h3 className="circleCard__name">{name}</h3>
-        <p className="circleCard__category">{`${category}, ${subcategory}`}</p>
-        <div className="circleCard__bottomLine">
-          <img className="circleCard__university" data-tip={university} src={`./img/universities/${university}.png`} alt={`${university} - logo`} />
-          <div className="circleCard__infoIcons">
-            {(flags && flags.includes('recruitment'))
-              && <div className="circleCard__infoIcon" data-tip="Rekrutuje"><Recruitment color="#fff" style={{ maxHeight: 20 }} /></div>}
-            {(flags && flags.includes('open_projects'))
-              && <div className="circleCard__infoIcon" data-tip="Otwarte projekty"><OpenProjects color="#fff" style={{ maxHeight: 20 }} /></div>}
+      <Container onClick={onClick}>
+        <LogoContainer>
+          <Logo src={logoSrc} alt={`${name} - logo`} />
+        </LogoContainer>
+        <Name>{name}</Name>
+        <Category>{`${category}, ${subcategory}`}</Category>
+        <BottomLine>
+          <UniversityLogo data-tip={university} src={`./img/universities/${university}.png`} alt={`${university} - logo`} />
+          <InfoIcons>
+            {this.renderFlags(flags)}
             {this.renderTypeIcon(type)}
-          </div>
-          <ReactTooltip effect="solid" className="circleCard__tooltip" />
-        </div>
-      </div>
+          </InfoIcons>
+          <ReactTooltip effect="solid" />
+        </BottomLine>
+      </Container>
     );
   }
 }
