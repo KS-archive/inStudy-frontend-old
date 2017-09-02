@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
 import reduxForm from 'redux-form/lib/reduxForm';
-import Field from 'redux-form/lib/Field';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
 import { cities, types, categories } from '../../js/constants/filterData';
 import { changeCardData } from '../../actions/circles';
-import './cardEditDialog.scss';
+import { EditDialog } from '../../js/globalStyles';
+import { StyledField, Form } from './CardEditDialog_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
@@ -52,10 +50,13 @@ class CardEditDialog extends Component {
     this.setState({ subcategories });
   }
 
+  makeActivityInfoUpdateHandler = () => {
+    this.activityFormButton.click();
+  }
+
   renderTextField(name, label, type, isRequired) {
     return (
-      <Field
-        className="cardEditDialog__field"
+      <StyledField
         name={name}
         type={type}
         component={TextField}
@@ -71,7 +72,6 @@ class CardEditDialog extends Component {
   renderSelectField(name, label, items, changefc) {
     const fieldAttrs = {
       name,
-      className: 'cardEditDialog__field',
       component: SelectField,
       floatingLabelText: label,
       floatingLabelFocusStyle: { fontWeight: 500 },
@@ -82,30 +82,42 @@ class CardEditDialog extends Component {
     };
     return (items && items.length !== 0)
       ? (
-        <Field {...fieldAttrs}>
+        <StyledField {...fieldAttrs}>
           {Object.keys(items).map(key =>
             <MenuItem key={key} value={key} primaryText={items[key].name} />)
           }
-        </Field>
+        </StyledField>
       )
-      : <Field {...fieldAttrs} disabled />;
+      : <StyledField {...fieldAttrs} disabled />;
   }
 
   render() {
-    const { handleSubmit, open, closeDialog } = this.props;
-    const dialogStyle = this.props.sidebar ? { width: 'calc(100vw - 150px)', marginLeft: 150 } : {};
+    const { handleSubmit, closeDialog, submitting, pristine, destroy, open, sidebar } = this.props;
+    const actions = [
+      <FlatButton
+        label="Anuluj"
+        disabled={pristine || submitting}
+        onTouchTap={() => { closeDialog(); destroy(); }}
+      />,
+      <FlatButton
+        label="Zapisz zmiany"
+        onTouchTap={this.makeActivityInfoUpdateHandler}
+        disabled={submitting}
+        primary
+      />,
+    ];
 
     return (
-      <Dialog
+      <EditDialog
         open={open}
-        onRequestClose={closeDialog}
-        className="modal__container edit"
-        bodyClassName="cardEditDialog__container"
-        style={dialogStyle}
+        onRequestClose={() => { closeDialog(); destroy(); }}
+        actions={actions}
+        title="Edytuj podstawowe dane"
         autoScrollBodyContent
+        repositionOnUpdate={false}
+        isSidebar={sidebar}
       >
-        <form className="cardEditDialog__form" onSubmit={handleSubmit(this.onSubmit)}>
-          <h1 className="cardEditDialog__header">Edytuj podstawowe dane</h1>
+        <Form onSubmit={handleSubmit(this.onSubmit)}>
           {this.renderTextField('name', 'Nazwa aktywności', 'text', true)}
           {this.renderSelectField('type', 'Typ aktywności', types)}
           {this.renderSelectField('category', 'Kategoria', categories, (e, key) => { this.setSubcategories(key); })}
@@ -116,23 +128,9 @@ class CardEditDialog extends Component {
           {this.renderTextField('phone', 'Telefon', 'text')}
           {this.renderTextField('dateCreated', 'Data założenia', 'text')}
           {this.renderTextField('motto', 'Motto', 'text')}
-          <div className="cardEditDialog__buttonContainer">
-            <FlatButton
-              className="cardEditDialog__button"
-              label="Anuluj"
-              labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
-              onClick={closeDialog}
-            />
-            <RaisedButton
-              className="cardEditDialog__button"
-              label="Zapisz zmiany"
-              labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
-              type="submit"
-              primary
-            />
-          </div>
-        </form>
-      </Dialog>
+          <button style={{ visibility: 'hidden', position: 'fixed' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />
+        </Form>
+      </EditDialog>
     );
   }
 }

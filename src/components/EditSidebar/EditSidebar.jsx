@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import accesibleModules from '../../js/constants/accesibleModules';
-import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, ReactTooltip, SpecialBtn, SettingsIcon } from './EditSidebar_styles';
+import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, ReactTooltip, SpecialBtn, SettingsIcon, Filler } from './EditSidebar_styles';
 
 export default class EditSidebar extends Component {
   constructor(props) {
@@ -77,19 +77,22 @@ export default class EditSidebar extends Component {
     const arrowDirection = sidebar ? 'left' : 'right';
 
     return (
-      <Container open={sidebar}>
-        <ContainerArrow onClick={toggleSidebar}>
-          <i className={`fa fa-chevron-${arrowDirection}`} aria-hidden="true" />
-        </ContainerArrow>
-        <Wrapper>
-          <Title>{mode}</Title>
-          {this.renderModules(mode)}
-          <BottomIcons>
-            {this.renderSpecialBtn(mode)}
-            <SettingsIcon className="fa fa-cog" aria-hidden="true" />
-          </BottomIcons>
-        </Wrapper>
-      </Container>
+      <div>
+        <Container open={sidebar}>
+          <ContainerArrow onClick={toggleSidebar}>
+            <i className={`fa fa-chevron-${arrowDirection}`} aria-hidden="true" />
+          </ContainerArrow>
+          <Wrapper>
+            <Title>{mode}</Title>
+            {this.renderModules(mode)}
+            <BottomIcons>
+              {this.renderSpecialBtn(mode)}
+              <SettingsIcon className="fa fa-cog" aria-hidden="true" />
+            </BottomIcons>
+          </Wrapper>
+        </Container>
+        <Filler open={sidebar} />
+      </div>
     );
   }
 }

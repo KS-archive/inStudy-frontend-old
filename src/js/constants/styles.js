@@ -47,8 +47,18 @@ export const media = {
       ${css(...args)}
     }
   `,
+  large__x_large: (...args) => css`
+    @media (min-width: 1201px) and (max-width: 1600px) {
+      ${css(...args)}
+    }
+  `,
   x_large: (...args) => css`
-    @media (min-width: 1201px) {
+    @media (max-width: 1600px) {
+      ${css(...args)}
+    }
+  `,
+  xx_large: (...args) => css`
+    @media (min-width: 1601px) {
       ${css(...args)}
     }
   `,

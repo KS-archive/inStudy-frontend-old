@@ -13,7 +13,7 @@ export const Container = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0 3px 10px, rgba(0, 0, 0, 0.23) 0 3px 10px;
   transition: all 0.3s linear;
 
-  > div {
+  > div:first-child {
     left: ${props => props.open || 0};
   }
 
@@ -171,4 +171,19 @@ export const SettingsIcon = styled.i`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const Filler = styled.div`
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.3);
+  visibility: ${props => props.open ? 'visible' : 'hidden'};
+  ${media.small`
+    display: none;
+  `}
 `;

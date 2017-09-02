@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Field from 'redux-form/lib/Field';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
 import socials from '../../../js/constants/socials';
-import './renderSocials.scss';
+import { StyledField, SocialFields, DeleteSocial, AddSocialFields } from './RenderSocials_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
@@ -15,32 +14,20 @@ export default class renderSocials extends Component {
     });
   }
 
-  renderTextField = (name, label) => (
-    <Field
-      className="renderSocials__field"
-      name={name}
-      component={TextField}
-      floatingLabelText={label}
-      floatingLabelFocusStyle={{ fontWeight: 500 }}
-      floatingLabelShrinkStyle={{ fontWeight: 900 }}
-      style={{ fontWeight: 500 }}
-      validate={required}
-    />
-  );
-
-  renderSelectField = (name, label, items) => {
-    if (items && items.length !== 0) {
-      return (
-        <Field
-          className="renderSocials__field"
-          name={name}
-          component={SelectField}
-          floatingLabelText={label}
-          floatingLabelFocusStyle={{ fontWeight: 500 }}
-          floatingLabelShrinkStyle={{ fontWeight: 900 }}
-          style={{ fontWeight: 500 }}
-          validate={required}
-        >
+  renderField = (name, label, items = null) => {
+    const isSelectField = !!items;
+    const FieldAttrs = {
+      name,
+      component: isSelectField ? SelectField : TextField,
+      floatingLabelText: label,
+      floatingLabelFocusStyle: { fontWeight: 500 },
+      floatingLabelShrinkStyle: { fontWeight: 900 },
+      style: { fontWeight: 500 },
+      validate: required,
+    };
+    return (isSelectField)
+      ? (
+        <StyledField {...FieldAttrs} >
           {Object.keys(items).map(key => (
             <MenuItem
               key={key}
@@ -48,39 +35,27 @@ export default class renderSocials extends Component {
               primaryText={items[key].name}
             />))
           }
-        </Field>
-      );
-    }
-    return (
-      <Field
-        className="renderSocials__field"
-        name={name}
-        component={SelectField}
-        floatingLabelText={label}
-        floatingLabelFocusStyle={{ fontWeight: 500 }}
-        floatingLabelShrinkStyle={{ fontWeight: 900 }}
-        style={{ fontWeight: 500 }}
-        disabled
-      />
-    );
-  };
+        </StyledField>
+      )
+      : <StyledField {...FieldAttrs} />;
+  }
 
   render() {
     const fields = this.props.fields;
     return (
       <div>
         {fields.map((social, index) => (
-          <li className="renderSocials__social" key={index}>
-            {this.renderSelectField(`${social}.id`, 'Typ aktywności', socials)}
-            {this.renderTextField(`${social}.link`, 'Link do profilu')}
-            <div className="renderSocials__deleteSocial" onClick={() => fields.remove(index)}>
+          <SocialFields key={index}>
+            {this.renderField(`${social}.id`, 'Typ aktywności', socials)}
+            {this.renderField(`${social}.link`, 'Link do profilu')}
+            <DeleteSocial onClick={() => fields.remove(index)}>
               <i className="fa fa-times" aria-hidden="true" />
-            </div>
-          </li>
+            </DeleteSocial>
+          </SocialFields>
         ))}
-        <div className="renderSocials__add" onClick={() => fields.push({})}>
+        <AddSocialFields onClick={() => fields.push({})}>
           <i className="fa fa-plus" aria-hidden="true" />
-        </div>
+        </AddSocialFields>
       </div>
     );
   }

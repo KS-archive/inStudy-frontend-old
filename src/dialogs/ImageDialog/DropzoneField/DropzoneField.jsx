@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Dropzone from 'react-dropzone';
-import './dropzoneField.scss';
+import { StyledDropzone, Text, ImageError } from './DropzoneField_styles';
 
 export default class DropzoneField extends Component {
   constructor(props) {
@@ -21,14 +20,13 @@ export default class DropzoneField extends Component {
   }
 
   render() {
-    const preview = (this.state.file && this.state.file.preview) || this.props.currentImage;
+    const { file, error } = this.state;
+    const preview = (file && file.preview) || this.props.currentImage;
     return (
-      <div className="dropzoneField__container">
-        <Dropzone
+      <div>
+        <StyledDropzone
           accept="image/jpeg, image/png, image/jpg, image/svg"
-          className={`dropzoneField__dropzone ${preview && 'dropzoneField__withImg'}`}
-          activeClassName="dropzoneField__active"
-          rejectClassName="dropzoneField__reject"
+          preview={preview}
           style={{ backgroundImage: `url(${preview})` }}
           name={this.props.input.name}
           multiple={false}
@@ -36,10 +34,11 @@ export default class DropzoneField extends Component {
           onDrop={this.onDrop}
           onDropRejected={this.rejectImage}
         >
-          <div className="dropzoneField__text">Upuść tutaj plik ze zdjęciem</div>
-        </Dropzone>
-        {this.state.error &&
-        <div className="dropzoneField__error">{this.state.error}</div>}
+          <Text>Upuść tutaj plik ze zdjęciem</Text>
+        </StyledDropzone>
+        {error &&
+          <ImageError>{error}</ImageError>
+        }
       </div>
     );
   }

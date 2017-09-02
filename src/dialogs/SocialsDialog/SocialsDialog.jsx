@@ -1,50 +1,49 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
 import reduxForm from 'redux-form/lib/reduxForm';
 import FieldArray from 'redux-form/lib/FieldArray';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import RenderSocials from './RenderSocials/RenderSocials';
-import './socialsDialog.scss';
+import { EditDialog } from '../../js/globalStyles';
+import { Form } from './SocialsDialog_styles';
 
 class SocialsDialog extends Component {
+  makeActivityInfoUpdateHandler = () => {
+    this.activityFormButton.click();
+  }
+
   render() {
-    const { handleSubmit, submitting, pristine, reset } = this.props;
-    const dialogStyle = this.props.sidebar ? { width: 'calc(100vw - 150px)', marginLeft: 150 } : {};
+    const { handleSubmit, closeDialog, submitting, pristine, destroy, open, sidebar } = this.props;
+    const actions = [
+      <FlatButton
+        label="Anuluj"
+        disabled={pristine || submitting}
+        onTouchTap={() => { closeDialog(); destroy(); }}
+      />,
+      <FlatButton
+        label="Zapisz zmiany"
+        onTouchTap={this.makeActivityInfoUpdateHandler}
+        disabled={submitting}
+        primary
+      />,
+    ];
+
     return (
-      <Dialog
-        open={this.props.open}
-        onRequestClose={() => { this.props.closeDialog(); reset(); }}
-        className="modal__container edit"
-        bodyClassName="socialsDialog__container"
-        style={dialogStyle}
+      <EditDialog
+        open={open}
+        onRequestClose={() => { closeDialog(); destroy(); }}
+        actions={actions}
+        title="Edytuj social media"
         autoScrollBodyContent
+        repositionOnUpdate={false}
+        isSidebar={sidebar}
       >
-        <form
-          className="socialsDialog__form"
-          onSubmit={handleSubmit((values) => { this.props.submitFunction(values); reset(); })}
+        <Form
+          onSubmit={handleSubmit((values) => { this.props.submitFunction(values); destroy(); })}
         >
-          <h1 className="socialsDialog__header">Edytuj social media</h1>
           <FieldArray name="socials" component={RenderSocials} initialize={this.props.data} />
-          <div className="socialsDialog__buttonContainer">
-            <FlatButton
-              className="socialsDialog__button"
-              label="Anuluj"
-              labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
-              disabled={pristine || submitting}
-              onClick={() => { this.props.closeDialog(); reset(); }}
-            />
-            <RaisedButton
-              className="socialsDialog__button"
-              label="Zapisz zmiany"
-              labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
-              type="submit"
-              disabled={submitting}
-              primary
-            />
-          </div>
-        </form>
-      </Dialog>
+          <button style={{ visibility: 'hidden', position: 'fixed' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />
+        </Form>
+      </EditDialog>
     );
   }
 }

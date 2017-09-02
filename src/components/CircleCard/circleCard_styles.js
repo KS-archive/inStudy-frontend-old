@@ -22,7 +22,12 @@ export const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.19) 0 10px 30px, rgba(0, 0, 0, 0.23) 0 6px 10px;
   }
 
-  ${media.x_large`
+  ${media.xx_large`
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
+  `}
+  ${media.large__x_large`
     &:nth-child(4n) {
       margin-right: 0;
     }
