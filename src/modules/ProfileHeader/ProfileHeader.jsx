@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import map from 'lodash/map';
+import socials from '../../js/constants/socials';
 import './profileHeader.scss';
 
 export default class ProfileHeader extends Component {
-  renderSocials = (socials) => {
-    return map(socials, social => (
-      <a className="profileHeader__social" href={social.link} target="_blank" key={social.name}>
-        <i className={`fa fa-${social.name} social__${social.name} textHover`} aria-hidden="true" />
-      </a>
-    ));
-  }
+  renderSocials = socialsObj => map(socialsObj, social => (
+    <a className="profileHeader__social" href={social.link} target="_blank" key={social.id}>
+      <i className={`fa fa-${socials[social.id].iconName} social__${socials[social.id].iconName} textHover`} aria-hidden="true" />
+    </a>
+  ));
 
   render() {
-    const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, socials, colors, editable } = this.props;
+    const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, colors, editable } = this.props;
 
     const backgroundStyle = (backgroundImg)
       ? { backgroundImage: backgroundImg }
@@ -83,10 +82,10 @@ export default class ProfileHeader extends Component {
           </div>
           <div className="profileHeader__socials" style={{ backgroundColor: colors[0] }}>
             <div className="profileHeader__socialsContainer">
-              {this.renderSocials(socials)}
+              {this.renderSocials(this.props.socials)}
               {editable &&
                 <div className="profileHeader__socialEdit">
-                  <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={() => { this.props.openDialog('socials', socials); }} />
+                  <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={() => { this.props.openDialog('socials', this.props.socials); }} />
                 </div>
               }
             </div>

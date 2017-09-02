@@ -31,7 +31,7 @@ import EditProfile from './views/EditProfile/EditProfile';
 import PasswordRecoveryNew from './views/PasswordRecoveryNew/PasswordRecoveryNew';
 import ConfirmEmail from './views/ConfirmEmail/ConfirmEmail';
 
-import { colorPalette } from './js/constants';
+import { colorPalette } from './js/constants/styles';
 
 // Main styles import.
 import './scss/global.scss';

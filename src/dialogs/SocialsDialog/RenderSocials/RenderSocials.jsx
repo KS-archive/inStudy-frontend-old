@@ -3,7 +3,7 @@ import Field from 'redux-form/lib/Field';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
-import socials from '../../../js/socials';
+import socials from '../../../js/constants/socials';
 import './renderSocials.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
@@ -41,7 +41,13 @@ export default class renderSocials extends Component {
           style={{ fontWeight: 500 }}
           validate={required}
         >
-          {Object.keys(items).map(key => <MenuItem key={key} value={key} primaryText={items[key].name} />)}
+          {Object.keys(items).map(key => (
+            <MenuItem
+              key={key}
+              value={items[key].id}
+              primaryText={items[key].name}
+            />))
+          }
         </Field>
       );
     }
@@ -65,7 +71,7 @@ export default class renderSocials extends Component {
       <div>
         {fields.map((social, index) => (
           <li className="renderSocials__social" key={index}>
-            {this.renderSelectField(`${social}.name`, 'Typ aktywności', socials)}
+            {this.renderSelectField(`${social}.id`, 'Typ aktywności', socials)}
             {this.renderTextField(`${social}.link`, 'Link do profilu')}
             <div className="renderSocials__deleteSocial" onClick={() => fields.remove(index)}>
               <i className="fa fa-times" aria-hidden="true" />

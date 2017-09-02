@@ -1,5 +1,3 @@
-import Recruitment from 'material-ui/svg-icons/social/notifications-active';
-import OpenProjects from 'material-ui/svg-icons/social/people';
 import { css } from 'styled-components';
 
 export const colorPalette = {
@@ -54,32 +52,4 @@ export const media = {
       ${css(...args)}
     }
   `,
-};
-
-export const InitiativeTypes = {
-  1: {
-    type: 'Koło Naukowe',
-    icon: 'K',
-  },
-  2: {
-    type: 'Organizacja',
-    icon: 'O',
-  },
-  3: {
-    type: 'Fundacja',
-    icon: 'F',
-  },
-  4: {
-    type: 'Stowarzyszenie',
-    icon: 'S',
-  },
-  5: {
-    type: 'Inny',
-    icon: 'I',
-  },
-};
-
-export const CircleFlags = {
-  recruitment: Recruitment,
-  open_projects: OpenProjects,
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import accesibleModules from '../../js/accesibleModules';
+import accesibleModules from '../../js/constants/accesibleModules';
 import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, ReactTooltip, SpecialBtn, SettingsIcon } from './EditSidebar_styles';
 
 export default class EditSidebar extends Component {

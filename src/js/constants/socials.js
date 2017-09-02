@@ -1,0 +1,92 @@
+export default {
+  1: {
+    id: 1,
+    name: 'Bitbucket',
+    iconName: 'bitbucket',
+    color: '#205081',
+  },
+  2: {
+    id: 2,
+    name: 'Behance',
+    iconName: 'behance',
+    color: '#0B7CFF',
+  },
+  3: {
+    id: 3,
+    name: 'CodePen',
+    iconName: 'codepen',
+    color: '#000000',
+  },
+  4: {
+    id: 4,
+    name: 'Dribbble',
+    iconName: 'dribbble',
+    color: '#E84C88',
+  },
+  5: {
+    id: 5,
+    name: 'Facebook',
+    iconName: 'facebook',
+    color: '#3B5998',
+  },
+  6: {
+    id: 6,
+    name: 'flickr',
+    iconName: 'flickr',
+    color: '#0063DB',
+  },
+  7: {
+    id: 7,
+    name: 'GitHub',
+    iconName: 'github',
+    color: '#7F0081',
+  },
+  8: {
+    id: 8,
+    name: 'Instagram',
+    iconName: 'instagram',
+    color: '#D40D5E',
+  },
+  9: {
+    id: 9,
+    name: 'Linkedin',
+    iconName: 'linkedin',
+    color: '#1B84BB',
+  },
+  10: {
+    id: 10,
+    name: 'Medium',
+    iconName: 'medium',
+    color: '#18B475',
+  },
+  11: {
+    id: 11,
+    name: 'Pinterest',
+    iconName: 'pinterest',
+    color: '#BD081B',
+  },
+  12: {
+    id: 12,
+    name: 'Snapchat',
+    iconName: 'snapchat',
+    color: '#EFE200',
+  },
+  13: {
+    id: 13,
+    name: 'Twitter',
+    iconName: 'twitter',
+    color: '#6FAEDC',
+  },
+  14: {
+    id: 14,
+    name: 'YouTube',
+    iconName: 'youtube',
+    color: '#BC3428',
+  },
+  15: {
+    id: 15,
+    name: 'Strona internetowa',
+    iconName: 'code',
+    color: '#444444',
+  },
+};

@@ -1,10 +1,10 @@
-import SimpleTextIcon from '../icons/module_icons/Signs';
-import ProjectsTilesIcon from '../icons/module_icons/TilesView';
-import IconTextIcon from '../icons/module_icons/ThreeColumnsLayout';
-import NumbersIcon from '../icons/module_icons/Mathematics';
-import CollapsibleIcon from '../icons/module_icons/SixRowsLayoutInterfaceSymbol';
-import MembersTilesIcon from '../icons/module_icons/Business';
-import LinkImagesIcon from '../icons/module_icons/File';
+import SimpleTextIcon from '../../icons/module_icons/Signs';
+import ProjectsTilesIcon from '../../icons/module_icons/TilesView';
+import IconTextIcon from '../../icons/module_icons/ThreeColumnsLayout';
+import NumbersIcon from '../../icons/module_icons/Mathematics';
+import CollapsibleIcon from '../../icons/module_icons/SixRowsLayoutInterfaceSymbol';
+import MembersTilesIcon from '../../icons/module_icons/Business';
+import LinkImagesIcon from '../../icons/module_icons/File';
 
 export default [
   {

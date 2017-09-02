@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Tooltip from 'react-tooltip';
-import { colorPalette, media } from '../../js/constants';
+import { colorPalette, media } from '../../js/constants/styles';
 
 export const Container = styled.div`
   box-sizing: border-box;

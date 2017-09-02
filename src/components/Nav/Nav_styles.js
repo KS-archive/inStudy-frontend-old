@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import IconMenuStyles from 'material-ui/IconMenu';
-import { colorPalette } from '../../js/constants';
+import { colorPalette } from '../../js/constants/styles';
 
 export const Header = styled.div`
   position: fixed;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorPalette } from '../../js/constants';
+import { colorPalette } from '../../js/constants/styles';
 
 export const Container = styled.div`
   overflow: hidden;
