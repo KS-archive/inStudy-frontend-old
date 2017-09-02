@@ -100,47 +100,55 @@ class EditProfile extends Component {
           {(this.state.dialog === 'card') &&
           <CardEditDialog
             closeDialog={this.closeDialog}
-            open={this.state.dialog === 'card'}
+            open
             sidebar={this.state.sidebar}
             fetchCircle={this.props.getActiveCircle}
             {...this.state.dialogData}
           />
           }
+          {this.state.dialog === 'socials' &&
           <SocialsDialog
             closeDialog={this.closeDialog}
-            open={this.state.dialog === 'socials'}
+            open
             sidebar={this.state.sidebar}
             submitFunction={this.changeSocials}
             data={this.state.dialogData}
           />
-          <ImageDialog
-            closeDialog={this.closeDialog}
-            open={this.state.dialog === 'logo'}
-            sidebar={this.state.sidebar}
-            submitFunction={this.changeLogo}
-            width={310}
-            height={310}
-            maxSize={100000}
-            title="Edytuj logo"
-            data={this.state.dialogData}
-          />
-          <ImageDialog
-            closeDialog={this.closeDialog}
-            open={this.state.dialog === 'background'}
-            sidebar={this.state.sidebar}
-            submitFunction={this.changeBackground}
-            width={1920}
-            height={540}
-            maxSize={200000}
-            title="Edytuj zdjęcie w tle"
-            data={this.state.dialogData}
-          />
-          <SimpleTextDialog
-            closeDialog={this.closeDialog}
-            open={this.state.dialog === 'SimpleText'}
-            sidebar={this.state.sidebar}
-            data={this.state.dialogData}
-          />
+          }
+          {this.state.dialog === 'logo' &&
+            <ImageDialog
+              closeDialog={this.closeDialog}
+              open
+              sidebar={this.state.sidebar}
+              submitFunction={this.changeLogo}
+              width={310}
+              height={310}
+              maxSize={100000}
+              title="Edytuj logo"
+              data={this.state.dialogData}
+            />
+          }
+          {this.state.dialog === 'background' &&
+            <ImageDialog
+              closeDialog={this.closeDialog}
+              open
+              sidebar={this.state.sidebar}
+              submitFunction={this.changeBackground}
+              width={1920}
+              height={540}
+              maxSize={200000}
+              title="Edytuj zdjęcie w tle"
+              data={this.state.dialogData}
+            />
+          }
+          {this.state.dialog === 'SimpleText' &&
+            <SimpleTextDialog
+              closeDialog={this.closeDialog}
+              open
+              sidebar={this.state.sidebar}
+              data={this.state.dialogData}
+            />
+          }
         </div>
       );
     }

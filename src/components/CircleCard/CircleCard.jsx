@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import find from 'lodash/find';
 import { Container, LogoContainer, Logo, Name, Category, BottomLine, UniversityLogo, InfoIcons, InfoIcon, TypeIcon, ReactTooltip } from './circleCard_styles';
 import { CircleFlags } from '../../js/constants/circleDetails';
-import { initiativeTypes } from '../../js/constants/filterData';
+import { types } from '../../js/constants/filterData';
 
 export default class CircleCard extends Component {
   renderTypeIcon = (type) => {
-    const initiativeType = find(initiativeTypes, o => o.type === type);
+    const initiativeType = find(types, o => o.name === type);
     const icon = (initiativeType) ? initiativeType.icon : '?';
     return <TypeIcon data-tip={type}>{icon}</TypeIcon>;
   }

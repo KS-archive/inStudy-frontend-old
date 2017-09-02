@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import map from 'lodash/map';
+import find from 'lodash/find';
+import { cities, types, categories } from '../../js/constants/filterData';
 import socials from '../../js/constants/socials';
 import './profileHeader.scss';
 
 export default class ProfileHeader extends Component {
+  cityName = cities[this.props.city].name;
+  universityName = find(cities[this.props.city].universities, u => u.id === this.props.university).name;
+  typeName = types[this.props.type].name;
+  categoryName = categories[this.props.category].name;
+  subcategoryName = find(categories[this.props.category].subcategories, s => s.id === this.props.subcategory).name;
+
   renderSocials = socialsObj => map(socialsObj, social => (
     <a className="profileHeader__social" href={social.link} target="_blank" key={social.id}>
       <i className={`fa fa-${socials[social.id].iconName} social__${socials[social.id].iconName} textHover`} aria-hidden="true" />
@@ -45,18 +53,18 @@ export default class ProfileHeader extends Component {
             <div className="profileHeader__dataContainer">
               <h1 className="profileHeader__name">{name}</h1>
               <div className="profileHeader__labels">
-                <div className="profileHeader__label" style={{ backgroundColor: colors[0] }}>{type}</div>
-                <div className="profileHeader__label" style={{ backgroundColor: colors[2] }}>{category}</div>
-                <div className="profileHeader__label" style={{ backgroundColor: colors[2] }}>{subcategory}</div>
+                <div className="profileHeader__label" style={{ backgroundColor: colors[0] }}>{this.typeName}</div>
+                <div className="profileHeader__label" style={{ backgroundColor: colors[2] }}>{this.categoryName}</div>
+                <div className="profileHeader__label" style={{ backgroundColor: colors[2] }}>{this.subcategoryName}</div>
               </div>
               <div className="profileHeader__textContainer">
                 <div className="profileHeader__textRow">
                   <p className="profileHeader__textTitle">Uczelnia</p>
-                  <p className="profileHeader__textContent">{university}</p>
+                  <p className="profileHeader__textContent">{this.universityName}</p>
                 </div>
                 <div className="profileHeader__textRow">
                   <p className="profileHeader__textTitle">Miasto</p>
-                  <p className="profileHeader__textContent">{city}</p>
+                  <p className="profileHeader__textContent">{this.cityName}</p>
                 </div>
                 <div className="profileHeader__textRow">
                   <p className="profileHeader__textTitle">E-mail</p>

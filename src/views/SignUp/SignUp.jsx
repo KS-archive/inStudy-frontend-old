@@ -10,16 +10,18 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
 import { addNotification } from '../../actions/notifications';
-import { fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories } from '../../actions/helpers';
+import { cities, types, categories } from '../../js/constants/filterData';
 import './signUp.scss';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
 class SignUp extends Component {
-  componentWillMount() {
-    this.props.fetchCities();
-    this.props.fetchTypes();
-    this.props.fetchCategories();
+  constructor(props) {
+    super(props);
+    this.state = {
+      universities: null,
+      subcategories: null,
+    };
   }
 
   onSubmit = (values) => {
@@ -29,6 +31,18 @@ class SignUp extends Component {
     }, ({ response }) => {
       this.props.addNotification('Wystąpił błąd', response.data.message, 'error');
     });
+  }
+
+  setUniversities = (cityId) => {
+    this.props.change('university', null);
+    const universities = cities[cityId].universities;
+    this.setState({ universities });
+  }
+
+  setSubcategories = (categoryId) => {
+    this.props.change('subcategory', null);
+    const subcategories = categories[categoryId].subcategories;
+    this.setState({ subcategories });
   }
 
   renderTextField(name, label, type) {
@@ -48,37 +62,26 @@ class SignUp extends Component {
   }
 
   renderSelectField(name, label, items, changefc) {
-    if (items && items.length !== 0) {
-      return (
-        <Field
-          className="signup__field"
-          name={name}
-          component={SelectField}
-          floatingLabelText={label}
-          floatingLabelFocusStyle={{ fontWeight: 500 }}
-          floatingLabelShrinkStyle={{ fontWeight: 900 }}
-          style={{ width: 295, fontWeight: 500 }}
-          validate={required}
-          onChange={changefc}
-        >
-          {Object.keys(items).map(key => <MenuItem key={key} value={items[key].id} primaryText={items[key].name} />)}
+    const fieldAttrs = {
+      name,
+      className: 'signup__field',
+      component: SelectField,
+      floatingLabelText: label,
+      floatingLabelFocusStyle: { fontWeight: 500 },
+      floatingLabelShrinkStyle: { fontWeight: 500 },
+      style: { width: 295, fontWeight: 500 },
+      onChange: changefc,
+      validate: required,
+    };
+    return (items && items.length !== 0)
+      ? (
+        <Field {...fieldAttrs}>
+          {Object.keys(items).map(key =>
+            <MenuItem key={key} value={key} primaryText={items[key].name} />)
+          }
         </Field>
-      );
-    }
-    return (
-      <Field
-        className="signup__field"
-        name={name}
-        component={SelectField}
-        floatingLabelText={label}
-        floatingLabelFocusStyle={{ fontWeight: 500 }}
-        floatingLabelShrinkStyle={{ fontWeight: 900 }}
-        style={{ width: 295, fontWeight: 500 }}
-        validate={required}
-        onChange={changefc}
-        disabled
-      />
-    );
+      )
+      : <Field disabled {...fieldAttrs} />;
   }
 
   render() {
@@ -92,12 +95,12 @@ class SignUp extends Component {
             {this.renderTextField('email', 'E-mail', 'text')}
             {this.renderTextField('password', 'Hasło', 'password')}
             {this.renderTextField('password2', 'Powtórz hasło', 'password')}
-            {this.renderSelectField('city', 'Miasto', this.props.selectHelpers.cities, (e, key) => { this.props.fetchUniversities(key); })}
-            {this.renderSelectField('university', 'Uczelnia', this.props.selectHelpers.universities)}
+            {this.renderSelectField('city', 'Miasto', cities, (e, key) => { this.setUniversities(key); })}
+            {this.renderSelectField('university', 'Uczelnia', this.state.universities)}
             {this.renderTextField('name', 'Nazwa aktywności', 'text')}
-            {this.renderSelectField('type', 'Typ aktywności', this.props.selectHelpers.types)}
-            {this.renderSelectField('category', 'Kategoria', this.props.selectHelpers.categories, (e, key) => { this.props.fetchSubactegories(key); })}
-            {this.renderSelectField('subcategory', 'Podkategoria', this.props.selectHelpers.subcategories)}
+            {this.renderSelectField('type', 'Typ aktywności', types)}
+            {this.renderSelectField('category', 'Kategoria', categories, (e, key) => { this.setSubcategories(key); })}
+            {this.renderSelectField('subcategory', 'Podkategoria', this.state.subcategories)}
             {this.renderTextField('tags', 'Tagi')}
             <div className="signup__buttonContainer">
               <RaisedButton
@@ -146,7 +149,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addNotification, fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories }, dispatch);
+  return bindActionCreators({ addNotification }, dispatch);
 }
 
 export default reduxForm({
