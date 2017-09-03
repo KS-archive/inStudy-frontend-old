@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
+import { inputStyle } from '../../js/constants/styles';
 import { Form, StyledField } from './SimpleTextDialog_styles';
 import { EditDialog } from '../../js/globalStyles';
 
@@ -54,12 +55,10 @@ class SimpleTextDialog extends Component {
       name={name}
       component={TextField}
       floatingLabelText={label}
-      floatingLabelFocusStyle={{ fontWeight: 500 }}
-      floatingLabelShrinkStyle={{ fontWeight: 900 }}
-      style={{ fontWeight: 500 }}
       validate={required}
       multiLine={multiLine}
       rows={rows}
+      {...inputStyle}
     />
   );
 
@@ -68,7 +67,7 @@ class SimpleTextDialog extends Component {
     const title = this.props.data._id
       ? 'Edytuj moduł typu „Tekst (markdown)”'
       : 'Dodaj moduł typu „Tekst (markdown)”';
-    const { handleSubmit, closeDialog, submitting, pristine, open } = this.props;
+    const { handleSubmit, submitting, pristine, open } = this.props;
     const actions = [
       <FlatButton
         label="Anuluj"

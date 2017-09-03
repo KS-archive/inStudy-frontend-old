@@ -12,3 +12,11 @@ export const getTokenHeader = () => {
 };
 
 export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+export const hasAnyValue = (obj) => {
+  for (let key in obj) {
+    if (obj[key] !== null)
+      return true;
+    }
+  return false;
+};

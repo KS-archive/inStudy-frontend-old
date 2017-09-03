@@ -11,6 +11,12 @@ export const colorPalette = {
   pickerHeaderColor: '#3F51B5',
 };
 
+export const inputStyle = {
+  floatingLabelFocusStyle: { fontWeight: 500 },
+  floatingLabelShrinkStyle: { fontWeight: 900 },
+  style: { fontWeight: 500 },
+};
+
 export const media = {
   x_small: (...args) => css`
     @media (max-width: 540px) {

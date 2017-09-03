@@ -107,6 +107,8 @@ export const EditDialog = styled(Dialog)`
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
+    justify-content: flex-end;
+    border: none !important;
 
     &::-webkit-scrollbar-track {
       box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

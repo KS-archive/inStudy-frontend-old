@@ -3,6 +3,7 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
 import socials from '../../../js/constants/socials';
+import { inputStyle } from '../../../js/constants/styles';
 import { StyledField, SocialFields, DeleteSocial, AddSocialFields } from './RenderSocials_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
@@ -20,10 +21,8 @@ export default class renderSocials extends Component {
       name,
       component: isSelectField ? SelectField : TextField,
       floatingLabelText: label,
-      floatingLabelFocusStyle: { fontWeight: 500 },
-      floatingLabelShrinkStyle: { fontWeight: 900 },
-      style: { fontWeight: 500 },
       validate: required,
+      ...inputStyle,
     };
     return (isSelectField)
       ? (
