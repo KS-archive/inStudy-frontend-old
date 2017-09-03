@@ -5,6 +5,7 @@ import { getCircles } from '../../actions/circles';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import CircleCard from '../../components/CircleCard/CircleCard';
+import { MainContainer } from '../../js/globalStyles';
 import './circles.scss';
 
 class Circles extends Component {
@@ -16,7 +17,7 @@ class Circles extends Component {
     console.log(this.props.circles);
     return (
       <div className="circles__container">
-        <div className="body__container">
+        <MainContainer>
           <SearchBar />
           <div className="circles__searchFilters">
             <SearchFilters />
@@ -26,7 +27,7 @@ class Circles extends Component {
               this.props.circles.map(circle => <CircleCard key={circle._id} onClick={() => { this.props.history.push(`/inicjatywy/${circle.url}`); }} {...circle} />)
             }
           </div>
-        </div>
+        </MainContainer>
       </div>
     );
   }

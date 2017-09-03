@@ -12,6 +12,7 @@ import Collapsible from '../../modules/Collapsible/Collapsible';
 import LinkImages from '../../modules/LinkImages/LinkImages';
 import MembersTiles from '../../modules/MembersTiles/MembersTiles';
 import { getPublicCircle } from '../../actions/circles';
+import { MainContainer } from '../../js/globalStyles';
 import './publicProfile.scss';
 
 class PublicProfile extends Component {
@@ -44,12 +45,12 @@ class PublicProfile extends Component {
       const modules = pick(this.props.publicCircle, 'modules');
       return (
         <div className="publicProfile__container">
-          <div className="body__container">
+          <MainContainer>
             <ProfileHeader {...header} editable={false} />
             {(modules.modules) &&
               modules.modules.map(module => this.renderModule(module, header.colors))
             }
-          </div>
+          </MainContainer>
         </div>
       );
     }

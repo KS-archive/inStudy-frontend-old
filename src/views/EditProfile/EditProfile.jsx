@@ -16,8 +16,10 @@ import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import SimpleTextDialog from '../../dialogs/SimpleTextDialog/SimpleTextDialog';
+import CollapsibleDialog from '../../dialogs/CollapsibleDialog/CollapsibleDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
-import './editProfile.scss';
+import { MainContainer } from '../../js/globalStyles';
+import { Container, Wrapper } from './EditProfile_styles';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -90,30 +92,35 @@ class EditProfile extends Component {
       default: newComponent = null;
     }
     return (
-      <div className="editProfile__wrapper" key={index}>
-        {newComponent}
-      </div>
+      <Wrapper key={index}>{newComponent}</Wrapper>
     );
   }
 
   render() {
     if (this.props.activeCircle._id) {
-      const header = omit(this.props.activeCircle, 'modules');
-      const modules = pick(this.props.activeCircle, 'modules');
+      const { dialog, sidebar, mode, dialogData, modalFunctions, editingModule } = this.state;
+      const { activeCircle } = this.props;
+      const header = omit(activeCircle, 'modules');
+      const modules = pick(activeCircle, 'modules');
+      const EditSidebarData = { sidebar, mode, editingModule, modalFunctions };
+      const moduleData = {
+        sidebar,
+        open: true,
+        closeDialog: this.closeDialog,
+        data: dialogData,
+        setModalFunctions: this.setModalFunctions,
+      };
 
       return (
-        <div className="editProfile__container">
+        <Container>
           <EditSidebar
-            sidebar={this.state.sidebar}
-            mode={this.state.mode}
-            editingModule={this.state.editingModule}
-            modalFunctions={this.state.modalFunctions}
-            changeContent={(state) => { this.setState(state); }}
-            toggleSidebar={() => { this.setState({ sidebar: !this.state.sidebar }); }}
             openDialog={this.openDialog}
-            {...this.props.activeCircle}
+            changeContent={(state) => { this.setState(state); }}
+            toggleSidebar={() => { this.setState({ sidebar: !sidebar }); }}
+            {...EditSidebarData}
+            {...activeCircle}
           />
-          <div className="body__container">
+          <MainContainer>
             <ProfileHeader
               openDialog={this.openDialog}
               closeDialog={this.closeDialog}
@@ -121,63 +128,41 @@ class EditProfile extends Component {
               {...header}
             />
             {(modules.modules) &&
-              modules.modules.map((module, index) => this.renderModule(module, header.colors, index))
+              modules.modules.map((module, index) =>
+                this.renderModule(module, header.colors, index))
             }
-          </div>
-          {(this.state.dialog === 'card') &&
+          </MainContainer>
+          {(dialog === 'card') &&
           <CardEditDialog
-            closeDialog={this.closeDialog}
-            open
-            sidebar={this.state.sidebar}
             fetchCircle={this.props.getActiveCircle}
-            {...this.state.dialogData}
+            {...dialogData}
+            {...moduleData}
           />
           }
-          {this.state.dialog === 'socials' &&
-          <SocialsDialog
-            closeDialog={this.closeDialog}
-            open
-            sidebar={this.state.sidebar}
-            submitFunction={this.changeSocials}
-            data={this.state.dialogData}
-          />
-          }
-          {this.state.dialog === 'logo' &&
+          {dialog === 'socials' && <SocialsDialog submitFunction={this.changeSocials} {...moduleData} />}
+          {dialog === 'logo' &&
             <ImageDialog
-              closeDialog={this.closeDialog}
-              open
-              sidebar={this.state.sidebar}
               submitFunction={this.changeLogo}
               width={310}
               height={310}
               maxSize={100000}
               title="Edytuj logo"
-              data={this.state.dialogData}
+              {...moduleData}
             />
           }
-          {this.state.dialog === 'background' &&
+          {dialog === 'background' &&
             <ImageDialog
-              closeDialog={this.closeDialog}
-              open
-              sidebar={this.state.sidebar}
               submitFunction={this.changeBackground}
               width={1920}
               height={540}
               maxSize={200000}
               title="Edytuj zdjęcie w tle"
-              data={this.state.dialogData}
+              {...moduleData}
             />
           }
-          {this.state.dialog === 'SimpleText' &&
-            <SimpleTextDialog
-              closeDialog={this.closeDialog}
-              open
-              sidebar={this.state.sidebar}
-              data={this.state.dialogData}
-              setModalFunctions={this.setModalFunctions}
-            />
-          }
-        </div>
+          {dialog === 'SimpleText' && <SimpleTextDialog {...moduleData} />}
+          {dialog === 'Collapsible' && <CollapsibleDialog {...moduleData} />}
+        </Container>
       );
     }
     return null;

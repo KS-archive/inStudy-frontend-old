@@ -49,57 +49,6 @@ body::-webkit-scrollbar-thumb {
 	background-color: $secondary-text-color;
 }
 
-.body__container {
-  z-index: -2;
-  width: 1140px;
-  margin: 0 auto;
-
-  @media (max-width: 1200px) {
-    width: 900px;
-  }
-
-  @media (max-width: 960px) {
-    width: 680px;
-  }
-
-  @media (max-width: 700px) {
-    width: 90%;
-  }
-}
-
-.modal__container > div > div {
-  width: 1140px !important;
-  max-width: unset !important;
-
-  @media (max-width: 1200px) {
-    width: 900px !important;
-  }
-
-  @media (max-width: 960px) {
-    width: 680px !important;
-  }
-
-  @media (max-width: 700px) {
-    width: 90% !important;
-  }
-}
-
-.modal__container.edit > div > div {
-  width: 990px !important;
-
-  @media (max-width: 1200px) {
-    width: 800px !important;
-  }
-
-  @media (max-width: 960px) {
-    width: 530px !important;
-  }
-
-  @media (max-width: 700px) {
-    width: 90% !important;
-  }
-}
-
 .body__sectionHeader {
   margin: 0 auto 50px;
   font-size: 32px;

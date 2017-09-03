@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
 import ReactMarkdown from 'react-markdown';
+import { BasicDialog } from '../../js/globalStyles';
 import './projectDialog.scss';
 
 export default class ProjectDialog extends Component {
@@ -69,11 +69,9 @@ export default class ProjectDialog extends Component {
   render() {
     const mainImage = { backgroundImage: `url(${this.state.images[this.state.mainImage]})` };
     return (
-      <Dialog
+      <BasicDialog
         open={this.props.open}
         onRequestClose={this.props.closeDialog}
-        className="modal__container"
-        bodyClassName="projectDialog__container"
         autoScrollBodyContent
       >
         <div className="projectDialog__images">
@@ -110,7 +108,7 @@ export default class ProjectDialog extends Component {
             </div>
           }
         </div>
-      </Dialog>
+      </BasicDialog>
     );
   }
 }
