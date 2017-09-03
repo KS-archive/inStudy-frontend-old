@@ -13,6 +13,15 @@ class SimpleTextDialog extends Component {
     this.initialized = false;
   }
 
+  componentDidMount() {
+    this.props.setModalFunctions({
+      submit: this.makeActivityInfoUpdateHandler,
+      cancel: this.cancel,
+      remove: this.props.data._id ? this.remove : null,
+      changeColors: null,
+    });
+  }
+
   componentDidUpdate() {
     const { title, content } = this.props.data;
     if (!this.initialized && this.props.open) {
@@ -21,16 +30,26 @@ class SimpleTextDialog extends Component {
     }
   }
 
-  onSubmit = (values) => {
+  submit = (values) => {
     if (this.props.data.kind) console.log(values);
     else console.log(values);
+  }
+
+  cancel = () => {
+    this.props.closeDialog();
+    this.initialized = false;
+    this.props.destroy();
+  }
+
+  remove = () => {
+    console.log(this.props);
   }
 
   makeActivityInfoUpdateHandler = () => {
     this.activityFormButton.click();
   }
 
-  renderField = (name, label, multiLine = false) => (
+  renderField = (name, label, multiLine = false, rows = 1) => (
     <StyledField
       name={name}
       component={TextField}
@@ -40,16 +59,21 @@ class SimpleTextDialog extends Component {
       style={{ fontWeight: 500 }}
       validate={required}
       multiLine={multiLine}
+      rows={rows}
     />
   );
 
   render() {
-    const { handleSubmit, closeDialog, submitting, pristine, destroy, open } = this.props;
+    console.log(this.props);
+    const title = this.props.data._id
+      ? 'Edytuj moduł typu „Tekst (markdown)”'
+      : 'Dodaj moduł typu „Tekst (markdown)”';
+    const { handleSubmit, closeDialog, submitting, pristine, open } = this.props;
     const actions = [
       <FlatButton
         label="Anuluj"
         disabled={pristine || submitting}
-        onTouchTap={() => { this.props.closeDialog(); this.initialized = false; destroy(); }}
+        onTouchTap={this.cancel}
       />,
       <FlatButton
         label="Zapisz zmiany"
@@ -62,16 +86,16 @@ class SimpleTextDialog extends Component {
     return (
       <EditDialog
         open={open}
-        onRequestClose={() => { closeDialog(); this.initialized = false; destroy(); }}
+        onRequestClose={this.cancel}
         actions={actions}
-        title="Edytuj podstawowe dane"
+        title={title}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={this.props.sidebar}
       >
-        <Form onSubmit={handleSubmit(this.onSubmit)}>
+        <Form onSubmit={handleSubmit(this.submit)}>
           {this.renderField('title', 'Nazwa modułu')}
-          {this.renderField('content', 'Treść', true)}
+          {this.renderField('content', 'Treść', true, 4)}
           <button style={{ visibility: 'hidden' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />
         </Form>
       </EditDialog>
@@ -79,17 +103,6 @@ class SimpleTextDialog extends Component {
   }
 }
 
-function validate(values) {
-  const errors = {};
-
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Błędny adres email';
-  }
-
-  return errors;
-}
-
 export default reduxForm({
-  validate,
   form: 'SimpleTextDialogForm',
 })(SimpleTextDialog);

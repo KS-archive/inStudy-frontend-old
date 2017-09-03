@@ -26,6 +26,14 @@ class EditProfile extends Component {
       dialog: null,
       dialogData: {},
       sidebar: true,
+      mode: 'Moduły', // Moduły, Dodaj moduł, Edycja modułu, Dodawanie modułu
+      editingModule: null,
+      modalFunctions: {
+        submit: null,
+        cancel: null,
+        remove: null,
+        changeColors: null,
+      },
     };
   }
 
@@ -33,12 +41,27 @@ class EditProfile extends Component {
     this.props.getActiveCircle();
   }
 
+  setModalFunctions = (modalFunctions) => {
+    this.setState({ modalFunctions });
+  }
+
   openDialog = (name, data) => {
     this.setState({ dialog: name, dialogData: data });
   }
 
   closeDialog = () => {
-    this.setState({ dialog: null });
+    const mode = this.state.mode === 'Dodawanie modułu' ? 'Dodaj moduł' : 'Moduły';
+    this.setState({
+      dialog: null,
+      editingModule: null,
+      mode,
+      modalFunctions: {
+        submit: null,
+        cancel: null,
+        remove: null,
+        changeColors: null,
+      },
+    });
   }
 
   changeSocials = (value) => {
@@ -82,6 +105,10 @@ class EditProfile extends Component {
         <div className="editProfile__container">
           <EditSidebar
             sidebar={this.state.sidebar}
+            mode={this.state.mode}
+            editingModule={this.state.editingModule}
+            modalFunctions={this.state.modalFunctions}
+            changeContent={(state) => { this.setState(state); }}
             toggleSidebar={() => { this.setState({ sidebar: !this.state.sidebar }); }}
             openDialog={this.openDialog}
             {...this.props.activeCircle}
@@ -147,6 +174,7 @@ class EditProfile extends Component {
               open
               sidebar={this.state.sidebar}
               data={this.state.dialogData}
+              setModalFunctions={this.setModalFunctions}
             />
           }
         </div>

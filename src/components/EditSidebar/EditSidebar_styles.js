@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Tooltip from 'react-tooltip';
+import ReactTooltip from 'react-tooltip';
 import { colorPalette, media } from '../../js/constants/styles';
 
 export const Container = styled.div`
@@ -77,7 +77,7 @@ export const Modules = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 310px);
   margin: 20px 0;
 
   &::-webkit-scrollbar-track {
@@ -138,6 +138,20 @@ export const SidebarIcon = styled.div`
   }
 `;
 
+export const EditIconSet = styled.div`
+  position: relative;
+  left: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
 export const BottomIcons = styled.div`
   position: relative;
   bottom: 70px;
@@ -147,7 +161,8 @@ export const BottomIcons = styled.div`
   margin-top: auto;
 `;
 
-export const ReactTooltip = styled(Tooltip)`
+export const StyledReactTooltip = styled(ReactTooltip)`
+  z-index: 20000 !important;
   font-size: 16px !important;
   transition: opacity 0.3s !important;
 `;
@@ -162,14 +177,18 @@ export const SpecialBtn = styled.i`
   }
 `;
 
-export const SettingsIcon = styled.i`
-  margin-top: 20px;
+export const Icon = styled.i`
+  margin-top: 30px;
   font-size: 36px;
   color: #fff;
   transition: all 0.3s;
 
   &:hover {
     cursor: pointer;
+  }
+
+  &:first-child {
+    margin-top: 0;
   }
 `;
 
