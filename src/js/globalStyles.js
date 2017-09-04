@@ -74,8 +74,8 @@ export const EditDialog = styled(Dialog)`
   justify-content: center;
   padding-top: 0 !important;
   padding-bottom: 90px !important;
-  padding-left: ${props => props.isSidebar ? '150px' : 0};
-  width: ${props => props.isSidebar ? 'calc(100vw - 150px)' : '100vw'};
+  padding-left: ${props => props.isSidebar ? '120px' : 0};
+  width: ${props => props.isSidebar ? 'calc(100vw - 120px)' : '100vw'};
 
   /* Dialog body */
   > div > div {
@@ -91,7 +91,7 @@ export const EditDialog = styled(Dialog)`
       width: 530px !important;
     `}
     ${media.small`
-      width: 90% !important;
+      display: none !important;
     `}
   }
 

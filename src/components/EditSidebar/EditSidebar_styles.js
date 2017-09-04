@@ -6,8 +6,8 @@ export const Container = styled.div`
   z-index: 2001;
   position: fixed;
   top: 60px;
-  left: ${props => props.open ? 0 : '-150px'};
-  width: 150px;
+  left: ${props => props.open ? 0 : '-120px'};
+  width: 120px;
   height: 100vh;
   background-color: ${colorPalette.primary2Color};
   box-shadow: rgba(0, 0, 0, 0.16) 0 3px 10px, rgba(0, 0, 0, 0.23) 0 3px 10px;
@@ -26,7 +26,7 @@ export const ContainerArrow = styled.div`
   z-index: 0;
   position: fixed;
   top: 100px;
-  left: 150px;
+  left: 120px;
   display: flex;
   align-items: center;
   justify-content: center;

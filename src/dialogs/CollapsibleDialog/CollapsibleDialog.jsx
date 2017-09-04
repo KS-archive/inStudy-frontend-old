@@ -3,6 +3,8 @@ import FlatButton from 'material-ui/FlatButton';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
 import AddCollapsiblee from './AddCollapsible/AddCollapsible';
+import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
+import { hasAnyValue } from '../../js/utils';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './CollapsibleDialog_styles';
@@ -12,14 +14,45 @@ export default class SocialsDialog extends Component {
     super(props);
     this.state = {
       content: this.props.data.content || [],
+      title: this.props.data.title || undefined,
+      color: this.props.data.color,
       dialog: false,
       dialogData: null,
+      errors: {
+        title: null,
+      },
     };
     this.isEditModal = !!this.props.data._id;
   }
 
+  componentWillMount() {
+    this.props.setModalFunctions({
+      submit: this.submit,
+      cancel: this.props.closeDialog,
+      remove: this.props.data._id ? this.remove : null,
+      changeColors: this.openColorsDialog,
+    });
+  }
+
+  validate = (callback) => {
+    const errors = { ...this.state.errors };
+    const { title, content } = this.state;
+    errors.title = null;
+    if (!title || !title.trim()) errors.title = 'To pole jest wymagane';
+    else if (!content || content.length === 0) errors.title = 'Musisz dodać co najmniej jeden element do listy';
+    if (hasAnyValue(errors)) this.setState({ errors });
+    else callback();
+  }
+
   submit = () => {
-    console.log('submit');
+    this.validate(() => {
+      console.log(this.state.content);
+      this.props.closeDialog();
+    });
+  }
+
+  remove = () => {
+    console.log('removed!');
   }
 
   closeDialog = () => {
@@ -46,6 +79,10 @@ export default class SocialsDialog extends Component {
     this.setState({ content });
   }
 
+  openColorsDialog = () => {
+    this.setState({ dialog: 'colors', dialogData: [this.state.color] });
+  }
+
   renderElement = (el, index) => (
     <Card key={index}>
       <Content>
@@ -60,7 +97,7 @@ export default class SocialsDialog extends Component {
         <Icon
           className="fa fa-pencil-square-o"
           aria-hidden="true"
-          onClick={() => { this.setState({ dialog: true, dialogData: el }); }}
+          onClick={() => { this.setState({ dialog: 'element', dialogData: el }); }}
         />
         <Icon
           className="fa fa-trash-o"
@@ -73,7 +110,13 @@ export default class SocialsDialog extends Component {
 
   render() {
     const { closeDialog, open, sidebar } = this.props;
-    const { dialogData } = this.state;
+    const { dialog, dialogData } = this.state;
+    const dialogAttrs = {
+      sidebar,
+      open: true,
+      closeDialog: this.closeDialog,
+      data: dialogData,
+    };
     const actions = [
       <FlatButton
         label="Anuluj"
@@ -86,6 +129,7 @@ export default class SocialsDialog extends Component {
       />,
     ];
     console.log(this.props);
+
     return (
       <EditDialog
         open={open}
@@ -98,24 +142,31 @@ export default class SocialsDialog extends Component {
       >
         <Container>
           <StyledTextField
-            value={this.props.data.title}
+            value={this.state.title}
+            onChange={(e) => { this.setState({ title: e.target.value }); }}
             floatingLabelText="Tytuł (nagłówek modułu)"
+            errorText={this.state.errors.title}
             {...inputStyle}
           />
           <ElementsList>
             {this.state.content && this.state.content.map(this.renderElement)}
           </ElementsList>
-          <AddElement onClick={() => { this.setState({ dialog: true }); }}>
+          <AddElement onClick={() => { this.setState({ dialog: 'element' }); }}>
             + Dodaj nowy element
           </AddElement>
         </Container>
-        {this.state.dialog &&
+        {dialog === 'element' &&
           <AddCollapsiblee
-            open
-            sidebar={sidebar}
-            closeDialog={this.closeDialog}
             submit={(el) => { this.changeList(el, dialogData); }}
-            data={dialogData}
+            {...dialogAttrs}
+          />
+        }
+        {dialog === 'colors' &&
+          <ColorsDialog
+            submit={(colors) => { console.log(colors); this.setState({ color: colors[0] }); }}
+            names={['Kolor kafelka']}
+            mainColors={this.props.colors}
+            {...dialogAttrs}
           />
         }
       </EditDialog>

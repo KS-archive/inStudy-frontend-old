@@ -159,8 +159,6 @@ export default {
       kind: 'Collapsible',
       title: 'FAQ',
       color: 2,
-      randomize: false,
-      rowsLimit: 5,
       content: [
         {
           title: 'Kiedy rozpoczyna się rekrutacja do koła?',
@@ -169,30 +167,6 @@ export default {
         {
           title: 'Czy aby dołączyć do koła wymagane są jakieś umiejętności?',
           description: 'Meatloaf frankfurter corned beef, jowl tongue capicola ham hock rump ball tip kevin pork belly boudin bacon. Venison fatback short ribs picanha alcatra, chuck boudin brisket porchetta capicola bacon shankle prosciutto ham. Shoulder hamburger drumstick ham hock short loin ground round. Beef ribs bacon ground round jowl leberkas salami. Landjaeger doner ball tip frankfurter ham hock alcatra ribeye bacon pork loin beef shoulder jerky brisket. Swine capicola tenderloin venison pork loin boudin turducken tri-tip.',
-        },
-        {
-          title: 'Co zyskam działając w kole?',
-          description: 'Cow pork bacon turkey pork chop strip steak pig picanha pancetta venison. Cupim rump tongue frankfurter beef ribs pastrami, bacon strip steak tenderloin flank turducken porchetta swine. Tenderloin doner cow ball tip capicola. Jowl tenderloin hamburger bacon strip steak salami. Drumstick bresaola bacon, hamburger sirloin pastrami chuck beef ribs.',
-        },
-        {
-          title: 'Co zyskam działając w kole?',
-          description: 'Cow pork bacon turkey pork chop strip steak pig picanha pancetta venison. Cupim rump tongue frankfurter beef ribs pastrami, bacon strip steak tenderloin flank turducken porchetta swine. Tenderloin doner cow ball tip capicola. Jowl tenderloin hamburger bacon strip steak salami. Drumstick bresaola bacon, hamburger sirloin pastrami chuck beef ribs.',
-        },
-        {
-          title: 'Co zyskam działając w kole?',
-          description: 'Cow pork bacon turkey pork chop strip steak pig picanha pancetta venison. Cupim rump tongue frankfurter beef ribs pastrami, bacon strip steak tenderloin flank turducken porchetta swine. Tenderloin doner cow ball tip capicola. Jowl tenderloin hamburger bacon strip steak salami. Drumstick bresaola bacon, hamburger sirloin pastrami chuck beef ribs.',
-        },
-        {
-          title: 'Co zyskam działając w kole?',
-          description: 'Cow pork bacon turkey pork chop strip steak pig picanha pancetta venison. Cupim rump tongue frankfurter beef ribs pastrami, bacon strip steak tenderloin flank turducken porchetta swine. Tenderloin doner cow ball tip capicola. Jowl tenderloin hamburger bacon strip steak salami. Drumstick bresaola bacon, hamburger sirloin pastrami chuck beef ribs.',
-        },
-        {
-          title: 'Co zyskam działając w kole?',
-          description: 'Cow pork bacon turkey pork chop strip steak pig picanha pancetta venison. Cupim rump tongue frankfurter beef ribs pastrami, bacon strip steak tenderloin flank turducken porchetta swine. Tenderloin doner cow ball tip capicola. Jowl tenderloin hamburger bacon strip steak salami. Drumstick bresaola bacon, hamburger sirloin pastrami chuck beef ribs.',
-        },
-        {
-          title: 'Co zyskam działając w kole?',
-          description: 'Cow pork bacon turkey pork chop strip steak pig picanha pancetta venison. Cupim rump tongue frankfurter beef ribs pastrami, bacon strip steak tenderloin flank turducken porchetta swine. Tenderloin doner cow ball tip capicola. Jowl tenderloin hamburger bacon strip steak salami. Drumstick bresaola bacon, hamburger sirloin pastrami chuck beef ribs.',
         },
         {
           title: 'Co zyskam działając w kole?',

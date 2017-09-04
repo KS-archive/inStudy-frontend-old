@@ -109,6 +109,7 @@ class EditProfile extends Component {
         closeDialog: this.closeDialog,
         data: dialogData,
         setModalFunctions: this.setModalFunctions,
+        colors: this.props.activeCircle.colors,
       };
 
       return (

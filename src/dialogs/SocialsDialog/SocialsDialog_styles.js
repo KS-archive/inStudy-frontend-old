@@ -8,7 +8,4 @@ export const Form = styled.form`
   justify-content: center;
   width: 100%;
   padding: 0 26px;
-  ${media.medium`
-    justify-content: center;
-  `}
 `;

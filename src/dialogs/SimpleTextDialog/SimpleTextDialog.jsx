@@ -43,7 +43,7 @@ class SimpleTextDialog extends Component {
   }
 
   remove = () => {
-    console.log(this.props);
+    console.log('removed!');
   }
 
   makeActivityInfoUpdateHandler = () => {
