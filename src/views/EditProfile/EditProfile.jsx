@@ -17,6 +17,7 @@ import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import SimpleTextDialog from '../../dialogs/SimpleTextDialog/SimpleTextDialog';
 import LinkImagesDialog from '../../dialogs/LinkImagesDialog/LinkImagesDialog';
+import NumbersDialog from '../../dialogs/NumbersDialog/NumbersDialog';
 import CollapsibleDialog from '../../dialogs/CollapsibleDialog/CollapsibleDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
@@ -167,6 +168,7 @@ class EditProfile extends Component {
           {dialog === 'SimpleText' && <SimpleTextDialog {...moduleData} />}
           {dialog === 'LinkImages' && <LinkImagesDialog {...moduleData} />}
           {dialog === 'Collapsible' && <CollapsibleDialog {...moduleData} />}
+          {dialog === 'Numbers' && <NumbersDialog {...moduleData} />}
         </Container>
       );
     }

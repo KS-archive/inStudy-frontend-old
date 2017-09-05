@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
-import AddCollapsible from './AddCollapsible/AddCollapsible';
+import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import { hasAnyValue } from '../../js/utils';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './CollapsibleDialog_styles';
+import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
 
 export default class SocialsDialog extends Component {
   constructor(props) {
@@ -86,7 +86,7 @@ export default class SocialsDialog extends Component {
   renderElement = (el, index) => (
     <Card key={index}>
       <Content>
-        <Title>{el.title}</Title>
+        <Title>{el.number}</Title>
         <Description>
           {`${el.description.length > 100
             ? `${el.description.substring(0, 100)} ...`
@@ -128,14 +128,13 @@ export default class SocialsDialog extends Component {
         primary
       />,
     ];
-    console.log(this.props);
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
         actions={actions}
-        title={this.isEditModal ? 'Edytuj listę rozwijaną' : 'Dodaj listę rozwijaną'}
+        title={this.isEditModal ? 'Edytuj moduł liczbowy' : 'Dodaj moduł liczbowy'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
@@ -156,15 +155,15 @@ export default class SocialsDialog extends Component {
           </AddElement>
         </Container>
         {dialog === 'element' &&
-          <AddCollapsible
+          <NewNumber
             submit={(el) => { this.changeList(el, dialogData); }}
             {...dialogAttrs}
           />
         }
         {dialog === 'colors' &&
           <ColorsDialog
-            submit={(colors) => { console.log(colors); this.setState({ color: colors[0] }); }}
-            names={['Kolor kafelka']}
+            submit={(colors) => { this.setState({ color: colors[0] }); }}
+            names={['Kolor liczby']}
             mainColors={this.props.colors}
             {...dialogAttrs}
           />
