@@ -1,21 +1,18 @@
-@import '../../scss/variables';
+import styled from 'styled-components';
+import { media } from '../../js/constants/styles';
 
-.collapsible__wrapper {
-
-}
-
-.linkImages__container {
+export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     justify-content: space-around;
-  }
-}
+  `}
+`;
 
-.linkImages__more {
+export const Toggle = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   font-weight: 500;
   text-transform: uppercase;
@@ -29,4 +26,4 @@
     top: -2px;
     margin-left: 5px;
   }
-}
+`;

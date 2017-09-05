@@ -18,6 +18,15 @@ export const MainContainer = styled.div`
   `}
 `;
 
+export const SectionHeader = styled.h1`
+  margin: 0 auto 50px;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: center;
+  color: ${colorPalette.textColor};
+`;
+
 // MODAL IN PROFILE VIEW.
 export const BasicDialog = styled(Dialog)`
   > div > div {
@@ -97,9 +106,12 @@ export const EditDialog = styled(Dialog)`
 
   /* Dialog title */
   > div > div > div > h3 {
-    padding: 30px 50px 10px !important;
+    padding: 30px 50px 15px !important;
     font-weight: 500 !important;
     color: ${colorPalette.primary1Color} !important;
+    ${media.medium`
+      padding: 30px 24px 10px !important;
+    `}
   }
 
   /* Dialog content */
@@ -135,6 +147,9 @@ export const EditDialog = styled(Dialog)`
     justify-content: flex-end;
     min-height: 90px;
     padding: 0 50px !important;
+    ${media.medium`
+      padding: 0 24px !important;
+    `}
 
     button span {
       font-size: 16px !important;

@@ -7,7 +7,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 26px;
 `;
 
 export const StyledTextField = styled(TextField)`

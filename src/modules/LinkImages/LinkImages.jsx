@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import shuffle from 'lodash/shuffle';
 import LinkImage from '../LinkImage/LinkImage';
 import LinkImage2 from '../LinkImage2/LinkImage2';
-import './linkImages.scss';
+import { SectionHeader } from '../../js/globalStyles';
+import { Container, Toggle } from './LinkImages_styles';
 
-export default class Collapsible extends Component {
+export default class LinkImages extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,65 +15,70 @@ export default class Collapsible extends Component {
       elements: [],
       grayScale: { filter: 'grayscale(0)' },
     };
+    switch (this.props.type) {
+      case 0: this.type = {
+        elementsInRow: 4,
+        imageComp: LinkImage,
+      }; break;
+      default: this.type = {
+        elementsInRow: 6,
+        imageComp: LinkImage2,
+      }; break;
+    }
   }
 
   componentWillMount() {
-    if (this.state.grayScale.filter === 'grayscale(0)' && this.props.startGray) this.setState({ grayScale: { filter: 'grayscale(1)' } });
-    const elements = (this.props.randomize && this.state.firstLoad)
-      ? shuffle(this.props.content)
-      : this.props.content;
+    const { grayScale: { filter }, firstLoad, noLimit } = this.state;
+    const { randomize, content, rowsLimit, startGray } = this.props;
+    const elements = (randomize && firstLoad) ? shuffle(content) : content;
+    const limit = elements.length <= this.type.elementsInRow * rowsLimit;
 
-    const type1Limit = this.props.type === 1 && elements.length <= 4 * this.props.rowsLimit;
-    const type2Limit = this.props.type === 2 && elements.length <= 6 * this.props.rowsLimit;
-    if ((type1Limit || type2Limit) && !this.state.noLimit) this.setState({ noLimit: true });
+    if (filter === 'grayscale(0)' && startGray) this.setState({ grayScale: { filter: 'grayscale(1)' } });
+    if (limit && !noLimit) this.setState({ noLimit: true });
 
     this.setState({ firstLoad: false, elements });
   }
 
   renderElement = () => {
-    let Image;
-    let elementsInRow;
-    switch (this.props.type) {
-      case 1: Image = LinkImage; elementsInRow = 4; break;
-      case 2: Image = LinkImage2; elementsInRow = 6; break;
-      default: Image = null;
-    }
+    const Image = this.type.imageComp;
+    const elementsInRow = this.type.elementsInRow;
+
     return this.state.elements.map((element, index) => {
-      if (index < this.props.rowsLimit * elementsInRow || this.state.showAll || !this.props.rowsLimit) {
-        return (
-          <Image
-            href={element.link}
-            key={element.name || `Obraz ${index}`}
-            src={element.src}
-            alt={element.name || `Obraz ${index}`}
-            grayScale={this.state.grayScale}
-            withLink={!!element.link}
-          />
-        );
-      }
-      return null;
+      const { rowsLimit } = this.props;
+      const { grayScale } = this.state;
+      const { link, name, src } = element;
+      const imgName = name || `Obraz ${index}`;
+
+      return (index < rowsLimit * elementsInRow || this.state.showAll || !rowsLimit) &&
+        <Image href={link} key={imgName} src={src} alt={imgName} grayScale={grayScale} withLink={!!link} />
     });
   }
 
-  render() {
-
+  renderToggleLink = (showAll) => {
     const color = this.props.mainColors[this.props.color];
+    const [text, arrow] = (showAll)
+      ? ['Zwiń listę', 'up']
+      : ['Pokaż wszystko', 'down'];
     return (
-      <div className="collapsible__wrapper">
-        <h1 className="body__sectionHeader">{this.props.title}</h1>
-        <div className="linkImages__container">
-          {this.renderElement(this.props.content)}
-        </div>
-        {(!this.state.showAll && this.props.rowsLimit !== 0 && !this.state.noLimit) &&
-          <div className="linkImages__more" style={{ color }} onClick={() => { this.setState({ showAll: true }); }}>
-            Pokaż wszystko <i className="fa fa-chevron-down" aria-hidden="true" />
-          </div>
-        }
-        {(this.state.showAll && this.props.rowsLimit !== 0 && !this.state.noLimit) &&
-          <div className="linkImages__more" style={{ color }} onClick={() => { this.setState({ showAll: false }); }}>
-            Zwiń listę <i className="fa fa-chevron-up" aria-hidden="true" />
-          </div>
-        }
+      <Toggle
+        style={{ color }}
+        onClick={() => { this.setState({ showAll: !showAll }); }}
+      >
+        {text} <i className={`fa fa-chevron-${arrow}`} aria-hidden="true" />
+      </Toggle>
+    );
+  }
+
+  render() {
+    const { title, rowsLimit, content } = this.props;
+    const { showAll, noLimit } = this.state;
+    return (
+      <div>
+        <SectionHeader>{title}</SectionHeader>
+        <Container>
+          {this.renderElement(content)}
+        </Container>
+        {(rowsLimit !== 0 && !noLimit) && this.renderToggleLink(showAll) }
       </div>
     );
   }

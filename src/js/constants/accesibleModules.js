@@ -41,5 +41,15 @@ export default [
     kind: 'LinkImages',
     name: 'Galeria z linkami',
     icon: LinkImagesIcon,
+    types: [
+      {
+        name: 'Klasyczna galeria',
+        icon: 'gallery-normal.png',
+      },
+      {
+        name: 'Obramowane ikony',
+        icon: 'gallery-bordered.png',
+      },
+    ],
   },
 ];

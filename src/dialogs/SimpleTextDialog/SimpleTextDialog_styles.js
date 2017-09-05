@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Field from 'redux-form/lib/Field';
+import { media } from '../../js/constants/styles';
 
 export const Form = styled.form`
   box-sizing: border-box;
@@ -9,6 +10,9 @@ export const Form = styled.form`
   justify-content: space-between;
   width: 100%;
   padding: 0 26px;
+  ${media.medium`
+    padding: 0 !important;
+  `}
 `;
 
 export const StyledField = styled(Field)`

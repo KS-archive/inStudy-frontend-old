@@ -21,5 +21,6 @@ export const Form = styled.form`
   padding: 0 26px;
   ${media.medium`
     justify-content: center;
+    padding: 0 !important;
   `}
 `;

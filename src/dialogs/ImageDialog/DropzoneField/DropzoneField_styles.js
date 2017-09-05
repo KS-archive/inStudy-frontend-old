@@ -24,7 +24,7 @@ export const StyledDropzone = styled(Dropzone)`
     cursor: pointer;
 
     > div:first-of-type {
-      background-color: ${colorPalette.primary1Color};
+      background-color: ${colorPalette.accent3Color};
       opacity: ${props => props.preview ? 1 : 'inherit'};
     }
   }

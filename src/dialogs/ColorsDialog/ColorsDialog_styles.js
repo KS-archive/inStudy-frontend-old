@@ -13,13 +13,14 @@ export const StyledDialog = styled(Dialog)`
   width: ${props => props.isSidebar ? 'calc(100vw - 120px)' : '100vw'};
 
   > div > div {
-    width: 530px !important;
+    box-sizing: border-box;
+    width: 550px !important;
     max-width: unset !important;
   }
 
   /* Dialog title */
   > div > div > div > h3 {
-    padding: 30px 40px 20px !important;
+    padding: 30px 24px 20px !important;
     font-weight: 500 !important;
     color: ${colorPalette.primary1Color} !important;
   }
@@ -56,7 +57,7 @@ export const StyledDialog = styled(Dialog)`
     align-items: center;
     justify-content: flex-end;
     min-height: 90px;
-    padding: 0 40px !important;
+    padding: 0 24px !important;
 
     button span {
       font-size: 16px !important;
@@ -75,7 +76,6 @@ export const Form = styled.form`
   flex-flow: column wrap;
   justify-content: center;
   width: 100%;
-  padding: 0 16px;
 `;
 
 export const Fields = styled.div`
@@ -100,17 +100,17 @@ export const ColorName = styled.div`
 export const ColorValues = styled.div`
   display: flex;
   align-items: center;
-  min-height: 54px;
-  margin-left: 60px;
+  min-height: 44px;
+  margin-left: 30px;
 `;
 
 export const ColorValue = styled.div`
   position: relative;
   box-sizing: border-box;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 2px;
-  margin-right: 15px;
+  margin-right: 10px;
   border: 3px solid #fff;
   background-color: ${props => props.color};
   outline: ${props => props.selected ? `2px solid ${colorPalette.accent1Color}` : 'none'};

@@ -25,8 +25,8 @@ export default class DropzoneField extends Component {
     return (
       <div>
         <StyledDropzone
-          accept="image/jpeg, image/png, image/jpg, image/svg"
           preview={preview}
+          accept="image/jpeg, image/png, image/jpg, image/svg"
           style={{ backgroundImage: `url(${preview})` }}
           name={this.props.input.name}
           multiple={false}

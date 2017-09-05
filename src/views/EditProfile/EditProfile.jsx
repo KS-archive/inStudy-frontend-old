@@ -16,6 +16,7 @@ import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import SimpleTextDialog from '../../dialogs/SimpleTextDialog/SimpleTextDialog';
+import LinkImagesDialog from '../../dialogs/LinkImagesDialog/LinkImagesDialog';
 import CollapsibleDialog from '../../dialogs/CollapsibleDialog/CollapsibleDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
@@ -71,11 +72,13 @@ class EditProfile extends Component {
   }
 
   changeLogo = (value) => {
+    console.log(value);
     this.props.changeLogo(value);
     this.closeDialog();
   }
 
   changeBackground = (value) => {
+    console.log(value);
     this.closeDialog();
   }
 
@@ -162,6 +165,7 @@ class EditProfile extends Component {
             />
           }
           {dialog === 'SimpleText' && <SimpleTextDialog {...moduleData} />}
+          {dialog === 'LinkImages' && <LinkImagesDialog {...moduleData} />}
           {dialog === 'Collapsible' && <CollapsibleDialog {...moduleData} />}
         </Container>
       );

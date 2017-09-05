@@ -177,7 +177,7 @@ export default {
     {
       _id: 'HNM7324kdf88kd8LH',
       kind: 'LinkImages',
-      type: 1,
+      type: 0,
       title: 'Nasi partnerzy',
       startGray: true,
       rowsLimit: 1,
@@ -612,7 +612,7 @@ export default {
     {
       _id: 'gfdIO83kds8SDKk349',
       kind: 'LinkImages',
-      type: 2,
+      type: 1,
       title: 'Nasze narzędzia',
       startGray: true,
       rowsLimit: 1,

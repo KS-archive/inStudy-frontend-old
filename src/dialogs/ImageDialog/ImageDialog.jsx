@@ -8,11 +8,6 @@ import { EditDialog } from '../../js/globalStyles';
 import { Form, InfoIcon } from './ImageDialog_styles';
 
 class ImageDialog extends Component {
-  onSubmit = (data) => {
-    if (Array.isArray(data)) console.info('POST', data.image[0]);
-    this.props.closeDialog(); this.props.reset();
-  }
-
   makeActivityInfoUpdateHandler = () => {
     this.activityFormButton.click();
   }
@@ -51,8 +46,7 @@ class ImageDialog extends Component {
         isSidebar={sidebar}
       >
         <Form
-          onSubmit={handleSubmit(this.onSubmit)}
-          // onSubmit={handleSubmit((values) => { this.props.submitFunction(values); destroy(); })}
+          onSubmit={handleSubmit((values) => { this.props.submitFunction(values); destroy(); })}
         >
           <Field
             name="image"
