@@ -119,7 +119,7 @@ export const Icon = styled.i`
 `;
 
 export const AddElement = styled.div`
-  padding-top: 30px;
+  padding-top: 15px;
   font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;

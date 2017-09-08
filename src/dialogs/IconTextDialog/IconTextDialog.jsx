@@ -12,22 +12,27 @@ import { Container, StyledTextField, ElementsList, Card, Content, Title, Descrip
 export default class IconTextDialog extends Component {
   constructor(props) {
     super(props);
+    const { content, title, color } = this.props.data;
     this.state = {
-      content: this.props.data.content || [],
-      title: this.props.data.title || undefined,
-      color: this.props.data.color,
+      content: content || [],
+      title: title || undefined,
+      color,
       dialog: false,
       dialogData: null,
-      errors: {
-        title: null,
-      },
+      errors: null,
     };
     this.isEditModal = !!this.props.data._id;
+    this.validate = {
+      title: {
+        required: true,
+        noEmptyArr: true,
+      },
+    };
   }
 
   componentWillMount() {
     this.props.setModalFunctions({
-      submit: this.submit,
+      submit: this.handleSubmit,
       cancel: this.props.closeDialog,
       remove: this.props.data._id ? this.remove : null,
       changeColors: this.openColorsDialog,
@@ -37,16 +42,24 @@ export default class IconTextDialog extends Component {
   validate = (callback) => {
     const errors = { ...this.state.errors };
     const { title, content } = this.state;
+
     errors.title = null;
-    if (!title || !title.trim()) errors.title = 'To pole jest wymagane';
-    else if (!content || content.length === 0) errors.title = 'Musisz dodać co najmniej jeden element do listy';
-    if (hasAnyValue(errors)) this.setState({ errors });
-    else callback();
+
+    if (!title || !title.trim()) {
+      errors.title = 'To pole jest wymagane';
+    } else if (!content || content.length === 0) {
+      errors.title = 'Musisz dodać co najmniej jeden element do listy';
+    }
+
+    if (hasAnyValue(errors)) {
+      this.setState({ errors });
+    } else callback();
   }
 
-  submit = () => {
+  handleSubmit = () => {
     this.validate(() => {
-      console.log(this.state.content);
+      const { content, title, color } = this.state;
+      console.log({ content, title, color });
       this.props.closeDialog();
     });
   }
@@ -127,18 +140,17 @@ export default class IconTextDialog extends Component {
       />,
       <FlatButton
         label="Zapisz zmiany"
-        onTouchTap={this.submit}
+        onTouchTap={this.handleSubmit}
         primary
       />,
     ];
-    console.log(this.props);
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
         actions={actions}
-        title={this.isEditModal ? 'Edytuj kolumny tekstowe' : 'Dodaj kolumny tekstowe'}
+        title={this.isEditModal ? 'Edytuj moduł kolumny tekstowe' : 'Dodaj moduł kolumny tekstowe'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}

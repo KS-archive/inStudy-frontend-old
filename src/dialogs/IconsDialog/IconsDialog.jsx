@@ -16,7 +16,7 @@ export default class IconsDialog extends Component {
     this.setState({ activeIcon });
   }
 
-  submit = () => {
+  handleSubmit = () => {
     this.props.submit(this.state.activeIcon);
   }
 
@@ -32,7 +32,7 @@ export default class IconsDialog extends Component {
   }
 
   render() {
-    const { closeDialog, submit, open, sidebar, data } = this.props;
+    const { closeDialog, open, sidebar, data } = this.props;
     const actions = [
       <FlatButton
         label="Anuluj"
@@ -40,7 +40,7 @@ export default class IconsDialog extends Component {
       />,
       <FlatButton
         label="Zapisz zmiany"
-        onTouchTap={submit}
+        onTouchTap={this.handleSubmit}
         primary
       />,
     ];

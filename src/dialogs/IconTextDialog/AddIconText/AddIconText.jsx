@@ -24,19 +24,28 @@ export default class AddIconText extends Component {
 
   validate = (callback) => {
     const errors = { ...this.state.errors };
-    const { title, description } = this.state;
-    errors.title = (!title || !title.trim()) ? 'To pole jest wymagane' : null;
-    errors.description = (!description || !description.trim()) ? 'To pole jest wymagane' : null;
+    const { title, description, icon } = this.state;
+    errors.title = null;
+    errors.description = null;
+
+    if (!title || !title.trim()) {
+      errors.title = 'To pole jest wymagane';
+    } else if (!icon) {
+      errors.title = 'Aby utworzyć kolumnę muszisz wybrać ikonę';
+    }
+
+    if (!description || !description.trim()) {
+      errors.description = 'To pole jest wymagane';
+    }
+
     if (hasAnyValue(errors)) this.setState({ errors });
     else callback();
   }
 
-  submit = () => {
+  handleSubmit = () => {
     this.validate(() => {
-      this.props.submit({
-        title: this.state.title,
-        description: this.state.description,
-      });
+      const { title, description, icon } = this.state;
+      this.props.submit({ title, description, icon });
       this.props.closeDialog();
     });
   }
@@ -55,7 +64,7 @@ export default class AddIconText extends Component {
       />,
       <FlatButton
         label="Zapisz zmiany"
-        onTouchTap={this.submit}
+        onTouchTap={this.handleSubmit}
         primary
       />,
     ];
@@ -91,7 +100,10 @@ export default class AddIconText extends Component {
           />
           <LabelHeader>Ikona</LabelHeader>
           <IconImageWrapper onClick={() => { this.setState({ dialog: true }); }}>
-            <IconImage className={`fa fa-${icon}`} aria-hidden="true" />
+            {(icon)
+              ? <IconImage className={`fa fa-${icon}`} aria-hidden="true" />
+              : '+'
+            }
           </IconImageWrapper>
         </Container>
         {(dialog) &&
