@@ -27,6 +27,7 @@ export const IconImageWrapper = styled.div`
   min-height: 50px;
   border: 1px solid ${colorPalette.accent2Color};
   border-radius: 100%;
+  font-size: 24px;
   color: ${colorPalette.accent2Color};
   transition: all 0.3s;
 
@@ -38,7 +39,7 @@ export const IconImageWrapper = styled.div`
 `;
 
 export const IconImage = styled.i`
-  font-size: 24px;
+  font-size: inherit;
   text-align: center;
   color: inherit;
 `;

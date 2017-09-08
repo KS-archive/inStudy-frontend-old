@@ -4,7 +4,7 @@ import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
 import AddIconText from './AddIconText/AddIconText';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
-import { hasAnyValue } from '../../js/utils';
+import validation from '../../js/validation';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement, IconImageWrapper, IconImage } from './IconTextDialog_styles';
@@ -12,43 +12,43 @@ import { Container, StyledTextField, ElementsList, Card, Content, Title, Descrip
 export default class IconTextDialog extends Component {
   constructor(props) {
     super(props);
+    const { content, title, color } = this.props.data;
     this.state = {
-      content: this.props.data.content || [],
-      title: this.props.data.title || undefined,
-      color: this.props.data.color,
+      content: content || [],
+      title: title || undefined,
+      color,
       dialog: false,
       dialogData: null,
-      errors: {
-        title: null,
-      },
+      errors: {},
     };
     this.isEditModal = !!this.props.data._id;
+    this.validate = {
+      title: { required: true },
+      content: { noEmptyArr: true },
+    };
   }
 
   componentWillMount() {
     this.props.setModalFunctions({
-      submit: this.submit,
+      submit: this.handleSubmit,
       cancel: this.props.closeDialog,
       remove: this.props.data._id ? this.remove : null,
       changeColors: this.openColorsDialog,
     });
   }
 
-  validate = (callback) => {
-    const errors = { ...this.state.errors };
-    const { title, content } = this.state;
-    errors.title = null;
-    if (!title || !title.trim()) errors.title = 'To pole jest wymagane';
-    else if (!content || content.length === 0) errors.title = 'Musisz dodać co najmniej jeden element do listy';
-    if (hasAnyValue(errors)) this.setState({ errors });
-    else callback();
-  }
-
-  submit = () => {
-    this.validate(() => {
-      console.log(this.state.content);
-      this.props.closeDialog();
-    });
+  handleSubmit = () => {
+    const { content, title, color } = this.state;
+    const values = { content, title };
+    validation(
+      this.validate,
+      values,
+      (errors) => { this.setState({ errors }); },
+      () => {
+        console.log({ content, title, color });
+        this.props.closeDialog();
+      },
+    );
   }
 
   remove = () => {
@@ -127,18 +127,17 @@ export default class IconTextDialog extends Component {
       />,
       <FlatButton
         label="Zapisz zmiany"
-        onTouchTap={this.submit}
+        onTouchTap={this.handleSubmit}
         primary
       />,
     ];
-    console.log(this.props);
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
         actions={actions}
-        title={this.isEditModal ? 'Edytuj kolumny tekstowe' : 'Dodaj kolumny tekstowe'}
+        title={this.isEditModal ? 'Edytuj moduł kolumny tekstowe' : 'Dodaj moduł kolumny tekstowe'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
@@ -148,7 +147,7 @@ export default class IconTextDialog extends Component {
             value={title}
             onChange={(e) => { this.setState({ title: e.target.value }); }}
             floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={errors.title}
+            errorText={errors.title || errors.content}
             {...inputStyle}
           />
           <ElementsList>
