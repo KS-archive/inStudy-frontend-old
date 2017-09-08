@@ -36,6 +36,20 @@ export default [
     kind: 'MembersTiles',
     name: 'Kafelki osobowe',
     icon: MembersTilesIcon,
+    types: [
+      {
+        name: 'Kwadratowe kafelki',
+        icon: 'member-tiles-1.png',
+      },
+      {
+        name: 'Układ kolumnowy',
+        icon: 'member-tiles-2.png',
+      },
+      {
+        name: 'Karty',
+        icon: 'member-tiles-3.png',
+      },
+    ],
   },
   {
     kind: 'LinkImages',

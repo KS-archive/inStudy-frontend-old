@@ -40,7 +40,7 @@ export default class MembersTilesDialog extends Component {
       remove: _id && this.remove,
       changeColors: this.openColorsDialog,
     });
-    this.types = accessibleModules.find(el => el.kind === 'LinkImages').types;
+    this.types = accessibleModules.find(el => el.kind === 'MembersTiles').types;
   }
 
   validate = (callback) => {
@@ -224,7 +224,7 @@ export default class MembersTilesDialog extends Component {
         {dialog === 'colors' &&
           <ColorsDialog
             submit={(newColors) => { this.setState({ color: newColors[0] }); }}
-            names={['Kolor obramowania (typ 2)']}
+            names={['Kolor tekstu (typ 2 i 3)']}
             mainColors={colors}
             {...dialogAttrs}
           />
