@@ -4,13 +4,13 @@ import without from 'lodash/without';
 import pick from 'lodash/pick';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
-import ImageDetailsDialog from './ImageDetailsDialog/ImageDetailsDialog';
+import MemberDetailsDialog from './MemberDetailsDialog/MemberDetailsDialog';
 import { hasAnyValue } from '../../js/utils';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, StyledTextField, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementOptionsOverlay, ElementOptions } from './LinkImagesDialog_styles';
+import { Container, StyledTextField, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementContent, Name, Role, ElementOptions } from './MembersTilesDialog_styles';
 
-export default class LinkImagesDialog extends Component {
+export default class MembersTilesDialog extends Component {
   constructor(props) {
     super(props);
     const { _id, content, title, color, type, startGray, rowsLimit, randomize } = this.props.data;
@@ -78,14 +78,14 @@ export default class LinkImagesDialog extends Component {
 
   addDetails = () => {
     this.setState({
-      dialog: 'elementDetails',
+      dialog: 'memberDetails',
       dialogData: null,
     });
   }
 
   editDetails = (el, index) => {
     this.setState({
-      dialog: 'elementDetails',
+      dialog: 'memberDetails',
       dialogData: { ...el, index },
     });
   }
@@ -124,24 +124,29 @@ export default class LinkImagesDialog extends Component {
   );
 
   renderElement = (el, index) => {
-    const imgSrc = (typeof el.src === 'string') ? el.src : el.src.preview;
+    const { coverImage, description, firstname, surname, role, socials, _id } = el;
+    const imgSrc = (typeof coverImage === 'string') ? coverImage : coverImage.preview;
     return (
-      <Element key={index}>
+      <Element key={_id}>
         <img src={imgSrc} alt={el.name || 'Element galerii'} />
-        <ElementOptionsOverlay>
-          <ElementOptions>
-            <i
-              className="fa fa-pencil-square-o"
-              aria-hidden="true"
-              onClick={() => { this.editDetails(el, index); }}
-            />
-            <i
-              className="fa fa-trash-o"
-              aria-hidden="true"
-              onClick={() => { this.deleteElement(el); }}
-            />
-          </ElementOptions>
-        </ElementOptionsOverlay>
+        <ElementContent>
+          <Name>{`${firstname} ${surname}`}</Name>
+          {(role) &&
+            <Role>{role}</Role>
+          }
+        </ElementContent>
+        <ElementOptions>
+          <i
+            className="fa fa-pencil-square-o"
+            aria-hidden="true"
+            onClick={() => { this.editDetails(el, index); }}
+          />
+          <i
+            className="fa fa-trash-o"
+            aria-hidden="true"
+            onClick={() => { this.deleteElement(el); }}
+          />
+        </ElementOptions>
       </Element>
     );
   }
@@ -172,7 +177,7 @@ export default class LinkImagesDialog extends Component {
         open={open}
         onRequestClose={closeDialog}
         actions={actions}
-        title={this.isEditModal ? 'Edytuj moduł „Galeria”' : 'Dodaj moduł „Galeria”'}
+        title={this.isEditModal ? 'Edytuj moduł „Kafelki osobowe”' : 'Dodaj moduł „Kafelki osobowe”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
@@ -224,8 +229,8 @@ export default class LinkImagesDialog extends Component {
             {...dialogAttrs}
           />
         }
-        {dialog === 'elementDetails' &&
-          <ImageDetailsDialog
+        {dialog === 'memberDetails' &&
+          <MemberDetailsDialog
             submit={this.modifyElements}
             {...dialogAttrs}
           />

@@ -12,16 +12,16 @@ import { Container, StyledTextField, ElementsList, Card, Content, Title, Descrip
 export default class IconTextDialog extends Component {
   constructor(props) {
     super(props);
-    const { content, title, color } = this.props.data;
+    const { _id, content, title, color } = this.props.data;
     this.state = {
       content: content || [],
       title: title || undefined,
-      color,
+      color: color || 2,
       dialog: false,
       dialogData: null,
       errors: {},
     };
-    this.isEditModal = !!this.props.data._id;
+    this.isEditModal = !!_id;
     this.validate = {
       title: { required: true },
       content: { noEmptyArr: true },
@@ -137,7 +137,7 @@ export default class IconTextDialog extends Component {
         open={open}
         onRequestClose={closeDialog}
         actions={actions}
-        title={this.isEditModal ? 'Edytuj moduł kolumny tekstowe' : 'Dodaj moduł kolumny tekstowe'}
+        title={this.isEditModal ? 'Edytuj moduł „Kolumny tekstowe”' : 'Dodaj moduł „Kolumny tekstowe”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}

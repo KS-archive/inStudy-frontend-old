@@ -23,7 +23,7 @@ export default class ProjectsTiles extends Component {
 
   getLabels = () => {
     const labels = this.state.labels;
-    this.props.tiles.map((tile) => {
+    this.props.content.map((tile) => {
       const id = tile._id;
       labels.wszystkie.push(id);
       tile.labels.map((label) => {
@@ -41,7 +41,7 @@ export default class ProjectsTiles extends Component {
   }
 
   openDialog = (id) => {
-    const dialogData = this.props.tiles.filter(tile => (tile._id === id));
+    const dialogData = this.props.content.filter(tile => (tile._id === id));
     this.setState({ dialog: true, dialogData: dialogData[0] });
   }
 
@@ -50,7 +50,7 @@ export default class ProjectsTiles extends Component {
   }
 
   renderTiles = () => this.state.labels[this.state.activeLabel].map((id, index) => {
-    let tile = this.props.tiles.filter(el => (el._id === id));
+    let tile = this.props.content.filter(el => (el._id === id));
     tile = tile[0];
     if (index < this.props.rowsLimit * 3 || this.state.showAll || !this.props.rowsLimit) {
       return (<ProjectsTile

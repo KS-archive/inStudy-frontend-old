@@ -20,6 +20,7 @@ import LinkImagesDialog from '../../dialogs/LinkImagesDialog/LinkImagesDialog';
 import NumbersDialog from '../../dialogs/NumbersDialog/NumbersDialog';
 import IconTextDialog from '../../dialogs/IconTextDialog/IconTextDialog';
 import CollapsibleDialog from '../../dialogs/CollapsibleDialog/CollapsibleDialog';
+import MembersTilesDialog from '../../dialogs/MembersTilesDialog/MembersTilesDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
@@ -171,6 +172,7 @@ class EditProfile extends Component {
           {dialog === 'Collapsible' && <CollapsibleDialog {...moduleData} />}
           {dialog === 'Numbers' && <NumbersDialog {...moduleData} />}
           {dialog === 'IconText' && <IconTextDialog {...moduleData} />}
+          {dialog === 'MembersTiles' && <MembersTilesDialog {...moduleData} />}
         </Container>
       );
     }

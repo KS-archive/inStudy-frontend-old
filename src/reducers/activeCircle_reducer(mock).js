@@ -41,7 +41,7 @@ export default {
       startGrey: false,
       rowsLimit: 1,
       randomize: false,
-      tiles: [
+      content: [
         {
           _id: 'sad438dfg345ksaDSF',
           name: 'Bring to the table. At the end of the day, going forward',
@@ -225,7 +225,7 @@ export default {
       rowsLimit: 1,
       randomize: true,
       color: 4,
-      tiles: [
+      content: [
         {
           _id: 'sd8D323DSswe356489',
           firstname: 'Elliott',
@@ -356,7 +356,7 @@ export default {
       rowsLimit: 1,
       randomize: true,
       color: 2,
-      tiles: [
+      content: [
         {
           _id: 'sd8D323DSswe356489',
           firstname: 'Elliott',
@@ -487,7 +487,7 @@ export default {
       rowsLimit: 1,
       randomize: true,
       color: 2,
-      tiles: [
+      content: [
         {
           _id: 'sd8D323DSswe356489',
           firstname: 'Elliott',

@@ -65,8 +65,8 @@ class SimpleTextDialog extends Component {
   render() {
     console.log(this.props);
     const title = this.props.data._id
-      ? 'Edytuj moduł typu „Tekst (markdown)”'
-      : 'Dodaj moduł typu „Tekst (markdown)”';
+      ? 'Edytuj moduł „Tekst (markdown)”'
+      : 'Dodaj moduł „Tekst (markdown)”';
     const { handleSubmit, submitting, pristine, open } = this.props;
     const actions = [
       <FlatButton

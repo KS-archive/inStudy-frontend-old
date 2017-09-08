@@ -12,17 +12,18 @@ import { Container, StyledTextField, ElementsList, Card, Content, Title, Descrip
 export default class SocialsDialog extends Component {
   constructor(props) {
     super(props);
+    const { content, title, color, _id } = this.props.data;
     this.state = {
-      content: this.props.data.content || [],
-      title: this.props.data.title || undefined,
-      color: this.props.data.color,
+      content: content || [],
+      title: title || undefined,
+      color: color || 2,
       dialog: false,
       dialogData: null,
       errors: {
         title: null,
       },
     };
-    this.isEditModal = !!this.props.data._id;
+    this.isEditModal = !!_id;
   }
 
   componentWillMount() {
@@ -135,7 +136,7 @@ export default class SocialsDialog extends Component {
         open={open}
         onRequestClose={closeDialog}
         actions={actions}
-        title={this.isEditModal ? 'Edytuj listę rozwijaną' : 'Dodaj listę rozwijaną'}
+        title={this.isEditModal ? 'Edytuj moduł „Lista rozwijana”' : 'Dodaj moduł „Lista rozwijana”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
