@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import IconsDialog from '../../IconsDialog/IconsDialog';
-import { hasAnyValue } from '../../../js/utils';
+import validation from '../../../js/validation';
 import { inputStyle } from '../../../js/constants/styles';
 import { EditDialog } from '../../../js/globalStyles';
 import { Container, LabelHeader, IconImageWrapper, IconImage } from './AddIconText_styles';
@@ -10,44 +10,33 @@ import { Container, LabelHeader, IconImageWrapper, IconImage } from './AddIconTe
 export default class AddIconText extends Component {
   constructor(props) {
     super(props);
+    const { data } = this.props;
     this.state = {
-      title: this.props.data ? this.props.data.title : undefined,
-      description: this.props.data ? this.props.data.description : undefined,
-      icon: this.props.data ? this.props.data.icon : undefined,
-      errors: {
-        title: null,
-        description: null,
-      },
+      title: data ? data.title : undefined,
+      description: data ? data.description : undefined,
+      icon: data ? data.icon : undefined,
+      errors: {},
       dialog: false,
+    };
+    this.validate = {
+      title: { required: true },
+      description: { required: true },
+      icon: { required: 'Aby utworzyć kolumnę muszisz wybrać ikonę' },
     };
   }
 
-  validate = (callback) => {
-    const errors = { ...this.state.errors };
-    const { title, description, icon } = this.state;
-    errors.title = null;
-    errors.description = null;
-
-    if (!title || !title.trim()) {
-      errors.title = 'To pole jest wymagane';
-    } else if (!icon) {
-      errors.title = 'Aby utworzyć kolumnę muszisz wybrać ikonę';
-    }
-
-    if (!description || !description.trim()) {
-      errors.description = 'To pole jest wymagane';
-    }
-
-    if (hasAnyValue(errors)) this.setState({ errors });
-    else callback();
-  }
-
   handleSubmit = () => {
-    this.validate(() => {
-      const { title, description, icon } = this.state;
-      this.props.submit({ title, description, icon });
-      this.props.closeDialog();
-    });
+    const { title, description, icon } = this.state;
+    const values = { title, description, icon };
+    validation(
+      this.validate,
+      values,
+      (errors) => { this.setState({ errors }); },
+      () => {
+        this.props.submit({ title, description, icon });
+        this.props.closeDialog();
+      },
+    );
   }
 
   submitIcon = (icon) => {
@@ -56,7 +45,7 @@ export default class AddIconText extends Component {
 
   render() {
     const { closeDialog, open, sidebar, data } = this.props;
-    const { title, description, icon, dialog } = this.state;
+    const { title, description, icon, dialog, errors } = this.state;
     const actions = [
       <FlatButton
         label="Anuluj"
@@ -84,7 +73,7 @@ export default class AddIconText extends Component {
             value={title}
             onChange={(e) => { this.setState({ title: e.target.value }); }}
             floatingLabelText="Nagłówek"
-            errorText={this.state.errors.title}
+            errorText={errors.title || errors.icon}
             fullWidth
             {...inputStyle}
           />
@@ -92,7 +81,7 @@ export default class AddIconText extends Component {
             value={description}
             onChange={(e) => { this.setState({ description: e.target.value }); }}
             floatingLabelText="Opis"
-            errorText={this.state.errors.description}
+            errorText={errors.description}
             fullWidth
             multiLine
             rows={3}

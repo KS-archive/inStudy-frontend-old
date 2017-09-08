@@ -4,7 +4,7 @@ import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
 import AddIconText from './AddIconText/AddIconText';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
-import { hasAnyValue } from '../../js/utils';
+import validation from '../../js/validation';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement, IconImageWrapper, IconImage } from './IconTextDialog_styles';
@@ -19,14 +19,12 @@ export default class IconTextDialog extends Component {
       color,
       dialog: false,
       dialogData: null,
-      errors: null,
+      errors: {},
     };
     this.isEditModal = !!this.props.data._id;
     this.validate = {
-      title: {
-        required: true,
-        noEmptyArr: true,
-      },
+      title: { required: true },
+      content: { noEmptyArr: true },
     };
   }
 
@@ -39,29 +37,18 @@ export default class IconTextDialog extends Component {
     });
   }
 
-  validate = (callback) => {
-    const errors = { ...this.state.errors };
-    const { title, content } = this.state;
-
-    errors.title = null;
-
-    if (!title || !title.trim()) {
-      errors.title = 'To pole jest wymagane';
-    } else if (!content || content.length === 0) {
-      errors.title = 'Musisz dodać co najmniej jeden element do listy';
-    }
-
-    if (hasAnyValue(errors)) {
-      this.setState({ errors });
-    } else callback();
-  }
-
   handleSubmit = () => {
-    this.validate(() => {
-      const { content, title, color } = this.state;
-      console.log({ content, title, color });
-      this.props.closeDialog();
-    });
+    const { content, title, color } = this.state;
+    const values = { content, title };
+    validation(
+      this.validate,
+      values,
+      (errors) => { this.setState({ errors }); },
+      () => {
+        console.log({ content, title, color });
+        this.props.closeDialog();
+      },
+    );
   }
 
   remove = () => {
@@ -160,7 +147,7 @@ export default class IconTextDialog extends Component {
             value={title}
             onChange={(e) => { this.setState({ title: e.target.value }); }}
             floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={errors.title}
+            errorText={errors.title || errors.content}
             {...inputStyle}
           />
           <ElementsList>
