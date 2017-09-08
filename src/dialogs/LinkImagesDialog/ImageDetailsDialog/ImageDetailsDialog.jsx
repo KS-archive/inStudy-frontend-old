@@ -24,16 +24,18 @@ export default class ImageDetailsDialog extends Component {
   }
 
   componentWillMount() {
-    if (this.props.data) {
-      const { name, src, link } = this.props.data;
-      this.setState({ name, src, link, preview: src });
+    const { data } = this.props;
+    if (data) {
+      const { name, src, link } = data;
+      this.setState({ name, src, link, preview: src.preview || src });
     }
   }
 
   modifyImage = (value) => {
+    const { image } = value;
     this.closeDialog();
-    if (value.image) {
-      this.setState({ src: value.image[0], preview: value.image[0].preview });
+    if (image) {
+      this.setState({ src: image[0], preview: image[0].preview });
     }
   }
 
@@ -42,18 +44,16 @@ export default class ImageDetailsDialog extends Component {
   }
 
   submit = () => {
-    const values = {
-      index: this.props.data ? this.props.data.index : null,
-      name: this.state.name,
-      src: this.state.src,
-      link: this.state.link,
-    };
+    const { data } = this.props;
+    const { name, src, link } = this.state;
+    const index = data && data.index;
+    const values = { index, name, src, link };
     this.props.submit(values);
   }
 
   render() {
     const { closeDialog, sidebar } = this.props;
-    const { preview } = this.state;
+    const { preview, src, dialog, name, link, errors } = this.state;
     const actions = [
       <FlatButton
         label="Anuluj"
@@ -84,18 +84,18 @@ export default class ImageDetailsDialog extends Component {
           </ImagePreview>
           <Editfields>
             <TextField
-              value={this.state.name}
+              value={name}
               onChange={(e) => { this.setState({ name: e.target.value }); }}
               floatingLabelText="Nazwa obrazu"
-              errorText={this.state.errors.name}
+              errorText={errors.name}
               fullWidth
               {...inputStyle}
             />
             <TextField
-              value={this.state.link}
+              value={link}
               onChange={(e) => { this.setState({ link: e.target.value }); }}
               floatingLabelText="Link"
-              errorText={this.state.errors.link}
+              errorText={errors.link}
               fullWidth
               {...inputStyle}
             />
@@ -108,17 +108,17 @@ export default class ImageDetailsDialog extends Component {
             />
           </Editfields>
         </Container>
-        {this.state.dialog &&
+        {(dialog) &&
           <ImageDialog
             open
             submitFunction={this.modifyImage}
             closeDialog={this.closeDialog}
             width={266}
             height={150}
-            maxSize={50000}
+            maxSize={200000}
             title="Modyfikuj zdjęcie"
-            data={this.state.src}
-            sidebar={this.props.sidebar}
+            data={src.preview || src}
+            sidebar={sidebar}
           />
         }
       </EditDialog>

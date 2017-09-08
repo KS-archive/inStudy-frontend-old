@@ -13,7 +13,7 @@ class ImageDialog extends Component {
   }
 
   render() {
-    const { handleSubmit, closeDialog, submitting, pristine, destroy, open, sidebar } = this.props;
+    const { handleSubmit, closeDialog, submitting, pristine, destroy, open, sidebar, data, title, width, height, maxSize } = this.props;
     const actions = [
       <FlatButton
         label="Anuluj"
@@ -29,10 +29,10 @@ class ImageDialog extends Component {
     ];
     const tooltip = `
       <p style="font-weight: 500; margin-bottom: 5px;">Wymiary na stronie:</p>
-      <p>${this.props.width} x ${this.props.height} px</p>
+      <p>${width} x ${height} px</p>
       <br>
       <p style="font-weight: 500; margin-bottom: 5px;">Maksymalny rozmiar:</p>
-      <p>${this.props.maxSize / 1000} KB</p>
+      <p>${maxSize / 1000} KB</p>
     `;
 
     return (
@@ -40,7 +40,7 @@ class ImageDialog extends Component {
         open={open}
         onRequestClose={() => { closeDialog(); destroy(); }}
         actions={actions}
-        title={this.props.title}
+        title={title}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
@@ -51,8 +51,8 @@ class ImageDialog extends Component {
           <Field
             name="image"
             component={DropzoneField}
-            maxSize={this.props.maxSize}
-            currentImage={this.props.data}
+            maxSize={maxSize}
+            currentImage={data}
           />
           <button style={{ visibility: 'hidden', position: 'fixed' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />
         </Form>
