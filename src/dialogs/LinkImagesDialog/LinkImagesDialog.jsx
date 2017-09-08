@@ -13,14 +13,15 @@ import { Container, StyledTextField, Checkboxes, StyledCheckbox, Types, Type, La
 export default class LinkImagesDialog extends Component {
   constructor(props) {
     super(props);
+    const { _id, content, title, color, type, startGray, rowsLimit, randomize } = this.props.data;
     this.state = {
-      content: this.props.data.content || [],
-      title: this.props.data.title || undefined,
-      color: this.props.data.color,
-      type: this.props.data.type || 0,
-      startGray: this.props.data.startGray || false,
-      rowsLimit: this.props.data.rowsLimit || 1,
-      randomize: this.props.data.randomize || false,
+      content: content || [],
+      title: title || undefined,
+      color,
+      type: type || 0,
+      startGray: startGray || false,
+      rowsLimit: rowsLimit || 1,
+      randomize: randomize || false,
       dialog: false,
       dialogData: null,
       errors: {
@@ -28,14 +29,15 @@ export default class LinkImagesDialog extends Component {
         rowsLimit: null,
       },
     };
-    this.isEditModal = !!this.props.data._id;
+    this.isEditModal = !!_id;
   }
 
   componentWillMount() {
+    const { closeDialog, data: { _id } } = this.props;
     this.props.setModalFunctions({
       submit: this.submit,
-      cancel: this.props.closeDialog,
-      remove: this.props.data._id ? this.remove : null,
+      cancel: closeDialog,
+      remove: _id && this.remove,
       changeColors: this.openColorsDialog,
     });
     this.types = accessibleModules.find(el => el.kind === 'LinkImages').types;
@@ -145,8 +147,8 @@ export default class LinkImagesDialog extends Component {
   }
 
   render() {
-    const { closeDialog, open, sidebar } = this.props;
-    const { dialog, dialogData, randomize, startGray } = this.state;
+    const { closeDialog, open, sidebar, colors } = this.props;
+    const { dialog, dialogData, randomize, startGray, rowsLimit, errors, title, content } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
@@ -177,17 +179,17 @@ export default class LinkImagesDialog extends Component {
       >
         <Container>
           <StyledTextField
-            value={this.state.title}
+            value={title}
             onChange={(e) => { this.setState({ title: e.target.value }); }}
             floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={this.state.errors.title}
+            errorText={errors.title}
             {...inputStyle}
           />
           <StyledTextField
-            value={this.state.rowsLimit}
+            value={rowsLimit}
             onChange={(e) => { this.setState({ rowsLimit: e.target.value }); }}
             floatingLabelText="Liczba wierszy (0 = wszystkie)"
-            errorText={this.state.errors.rowsLimit}
+            errorText={errors.rowsLimit}
             {...inputStyle}
           />
           <Checkboxes>
@@ -208,7 +210,7 @@ export default class LinkImagesDialog extends Component {
           </Types>
           <LabelHeader>Elementy</LabelHeader>
           <Elements>
-            {this.state.content.map((el, i) => this.renderElement(el, i))}
+            {content.map((el, i) => this.renderElement(el, i))}
             <Element onClick={this.addDetails}>
               <i className="fa fa-plus" aria-hidden="true" />
             </Element>
@@ -216,9 +218,9 @@ export default class LinkImagesDialog extends Component {
         </Container>
         {dialog === 'colors' &&
           <ColorsDialog
-            submit={(colors) => { this.setState({ color: colors[0] }); }}
+            submit={(newColors) => { this.setState({ color: newColors[0] }); }}
             names={['Kolor obramowania (typ 2)']}
-            mainColors={this.props.colors}
+            mainColors={colors}
             {...dialogAttrs}
           />
         }
