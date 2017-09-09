@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import without from 'lodash/without';
 import pick from 'lodash/pick';
+import keys from 'lodash/keys';
+import validation from '../../js/validation';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
 import ImageDetailsDialog from './ImageDetailsDialog/ImageDetailsDialog';
-import { hasAnyValue } from '../../js/utils';
+import { renderActionButtons } from '../../js/renderHelpers';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, StyledTextField, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementOptionsOverlay, ElementOptions } from './LinkImagesDialog_styles';
+import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementOptionsOverlay, ElementOptions } from './LinkImagesDialog_styles';
 
 export default class LinkImagesDialog extends Component {
   constructor(props) {
@@ -24,48 +26,36 @@ export default class LinkImagesDialog extends Component {
       randomize: randomize || false,
       dialog: false,
       dialogData: null,
-      errors: {
-        title: null,
-        rowsLimit: null,
-      },
+      errors: {},
     };
     this.isEditModal = !!_id;
+    this.validate = {
+      title: { required: true },
+      content: { noEmptyArr: 'Musisz dodać co najmniej jeden element do galerii' },
+      rowsLimit: { required: true, naturalNumber: true },
+    };
+    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
   }
 
   componentWillMount() {
-    const { closeDialog, data: { _id } } = this.props;
-    this.props.setModalFunctions({
-      submit: this.submit,
-      cancel: closeDialog,
-      remove: _id && this.remove,
-      changeColors: this.openColorsDialog,
-    });
+    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { submit, remove, openColorsDialog } = this;
+    setModalFunctions(_id, submit, closeDialog, remove, openColorsDialog);
     this.types = accessibleModules.find(el => el.kind === 'LinkImages').types;
   }
 
-  validate = (callback) => {
-    const errors = { ...this.state.errors };
-    const { title, content, rowsLimit } = this.state;
-    const naturalReg = /^(0|([1-9]\d*))$/;
-
-    errors.title = null;
-    errors.rowsLimit = null;
-
-    if (!title || !title.trim()) errors.title = 'To pole jest wymagane';
-    else if (!content || content.length === 0) errors.title = 'Musisz dodać co najmniej jeden element do galerii';
-    if (!rowsLimit || !rowsLimit.toString().trim()) errors.rowsLimit = 'To pole jest wymagane';
-    else if (!naturalReg.test(rowsLimit)) errors.rowsLimit = 'Wartość w tym polu musi być liczbą naturalną';
-
-    if (hasAnyValue(errors)) this.setState({ errors });
-    else callback();
-  }
-
   submit = () => {
-    this.validate(() => {
-      const data = pick(this.state, ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize']);
-      console.log(data);
-      this.props.closeDialog();
-    });
+    const validateValues = pick(this.state, keys(this.validate));
+    validation(
+      this.validate,
+      validateValues,
+      (errors) => { this.setState({ errors }); },
+      () => {
+        const values = pick(this.state, ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize']);
+        console.log(values);
+        this.props.closeDialog();
+      },
+    );
   }
 
   remove = () => {
@@ -146,63 +136,47 @@ export default class LinkImagesDialog extends Component {
     );
   }
 
+  renderTextField = (floatingLabelText, stateName) => {
+    const value = this.state[stateName];
+    const onChange = (e) => { this.setState({ [stateName]: e.target.value }); };
+    const errorText = this.state.errors[stateName];
+    const attrs = { value, floatingLabelText, onChange, errorText, fullWidth: true, ...inputStyle };
+    return <TextField {...attrs} />;
+  }
+
+  renderCheckbox = (label, stateName) => {
+    const checked = this.state[stateName];
+    const onCheck = () => { this.setState({ [stateName]: !checked }); };
+    const attrs = { label, checked, onCheck };
+    return <StyledCheckbox {...attrs} />;
+  }
+
   render() {
     const { closeDialog, open, sidebar, colors } = this.props;
-    const { dialog, dialogData, randomize, startGray, rowsLimit, errors, title, content } = this.state;
+    const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.submit}
-        primary
-      />,
-    ];
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
-        actions={actions}
+        actions={this.actions}
         title={this.isEditModal ? 'Edytuj moduł „Galeria”' : 'Dodaj moduł „Galeria”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
         <Container>
-          <StyledTextField
-            value={title}
-            onChange={(e) => { this.setState({ title: e.target.value }); }}
-            floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={errors.title}
-            {...inputStyle}
-          />
-          <StyledTextField
-            value={rowsLimit}
-            onChange={(e) => { this.setState({ rowsLimit: e.target.value }); }}
-            floatingLabelText="Liczba wierszy (0 = wszystkie)"
-            errorText={errors.rowsLimit}
-            {...inputStyle}
-          />
+          {this.renderTextField('Tytuł (nagłówek modułu)', 'title')}
+          {this.renderTextField('Liczba wierszy (0 = wszystkie)', 'rowsLimit')}
           <Checkboxes>
-            <StyledCheckbox
-              label="Losowa kolejność"
-              checked={randomize}
-              onCheck={() => { this.setState({ randomize: !randomize }); }}
-            />
-            <StyledCheckbox
-              label="Szare przed najechaniem"
-              checked={startGray}
-              onCheck={() => { this.setState({ startGray: !startGray }); }}
-            />
+            {this.renderCheckbox('Losowa kolejność', 'randomize')}
+            {this.renderCheckbox('Szare przed najechaniem', 'startGray')}
           </Checkboxes>
           <LabelHeader>Typ</LabelHeader>
           <Types>

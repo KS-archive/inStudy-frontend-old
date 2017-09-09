@@ -47,8 +47,9 @@ class EditProfile extends Component {
     this.props.getActiveCircle();
   }
 
-  setModalFunctions = (modalFunctions) => {
-    this.setState({ modalFunctions });
+  setModalFunctions = (id, submit, cancel, remove, changeColors) => {
+    remove = id && remove;
+    this.setState({ modalFunctions: { submit, cancel, remove, changeColors } });
   }
 
   openDialog = (name, data) => {

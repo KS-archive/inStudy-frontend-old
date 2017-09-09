@@ -15,12 +15,9 @@ class SimpleTextDialog extends Component {
   }
 
   componentDidMount() {
-    this.props.setModalFunctions({
-      submit: this.makeActivityInfoUpdateHandler,
-      cancel: this.cancel,
-      remove: this.props.data._id ? this.remove : null,
-      changeColors: null,
-    });
+    const { data: { _id }, setModalFunctions } = this.props;
+    const { submit, cancel, remove, openColorsDialog } = this;
+    setModalFunctions(_id, submit, cancel, remove, openColorsDialog);
   }
 
   componentDidUpdate() {
@@ -31,9 +28,14 @@ class SimpleTextDialog extends Component {
     }
   }
 
-  submit = (values) => {
+  handleSubmit = (values) => {
     if (this.props.data.kind) console.log(values);
     else console.log(values);
+    this.props.closeDialog();
+  }
+
+  submit = () => {
+    this.activityFormButton.click();
   }
 
   cancel = () => {
@@ -44,10 +46,6 @@ class SimpleTextDialog extends Component {
 
   remove = () => {
     console.log('removed!');
-  }
-
-  makeActivityInfoUpdateHandler = () => {
-    this.activityFormButton.click();
   }
 
   renderField = (name, label, multiLine = false, rows = 1) => (
@@ -76,7 +74,7 @@ class SimpleTextDialog extends Component {
       />,
       <FlatButton
         label="Zapisz zmiany"
-        onTouchTap={this.makeActivityInfoUpdateHandler}
+        onTouchTap={this.submit}
         disabled={submitting}
         primary
       />,
@@ -92,7 +90,7 @@ class SimpleTextDialog extends Component {
         repositionOnUpdate={false}
         isSidebar={this.props.sidebar}
       >
-        <Form onSubmit={handleSubmit(this.submit)}>
+        <Form onSubmit={handleSubmit(this.handleSubmit)}>
           {this.renderField('title', 'Nazwa modułu')}
           {this.renderField('content', 'Treść', true, 4)}
           <button style={{ visibility: 'hidden' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />

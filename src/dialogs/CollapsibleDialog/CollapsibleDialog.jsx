@@ -27,12 +27,9 @@ export default class SocialsDialog extends Component {
   }
 
   componentWillMount() {
-    this.props.setModalFunctions({
-      submit: this.submit,
-      cancel: this.props.closeDialog,
-      remove: this.props.data._id ? this.remove : null,
-      changeColors: this.openColorsDialog,
-    });
+    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { submit, remove, openColorsDialog } = this;
+    setModalFunctions(_id, submit, closeDialog, remove, openColorsDialog);
   }
 
   validate = (callback) => {

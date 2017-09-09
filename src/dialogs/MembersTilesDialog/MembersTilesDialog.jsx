@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import without from 'lodash/without';
 import pick from 'lodash/pick';
 import keys from 'lodash/keys';
@@ -7,9 +7,10 @@ import validation from '../../js/validation';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
 import MemberDetailsDialog from './MemberDetailsDialog/MemberDetailsDialog';
+import { renderActionButtons } from '../../js/renderHelpers';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, StyledTextField, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementContent, Name, Role, ElementOptions } from './MembersTilesDialog_styles';
+import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementContent, Name, Role, ElementOptions } from './MembersTilesDialog_styles';
 
 export default class MembersTilesDialog extends Component {
   constructor(props) {
@@ -33,16 +34,13 @@ export default class MembersTilesDialog extends Component {
       content: { noEmptyArr: true },
       rowsLimit: { required: true, naturalNumber: true },
     };
+    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
   }
 
   componentWillMount() {
-    const { closeDialog, data: { _id } } = this.props;
-    this.props.setModalFunctions({
-      submit: this.submit,
-      cancel: closeDialog,
-      remove: _id && this.remove,
-      changeColors: this.openColorsDialog,
-    });
+    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { submit, remove, openColorsDialog } = this;
+    setModalFunctions(_id, submit, closeDialog, remove, openColorsDialog);
     this.types = accessibleModules.find(el => el.kind === 'MembersTiles').types;
   }
 
@@ -144,63 +142,47 @@ export default class MembersTilesDialog extends Component {
     );
   }
 
+  renderTextField = (floatingLabelText, stateName) => {
+    const value = this.state[stateName];
+    const onChange = (e) => { this.setState({ [stateName]: e.target.value }); };
+    const errorText = this.state.errors[stateName];
+    const attrs = { value, floatingLabelText, onChange, errorText, fullWidth: true, ...inputStyle };
+    return <TextField {...attrs} />;
+  }
+
+  renderCheckbox = (label, stateName) => {
+    const checked = this.state[stateName];
+    const onCheck = () => { this.setState({ [stateName]: !checked }); };
+    const attrs = { label, checked, onCheck };
+    return <StyledCheckbox {...attrs} />;
+  }
+
   render() {
     const { closeDialog, open, sidebar, colors } = this.props;
-    const { dialog, dialogData, randomize, startGray, rowsLimit, errors, title, content } = this.state;
+    const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.submit}
-        primary
-      />,
-    ];
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
-        actions={actions}
+        actions={this.actions}
         title={this.isEditModal ? 'Edytuj moduł „Kafelki osobowe”' : 'Dodaj moduł „Kafelki osobowe”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
         <Container>
-          <StyledTextField
-            value={title}
-            onChange={(e) => { this.setState({ title: e.target.value }); }}
-            floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={errors.title}
-            {...inputStyle}
-          />
-          <StyledTextField
-            value={rowsLimit}
-            onChange={(e) => { this.setState({ rowsLimit: e.target.value }); }}
-            floatingLabelText="Liczba wierszy (0 = wszystkie)"
-            errorText={errors.rowsLimit}
-            {...inputStyle}
-          />
+          {this.renderTextField('Tytuł (nagłówek modułu)', 'title')}
+          {this.renderTextField('Liczba wierszy (0 = wszystkie)', 'rowsLimit')}
           <Checkboxes>
-            <StyledCheckbox
-              label="Losowa kolejność"
-              checked={randomize}
-              onCheck={() => { this.setState({ randomize: !randomize }); }}
-            />
-            <StyledCheckbox
-              label="Szare przed najechaniem"
-              checked={startGray}
-              onCheck={() => { this.setState({ startGray: !startGray }); }}
-            />
+            {this.renderCheckbox('Losowa kolejność', 'randomize')}
+            {this.renderCheckbox('Szare przed najechaniem', 'startGray')}
           </Checkboxes>
           <LabelHeader>Typ</LabelHeader>
           <Types>

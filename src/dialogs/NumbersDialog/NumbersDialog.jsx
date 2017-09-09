@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
+import pick from 'lodash/pick';
+import keys from 'lodash/keys';
+import validation from '../../js/validation';
 import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
-import { hasAnyValue } from '../../js/utils';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
@@ -19,37 +21,33 @@ export default class SocialsDialog extends Component {
       color: color || 2,
       dialog: false,
       dialogData: null,
-      errors: {
-        title: null,
-      },
+      errors: {},
     };
     this.isEditModal = !!_id;
+    this.validate = {
+      title: { required: true },
+      content: { noEmptyArr: true },
+    };
   }
 
   componentWillMount() {
-    this.props.setModalFunctions({
-      submit: this.submit,
-      cancel: this.props.closeDialog,
-      remove: this.props.data._id ? this.remove : null,
-      changeColors: this.openColorsDialog,
-    });
-  }
-
-  validate = (callback) => {
-    const errors = { ...this.state.errors };
-    const { title, content } = this.state;
-    errors.title = null;
-    if (!title || !title.trim()) errors.title = 'To pole jest wymagane';
-    else if (!content || content.length === 0) errors.title = 'Musisz dodać co najmniej jeden element do listy';
-    if (hasAnyValue(errors)) this.setState({ errors });
-    else callback();
+    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { submit, remove, openColorsDialog } = this;
+    setModalFunctions(_id, submit, closeDialog, remove, openColorsDialog);
   }
 
   submit = () => {
-    this.validate(() => {
-      console.log(this.state.content);
-      this.props.closeDialog();
-    });
+    const validateValues = pick(this.state, keys(this.validate));
+    validation(
+      this.validate,
+      validateValues,
+      (errors) => { this.setState({ errors }); },
+      () => {
+        const values = pick(this.state, ['content', 'title', 'color']);
+        console.log(values);
+        this.props.closeDialog();
+      },
+    );
   }
 
   remove = () => {

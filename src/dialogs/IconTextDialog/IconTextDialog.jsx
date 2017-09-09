@@ -29,15 +29,12 @@ export default class IconTextDialog extends Component {
   }
 
   componentWillMount() {
-    this.props.setModalFunctions({
-      submit: this.handleSubmit,
-      cancel: this.props.closeDialog,
-      remove: this.props.data._id ? this.remove : null,
-      changeColors: this.openColorsDialog,
-    });
+    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { submit, remove, openColorsDialog } = this;
+    setModalFunctions(_id, submit, closeDialog, remove, openColorsDialog);
   }
 
-  handleSubmit = () => {
+  submit = () => {
     const { content, title, color } = this.state;
     const values = { content, title };
     validation(
@@ -127,7 +124,7 @@ export default class IconTextDialog extends Component {
       />,
       <FlatButton
         label="Zapisz zmiany"
-        onTouchTap={this.handleSubmit}
+        onTouchTap={this.submit}
         primary
       />,
     ];

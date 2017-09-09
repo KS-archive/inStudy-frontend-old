@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import { colorPalette, media } from '../../js/constants/styles';
 
@@ -12,10 +11,6 @@ export const Container = styled.div`
   ${media.medium`
     padding: 0 !important;
   `}
-`;
-
-export const StyledTextField = styled(TextField)`
-  width: 100% !important;
 `;
 
 export const Checkboxes = styled.div`
