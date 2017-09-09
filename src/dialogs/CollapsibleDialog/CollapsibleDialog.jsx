@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
+import pick from 'lodash/pick';
+import keys from 'lodash/keys';
+import validation from '../../js/validation';
 import AddCollapsible from './AddCollapsible/AddCollapsible';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
-import { hasAnyValue } from '../../js/utils';
-import { inputStyle } from '../../js/constants/styles';
+import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './CollapsibleDialog_styles';
+import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './CollapsibleDialog_styles';
 
 export default class SocialsDialog extends Component {
   constructor(props) {
@@ -19,11 +20,14 @@ export default class SocialsDialog extends Component {
       color: color || 2,
       dialog: false,
       dialogData: null,
-      errors: {
-        title: null,
-      },
+      errors: {},
     };
     this.isEditModal = !!_id;
+    this.validate = {
+      title: { required: true },
+      content: { noEmptyArr: true },
+    };
+    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
   }
 
   componentWillMount() {
@@ -32,21 +36,19 @@ export default class SocialsDialog extends Component {
     setModalFunctions(_id, submit, closeDialog, remove, openColorsDialog);
   }
 
-  validate = (callback) => {
-    const errors = { ...this.state.errors };
-    const { title, content } = this.state;
-    errors.title = null;
-    if (!title || !title.trim()) errors.title = 'To pole jest wymagane';
-    else if (!content || content.length === 0) errors.title = 'Musisz dodać co najmniej jeden element do listy';
-    if (hasAnyValue(errors)) this.setState({ errors });
-    else callback();
+  submit = () => {
+    const validateValues = pick(this.state, keys(this.validate));
+    validation(this.validate, validateValues, this.validateFailed, this.validateSuccess);
   }
 
-  submit = () => {
-    this.validate(() => {
-      console.log(this.state.content);
-      this.props.closeDialog();
-    });
+  validateSuccess = () => {
+    const values = pick(this.state, ['content', 'title', 'color']);
+    console.log(values);
+    this.props.closeDialog();
+  }
+
+  validateFailed = (errors) => {
+    this.setState({ errors });
   }
 
   remove = () => {
@@ -107,7 +109,7 @@ export default class SocialsDialog extends Component {
   );
 
   render() {
-    const { closeDialog, open, sidebar } = this.props;
+    const { closeDialog, open, sidebar, colors } = this.props;
     const { dialog, dialogData } = this.state;
     const dialogAttrs = {
       sidebar,
@@ -115,37 +117,20 @@ export default class SocialsDialog extends Component {
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.submit}
-        primary
-      />,
-    ];
     console.log(this.props);
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
-        actions={actions}
+        actions={this.actions}
         title={this.isEditModal ? 'Edytuj moduł „Lista rozwijana”' : 'Dodaj moduł „Lista rozwijana”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
         <Container>
-          <StyledTextField
-            value={this.state.title}
-            onChange={(e) => { this.setState({ title: e.target.value }); }}
-            floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={this.state.errors.title}
-            {...inputStyle}
-          />
+          {renderTextField(this, 'Tytuł (nagłówek modułu)', 'title')}
           <ElementsList>
             {this.state.content && this.state.content.map(this.renderElement)}
           </ElementsList>
@@ -161,9 +146,9 @@ export default class SocialsDialog extends Component {
         }
         {dialog === 'colors' &&
           <ColorsDialog
-            submit={(colors) => { console.log(colors); this.setState({ color: colors[0] }); }}
+            submit={(newColors) => { this.setState({ color: newColors[0] }); }}
             names={['Kolor kafelka']}
-            mainColors={this.props.colors}
+            mainColors={colors}
             {...dialogAttrs}
           />
         }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
 import without from 'lodash/without';
 import pick from 'lodash/pick';
 import keys from 'lodash/keys';
@@ -7,7 +6,7 @@ import validation from '../../js/validation';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
 import MemberDetailsDialog from './MemberDetailsDialog/MemberDetailsDialog';
-import { renderActionButtons } from '../../js/renderHelpers';
+import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementContent, Name, Role, ElementOptions } from './MembersTilesDialog_styles';
@@ -46,16 +45,17 @@ export default class MembersTilesDialog extends Component {
 
   submit = () => {
     const validateValues = pick(this.state, keys(this.validate));
-    validation(
-      this.validate,
-      validateValues,
-      (errors) => { this.setState({ errors }); },
-      () => {
-        const values = pick(this.state, ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize']);
-        console.log(values);
-        this.props.closeDialog();
-      },
-    );
+    validation(this.validate, validateValues, this.validateFailed, this.validateSuccess);
+  }
+
+  validateSuccess = () => {
+    const values = pick(this.state, ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize']);
+    console.log(values);
+    this.props.closeDialog();
+  }
+
+  validateFailed = (errors) => {
+    this.setState({ errors });
   }
 
   remove = () => {
@@ -142,14 +142,6 @@ export default class MembersTilesDialog extends Component {
     );
   }
 
-  renderTextField = (floatingLabelText, stateName) => {
-    const value = this.state[stateName];
-    const onChange = (e) => { this.setState({ [stateName]: e.target.value }); };
-    const errorText = this.state.errors[stateName];
-    const attrs = { value, floatingLabelText, onChange, errorText, fullWidth: true, ...inputStyle };
-    return <TextField {...attrs} />;
-  }
-
   renderCheckbox = (label, stateName) => {
     const checked = this.state[stateName];
     const onCheck = () => { this.setState({ [stateName]: !checked }); };
@@ -178,8 +170,8 @@ export default class MembersTilesDialog extends Component {
         isSidebar={sidebar}
       >
         <Container>
-          {this.renderTextField('Tytuł (nagłówek modułu)', 'title')}
-          {this.renderTextField('Liczba wierszy (0 = wszystkie)', 'rowsLimit')}
+          {renderTextField(this, 'Tytuł (nagłówek modułu)', 'title')}
+          {renderTextField(this, 'Liczba wierszy (0 = wszystkie)', 'rowsLimit')}
           <Checkboxes>
             {this.renderCheckbox('Losowa kolejność', 'randomize')}
             {this.renderCheckbox('Szare przed najechaniem', 'startGray')}

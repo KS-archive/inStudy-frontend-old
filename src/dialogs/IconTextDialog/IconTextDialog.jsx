@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
+import pick from 'lodash/pick';
+import keys from 'lodash/keys';
+import validation from '../../js/validation';
 import AddIconText from './AddIconText/AddIconText';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
-import validation from '../../js/validation';
-import { inputStyle } from '../../js/constants/styles';
+import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement, IconImageWrapper, IconImage } from './IconTextDialog_styles';
+import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement, IconImageWrapper, IconImage } from './IconTextDialog_styles';
 
 export default class IconTextDialog extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export default class IconTextDialog extends Component {
       title: { required: true },
       content: { noEmptyArr: true },
     };
+    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
   }
 
   componentWillMount() {
@@ -35,17 +37,18 @@ export default class IconTextDialog extends Component {
   }
 
   submit = () => {
-    const { content, title, color } = this.state;
-    const values = { content, title };
-    validation(
-      this.validate,
-      values,
-      (errors) => { this.setState({ errors }); },
-      () => {
-        console.log({ content, title, color });
-        this.props.closeDialog();
-      },
-    );
+    const validateValues = pick(this.state, keys(this.validate));
+    validation(this.validate, validateValues, this.validateFailed, this.validateSuccess);
+  }
+
+  validateSuccess = () => {
+    const values = pick(this.state, ['content', 'title', 'color']);
+    console.log(values);
+    this.props.closeDialog();
+  }
+
+  validateFailed = (errors) => {
+    this.setState({ errors });
   }
 
   remove = () => {
@@ -110,43 +113,26 @@ export default class IconTextDialog extends Component {
 
   render() {
     const { closeDialog, open, sidebar, colors } = this.props;
-    const { dialog, dialogData, title, content, errors } = this.state;
+    const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.submit}
-        primary
-      />,
-    ];
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
-        actions={actions}
+        actions={this.actions}
         title={this.isEditModal ? 'Edytuj moduł „Kolumny tekstowe”' : 'Dodaj moduł „Kolumny tekstowe”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
         <Container>
-          <StyledTextField
-            value={title}
-            onChange={(e) => { this.setState({ title: e.target.value }); }}
-            floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={errors.title || errors.content}
-            {...inputStyle}
-          />
+          {renderTextField(this, 'Tytuł (nagłówek modułu)', 'title')}
           <ElementsList>
             {content && content.map(this.renderElement)}
           </ElementsList>
@@ -162,7 +148,7 @@ export default class IconTextDialog extends Component {
         }
         {dialog === 'colors' &&
           <ColorsDialog
-            submit={(color) => { this.setState({ color: color[0] }); }}
+            submit={(newColors) => { this.setState({ color: newColors[0] }); }}
             names={['Kolor ikony']}
             mainColors={colors}
             {...dialogAttrs}

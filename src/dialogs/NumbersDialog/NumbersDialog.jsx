@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
 import pick from 'lodash/pick';
@@ -7,9 +6,9 @@ import keys from 'lodash/keys';
 import validation from '../../js/validation';
 import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
-import { inputStyle } from '../../js/constants/styles';
+import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
+import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
 
 export default class SocialsDialog extends Component {
   constructor(props) {
@@ -28,6 +27,7 @@ export default class SocialsDialog extends Component {
       title: { required: true },
       content: { noEmptyArr: true },
     };
+    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
   }
 
   componentWillMount() {
@@ -38,16 +38,18 @@ export default class SocialsDialog extends Component {
 
   submit = () => {
     const validateValues = pick(this.state, keys(this.validate));
-    validation(
-      this.validate,
-      validateValues,
-      (errors) => { this.setState({ errors }); },
-      () => {
-        const values = pick(this.state, ['content', 'title', 'color']);
-        console.log(values);
-        this.props.closeDialog();
-      },
-    );
+    validation(this.validate, validateValues, this.validateFailed, this.validateSuccess);
+  }
+
+  validateSuccess = () => {
+    const values = pick(this.state, ['content', 'title', 'color']);
+    console.log(values);
+    this.props.closeDialog();
+  }
+
+  validateFailed = (errors) => {
+    console.log('failed');
+    this.setState({ errors });
   }
 
   remove = () => {
@@ -108,46 +110,29 @@ export default class SocialsDialog extends Component {
   );
 
   render() {
-    const { closeDialog, open, sidebar } = this.props;
-    const { dialog, dialogData } = this.state;
+    const { closeDialog, open, sidebar, colors } = this.props;
+    const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.submit}
-        primary
-      />,
-    ];
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
-        actions={actions}
+        actions={this.actions}
         title={this.isEditModal ? 'Edytuj moduł „Liczby”' : 'Dodaj moduł „Liczby”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
         <Container>
-          <StyledTextField
-            value={this.state.title}
-            onChange={(e) => { this.setState({ title: e.target.value }); }}
-            floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={this.state.errors.title}
-            {...inputStyle}
-          />
+          {renderTextField(this, 'Tytuł (nagłówek modułu)', 'title')}
           <ElementsList>
-            {this.state.content && this.state.content.map(this.renderElement)}
+            {content && content.map(this.renderElement)}
           </ElementsList>
           <AddElement onClick={() => { this.setState({ dialog: 'element' }); }}>
             + Dodaj nowy element
@@ -161,9 +146,9 @@ export default class SocialsDialog extends Component {
         }
         {dialog === 'colors' &&
           <ColorsDialog
-            submit={(colors) => { this.setState({ color: colors[0] }); }}
+            submit={(newColors) => { this.setState({ color: newColors[0] }); }}
             names={['Kolor liczby']}
-            mainColors={this.props.colors}
+            mainColors={colors}
             {...dialogAttrs}
           />
         }

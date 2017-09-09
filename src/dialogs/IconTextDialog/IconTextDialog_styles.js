@@ -13,10 +13,6 @@ export const Container = styled.div`
   `}
 `;
 
-export const StyledTextField = styled(TextField)`
-  width: 100% !important;
-`;
-
 export const ElementsList = styled.div`
   overflow-y: auto;
   display: flex;
