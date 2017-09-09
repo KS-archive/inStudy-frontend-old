@@ -1,13 +1,10 @@
-@import '../../scss/variables';
+import styled from 'styled-components';
+import { colorPalette, media } from '../../js/constants/styles';
 
-.profileHeader__container {
-
-}
-
-.profileHeader__background {
+export const Background = styled.div`
   z-index: -1;
   position: absolute;
-  top: 60px;
+  top: ${props => props.editable ? 0 : '60px'};
   right: 0;
   left: 0;
   width: 100%;
@@ -23,91 +20,86 @@
   @media (max-width: 800px) {
     height: 350px;
   }
-}
+`;
 
-.profileHeader__backgroundEdit {
+export const BackgroundEditIcon = styled.i`
   position: absolute;
   right: 30px;
   top: 90px;
   font-size: 36px;
   color: #fff;
-  opacity: .6;
-  transition: opacity .3s;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  ${media.small`
+    display: none;
+  `}
 
   &:hover {
     cursor: pointer;
     opacity: 1;
   }
+`;
 
-  @media (max-width: 700px) {
-    display: none;
-  }
-}
-
-.profileHeader__card {
+export const Card = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 100px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
-}
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 10px, rgba(0, 0, 0, 0.23) 0 3px 10px;
+`;
 
-.profileHeader__cardEdit {
+export const CardEditIcon = styled.i`
   position: absolute;
   top: 30px;
   right: 30px;
   font-size: 36px;
-  color: $secondary-text-color;
-  opacity: .6;
-  transition: opacity .3s;
+  color: ${colorPalette.accent3Color};
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  ${media.small`
+    display: none;
+  `}
 
   &:hover {
     cursor: pointer;
     opacity: 1;
   }
+`;
 
-  @media (max-width: 700px) {
-    display: none;
-  }
-}
-
-.profileHeader__mainData {
+export const MainData = styled.div`
   display: flex;
   padding: 60px 50px;
   background-color: #fff;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     flex-direction: column;
     align-items: center;
-  }
-}
+  `}
+`;
 
-.profileHeader__logoContainer {
+export const LogoContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 310px;
   margin-right: 60px;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     margin-right: 0;
     margin-bottom: 60px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     max-width: 310px;
     width: 95%;
-  }
-}
+  `}
+`;
 
-.profileHeader__logo {
+export const Logo = styled.img`
   max-width: 100%;
   max-height: 100%;
-}
+`;
 
-.profileHeader__logoEdit {
+export const LogoEditOverlay = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -117,12 +109,15 @@
   align-items: center;
   justify-content: center;
   font-size: 48px;
-  background-color: rgba(0,0,0,.3);
-  transition: all .3s;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  ${media.small`
+    display: none;
+  `}
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(0,0,0,.6);
+    background-color: rgba(0, 0, 0, 0.6);
 
     i {
       opacity: 1;
@@ -130,50 +125,43 @@
   }
 
   i {
-    opacity: .6;
+    opacity: 0.6;
     color: #fff;
   }
+`;
 
-  @media (max-width: 700px) {
-    display: none;
-  }
-}
-
-.profileHeader__dataContainer {
+export const DataContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     align-items: center;
     width: 100%;
-  }
-}
+  `}
+`;
 
-.profileHeader__name {
+export const CircleName = styled.h1`
   margin-bottom: 20px;
   font-size: 36px;
   font-weight: 500;
   line-height: 1.3;
-  color: $primary-text-color;
-
-  @media (max-width: 960px) {
+  color: ${colorPalette.textColor};
+  ${media.medium`
     width: 100%;
     text-align: center;
-  }
-}
+  `}
+`;
 
-.profileHeader__labels {
+export const Labels = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 40px;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     width: 100%;
     justify-content: center;
-  }
-}
+  `}
+`;
 
-.profileHeader__label {
+export const Label = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -190,91 +178,105 @@
     margin-right: 0;
   }
 
-  @media (max-width: 960px) {
+  ${media.medium`
     margin: 0 10px 10px;
-    &:last-child { margin-right: 10px; }
-  }
-}
 
-.profileHeader__textContainer {
+    &:last-child {
+      margin-right: 10px;
+    }
+  `}
+`;
+
+export const TextContainer = styled.div`
   margin-top: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     width: 100%;
     align-items: center;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     align-items: stretch;
-  }
-}
+  `}
+`;
 
-.profileHeader__textRow {
+export const TextRow = styled.div`
   display: flex;
   margin-bottom: 20px;
+  ${media.small`
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+  `}
 
   &:last-child {
     margin-bottom: 0;
   }
+`;
 
-  @media (max-width: 700px) {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-}
-
-.profileHeader__textTitle {
+export const Name = styled.p`
   display: flex;
   align-items: center;
   min-width: 200px;
   color: $primary-text-color;
   font-weight: 500;
   text-transform: uppercase;
-
-  @media (max-width: 700px) {
+  ${media.small`
     min-width: unset;
     margin-bottom: 5px;
     font-size: 20px;
     text-align: center;
-  }
-}
+  `}
+`;
 
-.profileHeader__textContent {
+export const Value = styled.p`
   display: flex;
   align-items: center;
-  color: $secondary-text-color;
+  color: ${colorPalette.accent3Color};
   line-height: 1.3;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     width: 300px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     width: unset;
     font-size: 20px;
     text-align: center;
-  }
-}
+  `}
+`;
 
-.profileHeader__socials {
+export const SocialsBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100px;
-}
+  background-color: ${props => props.backgroundColor};
+`;
 
-.profileHeader__socialsContainer {
+export const SocialsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-}
+`;
 
-.profileHeader__social {
+export const SocialsEditOverlay = styled.div`
+  font-size: 24px;
+  text-align: center;
+  color: #fff;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  ${media.small`
+    display: none;
+  `}
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+`;
+
+export const Social = styled.a`
   margin-right: 40px;
   font-size: 24px;
   text-align: center;
@@ -287,7 +289,7 @@
     width: 40px;
     height: 40px;
     border-radius: 100%;
-    transition: all .3s;
+    transition: all 0.3s;
 
     &:hover {
       cursor: pointer;
@@ -298,21 +300,10 @@
   &:last-child {
     margin-right: 0;
   }
-}
 
-.profileHeader__socialEdit {
-  font-size: 24px;
-  text-align: center;
-  color: #fff;
-  opacity: .6;
-  transition: opacity .3s;
-
-  &:hover {
-    cursor: pointer;
-    opacity: 1;
-  }
-
-  @media (max-width: 700px) {
-    display: none;
-  }
-}
+  ${media.small`
+    &:nth-last-child(2) {
+      margin-right: 0;
+    }
+  `}
+`;

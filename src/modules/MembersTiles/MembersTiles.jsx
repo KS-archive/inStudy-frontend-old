@@ -37,9 +37,9 @@ export default class MembersTiles extends Component {
   renderTiles = () => {
     let Members;
     switch (this.props.type) {
-      case 1: Members = MembersTile; break;
-      case 2: Members = MembersTile2; break;
-      case 3: Members = MembersTile3; break;
+      case 0: Members = MembersTile; break;
+      case 1: Members = MembersTile2; break;
+      case 2: Members = MembersTile3; break;
       default: Members = null;
     }
     return this.state.elements.map((tile, index) => {

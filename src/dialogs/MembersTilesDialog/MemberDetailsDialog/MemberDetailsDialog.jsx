@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import ImageDialog from '../../ImageDialog/ImageDialog';
+import SocialsDialog from '../../SocialsDialog/SocialsDialog';
 import { inputStyle } from '../../../js/constants/styles';
 import { EditDialog } from '../../../js/globalStyles';
-import { Container, ImagePreview, Editfields } from './MemberDetailsDialog_styles';
+import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, LabelHeader, AddSocial } from './MemberDetailsDialog_styles';
 
 export default class MemberDetailsDialog extends Component {
   constructor(props) {
     super(props);
+    const { coverImage, description, firstname, surname, role, socials } = this.props.data;
     this.state = {
-      preview: '',
-      name: '',
-      src: '',
-      link: '',
+      preview: coverImage && (coverImage.preview || coverImage),
+      firstname: firstname || '',
+      surname: surname || '',
+      role: role || '',
+      description: description || '',
+      socials: socials || [],
+      coverImage,
       dialog: false,
       errors: {
         name: null,
         link: null,
       },
     };
-  }
-
-  componentWillMount() {
-    const { data } = this.props;
-    if (data) {
-      const { name, src, link } = data;
-      this.setState({ name, src, link, preview: src.preview || src });
-    }
   }
 
   modifyImage = (value) => {
@@ -51,9 +48,17 @@ export default class MemberDetailsDialog extends Component {
     this.props.submit(values);
   }
 
+  updateSocials = (socials) => {
+    this.setState({ socials });
+  }
+
+  renderSocial = (social) => {
+    console.log(social);
+  }
+
   render() {
     const { closeDialog, sidebar } = this.props;
-    const { preview, src, dialog, name, link, errors } = this.state;
+    const { preview, firstname, surname, role, description, socials, coverImage, dialog, errors } = this.state;
     const actions = [
       <FlatButton
         label="Anuluj"
@@ -62,11 +67,11 @@ export default class MemberDetailsDialog extends Component {
       <FlatButton
         label="Zapisz zmiany"
         onTouchTap={this.submit}
-        disabled={!preview}
         primary
       />,
     ];
     const imagePreview = preview || '';
+    console.log(this.props);
 
     return (
       <EditDialog
@@ -79,49 +84,97 @@ export default class MemberDetailsDialog extends Component {
         isSidebar={sidebar}
       >
         <Container>
-          <ImagePreview preview={preview}>
-            <img src={imagePreview} alt="Podgląd obrazu" />
-          </ImagePreview>
-          <Editfields>
-            <TextField
-              value={name}
-              onChange={(e) => { this.setState({ name: e.target.value }); }}
-              floatingLabelText="Nazwa obrazu"
-              errorText={errors.name}
-              fullWidth
-              {...inputStyle}
-            />
-            <TextField
-              value={link}
-              onChange={(e) => { this.setState({ link: e.target.value }); }}
-              floatingLabelText="Link"
-              errorText={errors.link}
-              fullWidth
-              {...inputStyle}
-            />
-            <RaisedButton
-              label={(preview) ? 'Zmień obraz' : 'Wczytaj obraz'}
-              labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
-              style={{ marginTop: 10 }}
-              onClick={() => { this.setState({ dialog: true }); }}
-              primary
-            />
-          </Editfields>
+          <TextField
+            value={firstname}
+            onChange={(e) => { this.setState({ firstname: e.target.value }); }}
+            floatingLabelText="Imię"
+            errorText={errors.firstname}
+            fullWidth
+            {...inputStyle}
+          />
+          <TextField
+            value={surname}
+            onChange={(e) => { this.setState({ surname: e.target.value }); }}
+            floatingLabelText="Nazwisko"
+            errorText={errors.surname}
+            fullWidth
+            {...inputStyle}
+          />
+          <TextField
+            value={role}
+            onChange={(e) => { this.setState({ role: e.target.value }); }}
+            floatingLabelText="Rola"
+            errorText={errors.role}
+            fullWidth
+            {...inputStyle}
+          />
+          <TextField
+            value={description}
+            onChange={(e) => { this.setState({ description: e.target.value }); }}
+            floatingLabelText="Opis"
+            errorText={errors.description}
+            fullWidth
+            multiLine
+            rows={1}
+            {...inputStyle}
+          />
+          <MediaWrapper>
+            <MediaElement>
+              <LabelHeader>Zdjęcie</LabelHeader>
+              <ImagePreview preview={preview}>
+                <img src={imagePreview} alt="Podgląd obrazu" />
+                <ImagePreviewOverlay onClick={() => { this.setState({ dialog: 'image' }); }}>
+                  <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                </ImagePreviewOverlay>
+              </ImagePreview>
+            </MediaElement>
+            <MediaElement>
+              <LabelHeader>Social media</LabelHeader>
+              {socials.map(social => this.renderSocial(social))}
+              <AddSocial onClick={() => { this.setState({ dialog: 'socials' }); }}>
+                <i className="fa fa-plus" aria-hidden="true" />
+              </AddSocial>
+            </MediaElement>
+          </MediaWrapper>
         </Container>
-        {(dialog) &&
+        {(dialog === 'image') &&
           <ImageDialog
             open
             submitFunction={this.modifyImage}
             closeDialog={this.closeDialog}
-            width={266}
-            height={150}
+            width={265}
+            height={265}
             maxSize={200000}
             title="Modyfikuj zdjęcie"
-            data={src.preview || src}
+            data={coverImage.preview || coverImage}
             sidebar={sidebar}
+          />
+        }
+        {(dialog === 'socials') &&
+          <SocialsDialog
+            open
+            submitFunction={this.updateSocials}
+            closeDialog={this.closeDialog}
+            data={socials}
           />
         }
       </EditDialog>
     );
   }
 }
+
+MemberDetailsDialog.propTypes = {
+  closeDialog: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  sidebar: PropTypes.bool.isRequired,
+  submit: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    coverImage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    description: PropTypes.string,
+    firstname: PropTypes.string,
+    surname: PropTypes.string,
+    _id: PropTypes.string,
+    role: PropTypes.string,
+    socials: PropTypes.array,
+  }).isRequired,
+};

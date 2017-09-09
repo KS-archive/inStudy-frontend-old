@@ -41,6 +41,7 @@ export const AddSocialFields = styled.div`
   margin-top: 30px;
   border: 1px solid  ${colorPalette.accent3Color};
   color: ${colorPalette.accent3Color};
+  transition: all 0.3s;
 
   &:hover {
     cursor: pointer;

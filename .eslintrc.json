@@ -19,6 +19,7 @@
       "jsx-a11y/no-static-element-interactions": "off",
       "no-underscore-dangle": "off",
       "array-callback-return": "off",
-      "no-confusing-arrow": "off"
+      "no-confusing-arrow": "off",
+      "react/forbid-prop-types":"off"
     }
 }

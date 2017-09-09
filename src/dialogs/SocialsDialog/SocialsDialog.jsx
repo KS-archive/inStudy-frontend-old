@@ -26,6 +26,7 @@ class SocialsDialog extends Component {
         primary
       />,
     ];
+    console.log(this.props);
 
     return (
       <EditDialog

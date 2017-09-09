@@ -219,7 +219,7 @@ export default {
     {
       _id: 'ds9HY72SH12Jkkdsi',
       kind: 'MembersTiles',
-      type: 1,
+      type: 0,
       title: 'Członkowie',
       startGray: true,
       rowsLimit: 1,
@@ -235,15 +235,15 @@ export default {
           description: 'Vivamus commodo volutpat eros, eget vestibulum odio interdum at. Nunc eget lacus est.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -257,15 +257,15 @@ export default {
           description: 'Fusce posuere nibh nec diam consectetur semper. Proin nisl nibh, gravida non rutrum ac, commodo vitae nunc. Nam viverra leo ut tortor rutrum faucibus eget eget urna. Maecenas purus sem, vulputate nec sollicitudin vitae, mattis non quam. Donec efficitur at nisl a ultrices. Etiam vestibulum eget nunc vitae molestie. Sed ac cursus erat.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -279,15 +279,15 @@ export default {
           description: 'Sed fringilla tellus at tortor ultricies ornare.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -301,15 +301,15 @@ export default {
           description: '',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -323,15 +323,15 @@ export default {
           description: 'Pellentesque euismod condimentum mattis. Vestibulum mollis mauris sit amet convallis vulputate. Vestibulum placerat odio ex, sit amet commodo sem venenatis at. Mauris magna purus, condimentum vehicula leo vel, ornare maximus neque. Phasellus sit amet lobortis justo. In eget iaculis elit, vitae porta mauris. Duis egestas varius urna. Praesent quis mauris enim. Curabitur at scelerisque metus. Suspendisse potenti. Maecenas auctor pulvinar mattis. Morbi sed tempor turpis. Maecenas vulputate, nisl ac auctor maximus, diam nunc cursus elit, imperdiet pharetra sapien erat et lorem. Integer eu massa nulla. Duis et sodales enim, vitae accumsan dui. Sed aliquet lectus a urna aliquam, a condimentum lacus viverra.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -350,7 +350,7 @@ export default {
     {
       _id: 'jhkh88jkHG98lJUM',
       kind: 'MembersTiles',
-      type: 2,
+      type: 1,
       title: 'Członkowie honorowi',
       startGray: true,
       rowsLimit: 1,
@@ -366,15 +366,15 @@ export default {
           description: 'Vivamus commodo volutpat eros, eget vestibulum odio interdum at. Nunc eget lacus est.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -388,15 +388,15 @@ export default {
           description: 'Fusce posuere nibh nec diam consectetur semper. Proin nisl nibh, gravida non rutrum ac, commodo vitae nunc. Nam viverra leo ut tortor rutrum faucibus eget eget urna. Maecenas purus sem, vulputate nec sollicitudin vitae, mattis non quam. Donec efficitur at nisl a ultrices. Etiam vestibulum eget nunc vitae molestie. Sed ac cursus erat.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -410,15 +410,15 @@ export default {
           description: 'Sed fringilla tellus at tortor ultricies ornare.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -432,15 +432,15 @@ export default {
           description: '',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -454,15 +454,15 @@ export default {
           description: 'Pellentesque euismod condimentum mattis. Vestibulum mollis mauris sit amet convallis vulputate. Vestibulum placerat odio ex, sit amet commodo sem venenatis at. Mauris magna purus, condimentum vehicula leo vel, ornare maximus neque. Phasellus sit amet lobortis justo. In eget iaculis elit, vitae porta mauris. Duis egestas varius urna. Praesent quis mauris enim. Curabitur at scelerisque metus. Suspendisse potenti. Maecenas auctor pulvinar mattis. Morbi sed tempor turpis. Maecenas vulputate, nisl ac auctor maximus, diam nunc cursus elit, imperdiet pharetra sapien erat et lorem. Integer eu massa nulla. Duis et sodales enim, vitae accumsan dui. Sed aliquet lectus a urna aliquam, a condimentum lacus viverra.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -481,7 +481,7 @@ export default {
     {
       _id: 'fdn598H88h9JKKSRFjew',
       kind: 'MembersTiles',
-      type: 3,
+      type: 2,
       title: 'Członkowie honorowi',
       startGray: true,
       rowsLimit: 1,
@@ -497,15 +497,15 @@ export default {
           description: 'Vivamus commodo volutpat eros, eget vestibulum odio interdum at. Nunc eget lacus est.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -519,15 +519,15 @@ export default {
           description: 'Fusce posuere nibh nec diam consectetur semper. Proin nisl nibh, gravida non rutrum ac, commodo vitae nunc. Nam viverra leo ut tortor rutrum faucibus eget eget urna. Maecenas purus sem, vulputate nec sollicitudin vitae, mattis non quam. Donec efficitur at nisl a ultrices. Etiam vestibulum eget nunc vitae molestie. Sed ac cursus erat.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -541,15 +541,15 @@ export default {
           description: 'Sed fringilla tellus at tortor ultricies ornare.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -563,15 +563,15 @@ export default {
           description: '',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -585,15 +585,15 @@ export default {
           description: 'Pellentesque euismod condimentum mattis. Vestibulum mollis mauris sit amet convallis vulputate. Vestibulum placerat odio ex, sit amet commodo sem venenatis at. Mauris magna purus, condimentum vehicula leo vel, ornare maximus neque. Phasellus sit amet lobortis justo. In eget iaculis elit, vitae porta mauris. Duis egestas varius urna. Praesent quis mauris enim. Curabitur at scelerisque metus. Suspendisse potenti. Maecenas auctor pulvinar mattis. Morbi sed tempor turpis. Maecenas vulputate, nisl ac auctor maximus, diam nunc cursus elit, imperdiet pharetra sapien erat et lorem. Integer eu massa nulla. Duis et sodales enim, vitae accumsan dui. Sed aliquet lectus a urna aliquam, a condimentum lacus viverra.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],

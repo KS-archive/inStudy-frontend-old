@@ -79,7 +79,7 @@ export default class MembersTilesDialog extends Component {
   addDetails = () => {
     this.setState({
       dialog: 'memberDetails',
-      dialogData: null,
+      dialogData: {},
     });
   }
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import socialsList from '../../js/constants/socials';
 import './membersTile2.scss';
 
 export default class MembersTile2 extends Component {
@@ -10,11 +11,14 @@ export default class MembersTile2 extends Component {
     return false;
   }
 
-  renderSocials = () => this.props.socials.map(social => (
-    <a className={`membersTile2__social social__${social.name} textHover`} href={social.link} key={social.name} target="_blank">
-      <i className={`fa fa-${social.name}`} aria-hidden="true" />
-    </a>
-  ));
+  renderSocials = () => this.props.socials.map((social, index) => {
+    const icon = socialsList[social.id].iconName;
+    return (
+      <a className={`membersTile2__social social__${social.name} textHover`} href={social.link} key={index} target="_blank">
+        <i className={`fa fa-${icon}`} aria-hidden="true" />
+      </a>
+    );
+  });
 
   render() {
     return (
