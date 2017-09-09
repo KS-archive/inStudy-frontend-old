@@ -1,54 +1,47 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
+import validate from '../../js/validation';
 import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
-import { hasAnyValue } from '../../js/utils';
-import { inputStyle } from '../../js/constants/styles';
+import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, StyledTextField, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
+import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
 
 export default class SocialsDialog extends Component {
   constructor(props) {
     super(props);
+    const { _id, content, title, color } = this.props.data;
     this.state = {
-      content: this.props.data.content || [],
-      title: this.props.data.title || undefined,
-      color: this.props.data.color,
+      content: content || [],
+      title: title || undefined,
+      color: color || 2,
       dialog: false,
       dialogData: null,
-      errors: {
-        title: null,
-      },
+      errors: {},
     };
-    this.isEditModal = !!this.props.data._id;
+    this.isEditModal = !!_id;
+    this.toValidate = {
+      title: { required: true },
+      content: { noEmptyArr: true },
+    };
+    this.values = ['title', 'content', 'color'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
   componentWillMount() {
-    this.props.setModalFunctions({
-      submit: this.submit,
-      cancel: this.props.closeDialog,
-      remove: this.props.data._id ? this.remove : null,
-      changeColors: this.openColorsDialog,
-    });
+    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { handleSubmit, remove, openColorsDialog } = this;
+    setModalFunctions(_id, handleSubmit, closeDialog, remove, openColorsDialog);
   }
 
-  validate = (callback) => {
-    const errors = { ...this.state.errors };
-    const { title, content } = this.state;
-    errors.title = null;
-    if (!title || !title.trim()) errors.title = 'To pole jest wymagane';
-    else if (!content || content.length === 0) errors.title = 'Musisz dodać co najmniej jeden element do listy';
-    if (hasAnyValue(errors)) this.setState({ errors });
-    else callback();
-  }
+  handleSubmit = () => { validate(this, this.submit); }
 
-  submit = () => {
-    this.validate(() => {
-      console.log(this.state.content);
-      this.props.closeDialog();
-    });
+  submit = (values) => {
+    const { data: { _id }, kind, closeDialog } = this.props;
+    const extendValues = { ...values, _id, kind };
+    console.log(extendValues);
+    closeDialog();
   }
 
   remove = () => {
@@ -109,46 +102,29 @@ export default class SocialsDialog extends Component {
   );
 
   render() {
-    const { closeDialog, open, sidebar } = this.props;
-    const { dialog, dialogData } = this.state;
+    const { closeDialog, open, sidebar, colors } = this.props;
+    const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.submit}
-        primary
-      />,
-    ];
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
-        actions={actions}
-        title={this.isEditModal ? 'Edytuj moduł liczbowy' : 'Dodaj moduł liczbowy'}
+        actions={this.actions}
+        title={this.isEditModal ? 'Edytuj moduł „Liczby”' : 'Dodaj moduł „Liczby”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
         <Container>
-          <StyledTextField
-            value={this.state.title}
-            onChange={(e) => { this.setState({ title: e.target.value }); }}
-            floatingLabelText="Tytuł (nagłówek modułu)"
-            errorText={this.state.errors.title}
-            {...inputStyle}
-          />
+          {renderTextField(this, 'Tytuł (nagłówek modułu)', 'title')}
           <ElementsList>
-            {this.state.content && this.state.content.map(this.renderElement)}
+            {content && content.map(this.renderElement)}
           </ElementsList>
           <AddElement onClick={() => { this.setState({ dialog: 'element' }); }}>
             + Dodaj nowy element
@@ -162,9 +138,9 @@ export default class SocialsDialog extends Component {
         }
         {dialog === 'colors' &&
           <ColorsDialog
-            submit={(colors) => { this.setState({ color: colors[0] }); }}
+            submit={(newColors) => { this.setState({ color: newColors[0] }); }}
             names={['Kolor liczby']}
-            mainColors={this.props.colors}
+            mainColors={colors}
             {...dialogAttrs}
           />
         }

@@ -21,12 +21,12 @@ export default class MembersTiles extends Component {
 
   componentWillMount() {
     if (this.state.grayScale.filter === 'grayscale(0)' && this.props.startGray) this.setState({ grayScale: { filter: 'grayscale(1)' } });
-    const elements = (this.props.randomize && this.state.firstLoad) ? shuffle(this.props.tiles) : this.props.tiles;
+    const elements = (this.props.randomize && this.state.firstLoad) ? shuffle(this.props.content) : this.props.content;
     this.setState({ firstLoad: false, elements });
   }
 
   openDialog = (id) => {
-    const dialogData = this.props.tiles.filter(tile => (tile._id === id));
+    const dialogData = this.props.content.filter(tile => (tile._id === id));
     this.setState({ dialog: true, dialogData: dialogData[0] });
   }
 
@@ -37,9 +37,9 @@ export default class MembersTiles extends Component {
   renderTiles = () => {
     let Members;
     switch (this.props.type) {
-      case 1: Members = MembersTile; break;
-      case 2: Members = MembersTile2; break;
-      case 3: Members = MembersTile3; break;
+      case 0: Members = MembersTile; break;
+      case 1: Members = MembersTile2; break;
+      case 2: Members = MembersTile3; break;
       default: Members = null;
     }
     return this.state.elements.map((tile, index) => {

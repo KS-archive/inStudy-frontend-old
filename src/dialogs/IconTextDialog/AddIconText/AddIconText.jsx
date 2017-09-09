@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
 import IconsDialog from '../../IconsDialog/IconsDialog';
-import validation from '../../../js/validation';
-import { inputStyle } from '../../../js/constants/styles';
+import validate from '../../../js/validation';
+import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
 import { EditDialog } from '../../../js/globalStyles';
 import { Container, LabelHeader, IconImageWrapper, IconImage } from './AddIconText_styles';
 
@@ -18,25 +16,21 @@ export default class AddIconText extends Component {
       errors: {},
       dialog: false,
     };
-    this.validate = {
+    this.toValidate = {
       title: { required: true },
       description: { required: true },
       icon: { required: 'Aby utworzyć kolumnę muszisz wybrać ikonę' },
     };
+    this.values = ['title', 'description', 'icon'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
-  handleSubmit = () => {
-    const { title, description, icon } = this.state;
-    const values = { title, description, icon };
-    validation(
-      this.validate,
-      values,
-      (errors) => { this.setState({ errors }); },
-      () => {
-        this.props.submit({ title, description, icon });
-        this.props.closeDialog();
-      },
-    );
+  handleSubmit = () => { validate(this, this.submit); }
+
+  submit = (values) => {
+    console.log(values);
+    this.props.submit(values);
+    this.props.closeDialog();
   }
 
   submitIcon = (icon) => {
@@ -45,48 +39,26 @@ export default class AddIconText extends Component {
 
   render() {
     const { closeDialog, open, sidebar, data } = this.props;
-    const { title, description, icon, dialog, errors } = this.state;
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.handleSubmit}
-        primary
-      />,
-    ];
+    const { icon, dialog } = this.state;
+    const dialogTitle = data ? 'Edytuj element listy' : 'Dodaj element listy';
+    const multilineAttrs = {
+      multiLine: true,
+      rows: 4,
+    };
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
-        actions={actions}
-        title={data ? 'Edytuj element listy' : 'Dodaj element listy'}
+        actions={this.actions}
+        title={dialogTitle}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
         <Container>
-          <TextField
-            value={title}
-            onChange={(e) => { this.setState({ title: e.target.value }); }}
-            floatingLabelText="Nagłówek"
-            errorText={errors.title || errors.icon}
-            fullWidth
-            {...inputStyle}
-          />
-          <TextField
-            value={description}
-            onChange={(e) => { this.setState({ description: e.target.value }); }}
-            floatingLabelText="Opis"
-            errorText={errors.description}
-            fullWidth
-            multiLine
-            rows={3}
-            {...inputStyle}
-          />
+          {renderTextField(this, 'Nagłówek', 'title')}
+          {renderTextField(this, 'Opis', 'description', true, multilineAttrs)}
           <LabelHeader>Ikona</LabelHeader>
           <IconImageWrapper onClick={() => { this.setState({ dialog: true }); }}>
             {(icon)

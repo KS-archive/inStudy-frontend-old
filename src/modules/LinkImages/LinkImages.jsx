@@ -18,11 +18,11 @@ export default class LinkImages extends Component {
     switch (this.props.type) {
       case 0: this.type = {
         elementsInRow: 4,
-        imageComp: LinkImage,
+        imageComponent: LinkImage,
       }; break;
       default: this.type = {
         elementsInRow: 6,
-        imageComp: LinkImage2,
+        imageComponent: LinkImage2,
       }; break;
     }
   }
@@ -40,7 +40,7 @@ export default class LinkImages extends Component {
   }
 
   renderElement = () => {
-    const Image = this.type.imageComp;
+    const Image = this.type.imageComponent;
     const elementsInRow = this.type.elementsInRow;
 
     return this.state.elements.map((element, index) => {

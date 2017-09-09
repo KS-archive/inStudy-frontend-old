@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import Field from 'redux-form/lib/Field';
 import { media } from '../../js/constants/styles';
 
-export const Form = styled.form`
+export const Form = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -13,8 +12,4 @@ export const Form = styled.form`
   ${media.medium`
     padding: 0 !important;
   `}
-`;
-
-export const StyledField = styled(Field)`
-  width: 100% !important;
 `;

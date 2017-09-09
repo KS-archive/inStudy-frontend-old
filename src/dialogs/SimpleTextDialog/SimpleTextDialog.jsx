@@ -1,107 +1,69 @@
 import React, { Component } from 'react';
-import reduxForm from 'redux-form/lib/reduxForm';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'redux-form-material-ui/lib/TextField';
-import { inputStyle } from '../../js/constants/styles';
-import { Form, StyledField } from './SimpleTextDialog_styles';
+import validate from '../../js/validation';
+import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
+import { Form } from './SimpleTextDialog_styles';
 import { EditDialog } from '../../js/globalStyles';
 
-const required = value => (value == null ? 'To pole jest wymagane' : undefined);
-
-class SimpleTextDialog extends Component {
+export default class SimpleTextDialog extends Component {
   constructor(props) {
     super(props);
-    this.initialized = false;
+    const { _id, content, title } = this.props.data;
+    this.state = {
+      title: title || undefined,
+      content: content || undefined,
+      errors: {},
+    };
+
+    this.isEditModal = !!_id;
+    this.toValidate = {
+      title: { required: true },
+      content: { required: true },
+    };
+    this.values = ['title', 'content'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
-  componentDidMount() {
-    this.props.setModalFunctions({
-      submit: this.makeActivityInfoUpdateHandler,
-      cancel: this.cancel,
-      remove: this.props.data._id ? this.remove : null,
-      changeColors: null,
-    });
+  componentWillMount() {
+    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { handleSubmit, remove } = this;
+    setModalFunctions(_id, handleSubmit, closeDialog, remove);
   }
 
-  componentDidUpdate() {
-    const { title, content } = this.props.data;
-    if (!this.initialized && this.props.open) {
-      this.props.initialize({ title, content });
-      this.initialized = true;
-    }
-  }
+  handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    if (this.props.data.kind) console.log(values);
-    else console.log(values);
-  }
-
-  cancel = () => {
-    this.props.closeDialog();
-    this.initialized = false;
-    this.props.destroy();
+    const { data: { _id }, kind, closeDialog } = this.props;
+    const extendValues = { ...values, _id, kind };
+    console.log(extendValues);
+    closeDialog();
   }
 
   remove = () => {
     console.log('removed!');
   }
 
-  makeActivityInfoUpdateHandler = () => {
-    this.activityFormButton.click();
-  }
-
-  renderField = (name, label, multiLine = false, rows = 1) => (
-    <StyledField
-      name={name}
-      component={TextField}
-      floatingLabelText={label}
-      validate={required}
-      multiLine={multiLine}
-      rows={rows}
-      {...inputStyle}
-    />
-  );
-
   render() {
-    console.log(this.props);
-    const title = this.props.data._id
-      ? 'Edytuj moduł typu „Tekst (markdown)”'
-      : 'Dodaj moduł typu „Tekst (markdown)”';
-    const { handleSubmit, submitting, pristine, open } = this.props;
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        disabled={pristine || submitting}
-        onTouchTap={this.cancel}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.makeActivityInfoUpdateHandler}
-        disabled={submitting}
-        primary
-      />,
-    ];
+    const { actions, isEditModal, props: { closeDialog, open, sidebar } } = this;
+    const multilineAttrs = {
+      multiLine: true,
+      rows: 4,
+    };
 
     return (
       <EditDialog
         open={open}
-        onRequestClose={this.cancel}
+        onRequestClose={closeDialog}
         actions={actions}
-        title={title}
+        title={`${isEditModal ? 'Edytuj' : 'Dodaj'} moduł „Tekst (markdown)”`}
         autoScrollBodyContent
         repositionOnUpdate={false}
-        isSidebar={this.props.sidebar}
+        isSidebar={sidebar}
       >
-        <Form onSubmit={handleSubmit(this.submit)}>
-          {this.renderField('title', 'Nazwa modułu')}
-          {this.renderField('content', 'Treść', true, 4)}
-          <button style={{ visibility: 'hidden' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />
+        <Form>
+          {renderTextField(this, 'Nazwa modułu', 'title')}
+          {renderTextField(this, 'Treść', 'content', true, multilineAttrs)}
         </Form>
       </EditDialog>
     );
   }
 }
-
-export default reduxForm({
-  form: 'SimpleTextDialogForm',
-})(SimpleTextDialog);

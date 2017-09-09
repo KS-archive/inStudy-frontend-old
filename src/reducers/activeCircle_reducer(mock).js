@@ -41,7 +41,7 @@ export default {
       startGrey: false,
       rowsLimit: 1,
       randomize: false,
-      tiles: [
+      content: [
         {
           _id: 'sad438dfg345ksaDSF',
           name: 'Bring to the table. At the end of the day, going forward',
@@ -219,15 +219,15 @@ export default {
     {
       _id: 'ds9HY72SH12Jkkdsi',
       kind: 'MembersTiles',
-      type: 1,
+      type: 0,
       title: 'Członkowie',
       startGray: true,
       rowsLimit: 1,
       randomize: true,
       color: 4,
-      tiles: [
+      content: [
         {
-          _id: 'sd8D323DSswe356489',
+          _id: '1sd8D323DSswe356489',
           firstname: 'Elliott',
           surname: 'Preston',
           coverImage: 'http://cin.h-cdn.co/assets/17/07/1486982472-5qbdx2kd.jpg',
@@ -235,21 +235,21 @@ export default {
           description: 'Vivamus commodo volutpat eros, eget vestibulum odio interdum at. Nunc eget lacus est.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
         },
         {
-          _id: 'sd8D323DSswe33489',
+          _id: '2sd8D323DSswe33489',
           firstname: 'Rollo',
           surname: 'Danniell',
           coverImage: 'https://pbs.twimg.com/profile_images/819381793962897409/NWIJv3w2_400x400.jpg',
@@ -257,21 +257,21 @@ export default {
           description: 'Fusce posuere nibh nec diam consectetur semper. Proin nisl nibh, gravida non rutrum ac, commodo vitae nunc. Nam viverra leo ut tortor rutrum faucibus eget eget urna. Maecenas purus sem, vulputate nec sollicitudin vitae, mattis non quam. Donec efficitur at nisl a ultrices. Etiam vestibulum eget nunc vitae molestie. Sed ac cursus erat.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
         },
         {
-          _id: 'sd8D323DSswe34357',
+          _id: '3sd8D323DSswe34357',
           firstname: 'Emory',
           surname: 'Davidson',
           coverImage: 'https://www.sunglassesshop.com/FileRepository/Images/SunglassesPhotos/film-and-tv/i/iron-man.jpg',
@@ -279,21 +279,21 @@ export default {
           description: 'Sed fringilla tellus at tortor ultricies ornare.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
         },
         {
-          _id: 'sd8D323DSswe376',
+          _id: '4sd8D323DSswe376',
           firstname: 'Phebe',
           surname: 'Tifft',
           coverImage: 'http://www.onemorewoman.com/wp-content/uploads/2016/11/Kate-H-400x400.jpg',
@@ -301,21 +301,21 @@ export default {
           description: '',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
         },
         {
-          _id: 'sd8D323DSswe3456',
+          _id: '5sd8D323DSswe3456',
           firstname: 'Fran',
           surname: 'Linton',
           coverImage: 'https://2.bp.blogspot.com/-ZwzZZFwyLnI/VtyB5Q6eRrI/AAAAAAAADcs/Vdc3QKCvtCM/s1600/Miniaturka.jpg',
@@ -323,21 +323,21 @@ export default {
           description: 'Pellentesque euismod condimentum mattis. Vestibulum mollis mauris sit amet convallis vulputate. Vestibulum placerat odio ex, sit amet commodo sem venenatis at. Mauris magna purus, condimentum vehicula leo vel, ornare maximus neque. Phasellus sit amet lobortis justo. In eget iaculis elit, vitae porta mauris. Duis egestas varius urna. Praesent quis mauris enim. Curabitur at scelerisque metus. Suspendisse potenti. Maecenas auctor pulvinar mattis. Morbi sed tempor turpis. Maecenas vulputate, nisl ac auctor maximus, diam nunc cursus elit, imperdiet pharetra sapien erat et lorem. Integer eu massa nulla. Duis et sodales enim, vitae accumsan dui. Sed aliquet lectus a urna aliquam, a condimentum lacus viverra.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
         },
         {
-          _id: 'sd8D323DSswe3123',
+          _id: '6sd8D323DSswe3123',
           firstname: 'Margery',
           surname: 'Herberts',
           coverImage: 'http://www.bolde.com/wp-content/uploads/2015/11/iStock_000085623439_Small-400x400.jpg',
@@ -350,13 +350,13 @@ export default {
     {
       _id: 'jhkh88jkHG98lJUM',
       kind: 'MembersTiles',
-      type: 2,
+      type: 1,
       title: 'Członkowie honorowi',
       startGray: true,
       rowsLimit: 1,
       randomize: true,
       color: 2,
-      tiles: [
+      content: [
         {
           _id: 'sd8D323DSswe356489',
           firstname: 'Elliott',
@@ -366,15 +366,15 @@ export default {
           description: 'Vivamus commodo volutpat eros, eget vestibulum odio interdum at. Nunc eget lacus est.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -388,15 +388,15 @@ export default {
           description: 'Fusce posuere nibh nec diam consectetur semper. Proin nisl nibh, gravida non rutrum ac, commodo vitae nunc. Nam viverra leo ut tortor rutrum faucibus eget eget urna. Maecenas purus sem, vulputate nec sollicitudin vitae, mattis non quam. Donec efficitur at nisl a ultrices. Etiam vestibulum eget nunc vitae molestie. Sed ac cursus erat.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -410,15 +410,15 @@ export default {
           description: 'Sed fringilla tellus at tortor ultricies ornare.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -432,15 +432,15 @@ export default {
           description: '',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -454,15 +454,15 @@ export default {
           description: 'Pellentesque euismod condimentum mattis. Vestibulum mollis mauris sit amet convallis vulputate. Vestibulum placerat odio ex, sit amet commodo sem venenatis at. Mauris magna purus, condimentum vehicula leo vel, ornare maximus neque. Phasellus sit amet lobortis justo. In eget iaculis elit, vitae porta mauris. Duis egestas varius urna. Praesent quis mauris enim. Curabitur at scelerisque metus. Suspendisse potenti. Maecenas auctor pulvinar mattis. Morbi sed tempor turpis. Maecenas vulputate, nisl ac auctor maximus, diam nunc cursus elit, imperdiet pharetra sapien erat et lorem. Integer eu massa nulla. Duis et sodales enim, vitae accumsan dui. Sed aliquet lectus a urna aliquam, a condimentum lacus viverra.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -481,13 +481,13 @@ export default {
     {
       _id: 'fdn598H88h9JKKSRFjew',
       kind: 'MembersTiles',
-      type: 3,
+      type: 2,
       title: 'Członkowie honorowi',
       startGray: true,
       rowsLimit: 1,
       randomize: true,
       color: 2,
-      tiles: [
+      content: [
         {
           _id: 'sd8D323DSswe356489',
           firstname: 'Elliott',
@@ -497,15 +497,15 @@ export default {
           description: 'Vivamus commodo volutpat eros, eget vestibulum odio interdum at. Nunc eget lacus est.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -519,15 +519,15 @@ export default {
           description: 'Fusce posuere nibh nec diam consectetur semper. Proin nisl nibh, gravida non rutrum ac, commodo vitae nunc. Nam viverra leo ut tortor rutrum faucibus eget eget urna. Maecenas purus sem, vulputate nec sollicitudin vitae, mattis non quam. Donec efficitur at nisl a ultrices. Etiam vestibulum eget nunc vitae molestie. Sed ac cursus erat.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -541,15 +541,15 @@ export default {
           description: 'Sed fringilla tellus at tortor ultricies ornare.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -563,15 +563,15 @@ export default {
           description: '',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],
@@ -585,15 +585,15 @@ export default {
           description: 'Pellentesque euismod condimentum mattis. Vestibulum mollis mauris sit amet convallis vulputate. Vestibulum placerat odio ex, sit amet commodo sem venenatis at. Mauris magna purus, condimentum vehicula leo vel, ornare maximus neque. Phasellus sit amet lobortis justo. In eget iaculis elit, vitae porta mauris. Duis egestas varius urna. Praesent quis mauris enim. Curabitur at scelerisque metus. Suspendisse potenti. Maecenas auctor pulvinar mattis. Morbi sed tempor turpis. Maecenas vulputate, nisl ac auctor maximus, diam nunc cursus elit, imperdiet pharetra sapien erat et lorem. Integer eu massa nulla. Duis et sodales enim, vitae accumsan dui. Sed aliquet lectus a urna aliquam, a condimentum lacus viverra.',
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/',
             },
             {
-              name: 'linkedin',
+              id: 9,
               link: 'https://www.linkedin.com/',
             },
           ],

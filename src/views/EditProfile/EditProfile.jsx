@@ -20,6 +20,7 @@ import LinkImagesDialog from '../../dialogs/LinkImagesDialog/LinkImagesDialog';
 import NumbersDialog from '../../dialogs/NumbersDialog/NumbersDialog';
 import IconTextDialog from '../../dialogs/IconTextDialog/IconTextDialog';
 import CollapsibleDialog from '../../dialogs/CollapsibleDialog/CollapsibleDialog';
+import MembersTilesDialog from '../../dialogs/MembersTilesDialog/MembersTilesDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
@@ -46,8 +47,9 @@ class EditProfile extends Component {
     this.props.getActiveCircle();
   }
 
-  setModalFunctions = (modalFunctions) => {
-    this.setState({ modalFunctions });
+  setModalFunctions = (id, submit, cancel, remove, changeColors) => {
+    remove = id && remove;
+    this.setState({ modalFunctions: { submit, cancel, remove, changeColors } });
   }
 
   openDialog = (name, data) => {
@@ -166,11 +168,12 @@ class EditProfile extends Component {
               {...moduleData}
             />
           }
-          {dialog === 'SimpleText' && <SimpleTextDialog {...moduleData} />}
-          {dialog === 'LinkImages' && <LinkImagesDialog {...moduleData} />}
-          {dialog === 'Collapsible' && <CollapsibleDialog {...moduleData} />}
-          {dialog === 'Numbers' && <NumbersDialog {...moduleData} />}
-          {dialog === 'IconText' && <IconTextDialog {...moduleData} />}
+          {dialog === 'SimpleText' && <SimpleTextDialog kind={'SimpleText'} {...moduleData} />}
+          {dialog === 'LinkImages' && <LinkImagesDialog kind={'LinkImages'} {...moduleData} />}
+          {dialog === 'Collapsible' && <CollapsibleDialog kind={'Collapsible'} {...moduleData} />}
+          {dialog === 'Numbers' && <NumbersDialog kind={'Numbers'} {...moduleData} />}
+          {dialog === 'IconText' && <IconTextDialog kind={'IconText'} {...moduleData} />}
+          {dialog === 'MembersTiles' && <MembersTilesDialog kind={'MembersTiles'} {...moduleData} />}
         </Container>
       );
     }

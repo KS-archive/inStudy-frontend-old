@@ -3,12 +3,12 @@ import without from 'lodash/without';
 import validate from '../../js/validation';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
-import ImageDetailsDialog from './ImageDetailsDialog/ImageDetailsDialog';
+import MemberDetailsDialog from './MemberDetailsDialog/MemberDetailsDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementOptionsOverlay, ElementOptions } from './LinkImagesDialog_styles';
+import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementContent, Name, Role, ElementOptions } from './MembersTilesDialog_styles';
 
-export default class LinkImagesDialog extends Component {
+export default class MembersTilesDialog extends Component {
   constructor(props) {
     super(props);
     const { _id, content, title, color, type, startGray, rowsLimit, randomize } = this.props.data;
@@ -27,7 +27,7 @@ export default class LinkImagesDialog extends Component {
     this.isEditModal = !!_id;
     this.toValidate = {
       title: { required: true },
-      content: { noEmptyArr: 'Musisz dodać co najmniej jeden element do galerii' },
+      content: { noEmptyArr: true },
       rowsLimit: { required: true, naturalNumber: true },
     };
     this.values = ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize'];
@@ -38,7 +38,7 @@ export default class LinkImagesDialog extends Component {
     const { closeDialog, data: { _id }, setModalFunctions } = this.props;
     const { handleSubmit, remove, openColorsDialog } = this;
     setModalFunctions(_id, handleSubmit, closeDialog, remove, openColorsDialog);
-    this.types = accessibleModules.find(el => el.kind === 'LinkImages').types;
+    this.types = accessibleModules.find(el => el.kind === 'MembersTiles').types;
   }
 
   handleSubmit = () => { validate(this, this.submit); }
@@ -60,27 +60,27 @@ export default class LinkImagesDialog extends Component {
 
   addDetails = () => {
     this.setState({
-      dialog: 'elementDetails',
-      dialogData: null,
+      dialog: 'memberDetails',
+      dialogData: {},
     });
   }
 
   editDetails = (el, index) => {
     this.setState({
-      dialog: 'elementDetails',
+      dialog: 'memberDetails',
       dialogData: { ...el, index },
     });
   }
 
   modifyElements = (values) => {
     this.closeDialog();
-    const { index, link, name, src } = values;
+    const { index, firstname, surname, role, description, socials, coverImage } = values;
     const content = [...this.state.content];
 
     if (index || index === 0) { // Edit
-      content[index] = { name, src, link };
+      content[index] = { firstname, surname, role, description, socials, coverImage };
     } else { // Add
-      content.push({ name, src, link });
+      content.push({ firstname, surname, role, description, socials, coverImage });
     }
 
     this.setState({ content });
@@ -106,24 +106,30 @@ export default class LinkImagesDialog extends Component {
   );
 
   renderElement = (el, index) => {
-    const imgSrc = (typeof el.src === 'string') ? el.src : el.src.preview;
+    const { coverImage, firstname, surname, role, _id } = el;
+    const imgSrc = (typeof coverImage === 'string') ? coverImage : coverImage.preview;
+    const fullName = `${firstname} ${surname}`;
     return (
-      <Element key={index}>
-        <img src={imgSrc} alt={el.name || 'Element galerii'} />
-        <ElementOptionsOverlay>
-          <ElementOptions>
-            <i
-              className="fa fa-pencil-square-o"
-              aria-hidden="true"
-              onClick={() => { this.editDetails(el, index); }}
-            />
-            <i
-              className="fa fa-trash-o"
-              aria-hidden="true"
-              onClick={() => { this.deleteElement(el); }}
-            />
-          </ElementOptions>
-        </ElementOptionsOverlay>
+      <Element key={_id || fullName}>
+        <img src={imgSrc} alt="" />
+        <ElementContent>
+          <Name>{fullName}</Name>
+          {(role) &&
+            <Role>{role}</Role>
+          }
+        </ElementContent>
+        <ElementOptions>
+          <i
+            className="fa fa-pencil-square-o"
+            aria-hidden="true"
+            onClick={() => { this.editDetails(el, index); }}
+          />
+          <i
+            className="fa fa-trash-o"
+            aria-hidden="true"
+            onClick={() => { this.deleteElement(el); }}
+          />
+        </ElementOptions>
       </Element>
     );
   }
@@ -144,13 +150,13 @@ export default class LinkImagesDialog extends Component {
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-
+    console.log(this.props);
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
         actions={this.actions}
-        title={this.isEditModal ? 'Edytuj moduł „Galeria”' : 'Dodaj moduł „Galeria”'}
+        title={this.isEditModal ? 'Edytuj moduł „Kafelki osobowe”' : 'Dodaj moduł „Kafelki osobowe”'}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
@@ -177,13 +183,13 @@ export default class LinkImagesDialog extends Component {
         {dialog === 'colors' &&
           <ColorsDialog
             submit={(newColors) => { this.setState({ color: newColors[0] }); }}
-            names={['Kolor obramowania (typ 2)']}
+            names={['Kolor tekstu (typ 2 i 3)']}
             mainColors={colors}
             {...dialogAttrs}
           />
         }
-        {dialog === 'elementDetails' &&
-          <ImageDetailsDialog
+        {dialog === 'memberDetails' &&
+          <MemberDetailsDialog
             submit={this.modifyElements}
             {...dialogAttrs}
           />

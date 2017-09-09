@@ -1,8 +1,10 @@
+import pick from 'lodash/pick';
+import keys from 'lodash/keys';
 import { hasAnyValue } from './utils';
 
 const validation = {
   required: (value, message) => {
-    if (!value || !value.trim()) {
+    if (!value || !value.toString().trim()) {
       return (typeof message === 'string')
         ? message
         : 'To pole jest wymagane';
@@ -15,21 +17,31 @@ const validation = {
     }
     return null;
   },
+  naturalNumber: (value) => {
+    const naturalReg = /^(0|([1-9]\d*))$/;
+    if (!naturalReg.test(value)) {
+      return 'Wartość w tym polu musi być liczbą naturalną';
+    }
+    return null;
+  },
 };
 
-export default (validate, values, haveErrors, noErrors) => {
+// export default (validate, values, haveErrors, noErrors) => {
+export default (comp, successCallback) => {
+  const toValidate = pick(comp.state, keys(comp.toValidate));
   const errors = {};
-  Object.keys(validate).map((key) => {
+  Object.keys(comp.toValidate).map((key) => {
     errors[key] = null;
-    Object.keys(validate[key]).map((innerKey) => {
+    Object.keys(comp.toValidate[key]).map((innerKey) => {
       if (!errors[key]) {
-        errors[key] = validation[innerKey](values[key], validate[key][innerKey]);
+        errors[key] = validation[innerKey](toValidate[key], comp.toValidate[key][innerKey]);
       }
     });
   });
   if (hasAnyValue(errors)) {
-    haveErrors(errors);
+    comp.setState({ errors });
   } else {
-    noErrors();
+    const valuesToSubmit = pick(comp.state, comp.values);
+    successCallback(valuesToSubmit);
   }
 };
