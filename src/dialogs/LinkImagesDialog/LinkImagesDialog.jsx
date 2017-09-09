@@ -95,7 +95,7 @@ export default class LinkImagesDialog extends Component {
     const { index, link, name, src } = values;
     const content = [...this.state.content];
 
-    if (index) { // Edit
+    if (index || index === 0) { // Edit
       content[index] = { name, src, link };
     } else { // Add
       content.push({ name, src, link });

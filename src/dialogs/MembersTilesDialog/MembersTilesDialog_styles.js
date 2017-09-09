@@ -79,6 +79,7 @@ export const Elements = styled.div`
 `;
 
 export const Element = styled.div`
+  overflow: hidden;
   position: relative;
   top: -26px;
   left: -13px;

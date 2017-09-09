@@ -43,6 +43,7 @@ export const ImagePreview = styled.div`
   min-height: 100px;
   margin-right: 30px;
   border: ${props => props.preview ? 'none' : `1px solid ${colorPalette.accent2Color}`};
+  font-size: 24px;
   transition: all 0.3s;
 
   > img {
@@ -52,6 +53,8 @@ export const ImagePreview = styled.div`
 
   &:hover {
     cursor: pointer;
+    color: ${colorPalette.textColor};
+    border: ${props => props.preview ? 'none' : `1px solid ${colorPalette.textColor}`};
 
     > div {
       opacity: 0.8;
@@ -78,6 +81,30 @@ export const ImagePreviewOverlay = styled.div`
   }
 `;
 
+export const SocialsWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  min-height: 50px;
+`;
+
+export const Social = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border: 1px solid  ${colorPalette.accent3Color};
+  color: ${colorPalette.accent3Color};
+  transition: all 0.3s;
+
+  > i {
+    color: inherit;
+    transition: all 0.3s;
+  }
+`;
+
 export const AddSocial = styled.div`
   display: flex;
   align-items: center;
@@ -91,7 +118,7 @@ export const AddSocial = styled.div`
 
   &:hover {
     cursor: pointer;
-    border: 1px solid  ${colorPalette.accent1Color};
-    color: ${colorPalette.accent1Color};
+    border: 1px solid  ${colorPalette.textColor};
+    color: ${colorPalette.textColor};
   }
 `;

@@ -1,38 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import isEmpty from 'lodash/isEmpty';
+import pick from 'lodash/pick';
+import keys from 'lodash/keys';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import validation from '../../../js/validation';
+import socialsList from '../../../js/constants/socials';
 import ImageDialog from '../../ImageDialog/ImageDialog';
 import SocialsDialog from '../../SocialsDialog/SocialsDialog';
 import { inputStyle } from '../../../js/constants/styles';
 import { EditDialog } from '../../../js/globalStyles';
-import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, LabelHeader, AddSocial } from './MemberDetailsDialog_styles';
+import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, LabelHeader, SocialsWrapper, Social, AddSocial } from './MemberDetailsDialog_styles';
 
 export default class MemberDetailsDialog extends Component {
   constructor(props) {
     super(props);
-    const { coverImage, description, firstname, surname, role, socials } = this.props.data;
+    const { coverImage, description, firstname, surname, role, socials, index } = this.props.data;
     this.state = {
+      index,
       preview: coverImage && (coverImage.preview || coverImage),
       firstname: firstname || '',
       surname: surname || '',
       role: role || '',
       description: description || '',
       socials: socials || [],
-      coverImage,
+      coverImage: coverImage || {},
       dialog: false,
-      errors: {
-        name: null,
-        link: null,
-      },
+      errors: {},
+    };
+    this.validate = {
+      firstname: { required: true },
+      surname: { required: true },
     };
   }
 
-  modifyImage = (value) => {
-    const { image } = value;
+  modifyImage = ({ image }) => {
     this.closeDialog();
     if (image) {
-      this.setState({ src: image[0], preview: image[0].preview });
+      this.setState({ coverImage: image[0], preview: image[0].preview });
     }
   }
 
@@ -40,20 +47,55 @@ export default class MemberDetailsDialog extends Component {
     this.setState({ dialog: false });
   }
 
-  submit = () => {
-    const { data } = this.props;
-    const { name, src, link } = this.state;
-    const index = data && data.index;
-    const values = { index, name, src, link };
+  sendingFunction = (values) => {
     this.props.submit(values);
+    this.props.closeDialog();
   }
 
-  updateSocials = (socials) => {
+  submit = () => {
+    const validateValues = pick(this.state, keys(this.validate));
+    validation(
+      this.validate,
+      validateValues,
+      (errors) => { this.setState({ errors }); },
+      () => {
+        const values = pick(this.state, ['index', 'firstname', 'surname', 'role', 'description', 'socials', 'coverImage']);
+        if (isEmpty(values.coverImage)) {
+          this.getAvatarByGender(values.firstname, values, this.sendingFunction);
+        } else {
+          this.sendingFunction(values);
+        }
+      },
+    );
+  }
+
+  getAvatarByGender = (name, values, sendingFunction) => {
+    const url = `https://api.genderize.io/?name=${name}`;
+    axios.get(url)
+      .then((res) => {
+        values.coverImage = (res.data.gender === 'male')
+          ? '/img/placeholders/avatar-man.png'
+          : '/img/placeholders/avatar-woman.png';
+        sendingFunction(values);
+      })
+      .catch(() => {
+        values.coverImage = '/img/placeholders/avatar-man.png';
+        sendingFunction(values);
+      });
+  }
+
+  updateSocials = ({ socials }) => {
+    this.closeDialog();
     this.setState({ socials });
   }
 
-  renderSocial = (social) => {
-    console.log(social);
+  renderSocial = (social, index) => {
+    const icon = socialsList[social.id].iconName;
+    return (
+      <Social className={`social__${icon} textHover borderHover`} href={social.link} target="_blank" key={index}>
+        <i className={`fa fa-${icon}`} aria-hidden="true" />
+      </Social>
+    );
   }
 
   render() {
@@ -71,7 +113,7 @@ export default class MemberDetailsDialog extends Component {
       />,
     ];
     const imagePreview = preview || '';
-    console.log(this.props);
+    console.log(this.state.coverImage);
 
     return (
       <EditDialog
@@ -121,19 +163,29 @@ export default class MemberDetailsDialog extends Component {
           <MediaWrapper>
             <MediaElement>
               <LabelHeader>Zdjęcie</LabelHeader>
-              <ImagePreview preview={preview}>
-                <img src={imagePreview} alt="Podgląd obrazu" />
-                <ImagePreviewOverlay onClick={() => { this.setState({ dialog: 'image' }); }}>
-                  <i className="fa fa-pencil-square-o" aria-hidden="true" />
-                </ImagePreviewOverlay>
+              <ImagePreview preview={preview} onClick={() => { this.setState({ dialog: 'image' }); }}>
+                {(imagePreview)
+                  ? <img src={imagePreview} alt="Podgląd obrazu" />
+                  : <i className="fa fa-plus" aria-hidden="true" />
+                }
+                {(imagePreview) &&
+                  <ImagePreviewOverlay>
+                    <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                  </ImagePreviewOverlay>
+                }
               </ImagePreview>
             </MediaElement>
             <MediaElement>
               <LabelHeader>Social media</LabelHeader>
-              {socials.map(social => this.renderSocial(social))}
-              <AddSocial onClick={() => { this.setState({ dialog: 'socials' }); }}>
-                <i className="fa fa-plus" aria-hidden="true" />
-              </AddSocial>
+              <SocialsWrapper>
+                {socials.map((social, index) => this.renderSocial(social, index))}
+                <AddSocial onClick={() => { this.setState({ dialog: 'socials' }); }}>
+                  {(socials.length)
+                    ? <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                    : <i className="fa fa-plus" aria-hidden="true" />
+                  }
+                </AddSocial>
+              </SocialsWrapper>
             </MediaElement>
           </MediaWrapper>
         </Container>
@@ -156,6 +208,7 @@ export default class MemberDetailsDialog extends Component {
             submitFunction={this.updateSocials}
             closeDialog={this.closeDialog}
             data={socials}
+            sidebar={sidebar}
           />
         }
       </EditDialog>

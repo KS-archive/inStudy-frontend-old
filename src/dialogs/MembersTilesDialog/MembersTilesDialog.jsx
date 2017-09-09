@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import without from 'lodash/without';
 import pick from 'lodash/pick';
+import keys from 'lodash/keys';
+import validation from '../../js/validation';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
 import MemberDetailsDialog from './MemberDetailsDialog/MemberDetailsDialog';
-import { hasAnyValue } from '../../js/utils';
 import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, StyledTextField, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementContent, Name, Role, ElementOptions } from './MembersTilesDialog_styles';
@@ -24,12 +25,14 @@ export default class MembersTilesDialog extends Component {
       randomize: randomize || false,
       dialog: false,
       dialogData: null,
-      errors: {
-        title: null,
-        rowsLimit: null,
-      },
+      errors: {},
     };
     this.isEditModal = !!_id;
+    this.validate = {
+      title: { required: true },
+      content: { noEmptyArr: true },
+      rowsLimit: { required: true, naturalNumber: true },
+    };
   }
 
   componentWillMount() {
@@ -43,29 +46,18 @@ export default class MembersTilesDialog extends Component {
     this.types = accessibleModules.find(el => el.kind === 'MembersTiles').types;
   }
 
-  validate = (callback) => {
-    const errors = { ...this.state.errors };
-    const { title, content, rowsLimit } = this.state;
-    const naturalReg = /^(0|([1-9]\d*))$/;
-
-    errors.title = null;
-    errors.rowsLimit = null;
-
-    if (!title || !title.trim()) errors.title = 'To pole jest wymagane';
-    else if (!content || content.length === 0) errors.title = 'Musisz dodać co najmniej jeden element do galerii';
-    if (!rowsLimit || !rowsLimit.toString().trim()) errors.rowsLimit = 'To pole jest wymagane';
-    else if (!naturalReg.test(rowsLimit)) errors.rowsLimit = 'Wartość w tym polu musi być liczbą naturalną';
-
-    if (hasAnyValue(errors)) this.setState({ errors });
-    else callback();
-  }
-
   submit = () => {
-    this.validate(() => {
-      const data = pick(this.state, ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize']);
-      console.log(data);
-      this.props.closeDialog();
-    });
+    const validateValues = pick(this.state, keys(this.validate));
+    validation(
+      this.validate,
+      validateValues,
+      (errors) => { this.setState({ errors }); },
+      () => {
+        const values = pick(this.state, ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize']);
+        console.log(values);
+        this.props.closeDialog();
+      },
+    );
   }
 
   remove = () => {
@@ -92,13 +84,13 @@ export default class MembersTilesDialog extends Component {
 
   modifyElements = (values) => {
     this.closeDialog();
-    const { index, link, name, src } = values;
+    const { index, firstname, surname, role, description, socials, coverImage } = values;
     const content = [...this.state.content];
 
-    if (index) { // Edit
-      content[index] = { name, src, link };
+    if (index || index === 0) { // Edit
+      content[index] = { firstname, surname, role, description, socials, coverImage };
     } else { // Add
-      content.push({ name, src, link });
+      content.push({ firstname, surname, role, description, socials, coverImage });
     }
 
     this.setState({ content });
@@ -124,13 +116,14 @@ export default class MembersTilesDialog extends Component {
   );
 
   renderElement = (el, index) => {
-    const { coverImage, description, firstname, surname, role, socials, _id } = el;
+    const { coverImage, firstname, surname, role, _id } = el;
     const imgSrc = (typeof coverImage === 'string') ? coverImage : coverImage.preview;
+    const fullName = `${firstname} ${surname}`;
     return (
-      <Element key={_id}>
-        <img src={imgSrc} alt={el.name || 'Element galerii'} />
+      <Element key={_id || fullName}>
+        <img src={imgSrc} alt="" />
         <ElementContent>
-          <Name>{`${firstname} ${surname}`}</Name>
+          <Name>{fullName}</Name>
           {(role) &&
             <Role>{role}</Role>
           }
