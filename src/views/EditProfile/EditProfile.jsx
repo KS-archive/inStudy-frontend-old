@@ -168,12 +168,12 @@ class EditProfile extends Component {
               {...moduleData}
             />
           }
-          {dialog === 'SimpleText' && <SimpleTextDialog {...moduleData} />}
-          {dialog === 'LinkImages' && <LinkImagesDialog {...moduleData} />}
-          {dialog === 'Collapsible' && <CollapsibleDialog {...moduleData} />}
-          {dialog === 'Numbers' && <NumbersDialog {...moduleData} />}
-          {dialog === 'IconText' && <IconTextDialog {...moduleData} />}
-          {dialog === 'MembersTiles' && <MembersTilesDialog {...moduleData} />}
+          {dialog === 'SimpleText' && <SimpleTextDialog kind={'SimpleText'} {...moduleData} />}
+          {dialog === 'LinkImages' && <LinkImagesDialog kind={'LinkImages'} {...moduleData} />}
+          {dialog === 'Collapsible' && <CollapsibleDialog kind={'Collapsible'} {...moduleData} />}
+          {dialog === 'Numbers' && <NumbersDialog kind={'Numbers'} {...moduleData} />}
+          {dialog === 'IconText' && <IconTextDialog kind={'IconText'} {...moduleData} />}
+          {dialog === 'MembersTiles' && <MembersTilesDialog kind={'MembersTiles'} {...moduleData} />}
         </Container>
       );
     }

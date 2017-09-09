@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
-import keys from 'lodash/keys';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import validation from '../../../js/validation';
+import validate from '../../../js/validation';
 import socialsList from '../../../js/constants/socials';
 import ImageDialog from '../../ImageDialog/ImageDialog';
 import SocialsDialog from '../../SocialsDialog/SocialsDialog';
-import { inputStyle } from '../../../js/constants/styles';
+import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
 import { EditDialog } from '../../../js/globalStyles';
 import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, LabelHeader, SocialsWrapper, Social, AddSocial } from './MemberDetailsDialog_styles';
 
@@ -30,10 +26,46 @@ export default class MemberDetailsDialog extends Component {
       dialog: false,
       errors: {},
     };
-    this.validate = {
+    this.toValidate = {
       firstname: { required: true },
       surname: { required: true },
     };
+    this.values = ['index', 'firstname', 'surname', 'role', 'description', 'socials', 'coverImage'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
+  }
+
+  getAvatarByGender = (values) => {
+    const url = `https://api.genderize.io/?name=${values.firstname}`;
+    axios.get(url)
+      .then((res) => {
+        values.coverImage = (res.data.gender === 'male')
+          ? '/img/placeholders/avatar-man.png'
+          : '/img/placeholders/avatar-woman.png';
+        this.sendingFunction(values);
+      })
+      .catch(() => {
+        values.coverImage = '/img/placeholders/avatar-man.png';
+        this.sendingFunction(values);
+      });
+  }
+
+  submit = (values) => {
+    if (isEmpty(values.coverImage)) {
+      this.getAvatarByGender(values);
+    } else {
+      this.sendingFunction(values);
+    }
+  }
+
+  handleSubmit = () => { validate(this, this.submit); }
+
+  sendingFunction = (values) => {
+    this.props.submit(values);
+    this.props.closeDialog();
+  }
+
+  closeDialog = () => {
+    this.setState({ dialog: false });
   }
 
   modifyImage = ({ image }) => {
@@ -41,47 +73,6 @@ export default class MemberDetailsDialog extends Component {
     if (image) {
       this.setState({ coverImage: image[0], preview: image[0].preview });
     }
-  }
-
-  closeDialog = () => {
-    this.setState({ dialog: false });
-  }
-
-  sendingFunction = (values) => {
-    this.props.submit(values);
-    this.props.closeDialog();
-  }
-
-  submit = () => {
-    const validateValues = pick(this.state, keys(this.validate));
-    validation(
-      this.validate,
-      validateValues,
-      (errors) => { this.setState({ errors }); },
-      () => {
-        const values = pick(this.state, ['index', 'firstname', 'surname', 'role', 'description', 'socials', 'coverImage']);
-        if (isEmpty(values.coverImage)) {
-          this.getAvatarByGender(values.firstname, values, this.sendingFunction);
-        } else {
-          this.sendingFunction(values);
-        }
-      },
-    );
-  }
-
-  getAvatarByGender = (name, values, sendingFunction) => {
-    const url = `https://api.genderize.io/?name=${name}`;
-    axios.get(url)
-      .then((res) => {
-        values.coverImage = (res.data.gender === 'male')
-          ? '/img/placeholders/avatar-man.png'
-          : '/img/placeholders/avatar-woman.png';
-        sendingFunction(values);
-      })
-      .catch(() => {
-        values.coverImage = '/img/placeholders/avatar-man.png';
-        sendingFunction(values);
-      });
   }
 
   updateSocials = ({ socials }) => {
@@ -99,67 +90,25 @@ export default class MemberDetailsDialog extends Component {
   }
 
   render() {
-    const { closeDialog, sidebar } = this.props;
-    const { preview, firstname, surname, role, description, socials, coverImage, dialog, errors } = this.state;
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.submit}
-        primary
-      />,
-    ];
+    const { closeDialog, sidebar, open } = this.props;
+    const { preview, socials, coverImage, dialog } = this.state;
     const imagePreview = preview || '';
-    console.log(this.state.coverImage);
 
     return (
       <EditDialog
-        open
+        open={open}
         onRequestClose={closeDialog}
-        actions={actions}
+        actions={this.actions}
         title="Edytuj element galerii"
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
         <Container>
-          <TextField
-            value={firstname}
-            onChange={(e) => { this.setState({ firstname: e.target.value }); }}
-            floatingLabelText="Imię"
-            errorText={errors.firstname}
-            fullWidth
-            {...inputStyle}
-          />
-          <TextField
-            value={surname}
-            onChange={(e) => { this.setState({ surname: e.target.value }); }}
-            floatingLabelText="Nazwisko"
-            errorText={errors.surname}
-            fullWidth
-            {...inputStyle}
-          />
-          <TextField
-            value={role}
-            onChange={(e) => { this.setState({ role: e.target.value }); }}
-            floatingLabelText="Rola"
-            errorText={errors.role}
-            fullWidth
-            {...inputStyle}
-          />
-          <TextField
-            value={description}
-            onChange={(e) => { this.setState({ description: e.target.value }); }}
-            floatingLabelText="Opis"
-            errorText={errors.description}
-            fullWidth
-            multiLine
-            rows={1}
-            {...inputStyle}
-          />
+          {renderTextField(this, 'Imię', 'firstname')}
+          {renderTextField(this, 'Nazwisko', 'surname')}
+          {renderTextField(this, 'Rola', 'role')}
+          {renderTextField(this, 'Opis', 'description')}
           <MediaWrapper>
             <MediaElement>
               <LabelHeader>Zdjęcie</LabelHeader>

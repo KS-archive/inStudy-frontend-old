@@ -1,34 +1,25 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import pick from 'lodash/pick';
 import ImageDialog from '../../ImageDialog/ImageDialog';
-import { inputStyle } from '../../../js/constants/styles';
+import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
 import { EditDialog } from '../../../js/globalStyles';
 import { Container, ImagePreview, Editfields } from './ImageDetailsDialog_styles';
 
 export default class ImageDetailsDialog extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      preview: '',
-      name: '',
-      src: '',
-      link: '',
-      dialog: false,
-      errors: {
-        name: null,
-        link: null,
-      },
-    };
-  }
-
-  componentWillMount() {
     const { data } = this.props;
-    if (data) {
-      const { name, src, link } = data;
-      this.setState({ name, src, link, preview: src.preview || src });
-    }
+    this.state = {
+      preview: data.src.preview || data.src,
+      name: data.name || '',
+      src: data.src || '',
+      link: data.link || '',
+      dialog: false,
+      errors: {},
+    };
+    this.values = ['name', 'src', 'link'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
   }
 
   modifyImage = (value) => {
@@ -44,35 +35,21 @@ export default class ImageDetailsDialog extends Component {
   }
 
   submit = () => {
-    const { data } = this.props;
-    const { name, src, link } = this.state;
-    const index = data && data.index;
-    const values = { index, name, src, link };
+    const index = this.props.data && this.props.data.index;
+    const values = { index, ...pick(this.state, this.values) };
     this.props.submit(values);
   }
 
   render() {
     const { closeDialog, sidebar } = this.props;
-    const { preview, src, dialog, name, link, errors } = this.state;
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        onTouchTap={closeDialog}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.submit}
-        disabled={!preview}
-        primary
-      />,
-    ];
+    const { preview, src, dialog } = this.state;
     const imagePreview = preview || '';
 
     return (
       <EditDialog
         open
         onRequestClose={closeDialog}
-        actions={actions}
+        actions={this.actions}
         title="Edytuj element galerii"
         autoScrollBodyContent
         repositionOnUpdate={false}
@@ -83,22 +60,8 @@ export default class ImageDetailsDialog extends Component {
             <img src={imagePreview} alt="Podgląd obrazu" />
           </ImagePreview>
           <Editfields>
-            <TextField
-              value={name}
-              onChange={(e) => { this.setState({ name: e.target.value }); }}
-              floatingLabelText="Nazwa obrazu"
-              errorText={errors.name}
-              fullWidth
-              {...inputStyle}
-            />
-            <TextField
-              value={link}
-              onChange={(e) => { this.setState({ link: e.target.value }); }}
-              floatingLabelText="Link"
-              errorText={errors.link}
-              fullWidth
-              {...inputStyle}
-            />
+            {renderTextField(this, 'Nazwa obrazu', 'name')}
+            {renderTextField(this, 'Link', 'link')}
             <RaisedButton
               label={(preview) ? 'Zmień obraz' : 'Wczytaj obraz'}
               labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import pick from 'lodash/pick';
-import keys from 'lodash/keys';
-import validation from '../../js/validation';
+import validate from '../../js/validation';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { Form } from './SimpleTextDialog_styles';
 import { EditDialog } from '../../js/globalStyles';
@@ -17,32 +15,27 @@ export default class SimpleTextDialog extends Component {
     };
 
     this.isEditModal = !!_id;
-    this.validate = {
+    this.toValidate = {
       title: { required: true },
       content: { required: true },
     };
-    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
+    this.values = ['title', 'content'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
   componentWillMount() {
     const { closeDialog, data: { _id }, setModalFunctions } = this.props;
-    const { submit, remove } = this;
-    setModalFunctions(_id, submit, closeDialog, remove);
+    const { handleSubmit, remove } = this;
+    setModalFunctions(_id, handleSubmit, closeDialog, remove);
   }
 
-  submit = () => {
-    const validateValues = pick(this.state, keys(this.validate));
-    validation(this.validate, validateValues, this.validateFailed, this.validateSuccess);
-  }
+  handleSubmit = () => { validate(this, this.submit); }
 
-  validateSuccess = () => {
-    const values = pick(this.state, ['title', 'content']);
-    console.log(values);
-    this.props.closeDialog();
-  }
-
-  validateFailed = (errors) => {
-    this.setState({ errors });
+  submit = (values) => {
+    const { data: { _id }, kind, closeDialog } = this.props;
+    const extendValues = { ...values, _id, kind };
+    console.log(extendValues);
+    closeDialog();
   }
 
   remove = () => {

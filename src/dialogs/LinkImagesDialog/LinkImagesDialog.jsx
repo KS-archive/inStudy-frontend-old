@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
 import without from 'lodash/without';
-import pick from 'lodash/pick';
-import keys from 'lodash/keys';
-import validation from '../../js/validation';
+import validate from '../../js/validation';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
 import ImageDetailsDialog from './ImageDetailsDialog/ImageDetailsDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
-import { inputStyle } from '../../js/constants/styles';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementOptionsOverlay, ElementOptions } from './LinkImagesDialog_styles';
 
@@ -29,34 +25,29 @@ export default class LinkImagesDialog extends Component {
       errors: {},
     };
     this.isEditModal = !!_id;
-    this.validate = {
+    this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: 'Musisz dodać co najmniej jeden element do galerii' },
       rowsLimit: { required: true, naturalNumber: true },
     };
-    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
+    this.values = ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
   componentWillMount() {
     const { closeDialog, data: { _id }, setModalFunctions } = this.props;
-    const { submit, remove, openColorsDialog } = this;
-    setModalFunctions(_id, submit, closeDialog, remove, openColorsDialog);
+    const { handleSubmit, remove, openColorsDialog } = this;
+    setModalFunctions(_id, handleSubmit, closeDialog, remove, openColorsDialog);
     this.types = accessibleModules.find(el => el.kind === 'LinkImages').types;
   }
 
-  submit = () => {
-    const validateValues = pick(this.state, keys(this.validate));
-    validation(this.validate, validateValues, this.validateFailed, this.validateSuccess);
-  }
+  handleSubmit = () => { validate(this, this.submit); }
 
-  validateSuccess = () => {
-    const values = pick(this.state, ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize']);
-    console.log(values);
-    this.props.closeDialog();
-  }
-
-  validateFailed = (errors) => {
-    this.setState({ errors });
+  submit = (values) => {
+    const { data: { _id }, kind, closeDialog } = this.props;
+    const extendValues = { ...values, _id, kind };
+    console.log(extendValues);
+    closeDialog();
   }
 
   remove = () => {

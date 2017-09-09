@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
-import pick from 'lodash/pick';
-import keys from 'lodash/keys';
-import validation from '../../js/validation';
+import validate from '../../js/validation';
 import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
@@ -23,33 +21,27 @@ export default class SocialsDialog extends Component {
       errors: {},
     };
     this.isEditModal = !!_id;
-    this.validate = {
+    this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: true },
     };
-    this.actions = renderActionButtons(this.props.closeDialog, this.submit);
+    this.values = ['title', 'content', 'color'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
   componentWillMount() {
     const { closeDialog, data: { _id }, setModalFunctions } = this.props;
-    const { submit, remove, openColorsDialog } = this;
-    setModalFunctions(_id, submit, closeDialog, remove, openColorsDialog);
+    const { handleSubmit, remove, openColorsDialog } = this;
+    setModalFunctions(_id, handleSubmit, closeDialog, remove, openColorsDialog);
   }
 
-  submit = () => {
-    const validateValues = pick(this.state, keys(this.validate));
-    validation(this.validate, validateValues, this.validateFailed, this.validateSuccess);
-  }
+  handleSubmit = () => { validate(this, this.submit); }
 
-  validateSuccess = () => {
-    const values = pick(this.state, ['content', 'title', 'color']);
-    console.log(values);
-    this.props.closeDialog();
-  }
-
-  validateFailed = (errors) => {
-    console.log('failed');
-    this.setState({ errors });
+  submit = (values) => {
+    const { data: { _id }, kind, closeDialog } = this.props;
+    const extendValues = { ...values, _id, kind };
+    console.log(extendValues);
+    closeDialog();
   }
 
   remove = () => {

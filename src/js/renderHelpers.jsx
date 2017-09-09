@@ -22,7 +22,7 @@ export const renderTextField = (comp, label, stateName, fullWidth = true, extend
     value: comp.state[stateName],
     onChange: (e) => { comp.setState({ [stateName]: e.target.value }); },
     errorText: (stateName === 'title')
-      ? (comp.state.errors[stateName] || comp.state.errors.content)
+      ? (comp.state.errors[stateName] || comp.state.errors.content || comp.state.errors.icon)
       : comp.state.errors[stateName],
     ...inputStyle,
     ...extend,
