@@ -52,11 +52,11 @@ export default {
           labels: ['aktualne', 'otwarte'],
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/knwd',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/knwd',
             },
           ],
@@ -71,11 +71,11 @@ export default {
           labels: ['archiwalne'],
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/knwd',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/knwd',
             },
           ],
@@ -90,11 +90,11 @@ export default {
           labels: ['cykliczne'],
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/knwd',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/knwd',
             },
           ],

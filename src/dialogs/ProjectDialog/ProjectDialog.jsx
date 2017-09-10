@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
+import socialsList from '../../js/constants/socials';
 import { BasicDialog } from '../../js/globalStyles';
 import './projectDialog.scss';
 
@@ -65,6 +66,20 @@ export default class ProjectDialog extends Component {
       <i className={`fa fa-${social.name}`} aria-hidden="true" />
     </a>
   ));
+
+  renderSocials = () => this.props.socials.map((social, index) => {
+    const icon = socialsList[social.id].iconName;
+    return (
+      <a
+        className={`projectDialog__socialCircle social__${icon} bg borderHover textHover`}
+        href={social.link}
+        key={index}
+        target="_blank"
+      >
+        <i className={`fa fa-${icon}`} aria-hidden="true" />
+      </a>
+    );
+  });
 
   render() {
     const mainImage = { backgroundImage: `url(${this.state.images[this.state.mainImage]})` };

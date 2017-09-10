@@ -6,8 +6,9 @@ import { StyledDialog, Form, Fields, ColorName, ColorValues, ColorValue } from '
 export default class ColorsDialog extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
     this.state = {
-      colors: this.props.data,
+      colors: (Array.isArray(this.props.data)) ? this.props.data[0] : this.props.data,
     };
   }
 

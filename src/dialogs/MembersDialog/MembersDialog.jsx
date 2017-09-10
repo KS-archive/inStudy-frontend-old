@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
+import socialsList from '../../js/constants/socials';
 import './membersDialog.scss';
 
 export default class MembersDialog extends Component {
-  renderSocials = () => this.props.socials.map(social => (
-    <a className={`membersDialog__socialCircle social__${social.name} bg borderHover textHover`} href={social.link} key={social.name}>
-      <i className={`fa fa-${social.name}`} aria-hidden="true" />
-    </a>
-  ));
+  renderSocials = () => this.props.socials.map((social, index) => {
+    const icon = socialsList[social.id].iconName;
+    return (
+      <a
+        className={`membersDialog__socialCircle social__${icon} bg borderHover textHover`}
+        href={social.link}
+        key={index}
+        target="_blank"
+      >
+        <i className={`fa fa-${icon}`} aria-hidden="true" />
+      </a>
+    );
+  });
 
   render() {
     return (
