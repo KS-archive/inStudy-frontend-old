@@ -141,20 +141,21 @@ export const Element = styled.div`
   justify-content: center;
   min-width: 100px;
   min-height: 100px;
-  margin: 26px 13px 0;
-  border: 2px solid ${colorPalette.accent2Color};
-  font-size: 36px;
-  color: ${colorPalette.accent2Color};
+  margin: 26px 10px 0;
+  border: 1px solid ${colorPalette.accent2Color};
+  font-size: 24px;
+  color: ${colorPalette.accent3Color};
   transition: all 0.3s;
 
   > img {
-    max-width: 65px;
-    max-height: 65px;
+    max-width: 90px;
+    max-height: 90px;
   }
 
   &:hover {
     cursor: pointer;
-    color: ${colorPalette.accent3Color};
+    color: ${colorPalette.textColor};
+    border: 1px solid ${colorPalette.textColor};
 
     > div {
       z-index: 1;

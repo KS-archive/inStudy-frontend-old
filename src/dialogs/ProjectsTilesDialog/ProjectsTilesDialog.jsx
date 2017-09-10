@@ -21,6 +21,7 @@ export default class ProjectsTilesDialog extends Component {
       randomize: randomize || false,
       dialog: false,
       dialogData: null,
+      editingIndex: null,
       errors: {},
     };
     this.isEditModal = !!_id;
@@ -54,7 +55,11 @@ export default class ProjectsTilesDialog extends Component {
   }
 
   closeDialog = () => {
-    this.setState({ dialog: false, dialogData: null });
+    this.setState({
+      dialog: false,
+      dialogData: null,
+      editingIndex: null,
+    });
   }
 
   addDetails = () => {
@@ -67,19 +72,20 @@ export default class ProjectsTilesDialog extends Component {
   editDetails = (el, index) => {
     this.setState({
       dialog: 'projectDetails',
-      dialogData: { ...el, index },
+      dialogData: el,
+      editingIndex: index,
     });
   }
 
   modifyElements = (values) => {
     this.closeDialog();
-    const { index, firstname, surname, role, description, socials, coverImage } = values;
+    const { editingIndex } = this.state;
     const content = [...this.state.content];
 
-    if (index || index === 0) { // Edit
-      content[index] = { firstname, surname, role, description, socials, coverImage };
+    if (editingIndex || editingIndex === 0) { // Edit
+      content[editingIndex] = values;
     } else { // Add
-      content.push({ firstname, surname, role, description, socials, coverImage });
+      content.push(values);
     }
 
     this.setState({ content });
@@ -95,16 +101,16 @@ export default class ProjectsTilesDialog extends Component {
   }
 
   renderElement = (el, index) => {
-    const { coverImage, _id, name } = el;
+    const { coverImage, _id, title } = el;
     const imgSrc = (typeof coverImage === 'string') ? coverImage : coverImage.preview;
     return (
-      <Element key={_id || name}>
+      <Element key={_id || title}>
         <img src={imgSrc} alt="" />
         <ElementContent>
           <Name>
-            {`${name.length > 60
-              ? `${name.substring(0, 60)}...`
-              : name}`}
+            {`${title.length > 60
+              ? `${title.substring(0, 60)}...`
+              : title}`}
           </Name>
         </ElementContent>
         <ElementOptions>

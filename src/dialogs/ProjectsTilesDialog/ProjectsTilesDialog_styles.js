@@ -56,7 +56,7 @@ export const Element = styled.div`
   margin: 26px 13px 0;
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
-  font-size: 36px;
+  font-size: 24px;
   color: ${colorPalette.accent2Color};
   transition: all 0.3s;
   ${media.x_large`
