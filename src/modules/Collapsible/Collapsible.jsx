@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CollapsibleElement from '../CollapsibleElement/CollapsibleElement';
-import './collapsible.scss';
+import { SectionHeader } from '../../js/globalStyles';
+import { Wrapper } from './Collapsible_styles';
 
 export default class Collapsible extends Component {
   constructor(props) {
@@ -10,22 +11,28 @@ export default class Collapsible extends Component {
     };
   }
 
+  toggleCollapsible = (index) => {
+    const isOpen = (this.state.openId === index);
+    this.setState({ openId: !isOpen && index });
+  }
+
   renderElement = (elements, color) =>
     elements.map((element, index) => (
       <CollapsibleElement
-        {...element}
+        key={element.title}
         color={color}
         open={(this.state.openId === index)}
-        handleClick={() => { (this.state.openId === index) ? this.setState({ openId: null }) : this.setState({ openId: index }); }}
-        key={element.title}
+        handleClick={() => { this.toggleCollapsible(index); }}
+        {...element}
       />));
 
   render() {
+    const { title, content, mainColors, color } = this.props;
     return (
-      <div className="collapsible__wrapper">
-        <h1 className="body__sectionHeader">{this.props.title}</h1>
-        {this.renderElement(this.props.content, this.props.mainColors[this.props.color])}
-      </div>
+      <Wrapper>
+        <SectionHeader>{title}</SectionHeader>
+        {this.renderElement(content, mainColors[color])}
+      </Wrapper>
     );
   }
 }

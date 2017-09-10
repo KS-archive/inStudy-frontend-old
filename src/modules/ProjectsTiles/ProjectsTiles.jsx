@@ -90,11 +90,13 @@ export default class ProjectsTiles extends Component {
           {(!this.state.showAll && this.props.rowsLimit !== 0) &&
             <div className="projectsTiles__more" onClick={() => { this.setState({ showAll: true }); }}>...</div>
           }
-          <ProjectDialog
-            closeDialog={this.closeDialog}
-            open={this.state.dialog}
-            {...this.state.dialogData}
-          />
+          {(this.state.dialog) &&
+            <ProjectDialog
+              open
+              closeDialog={this.closeDialog}
+              {...this.state.dialogData}
+            />
+          }
         </div>
       </div>
     );

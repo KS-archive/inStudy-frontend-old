@@ -4,30 +4,41 @@ import Field from 'redux-form/lib/Field';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import axios from 'axios';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import { addNotification } from '../../actions/notifications';
 import { setCookie } from '../../js/cookies';
-import './signIn.scss';
+import { StyledRaisedButton } from '../../js/globalStyles';
+import { Container, Content, Form, Header, ButtonContainer, Recovery, Bottom, BottomText } from './SignIn_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
 class SignIn extends Component {
   onSubmit = (values) => {
-    axios.post('http://localhost:8080/api/user/login', values).then((res) => {
-      setCookie('token', res.data.token);
-      this.props.history.push('/inicjatywy/edit');
-      this.props.addNotification('Zalogowano', res.data.message, 'success');
-    }, ({ response }) => {
-      this.props.addNotification('Wystąpił błąd', response.data.message, 'error');
-    });
+    const { history, addNotification } = this.props;
+    axios.post('http://localhost:8080/api/user/login', values)
+      .then((res) => {
+        const { token, message } = res.data;
+        setCookie('token', token);
+        history.push('/inicjatywy/edit');
+        addNotification('Zalogowano', message, 'success');
+      })
+      .catch(({ response }) => {
+        addNotification('Wystąpił błąd', response.data.message, 'error');
+      });
+  }
+
+  pushToRecovery = () => {
+    this.props.history.push('/odzyskiwanie_hasla');
+  }
+
+  pushToRegistration = () => {
+    this.props.history.push('/rejestracja');
   }
 
   renderTextField(name, label, type) {
     return (
       <Field
-        className="signin__field"
         name={name}
         type={type}
         component={TextField}
@@ -44,36 +55,31 @@ class SignIn extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div className="signin__container">
-        <div className="signin__content">
-          <form className="signin__form" onSubmit={handleSubmit(this.onSubmit)}>
-            <h1 className="signin__header">Logowanie</h1>
+      <Container>
+        <Content>
+          <Form onSubmit={handleSubmit(this.onSubmit)}>
+            <Header>Logowanie</Header>
             {this.renderTextField('email', 'E-mail', 'text')}
             {this.renderTextField('password', 'Hasło', 'password')}
-            <div className="signin__buttonContainer">
-              <RaisedButton
-                className="signin__button"
+            <ButtonContainer>
+              <StyledRaisedButton
                 label="Zaloguj się"
-                labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
                 type="submit"
                 primary
               />
-            </div>
-            <p
-              className="signin__recovery"
-              onClick={() => { this.props.history.push('/odzyskiwanie_hasla'); }}
-            >Zapomniałem hasła</p>
-          </form>
-          <div className="signin__bottom">
-            <p className="signin__bottomText">Nie posiadasz jeszcze konta?</p>
+            </ButtonContainer>
+            <Recovery onClick={this.pushToRecovery}>Zapomniałem hasła</Recovery>
+          </Form>
+          <Bottom>
+            <BottomText>Nie posiadasz jeszcze konta?</BottomText>
             <FlatButton
               label="Zarejestruj się"
               labelStyle={{ color: '#fff' }}
-              onTouchTap={() => { this.props.history.push('/rejestracja'); }}
+              onTouchTap={this.pushToRegistration}
             />
-          </div>
-        </div>
-      </div>
+          </Bottom>
+        </Content>
+      </Container>
     );
   }
 }

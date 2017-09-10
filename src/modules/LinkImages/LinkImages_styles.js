@@ -16,6 +16,7 @@ export const Toggle = styled.div`
   text-align: center;
   font-weight: 500;
   text-transform: uppercase;
+  color: ${props => props.color};
 
   &:hover {
     cursor: pointer;

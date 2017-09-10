@@ -26,17 +26,17 @@ export default class CircleCard extends Component {
   }
 
   render() {
-    const { type, onClick, logo, name, category, subcategory, university, flags } = this.props;
-    const logoSrc = logo || './img/placeholders/logo.png';
+    const { type, handleClick, logo, name, category, subcategory, university, flags } = this.props;
+    const logoSrc = logo || '/img/placeholders/logo.png';
     return (
-      <Container onClick={onClick}>
+      <Container onClick={handleClick}>
         <LogoContainer>
           <Logo src={logoSrc} alt={`${name} - logo`} />
         </LogoContainer>
         <Name>{name}</Name>
         <Category>{`${category}, ${subcategory}`}</Category>
         <BottomLine>
-          <UniversityLogo data-tip={university} src={`./img/universities/${university}.png`} alt={`${university} - logo`} />
+          <UniversityLogo data-tip={university} src={`/img/universities/${university}.png`} alt={`${university} - logo`} />
           <InfoIcons>
             {this.renderFlags(flags)}
             {this.renderTypeIcon(type)}

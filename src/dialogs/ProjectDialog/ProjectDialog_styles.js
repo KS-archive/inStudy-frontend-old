@@ -1,97 +1,57 @@
-@import '../../scss/variables';
+import styled from 'styled-components';
+import { colorPalette, media } from '../../js/constants/styles';
 
-.projectDialog__container {
-  box-sizing: border-box;
-  display: flex;
-  padding: 50px !important;
-
-  @media (max-width: 960px) {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  @media (max-width: 700px) {
-    padding: 20px !important;
-
-    &::-webkit-scrollbar {
-    	display: none;
-    }
-  }
-
-  &::-webkit-scrollbar-track {
-  	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  	border-radius: 10px;
-  	background-color: #F5F5F5;
-  }
-  &::-webkit-scrollbar {
-  	width: 8px;
-  	background-color: #F5F5F5;
-  }
-  &::-webkit-scrollbar-thumb {
-  	border-radius: 10px;
-  	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-  	background-color: $primary-text-color;
-  }
-}
-
-
-.projectDialog__images {
+export const Images = styled.div`
   width: 375px;
   margin-right: 40px;
-
-  @media (max-width: 1200px) and (min-width: 961px) {
+  ${media.medium__large`
     width: 300px;
     margin-right: 30px;
-  }
-
-  @media (max-width: 960px) {
+  `}
+  ${media.medium`
     margin: 0 0 40px 0;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     width: 270px;
     max-width: 90vw;
-  }
-}
+  `}
+`;
 
-.projectDialog__mainImage {
+export const MainImage = styled.div`
   width: 375px;
   height: 375px;
   border-radius: 2px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-
-  @media (max-width: 1200px) and (min-width: 961px) {
+  background-image: url(${props => props.src});
+  ${media.medium__large`
     width: 300px;
     height: 300px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     width: 270px;
     max-width: 90vw;
     height: 270px;
     max-height: 90vw;
-  }
-}
+  `}
+`;
 
-.projectDialog__carousel {
+export const Carousel = styled.div`
   display: flex;
   justify-content: space-between;
   width: 375px;
   height: 100px;
   margin-top: 25px;
-
-  @media (max-width: 1200px) and (min-width: 961px) {
+  ${media.medium__large`
     width: 300px;
-  }
-
-  @media (max-width: 700px) {
+  `}
+  ${media.small`
     display: none;
-  }
-}
+  `}
+`;
 
-.projectDialog__arrow {
+export const Arrow = styled.div`
   display: flex;
   align-items: center;
 
@@ -101,129 +61,143 @@
 
   i {
     font-size: 24px;
-    color: $divider-color;
+    color: ${colorPalette.accent2Color};
   }
-}
+`;
 
-.projectDialog__carouselWrapper {
+export const CarouselWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 300px;
   height: 100px;
-
-  @media (max-width: 1200px) and (min-width: 961px) {
+  ${media.medium__large`
     width: 260px;
-  }
-}
+  `}
+`;
 
-.projectDialog__miniImg {
+export const MiniImage = styled.div`
   width: 70px;
   height: 70px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: .5;
-  transition: all .3s;
+  opacity: 0.5;
+  transition: all 0.3s;
 
   &:hover {
     cursor: pointer;
-    opacity: .7;
+    opacity: 0.7;
   }
-}
+`;
 
-.projectDialog__mainMiniImg {
+export const ActiveMiniImg = styled.div`
   width: 120px;
   height: 100px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  transition: all .3s;
-
-  @media (max-width: 1200px) and (min-width: 961px) {
+  transition: all 0.3s;
+  ${media.medium__large`
     width: 100px;
-  }
-}
+  `}
+`;
 
-.projectDialog__textContent {
+export const TextContent = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   max-height: 95vh;
   line-height: 1.3;
   padding: 0 10px;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     overflow-y: unset;
     max-height: unset;
     padding: 0;
-  }
-}
+  `}
+`;
 
-.projectDialog__name {
+export const Name = styled.h1`
   margin-bottom: 5px;
   font-size: 36px;
   font-weight: 900;
-  color: $primary-text-color;
-
-  @media (max-width: 1200px) {
+  color: ${colorPalette.textColor};
+  ${media.large`
     font-size: 30px;
-  }
-}
+  `}
+`;
 
-.projectDialog__header {
+export const Header = styled.h2`
   margin-bottom: 35px;
   font-size: 22px;
-  color: $secondary-text-color;
-
-  @media (max-width: 1200px) {
+  color: ${colorPalette.accent3Color};
+  ${media.large`
     font-size: 20px;
-  }
-}
+  `}
+`;
 
-.projectDialog__description {
+export const Description = styled.div`
   white-space: pre-wrap;
   line-height: 1.5;
   margin-bottom: 40px;
 
-  h1, h2, h3, h4, h5, h6 { font-weight: 500; color: $primary-text-color; }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+    color: ${colorPalette.textColor};
+  }
+
   ol { list-style: decimal; }
   ul { list-style: disc; }
-  a { color: $primary-color !important; text-decoration: underline !important; }
+
+  a {
+    color: $primary-color !important;
+    text-decoration: underline !important;
+  }
+
   strong { font-weight: 500; }
   h1 { font-size: 48px; }
   h2 { font-size: 36px; }
   h3 { font-size: 30px; }
   h4 { font-size: 24px; }
   h5 { font-size: 20px; }
-  h6 { font-size: 16px; text-transform: uppercase; }
-  p, ol, ul {
+
+  h6 {
     font-size: 16px;
-    color: $secondary-text-color;
-    margin-bottom: 10px;
-
-    @media (max-width: 700px) {
-      font-size: 18px;
-    }
+    text-transform: uppercase;
   }
-}
 
-.projectDialog__socials {
+  p,
+  ol,
+  ul {
+    font-size: 16px;
+    color: ${colorPalette.accent3Color};
+    margin-bottom: 10px;
+    ${media.small`
+      font-size: 18px;
+    `}
+  }
+`;
+
+export const Socials = styled.div`
   margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   min-height: 40px;
   padding-top: 40px;
-
-  @media (max-width: 960px) {
+  ${media.medium`
     align-items: flex-start;
     min-height: 80px;
     padding: 0;
-  }
-}
+  `}
+`;
 
-.projectDialog__socialCircle {
+export const SocialCircle = styled.a`
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -235,10 +209,10 @@
   font-size: 20px;
   text-align: center;
   color: #fff;
-  transition: all .6s;
+  transition: all 0.6s;
 
   &:hover {
     cursor: pointer;
     background-color: #fff !important;
   }
-}
+`;

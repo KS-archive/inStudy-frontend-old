@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import connect from 'react-redux/lib/connect/connect';
 import NotificationSystem from 'react-notification-system';
 import Nav from '../../components/Nav/Nav';
-import './index.scss';
+import { Container, Body } from './Index_styles';
 
 class Index extends Component {
   componentDidMount() {
@@ -24,18 +24,21 @@ class Index extends Component {
 
   render() {
     const path = this.props.location.pathname;
-    const bodyMargin = (path !== '/' && path !== '/rejestracja' && path !== '/logowanie' && !path.includes('/odzyskiwanie_hasla') && !path.includes('/potwierdz_email'))
-      ? { marginTop: 60, minHeight: 'calc(100vh - 60px)' }
-      : { minHeight: '100vh' };
+    const isNormalPath = (
+      path !== '/' &&
+      path !== '/rejestracja' &&
+      path !== '/logowanie' &&
+      !path.includes('/odzyskiwanie_hasla') &&
+      !path.includes('/potwierdz_email'));
 
     return (
-      <div className="index__container">
+      <Container>
         <Nav />
-        <div className="index__body" style={bodyMargin}>
+        <Body isNormalPath={isNormalPath}>
           {this.props.children}
-        </div>
+        </Body>
         <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
-      </div>
+      </Container>
     );
   }
 }

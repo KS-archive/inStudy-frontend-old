@@ -1,12 +1,14 @@
-@import '../../scss/variables';
+import styled from 'styled-components';
+import Field from 'redux-form/lib/Field';
+import { colorPalette } from '../../js/constants/styles';
 
-.signup__container {
+export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  background-color: $primary-color-dark;
+  background-color: ${colorPalette.primary2Color};
 
   @media (max-width: 800px) {
     align-items: flex-start;
@@ -17,15 +19,15 @@
     align-items: flex-start;
     padding-top: 120px;
   }
-}
+`;
 
-.signup__content {
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+`;
 
-.signup__form {
+export const Form = styled.form`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -35,7 +37,7 @@
   padding: 40px 50px;
   border-radius: 2px;
   background-color: #fff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   @media (max-width: 800px) {
     width: 448px;
@@ -46,42 +48,38 @@
     width: 328px;
     padding: 40px 10px;
   }
-}
+`;
 
-.signup__header {
+export const Header = styled.h1`
   width: 650px;
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: 500;
   text-align: center;
-}
+`;
 
-.signup__field {
-  &:nth-of-type(1) { order: 1 }
-  &:nth-of-type(2) { order: 3 }
-  &:nth-of-type(3) { order: 5 }
-  &:nth-of-type(4) { order: 7 }
-  &:nth-of-type(5) { order: 9 }
-  &:nth-of-type(6) { order: 2 }
-  &:nth-of-type(7) { order: 4 }
-  &:nth-of-type(8) { order: 6 }
-  &:nth-of-type(9) { order: 8 }
-  &:nth-of-type(10) { order: 10 }
-}
+export const StyledField = styled(Field)`
+  &:nth-of-type(1) { order: 1; }
+  &:nth-of-type(2) { order: 3; }
+  &:nth-of-type(3) { order: 5; }
+  &:nth-of-type(4) { order: 7; }
+  &:nth-of-type(5) { order: 9; }
+  &:nth-of-type(6) { order: 2; }
+  &:nth-of-type(7) { order: 4; }
+  &:nth-of-type(8) { order: 6; }
+  &:nth-of-type(9) { order: 8; }
+  &:nth-of-type(10) { order: 10; }
+`;
 
-.signup__buttonContainer {
+export const ButtonContainer = styled.div`
+  margin-top: 30px;
   width: 100%;
   display: flex;
   justify-content: center;
   order: 11;
-}
+`;
 
-.signup__button {
-  margin-top: 50px;
-  font-weight: 500;
-}
-
-.signup__bottom {
+export const Bottom = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,9 +89,9 @@
   @media (max-width: 800px) {
     margin-bottom: 60px;
   }
-}
+`;
 
-.signup__bottomText {
+export const BottomText = styled.p`
   margin-bottom: 5px;
   font-size: 18px;
-}
+`;
