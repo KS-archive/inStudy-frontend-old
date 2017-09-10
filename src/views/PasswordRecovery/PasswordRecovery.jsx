@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
-import './passwordRecovery.scss';
+import { StyledRaisedButton } from '../../js/globalStyles';
+import { Container, Content, Form, Header, ButtonContainer } from './PasswordRecovery_styles';
 
 class PasswordRecovery extends Component {
   onSubmit = (values) => {
@@ -14,12 +14,11 @@ class PasswordRecovery extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div className="passwordRecovery__container">
-        <div className="passwordRecovery__content">
-          <form className="passwordRecovery__form" onSubmit={handleSubmit(this.onSubmit)}>
-            <h1 className="passwordRecovery__header">Odzyskiwanie hasła</h1>
+      <Container>
+        <Content>
+          <Form onSubmit={handleSubmit(this.onSubmit)}>
+            <Header>Odzyskiwanie hasła</Header>
             <Field
-              className="passwordRecovery__field"
               name="email"
               component={TextField}
               floatingLabelText="E-mail"
@@ -27,18 +26,16 @@ class PasswordRecovery extends Component {
               floatingLabelShrinkStyle={{ fontWeight: 900 }}
               style={{ width: 350, fontWeight: 500 }}
             />
-            <div className="passwordRecovery__buttonContainer">
-              <RaisedButton
-                className="passwordRecovery__button"
+            <ButtonContainer>
+              <StyledRaisedButton
                 label="Wyślij"
-                labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
                 type="submit"
                 primary
               />
-            </div>
-          </form>
-        </div>
-      </div>
+            </ButtonContainer>
+          </Form>
+        </Content>
+      </Container>
     );
   }
 }

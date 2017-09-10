@@ -3,25 +3,12 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
+import accessibleModules from '../../js/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
-import SimpleText from '../../modules/SimpleText/SimpleText';
-import ProjectsTiles from '../../modules/ProjectsTiles/ProjectsTiles';
-import IconText from '../../modules/IconText/IconText';
-import Numbers from '../../modules/Numbers/Numbers';
-import Collapsible from '../../modules/Collapsible/Collapsible';
-import LinkImages from '../../modules/LinkImages/LinkImages';
-import MembersTiles from '../../modules/MembersTiles/MembersTiles';
 import EditSidebar from '../../components/EditSidebar/EditSidebar';
 import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
-import SimpleTextDialog from '../../dialogs/SimpleTextDialog/SimpleTextDialog';
-import LinkImagesDialog from '../../dialogs/LinkImagesDialog/LinkImagesDialog';
-import NumbersDialog from '../../dialogs/NumbersDialog/NumbersDialog';
-import IconTextDialog from '../../dialogs/IconTextDialog/IconTextDialog';
-import CollapsibleDialog from '../../dialogs/CollapsibleDialog/CollapsibleDialog';
-import MembersTilesDialog from '../../dialogs/MembersTilesDialog/MembersTilesDialog';
-import ProjectsTilesDialog from '../../dialogs/ProjectsTilesDialog/ProjectsTilesDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
@@ -87,21 +74,18 @@ class EditProfile extends Component {
     this.closeDialog();
   }
 
-  renderModule = (module, colors, index) => {
-    let newComponent;
-    switch (module.kind) {
-      case 'SimpleText': newComponent = <SimpleText {...module} />; break;
-      case 'ProjectsTiles': newComponent = <ProjectsTiles {...module} mainColors={colors} />; break;
-      case 'IconText': newComponent = <IconText {...module} mainColors={colors} />; break;
-      case 'Numbers': newComponent = <Numbers {...module} mainColors={colors} />; break;
-      case 'Collapsible': newComponent = <Collapsible {...module} mainColors={colors} />; break;
-      case 'MembersTiles': newComponent = <MembersTiles {...module} mainColors={colors} />; break;
-      case 'LinkImages': newComponent = <LinkImages {...module} mainColors={colors} />; break;
-      default: newComponent = null;
-    }
+  renderModule = (module, colors) => {
+    const ModuleComponent = accessibleModules.find(el => el.kind === module.kind).component;
     return (
-      <Wrapper key={index}>{newComponent}</Wrapper>
+      <Wrapper key={module._id}>
+        <ModuleComponent {...module} mainColors={colors} />
+      </Wrapper>
     );
+  }
+
+  renderDialog = (dialog, data) => {
+    const DialogComponent = accessibleModules.find(el => el.kind === dialog).dialog;
+    return <DialogComponent kind={dialog} {...data} />;
   }
 
   render() {
@@ -169,13 +153,7 @@ class EditProfile extends Component {
               {...moduleData}
             />
           }
-          {dialog === 'SimpleText' && <SimpleTextDialog kind={'SimpleText'} {...moduleData} />}
-          {dialog === 'LinkImages' && <LinkImagesDialog kind={'LinkImages'} {...moduleData} />}
-          {dialog === 'Collapsible' && <CollapsibleDialog kind={'Collapsible'} {...moduleData} />}
-          {dialog === 'Numbers' && <NumbersDialog kind={'Numbers'} {...moduleData} />}
-          {dialog === 'IconText' && <IconTextDialog kind={'IconText'} {...moduleData} />}
-          {dialog === 'MembersTiles' && <MembersTilesDialog kind={'MembersTiles'} {...moduleData} />}
-          {dialog === 'ProjectsTiles' && <ProjectsTilesDialog kind={'ProjectsTiles'} {...moduleData} />}
+          {(dialog) && this.renderDialog(dialog, moduleData)}
         </Container>
       );
     }

@@ -3,17 +3,11 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
+import accessibleModules from '../../js/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
-import SimpleText from '../../modules/SimpleText/SimpleText';
-import ProjectsTiles from '../../modules/ProjectsTiles/ProjectsTiles';
-import IconText from '../../modules/IconText/IconText';
-import Numbers from '../../modules/Numbers/Numbers';
-import Collapsible from '../../modules/Collapsible/Collapsible';
-import LinkImages from '../../modules/LinkImages/LinkImages';
-import MembersTiles from '../../modules/MembersTiles/MembersTiles';
 import { getPublicCircle } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
-import './publicProfile.scss';
+import { Container, Wrapper } from './PublicProfile_styles';
 
 class PublicProfile extends Component {
   componentWillMount() {
@@ -21,37 +15,28 @@ class PublicProfile extends Component {
   }
 
   renderModule = (module, colors) => {
-    let newComponent;
-    switch (module.kind) {
-      case 'SimpleText': newComponent = <SimpleText {...module} />; break;
-      case 'ProjectsTiles': newComponent = <ProjectsTiles {...module} mainColors={colors} />; break;
-      case 'IconText': newComponent = <IconText {...module} mainColors={colors} />; break;
-      case 'Numbers': newComponent = <Numbers {...module} mainColors={colors} />; break;
-      case 'Collapsible': newComponent = <Collapsible {...module} mainColors={colors} />; break;
-      case 'MembersTiles': newComponent = <MembersTiles {...module} mainColors={colors} />; break;
-      case 'LinkImages': newComponent = <LinkImages {...module} mainColors={colors} />; break;
-      default: newComponent = null;
-    }
+    const ModuleComponent = accessibleModules.find(el => el.kind === module.kind).component;
     return (
-      <div className="publicProfile__wrapper" key={module._id}>
-        {newComponent}
-      </div>
+      <Wrapper key={module._id}>
+        <ModuleComponent {...module} mainColors={colors} />
+      </Wrapper>
     );
   }
 
   render() {
-    if (this.props.publicCircle._id) {
-      const header = omit(this.props.publicCircle, 'modules');
-      const modules = pick(this.props.publicCircle, 'modules');
+    const { publicCircle } = this.props;
+    if (publicCircle._id) {
+      const header = omit(publicCircle, 'modules');
+      const modules = pick(publicCircle, 'modules').modules;
       return (
-        <div className="publicProfile__container">
+        <Container>
           <MainContainer>
             <ProfileHeader {...header} editable={false} />
-            {(modules.modules) &&
-              modules.modules.map(module => this.renderModule(module, header.colors))
+            {(modules) &&
+              modules.map(module => this.renderModule(module, header.colors))
             }
           </MainContainer>
-        </div>
+        </Container>
       );
     }
     return null;

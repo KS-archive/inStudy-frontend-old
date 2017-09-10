@@ -1,12 +1,13 @@
-@import '../../scss/variables';
+import styled from 'styled-components';
+import { colorPalette } from '../../js/constants/styles';
 
-.signin__container {
+export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  background-color: $primary-color-dark;
+  background-color: ${colorPalette.primary2Color};
 
   @media (max-width: 800px) {
     min-height: calc(100vh - 60px);
@@ -17,15 +18,15 @@
     min-height: calc(100vh - 60px);
     padding-top: 60px;
   }
-}
+`;
 
-.signin__content {
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+`;
 
-.signin__form {
+export const Form = styled.form`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -35,34 +36,30 @@
   padding: 40px 50px;
   border-radius: 2px;
   background-color: #fff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   @media (max-width: 500px) {
     width: 328px;
     padding: 40px 10px;
   }
-}
+`;
 
-.signin__header {
+export const Header = styled.h1`
   width: 650px;
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: 500;
   text-align: center;
-}
+`;
 
-.signin__buttonContainer {
+export const ButtonContainer = styled.div`
+  margin-top: 30px;
   width: 100%;
   display: flex;
   justify-content: center;
-}
+`;
 
-.signin__button {
-  margin-top: 50px;
-  font-weight: 500;
-}
-
-.signin__recovery {
+export const Recovery = styled.p`
   margin-top: 15px;
   font-size: 14px;
 
@@ -70,17 +67,17 @@
     cursor: pointer;
     text-decoration: underline;
   }
-}
+`;
 
-.signin__bottom {
+export const Bottom = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
   color: #fff;
-}
+`;
 
-.signin__bottomText {
+export const BottomText = styled.p`
   margin-bottom: 5px;
   font-size: 18px;
-}
+`;

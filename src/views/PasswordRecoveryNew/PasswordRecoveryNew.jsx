@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
-import './passwordRecoveryNew.scss';
+import { StyledRaisedButton } from '../../js/globalStyles';
+import { Container, Content, Form, Header, ButtonContainer } from './PasswordRecoveryNew_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
@@ -15,7 +15,6 @@ class PasswordRecoveryNew extends Component {
   renderTextField(name, label, type) {
     return (
       <Field
-        className="passwordRecoveryNew__field"
         name={name}
         type={type}
         component={TextField}
@@ -30,27 +29,24 @@ class PasswordRecoveryNew extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    console.log(this.props);
 
     return (
-      <div className="passwordRecoveryNew__container">
-        <div className="passwordRecoveryNew__content">
-          <form className="passwordRecoveryNew__form" onSubmit={handleSubmit(this.onSubmit)}>
-            <h1 className="passwordRecoveryNew__header">Utwórz nowe hasło</h1>
+      <Container>
+        <Content>
+          <Form onSubmit={handleSubmit(this.onSubmit)}>
+            <Header>Utwórz nowe hasło</Header>
             {this.renderTextField('password', 'Hasło', 'password')}
             {this.renderTextField('password2', 'Powtórz hasło', 'password')}
-            <div className="passwordRecoveryNew__buttonContainer">
-              <RaisedButton
-                className="passwordRecoveryNew__button"
+            <ButtonContainer>
+              <StyledRaisedButton
                 label="Zmień hasło"
-                labelStyle={{ fontSize: 16, marginLeft: 10, marginRight: 10 }}
                 type="submit"
                 primary
               />
-            </div>
-          </form>
-        </div>
-      </div>
+            </ButtonContainer>
+          </Form>
+        </Content>
+      </Container>
     );
   }
 }

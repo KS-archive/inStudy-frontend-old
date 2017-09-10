@@ -1,12 +1,13 @@
-@import '../../scss/variables';
+import styled from 'styled-components';
+import { colorPalette } from '../../js/constants/styles';
 
-.passwordRecoveryNew__container {
+export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  background-color: $primary-color-dark;
+  background-color: ${colorPalette.primary2Color};
 
   @media (max-width: 800px) {
     min-height: calc(100vh - 60px);
@@ -17,15 +18,15 @@
     min-height: calc(100vh - 60px);
     padding-top: 60px;
   }
-}
+`;
 
-.passwordRecoveryNew__content {
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+`;
 
-.passwordRecoveryNew__form {
+export const Form = styled.form`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -35,29 +36,26 @@
   padding: 40px 50px;
   border-radius: 2px;
   background-color: #fff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   @media (max-width: 500px) {
     width: 328px;
     padding: 40px 10px;
   }
-}
+`;
 
-.passwordRecoveryNew__header {
+export const Header = styled.h1`
   width: 650px;
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: 500;
   text-align: center;
-}
+`;
 
-.passwordRecoveryNew__buttonContainer {
+export const ButtonContainer = styled.div`
+  margin-top: 30px;
   width: 100%;
   display: flex;
   justify-content: center;
-}
-
-.passwordRecoveryNew__button {
-  margin-top: 50px;
-  font-weight: 500;
-}
+  order: 11;
+`;

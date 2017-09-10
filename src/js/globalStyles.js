@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import { colorPalette, media } from './constants/styles';
 
@@ -169,6 +170,19 @@ export const LabelHeader = styled.div`
   font-size: 14px;
   font-weight: 500;
   color: ${colorPalette.primary1Color};
+`;
+
+// RAISED BUTTON FOR FORMS
+export const StyledRaisedButton = styled(RaisedButton)`
+  > button > div > div:hover {
+    background-color: inherit !important;
+  }
+
+  > button > div > div > span {
+    font-size: 16px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
 `;
 
 /** ********************************

@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ShakePlugin = require('webpack-common-shake').Plugin;
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -12,7 +13,7 @@ module.exports = {
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash].js',
   },
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   module: {
     loaders: [{
       test: /\.(js|jsx)$/,
@@ -70,6 +71,8 @@ module.exports = {
     new webpack.DefinePlugin({
       __ROOT_URL__: JSON.stringify("http://localhost:8080/"),
     }),
+
+    new ShakePlugin(),
 
   ],
   resolve: {

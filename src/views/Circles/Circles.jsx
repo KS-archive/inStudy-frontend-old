@@ -6,29 +6,41 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import CircleCard from '../../components/CircleCard/CircleCard';
 import { MainContainer } from '../../js/globalStyles';
-import './circles.scss';
+import { ContentWrapper, SearchFiltersContainer, CirclesList } from './Circles_styles';
 
 class Circles extends Component {
   componentDidMount() {
     this.props.getCircles(0, 10);
   }
 
-  render() {
-    console.log(this.props.circles);
+  redirectToCircleView = (url) => {
+    this.props.history.push(`/inicjatywy/${url}`);
+  }
+
+  renderCircleCard = (circle) => {
+    const { _id, url } = circle;
     return (
-      <div className="circles__container">
+      <CircleCard
+        key={_id}
+        handleClick={() => { this.redirectToCircleView(url); }}
+        {...circle}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <ContentWrapper>
         <MainContainer>
           <SearchBar />
-          <div className="circles__searchFilters">
+          <SearchFiltersContainer>
             <SearchFilters />
-          </div>
-          <div className="circles__circlesList">
-            {
-              this.props.circles.map(circle => <CircleCard key={circle._id} onClick={() => { this.props.history.push(`/inicjatywy/${circle.url}`); }} {...circle} />)
-            }
-          </div>
+          </SearchFiltersContainer>
+          <CirclesList>
+            {this.props.circles.map(circle => this.renderCircleCard(circle))}
+          </CirclesList>
         </MainContainer>
-      </div>
+      </ContentWrapper>
     );
   }
 }

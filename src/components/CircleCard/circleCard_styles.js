@@ -126,6 +126,7 @@ export const BottomLine = styled.div`
 export const UniversityLogo = styled.img`
   max-width: 50px;
   max-height: 30px;
+  text-indent: -9999px;
   ${media.medium`
     max-width: 60px;
     max-height: 40px;
