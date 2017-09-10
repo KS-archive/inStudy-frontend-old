@@ -28,13 +28,6 @@ export const MediaElement = styled.div`
   }
 `;
 
-export const LabelHeader = styled.div`
-  margin: 20px 0 15px;
-  font-size: 14px;
-  font-weight: 500;
-  color: ${colorPalette.primary1Color};
-`;
-
 export const ImagePreview = styled.div`
   position: relative;
   box-sizing: border-box;

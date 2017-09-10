@@ -6,8 +6,8 @@ import socialsList from '../../../js/constants/socials';
 import ImageDialog from '../../ImageDialog/ImageDialog';
 import SocialsDialog from '../../SocialsDialog/SocialsDialog';
 import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
-import { EditDialog } from '../../../js/globalStyles';
-import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, LabelHeader, SocialsWrapper, Social, AddSocial, GalleryWrapper, Element, ElementOptionsOverlay, ElementOptions } from './ProjectDetailsDialog_styles';
+import { EditDialog, LabelHeader, Image, ImageOverlay, ImageOptions } from '../../../js/globalStyles';
+import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, SocialsWrapper, Social, AddSocial, GalleryWrapper } from './ProjectDetailsDialog_styles';
 
 export default class ProjectDetailsDialog extends Component {
   constructor(props) {
@@ -53,7 +53,24 @@ export default class ProjectDetailsDialog extends Component {
     });
   }
 
-  modifyImage = ({ image }) => {
+  updateImageDialog = (image, index) => {
+    this.setState({
+      dialog: 'image',
+      dialogData: Array.isArray(image) ? image[0].preview : image,
+      editingIndex: index,
+    });
+  }
+
+  updateCoverImageDialog = () => {
+    const { coverImage } = this.state;
+    this.setState({
+      dialog: 'image',
+      dialogData: (typeof coverImage === 'object') ? coverImage.preview : coverImage,
+      editingIndex: 'cover',
+    });
+  }
+
+  modifyImages = ({ image }) => {
     if (image) {
       const { editingIndex } = this.state;
       if (editingIndex === 'cover') {
@@ -69,23 +86,6 @@ export default class ProjectDetailsDialog extends Component {
       }
     }
     this.closeDialog();
-  }
-
-  updateImage = (image, index) => {
-    this.setState({
-      dialog: 'image',
-      dialogData: Array.isArray(image) ? image[0].preview : image,
-      editingIndex: index,
-    });
-  }
-
-  updateCoverImage = () => {
-    const { coverImage } = this.state;
-    this.setState({
-      dialog: 'image',
-      dialogData: (typeof coverImage === 'object') ? coverImage.preview : coverImage,
-      editingIndex: 'cover',
-    });
   }
 
   deleteImage = (image) => {
@@ -110,23 +110,23 @@ export default class ProjectDetailsDialog extends Component {
   renderImage = (image, index) => {
     const imgSrc = (typeof image === 'string') ? image : image[0].preview;
     return (
-      <Element key={index}>
+      <Image key={index}>
         <img src={imgSrc} alt="" />
-        <ElementOptionsOverlay>
-          <ElementOptions>
+        <ImageOverlay>
+          <ImageOptions>
             <i
               className="fa fa-pencil-square-o"
               aria-hidden="true"
-              onClick={() => { this.updateImage(image, index); }}
+              onClick={() => { this.updateImageDialog(image, index); }}
             />
             <i
               className="fa fa-trash-o"
               aria-hidden="true"
               onClick={() => { this.deleteImage(image); }}
             />
-          </ElementOptions>
-        </ElementOptionsOverlay>
-      </Element>
+          </ImageOptions>
+        </ImageOverlay>
+      </Image>
     );
   }
 
@@ -139,7 +139,7 @@ export default class ProjectDetailsDialog extends Component {
       multiLine: true,
       rows: 1,
     };
-    console.log(dialogData);
+
     return (
       <EditDialog
         open={open}
@@ -157,7 +157,7 @@ export default class ProjectDetailsDialog extends Component {
           <MediaWrapper>
             <MediaElement>
               <LabelHeader>Zdjęcie główne</LabelHeader>
-              <ImagePreview preview={preview} onClick={this.updateCoverImage}>
+              <ImagePreview preview={preview} onClick={this.updateCoverImageDialog}>
                 {(imagePreview)
                   ? <img src={imagePreview} alt="" />
                   : <i className="fa fa-plus" aria-hidden="true" />
@@ -183,9 +183,9 @@ export default class ProjectDetailsDialog extends Component {
               <LabelHeader>Galeria projektu</LabelHeader>
               <GalleryWrapper>
                 {images.map((image, index) => this.renderImage(image, index))}
-                <Element onClick={() => { this.setState({ dialog: 'image' }); }}>
+                <Image onClick={() => { this.setState({ dialog: 'image' }); }}>
                   <i className="fa fa-plus" aria-hidden="true" />
-                </Element>
+                </Image>
               </GalleryWrapper>
             </MediaElement>
           </MediaWrapper>
@@ -193,7 +193,7 @@ export default class ProjectDetailsDialog extends Component {
         {(dialog === 'image') &&
           <ImageDialog
             open
-            submitFunction={this.modifyImage}
+            submitFunction={this.modifyImages}
             closeDialog={this.closeDialog}
             width={265}
             height={265}

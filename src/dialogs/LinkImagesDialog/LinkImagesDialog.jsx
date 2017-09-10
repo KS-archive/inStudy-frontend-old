@@ -5,8 +5,8 @@ import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
 import ImageDetailsDialog from './ImageDetailsDialog/ImageDetailsDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
-import { EditDialog } from '../../js/globalStyles';
-import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elements, Element, ElementOptionsOverlay, ElementOptions } from './LinkImagesDialog_styles';
+import { EditDialog, LabelHeader, Image, ImageOverlay, ImageOptions } from '../../js/globalStyles';
+import { Container, Checkboxes, StyledCheckbox, Types, Type, Elements } from './LinkImagesDialog_styles';
 
 export default class LinkImagesDialog extends Component {
   constructor(props) {
@@ -108,10 +108,10 @@ export default class LinkImagesDialog extends Component {
   renderElement = (el, index) => {
     const imgSrc = (typeof el.src === 'string') ? el.src : el.src.preview;
     return (
-      <Element key={index}>
-        <img src={imgSrc} alt={el.name || 'Element galerii'} />
-        <ElementOptionsOverlay>
-          <ElementOptions>
+      <Image key={index}>
+        <img src={imgSrc} alt="" />
+        <ImageOverlay>
+          <ImageOptions>
             <i
               className="fa fa-pencil-square-o"
               aria-hidden="true"
@@ -122,9 +122,9 @@ export default class LinkImagesDialog extends Component {
               aria-hidden="true"
               onClick={() => { this.deleteElement(el); }}
             />
-          </ElementOptions>
-        </ElementOptionsOverlay>
-      </Element>
+          </ImageOptions>
+        </ImageOverlay>
+      </Image>
     );
   }
 
@@ -169,9 +169,9 @@ export default class LinkImagesDialog extends Component {
           <LabelHeader>Elementy</LabelHeader>
           <Elements>
             {content.map((el, i) => this.renderElement(el, i))}
-            <Element onClick={this.addDetails}>
+            <Image onClick={this.addDetails}>
               <i className="fa fa-plus" aria-hidden="true" />
-            </Element>
+            </Image>
           </Elements>
         </Container>
         {dialog === 'colors' &&
