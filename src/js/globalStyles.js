@@ -18,6 +18,7 @@ export const MainContainer = styled.div`
   `}
 `;
 
+// HEADER OF MODULE.
 export const SectionHeader = styled.h1`
   margin: 0 auto 50px;
   font-size: 32px;
@@ -159,5 +160,80 @@ export const EditDialog = styled(Dialog)`
     button:first-of-type {
       margin-right: 15px !important;
     }
+  }
+`;
+
+// LABEL OF FIELDS WHICH ARE NOT INPUT FIELDS.
+export const LabelHeader = styled.div`
+  margin: 20px 0 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: ${colorPalette.primary1Color};
+`;
+
+/** ********************************
+  IMAGES IN SETTINGS
+********************************* */
+
+export const Image = styled.div`
+  position: relative;
+  top: -26px;
+  left: -13px;
+  box-sizing: border-box;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  min-height: 100px;
+  margin: 26px 13px 0;
+  border: 2px solid ${colorPalette.accent2Color};
+  font-size: 36px;
+  color: ${colorPalette.accent2Color};
+  transition: all 0.3s;
+
+  > img {
+    max-width: 65px;
+    max-height: 65px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: ${colorPalette.accent3Color};
+
+    > div {
+      z-index: 1;
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+`;
+
+export const ImageOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  z-index: -2;
+  transition: opacity 0.3s;
+  cursor: default;
+`;
+
+export const ImageOptions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60px;
+  font-size: 24px;
+  color: #fff;
+
+  &:hover {
+    cursor: pointer;
   }
 `;

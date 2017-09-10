@@ -21,6 +21,7 @@ import NumbersDialog from '../../dialogs/NumbersDialog/NumbersDialog';
 import IconTextDialog from '../../dialogs/IconTextDialog/IconTextDialog';
 import CollapsibleDialog from '../../dialogs/CollapsibleDialog/CollapsibleDialog';
 import MembersTilesDialog from '../../dialogs/MembersTilesDialog/MembersTilesDialog';
+import ProjectsTilesDialog from '../../dialogs/ProjectsTilesDialog/ProjectsTilesDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
@@ -174,6 +175,7 @@ class EditProfile extends Component {
           {dialog === 'Numbers' && <NumbersDialog kind={'Numbers'} {...moduleData} />}
           {dialog === 'IconText' && <IconTextDialog kind={'IconText'} {...moduleData} />}
           {dialog === 'MembersTiles' && <MembersTilesDialog kind={'MembersTiles'} {...moduleData} />}
+          {dialog === 'ProjectsTiles' && <ProjectsTilesDialog kind={'ProjectsTiles'} {...moduleData} />}
         </Container>
       );
     }

@@ -145,7 +145,7 @@ export const EditIconSet = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 30px 0;
+  margin: 25px 0;
 
   &:last-child {
     margin-bottom: 0;
@@ -178,8 +178,8 @@ export const SpecialBtn = styled.i`
 `;
 
 export const Icon = styled.i`
-  margin-top: 30px;
-  font-size: 36px;
+  margin-top: 20px;
+  font-size: 30px;
   color: #fff;
   transition: all 0.3s;
 

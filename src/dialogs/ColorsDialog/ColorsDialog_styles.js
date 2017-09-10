@@ -82,6 +82,7 @@ export const Fields = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 54px;
   padding-bottom: 30px;
 
@@ -91,6 +92,7 @@ export const Fields = styled.div`
 `;
 
 export const ColorName = styled.div`
+  min-width: 150px;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.3;

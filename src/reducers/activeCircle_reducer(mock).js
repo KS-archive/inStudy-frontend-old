@@ -44,7 +44,7 @@ export default {
       content: [
         {
           _id: 'sad438dfg345ksaDSF',
-          name: 'Bring to the table. At the end of the day, going forward',
+          title: 'Bring to the table. At the end of the day, going forward',
           coverImage: 'https://pbs.twimg.com/profile_images/724613493912121344/dvVht0q6.jpg',
           header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
           description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
@@ -52,18 +52,18 @@ export default {
           labels: ['aktualne', 'otwarte'],
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/knwd',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/knwd',
             },
           ],
         },
         {
           _id: 'sad43425fg345ksaDSF',
-          name: 'Bring to the table',
+          title: 'Bring to the table',
           coverImage: 'http://lorempixel.com/361/361/',
           header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
           description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
@@ -71,18 +71,18 @@ export default {
           labels: ['archiwalne'],
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/knwd',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/knwd',
             },
           ],
         },
         {
           _id: '4i4359fd43r8jdsfa',
-          name: 'Bring to the table',
+          title: 'Bring to the table',
           coverImage: 'http://lorempixel.com/362/362/',
           header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
           description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
@@ -90,18 +90,18 @@ export default {
           labels: ['cykliczne'],
           socials: [
             {
-              name: 'facebook',
+              id: 5,
               link: 'https://www.facebook.com/knwd',
             },
             {
-              name: 'twitter',
+              id: 13,
               link: 'https://www.twitter.com/knwd',
             },
           ],
         },
         {
           _id: 'ASD5342F4rgfWS35',
-          name: 'Bring to the table',
+          title: 'Bring to the table',
           coverImage: 'http://lorempixel.com/363/363/',
           header: 'At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution.',
           description: 'Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.',
