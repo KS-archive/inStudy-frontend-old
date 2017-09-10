@@ -29,7 +29,7 @@ export default class ProjectsTile extends Component {
   render() {
     return (
       <div className="projectsTile__container" style={{ backgroundImage: `url(${this.props.coverImage})` }} onClick={this.props.openDialog}>
-        <div className="projectsTile__name">{this.props.name}</div>
+        <div className="projectsTile__name">{this.props.title}</div>
         <div className="projectsTile__labels">
           {this.generateLabels(this.props.labels)}
         </div>
