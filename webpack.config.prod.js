@@ -1,3 +1,4 @@
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ShakePlugin = require('webpack-common-shake').Plugin;
 const webpack = require('webpack');
@@ -73,6 +74,7 @@ module.exports = {
     }),
 
     new ShakePlugin(),
+    new LodashModuleReplacementPlugin(),
 
   ],
   resolve: {

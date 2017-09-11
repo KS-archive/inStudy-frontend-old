@@ -217,7 +217,7 @@ export default {
       ],
     },
     {
-      _id: 'ds9HY72SH12Jkkdsi',
+      _id: '1ds9HY72SH12Jkkdsi',
       kind: 'MembersTiles',
       type: 0,
       title: 'Członkowie',
@@ -348,7 +348,7 @@ export default {
       ],
     },
     {
-      _id: 'jhkh88jkHG98lJUM',
+      _id: '2jhkh88jkHG98lJUM',
       kind: 'MembersTiles',
       type: 1,
       title: 'Członkowie honorowi',
@@ -479,7 +479,7 @@ export default {
       ],
     },
     {
-      _id: 'fdn598H88h9JKKSRFjew',
+      _id: '3fdn598H88h9JKKSRFjew',
       kind: 'MembersTiles',
       type: 2,
       title: 'Członkowie honorowi',

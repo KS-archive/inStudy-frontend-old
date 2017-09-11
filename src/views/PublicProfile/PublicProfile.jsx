@@ -26,8 +26,8 @@ class PublicProfile extends Component {
   render() {
     const { publicCircle } = this.props;
     if (publicCircle._id) {
-      const header = omit(publicCircle, 'modules');
-      const modules = pick(publicCircle, 'modules').modules;
+      const header = omit(publicCircle, ['modules']);
+      const modules = pick(publicCircle, ['modules']).modules;
       return (
         <Container>
           <MainContainer>

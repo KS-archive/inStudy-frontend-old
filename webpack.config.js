@@ -1,3 +1,4 @@
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
@@ -64,6 +65,10 @@ module.exports = {
 
     new webpack.DefinePlugin({
       __ROOT_URL__: JSON.stringify("http://localhost:8080/"),
+    }),
+
+    new LodashModuleReplacementPlugin({
+      shorthands: true,
     }),
 
   ],

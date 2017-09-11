@@ -137,7 +137,7 @@ export default class ProjectsTilesDialog extends Component {
   }
 
   render() {
-    const { closeDialog, open, sidebar } = this.props;
+    const { closeDialog, open, sidebar, colors } = this.props;
     const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {
       sidebar,
@@ -147,7 +147,7 @@ export default class ProjectsTilesDialog extends Component {
     };
     const colorNames = ['Aktywny filtr', 'Filtr „Aktualne”', 'Filtr „Archiwalne”', 'Filtr „Otwarte”', 'Filtr „Cykliczne”'];
     const dialogTitle = this.isEditModal ? 'Edytuj moduł „Kafelki projektowe' : 'Dodaj moduł „Kafelki projektowe';
-    console.log(this.props);
+
     return (
       <EditDialog
         open={open}
@@ -177,7 +177,7 @@ export default class ProjectsTilesDialog extends Component {
           <ColorsDialog
             submit={(newColors) => { this.setState({ colors: newColors }); }}
             names={colorNames}
-            mainColors={this.props.colors}
+            mainColors={colors}
             {...dialogAttrs}
           />
         }

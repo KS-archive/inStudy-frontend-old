@@ -8,7 +8,7 @@ export default class ColorsDialog extends Component {
     super(props);
     console.log(this.props);
     this.state = {
-      colors: (Array.isArray(this.props.data)) ? this.props.data[0] : this.props.data,
+      colors: (Array.isArray(this.props.data[0])) ? this.props.data[0] : this.props.data,
     };
   }
 

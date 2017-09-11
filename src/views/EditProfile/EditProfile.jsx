@@ -9,6 +9,7 @@ import EditSidebar from '../../components/EditSidebar/EditSidebar';
 import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
+import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
@@ -74,6 +75,15 @@ class EditProfile extends Component {
     this.closeDialog();
   }
 
+  changeOrder = (modules) => {
+    console.log('obj');
+    this.openDialog('reorder', modules);
+  }
+
+  reorderModules = (values) => {
+    console.log(values);
+  }
+
   renderModule = (module, colors) => {
     const ModuleComponent = accessibleModules.find(el => el.kind === module.kind).component;
     return (
@@ -84,16 +94,20 @@ class EditProfile extends Component {
   }
 
   renderDialog = (dialog, data) => {
-    const DialogComponent = accessibleModules.find(el => el.kind === dialog).dialog;
-    return <DialogComponent kind={dialog} {...data} />;
+    let DialogComponent = accessibleModules.find(el => el.kind === dialog);
+    if (DialogComponent) {
+      DialogComponent = DialogComponent.dialog;
+      return <DialogComponent kind={dialog} {...data} />;
+    }
+    return null;
   }
 
   render() {
     if (this.props.activeCircle._id) {
       const { dialog, sidebar, mode, dialogData, modalFunctions, editingModule } = this.state;
       const { activeCircle } = this.props;
-      const header = omit(activeCircle, 'modules');
-      const modules = pick(activeCircle, 'modules');
+      const header = omit(activeCircle, ['modules']);
+      const modules = pick(activeCircle, ['modules']).modules;
       const EditSidebarData = { sidebar, mode, editingModule, modalFunctions };
       const moduleData = {
         sidebar,
@@ -110,6 +124,7 @@ class EditProfile extends Component {
             openDialog={this.openDialog}
             changeContent={(state) => { this.setState(state); }}
             toggleSidebar={() => { this.setState({ sidebar: !sidebar }); }}
+            changeOrder={this.changeOrder}
             {...EditSidebarData}
             {...activeCircle}
           />
@@ -120,8 +135,8 @@ class EditProfile extends Component {
               editable
               {...header}
             />
-            {(modules.modules) &&
-              modules.modules.map((module, index) =>
+            {(modules) &&
+              modules.map((module, index) =>
                 this.renderModule(module, header.colors, index))
             }
           </MainContainer>
@@ -151,6 +166,16 @@ class EditProfile extends Component {
               maxSize={200000}
               title="Edytuj zdjęcie w tle"
               {...moduleData}
+            />
+          }
+          {dialog === 'reorder' &&
+            <ReorderDialog
+              submitFunction={this.reorderModules}
+              closeDialog={this.closeDialog}
+              title="Zmień kolejność modułów"
+              data={modules}
+              displayBy="title"
+              sidebar
             />
           }
           {(dialog) && this.renderDialog(dialog, moduleData)}

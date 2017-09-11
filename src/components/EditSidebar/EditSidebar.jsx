@@ -26,6 +26,7 @@ export default class EditSidebar extends Component {
 
   renderModules = (mode) => {
     const { submit, cancel, remove, changeColors } = this.props.modalFunctions;
+    console.log(this.props.modalFunctions);
     switch (mode) {
       case 'Moduły':
         return (
@@ -51,15 +52,12 @@ export default class EditSidebar extends Component {
             <EditIconSet>
               <Icon className="fa fa-check" aria-hidden="true" onClick={submit} />
               <Icon className="fa fa-ban" aria-hidden="true" onClick={cancel} />
-              {remove &&
-                <Icon className="fa fa-trash-o" aria-hidden="true" onClick={remove} />
-              }
+              <Icon className="fa fa-trash-o" aria-hidden="true" onClick={remove} />
             </EditIconSet>
             <EditIconSet>
               {changeColors &&
                 <Icon className="fa fa-paint-brush" aria-hidden="true" onClick={changeColors} />
               }
-              <Icon className="fa fa-arrows-v" aria-hidden="true" onClick={() => { console.log('replace'); }} />
             </EditIconSet>
           </Modules>
         );
@@ -79,7 +77,6 @@ export default class EditSidebar extends Component {
               {changeColors &&
                 <Icon className="fa fa-paint-brush" aria-hidden="true" onClick={changeColors} />
               }
-              <Icon className="fa fa-arrows-v" aria-hidden="true" onClick={() => { console.log('replace'); }} />
             </EditIconSet>
           </Modules>
         );
@@ -122,7 +119,7 @@ export default class EditSidebar extends Component {
             {this.renderModules(mode)}
             <BottomIcons>
               {this.renderSpecialBtn(mode)}
-              <Icon className="fa fa-cog" aria-hidden="true" />
+              <Icon className="fa fa-arrows-v" aria-hidden="true" onClick={this.props.changeOrder} />
             </BottomIcons>
           </Wrapper>
         </Container>
