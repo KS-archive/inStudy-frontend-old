@@ -13,8 +13,8 @@ class Filter extends Component {
   }
 
   render() {
-    const { label, items, multiple } = this.props;
-    const filterValue = this.props.filters[this.props.id];
+    const { label, items, multiple, filters, id } = this.props;
+    const filterValue = filters[id];
     const isActive = (filterValue && !Array.isArray(filterValue)) || (Array.isArray(filterValue) && filterValue.length > 0);
     const underlineStyle = (isActive)
       ? { borderBottomWidth: '2px', borderBottomColor: '#303F9F' }
@@ -32,7 +32,7 @@ class Filter extends Component {
         disabled={!items}
       >
         {items && Object.keys(items).map(key =>
-          <MenuItem key={key} value={items[key].id} primaryText={items[key].name} />,
+          <MenuItem key={key} value={key} primaryText={items[key].name} />,
         )}
       </SelectField>
     );

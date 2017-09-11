@@ -7,7 +7,7 @@ export default function (state = {}, action) {
       return { ...state, [action.payload.id]: action.payload.value };
 
     case DELETE_FILTER:
-      return omit(state, action.payload);
+      return omit(state, [action.payload]);
 
     default:
       return state;

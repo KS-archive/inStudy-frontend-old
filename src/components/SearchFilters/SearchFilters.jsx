@@ -5,8 +5,8 @@ import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import Filter from '../Filter/Filter';
 import { deleteFilter } from '../../actions/filters';
+import { cities, types, categories } from '../../js/constants/filterData';
 import { Container, Wrapper, Filters, FilterLabel, RemoveFilters } from './SearchFilters_styles';
-import { fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories } from '../../actions/helpers';
 
 class SearchFilters extends Component {
   constructor(props) {
@@ -15,13 +15,12 @@ class SearchFilters extends Component {
       open: false,
       activeFilters: 0,
       filtersHeight: 221,
+      universities: null,
+      subcategories: null,
     };
   }
 
   componentDidMount() {
-    this.props.fetchCities();
-    this.props.fetchTypes();
-    this.props.fetchCategories();
     window.addEventListener('resize', this.setFiltersHeight);
     this.setFiltersHeight();
   }
@@ -37,6 +36,16 @@ class SearchFilters extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.setFiltersHeight);
+  }
+
+  setUniversities = (cityId) => {
+    const universities = cities[cityId].universities;
+    this.setState({ universities });
+  }
+
+  setSubcategories = (categoryId) => {
+    const subcategories = categories[categoryId].subcategories;
+    this.setState({ subcategories });
   }
 
   setFiltersHeight = () => {
@@ -57,8 +66,8 @@ class SearchFilters extends Component {
   }
 
   render() {
-    const { open, filtersHeight, activeFilters } = this.state;
-    const { cities, universities, types, categories, subcategories } = this.props.selectHelpers;
+    console.log(this.props.filters);
+    const { open, filtersHeight, activeFilters, universities, subcategories } = this.state;
     return (
       <Container style={{ height: (open) ? filtersHeight : 20 }}>
         <Wrapper>
@@ -67,7 +76,7 @@ class SearchFilters extends Component {
               id={'cities'}
               label="Miasto"
               items={cities}
-              changeHandler={(id) => { this.props.fetchUniversities(id); }}
+              changeHandler={(id) => { this.setUniversities(id); }}
             />
             <Filter
               id={'universities'}
@@ -85,7 +94,7 @@ class SearchFilters extends Component {
               id={'categories'}
               label="Kategoria"
               items={categories}
-              changeHandler={(id) => { this.props.fetchSubactegories(id); }}
+              changeHandler={(id) => { this.setSubcategories(id); }}
             />
             <Filter
               id={'subcategories'}
@@ -113,12 +122,12 @@ class SearchFilters extends Component {
 }
 
 function mapStateToProps(state) {
-  const { filters, selectHelpers } = state;
-  return { filters, selectHelpers };
+  const { filters } = state;
+  return { filters };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ deleteFilter, fetchCities, fetchUniversities, fetchTypes, fetchCategories, fetchSubactegories }, dispatch);
+  return bindActionCreators({ deleteFilter }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilters);
