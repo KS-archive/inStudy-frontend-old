@@ -38,6 +38,6 @@ export const ListElement = styled.div`
   i {
     margin-right: 30px;
     font-size: 30px;
-    color: ${colorPalette.accent2Color}
+    color: ${colorPalette.accent2Color};
   }
 `;

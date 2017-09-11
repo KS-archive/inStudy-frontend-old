@@ -9,20 +9,27 @@ import './membersTiles.scss';
 export default class MembersTiles extends Component {
   constructor(props) {
     super(props);
+    const { randomize, content, startGray, rowsLimit, type } = this.props;
+    switch (type) {
+      case 0: this.type = {
+        memberComponent: MembersTile,
+      }; break;
+      case 1: this.type = {
+        memberComponent: MembersTile2,
+      }; break;
+      default: this.type = {
+        memberComponent: MembersTile3,
+      }; break;
+    }
+
     this.state = {
       showAll: false,
-      firstLoad: true,
-      elements: [],
-      grayScale: { filter: 'grayscale(0)' },
+      noLimit: content.length <= 4 * rowsLimit,
+      elements: randomize ? shuffle(content) : content,
+      grayScale: startGray,
       dialog: false,
       dialogData: {},
     };
-  }
-
-  componentWillMount() {
-    if (this.state.grayScale.filter === 'grayscale(0)' && this.props.startGray) this.setState({ grayScale: { filter: 'grayscale(1)' } });
-    const elements = (this.props.randomize && this.state.firstLoad) ? shuffle(this.props.content) : this.props.content;
-    this.setState({ firstLoad: false, elements });
   }
 
   openDialog = (id) => {
@@ -35,43 +42,37 @@ export default class MembersTiles extends Component {
   }
 
   renderTiles = () => {
-    let Members;
-    switch (this.props.type) {
-      case 0: Members = MembersTile; break;
-      case 1: Members = MembersTile2; break;
-      case 2: Members = MembersTile3; break;
-      default: Members = null;
-    }
-    return this.state.elements.map((tile, index) => {
-      if (index < this.props.rowsLimit * 4 || this.state.showAll || !this.props.rowsLimit) {
-        return (<Members
-          key={tile._id}
-          grayScale={this.state.grayScale}
-          mainColors={this.props.mainColors}
-          roleColor={this.props.color}
-          openDialog={() => { this.openDialog(tile._id); }}
-          {...tile}
-        />);
-      }
-      return null;
+    const { rowsLimit, mainColors, color } = this.props;
+    const { elements, showAll, grayScale } = this.state;
+    const MemberComponent = this.type.memberComponent;
+
+    return elements.map((tile, index) => {
+      const isInLimit = (index < rowsLimit * 4 || showAll || !rowsLimit);
+      const openDialog = () => { this.openDialog(tile._id); };
+      const attrs = { grayScale, mainColors, openDialog, roleColor: color, ...tile };
+
+      return (isInLimit) && <MemberComponent key={tile._id} {...attrs} />;
     });
   }
 
   render() {
+    const { title, rowsLimit, mainColors, color } = this.props;
+    const { showAll, dialog, dialogData } = this.state;
+
     return (
       <div className="membersTiles__wrapper">
-        <h1 className="body__sectionHeader">{this.props.title}</h1>
+        <h1 className="body__sectionHeader">{title}</h1>
         <div className="membersTiles__list">
           {this.renderTiles()}
         </div>
-        {(!this.state.showAll && this.props.rowsLimit !== 0) &&
+        {(!showAll && rowsLimit !== 0) &&
           <div className="membersTiles__more" onClick={() => { this.setState({ showAll: true }); }}>...</div>
         }
         <MembersDialog
           closeDialog={this.closeDialog}
-          open={this.state.dialog}
-          color={this.props.mainColors[this.props.color]}
-          {...this.state.dialogData}
+          open={dialog}
+          color={mainColors[color]}
+          {...dialogData}
         />
       </div>
     );

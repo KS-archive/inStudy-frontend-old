@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
-import './iconText.scss';
+import { SectionHeader } from '../../js/globalStyles';
+import { Wrapper, Container, Element, Icon, Title, Description } from './IconText_styles';
 
 export default class IconText extends Component {
   renderIcons = (elements, iconColor) =>
-    elements.map(element => (
-      <div className="iconText__element" key={element.title}>
-        <i className={`iconText__icon fa fa-${element.icon}`} style={{ color: iconColor }} />
-        <h3 className="iconText__title">{element.title}</h3>
-        <p className="iconText__description">{element.description}</p>
-      </div>
+    elements.map(({ title, icon, description }) => (
+      <Element key={title}>
+        <Icon className={`fa fa-${icon}`} color={iconColor} />
+        <Title>{title}</Title>
+        <Description>{description}</Description>
+      </Element>
     ));
 
   render() {
+    const { title, content, mainColors, color } = this.props;
     return (
-      <div className="iconText__wrapper">
-        <h1 className="body__sectionHeader">{this.props.title}</h1>
-        <div className="iconText__container">
-          {this.renderIcons(this.props.content, this.props.mainColors[this.props.color])}
-        </div>
-      </div>
+      <Wrapper>
+        <SectionHeader>{title}</SectionHeader>
+        <Container>
+          {this.renderIcons(content, mainColors[color])}
+        </Container>
+      </Wrapper>
     );
   }
 }

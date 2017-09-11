@@ -1,39 +1,31 @@
 import React, { Component } from 'react';
 import socialsList from '../../js/constants/socials';
-import './membersTile2.scss';
+import { Container, Image, Name, Role, Socials, Social } from './MembersTile2_styles';
 
 export default class MembersTile2 extends Component {
-  shouldComponentUpdate(nextProps) {
-    const propsToCheck = ['firstname', 'surname', 'coverImage', 'role', 'description', 'socials'];
-    propsToCheck.map((prop) => {
-      if (this.props[prop] !== nextProps[prop]) return true;
-    });
-    return false;
-  }
-
   renderSocials = () => this.props.socials.map((social, index) => {
     const icon = socialsList[social.id].iconName;
     return (
-      <a className={`membersTile2__social social__${social.name} textHover`} href={social.link} key={index} target="_blank">
+      <Social className={`social__${icon} textHover`} href={social.link} key={index} target="_blank">
         <i className={`fa fa-${icon}`} aria-hidden="true" />
-      </a>
+      </Social>
     );
   });
 
   render() {
+    const { coverImage, grayScale, openDialog, firstname, surname, role, socials, mainColors, roleColor } = this.props;
+
     return (
-      <div className="membersTile2__container" style={this.props.grayScale}>
-        <div className="membersTile2__image" style={{ backgroundImage: `url(${this.props.coverImage})` }} onClick={this.props.openDialog} />
-        <h3 className="membersTile2__name" onClick={this.props.openDialog}>{`${this.props.firstname} ${this.props.surname}`}</h3>
-        {(this.props.role) &&
-          <p className="membersTile2__role" onClick={this.props.openDialog} style={{ color: this.props.mainColors[this.props.roleColor] }}>{this.props.role}</p>
+      <Container grayScale={grayScale}>
+        <Image backgroundImage={coverImage} onClick={openDialog} />
+        <Name onClick={openDialog}>{`${firstname} ${surname}`}</Name>
+        {(role) &&
+          <Role onClick={openDialog} color={mainColors[roleColor]}>{role}</Role>
         }
-        {(this.props.socials && this.props.socials.length !== 0) &&
-          <div className="membersTile2__socials">
-            {this.renderSocials()}
-          </div>
+        {(socials && socials.length !== 0) &&
+          <Socials>{this.renderSocials()}</Socials>
         }
-      </div>
+      </Container>
     );
   }
 }
