@@ -74,7 +74,10 @@ module.exports = {
     }),
 
     new ShakePlugin(),
-    new LodashModuleReplacementPlugin(),
+
+    new LodashModuleReplacementPlugin({
+      shorthands: true,
+    }),
 
   ],
   resolve: {

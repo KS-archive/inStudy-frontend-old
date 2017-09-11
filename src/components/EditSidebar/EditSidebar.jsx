@@ -4,7 +4,11 @@ import accesibleModules from '../../js/constants/accesibleModules';
 import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, StyledReactTooltip, SpecialBtn, Icon, Filler, EditIconSet } from './EditSidebar_styles';
 
 export default class EditSidebar extends Component {
-  generateIcon = (module) => {
+  changeOrder = () => {
+    this.props.changeOrder(this.props.modules);
+  }
+
+  renderIcon = (module) => {
     const key = Date.now() + getRandomInt(1000, 9999);
     const IconComponent = (module.icon)
       ? module.icon // Add new module
@@ -26,19 +30,18 @@ export default class EditSidebar extends Component {
 
   renderModules = (mode) => {
     const { submit, cancel, remove, changeColors } = this.props.modalFunctions;
-    console.log(this.props.modalFunctions);
     switch (mode) {
       case 'Moduły':
         return (
           <Modules>
-            {this.props.modules.map(module => this.generateIcon(module))}
+            {this.props.modules.map(module => this.renderIcon(module))}
           </Modules>
         );
 
       case 'Dodaj moduł':
         return (
           <Modules>
-            {accesibleModules.map(module => this.generateIcon(module))}
+            {accesibleModules.map(module => this.renderIcon(module))}
           </Modules>
         );
       case 'Edycja modułu':
@@ -119,7 +122,7 @@ export default class EditSidebar extends Component {
             {this.renderModules(mode)}
             <BottomIcons>
               {this.renderSpecialBtn(mode)}
-              <Icon className="fa fa-arrows-v" aria-hidden="true" onClick={this.props.changeOrder} />
+              <Icon className="fa fa-arrows-v" aria-hidden="true" onClick={this.changeOrder} />
             </BottomIcons>
           </Wrapper>
         </Container>

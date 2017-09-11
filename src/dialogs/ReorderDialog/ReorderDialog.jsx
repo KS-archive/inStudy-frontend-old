@@ -4,7 +4,12 @@ import { renderActionButtons } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, ListContainer, ListElement } from './ReorderDialog_styles';
 
-const SortableItem = SortableElement(({ value }) => <ListElement>{value}</ListElement>);
+const SortableItem = SortableElement(({ value }) => (
+  <ListElement>
+    <i className="fa fa-ellipsis-v" aria-hidden="true" />
+    {value}
+  </ListElement>
+));
 
 export const SortableList = SortableContainer(({ elements, displayBy }) => (
   <ListContainer>

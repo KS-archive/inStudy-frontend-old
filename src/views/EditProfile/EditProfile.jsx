@@ -36,6 +36,15 @@ class EditProfile extends Component {
     this.props.getActiveCircle();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.header) {
+      this.setState({
+        header: omit(nextProps.activeCircle, ['modules']),
+        modules: pick(nextProps.activeCircle, ['modules']).modules,
+      });
+    }
+  }
+
   setModalFunctions = (id, submit, cancel, remove, changeColors) => {
     remove = id && remove;
     this.setState({ modalFunctions: { submit, cancel, remove, changeColors } });
@@ -75,13 +84,8 @@ class EditProfile extends Component {
     this.closeDialog();
   }
 
-  changeOrder = (modules) => {
-    console.log('obj');
-    this.openDialog('reorder', modules);
-  }
-
   reorderModules = (values) => {
-    console.log(values);
+    this.setState({ modules: values });
   }
 
   renderModule = (module, colors) => {
@@ -104,10 +108,8 @@ class EditProfile extends Component {
 
   render() {
     if (this.props.activeCircle._id) {
-      const { dialog, sidebar, mode, dialogData, modalFunctions, editingModule } = this.state;
+      const { dialog, sidebar, mode, dialogData, modalFunctions, editingModule, header, modules } = this.state;
       const { activeCircle } = this.props;
-      const header = omit(activeCircle, ['modules']);
-      const modules = pick(activeCircle, ['modules']).modules;
       const EditSidebarData = { sidebar, mode, editingModule, modalFunctions };
       const moduleData = {
         sidebar,
@@ -124,7 +126,7 @@ class EditProfile extends Component {
             openDialog={this.openDialog}
             changeContent={(state) => { this.setState(state); }}
             toggleSidebar={() => { this.setState({ sidebar: !sidebar }); }}
-            changeOrder={this.changeOrder}
+            changeOrder={(toReorder) => { this.openDialog('reorder', toReorder); }}
             {...EditSidebarData}
             {...activeCircle}
           />
