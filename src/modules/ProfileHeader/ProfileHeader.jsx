@@ -9,10 +9,10 @@ export default class ProfileHeader extends Component {
   componentWillMount() {
     const { city, university, type, category, subcategory } = this.props;
     this.cityName = cities[city].name;
-    this.universityName = find(cities[city].universities, u => u.id === university).name;
+    this.universityName = find(cities[city].universities, u => u.id === university.toString()).name;
     this.typeName = types[type].name;
     this.categoryName = categories[category].name;
-    this.subcategoryName = find(categories[category].subcategories, s => s.id === subcategory).name;
+    this.subcategoryName = find(categories[category].subcategories, s => s.id === subcategory.toString()).name;
   }
 
   renderSocials = socialsObj => map(socialsObj, (social, index) => {
@@ -55,7 +55,7 @@ export default class ProfileHeader extends Component {
           }
           <MainData>
             <LogoContainer>
-              <Logo src={logo} alt="Logo inicjatywy" />
+              <Logo src={logo || '/img/placeholders/logo.png'} alt="Logo inicjatywy" />
               {editable &&
                 <LogoEditOverlay onClick={() => { this.props.openDialog('logo', logo); }}>
                   <i className="fa fa-pencil-square-o" aria-hidden="true" />

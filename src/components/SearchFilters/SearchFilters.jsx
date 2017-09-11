@@ -66,7 +66,6 @@ class SearchFilters extends Component {
   }
 
   render() {
-    console.log(this.props.filters);
     const { open, filtersHeight, activeFilters, universities, subcategories } = this.state;
     return (
       <Container style={{ height: (open) ? filtersHeight : 20 }}>

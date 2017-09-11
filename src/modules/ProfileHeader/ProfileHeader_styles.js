@@ -95,8 +95,8 @@ export const LogoContainer = styled.div`
 `;
 
 export const Logo = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 95%;
+  max-height: 95%;
 `;
 
 export const LogoEditOverlay = styled.div`
@@ -154,7 +154,7 @@ export const CircleName = styled.h1`
 export const Labels = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   ${media.medium`
     width: 100%;
     justify-content: center;
@@ -188,7 +188,6 @@ export const Label = styled.div`
 `;
 
 export const TextContainer = styled.div`
-  margin-top: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
