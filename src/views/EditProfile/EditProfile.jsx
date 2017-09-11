@@ -11,6 +11,7 @@ import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import { getActiveCircle, changeLogo } from '../../actions/circles';
+import { addModule, updateModule, deleteModule } from '../../actions/modules';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
 
@@ -37,12 +38,10 @@ class EditProfile extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.state.header) {
-      this.setState({
-        header: omit(nextProps.activeCircle, ['modules']),
-        modules: pick(nextProps.activeCircle, ['modules']).modules,
-      });
-    }
+    this.setState({
+      header: omit(nextProps.activeCircle, ['modules']),
+      modules: pick(nextProps.activeCircle, ['modules']).modules,
+    });
   }
 
   setModalFunctions = (id, submit, cancel, remove, changeColors) => {
@@ -69,6 +68,19 @@ class EditProfile extends Component {
     });
   }
 
+  submitModule = (values) => {
+    if (values.id) {
+      this.props.updateModule(values);
+    } else {
+      this.props.addModule(values);
+    }
+  }
+
+  deleteModule = (id) => {
+    console.log(id);
+    this.props.deleteModule(id);
+  }
+
   changeSocials = (value) => {
     this.closeDialog();
   }
@@ -91,7 +103,7 @@ class EditProfile extends Component {
   renderModule = (module, colors) => {
     const ModuleComponent = accessibleModules.find(el => el.kind === module.kind).component;
     return (
-      <Wrapper key={module._id}>
+      <Wrapper key={module.id}>
         <ModuleComponent {...module} mainColors={colors} />
       </Wrapper>
     );
@@ -114,7 +126,9 @@ class EditProfile extends Component {
       const moduleData = {
         sidebar,
         open: true,
+        submit: this.submitModule,
         closeDialog: this.closeDialog,
+        remove: this.deleteModule,
         data: dialogData,
         setModalFunctions: this.setModalFunctions,
         colors: this.props.activeCircle.colors,
@@ -195,7 +209,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getActiveCircle, changeLogo }, dispatch);
+  return bindActionCreators({ getActiveCircle, changeLogo, addModule, updateModule, deleteModule }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

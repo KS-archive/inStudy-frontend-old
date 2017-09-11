@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import './simpleText.scss';
+import { SectionHeader } from '../../js/globalStyles';
+import { Container } from './SimpleText_styles';
 
 export default class SimpleText extends Component {
   render() {
+    const { title, content } = this.props;
     return (
-      <div className="simpleText__wrapper">
-        <h1 className="body__sectionHeader">{this.props.title}</h1>
-        <div className="simpleText__container" style={{ textAlign: this.props.textAlign }}>
-          <ReactMarkdown source={this.props.content} />
-        </div>
+      <div>
+        <SectionHeader>{title}</SectionHeader>
+        <Container>
+          <ReactMarkdown source={content} />
+        </Container>
       </div>
     );
   }

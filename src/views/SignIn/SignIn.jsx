@@ -22,8 +22,7 @@ class SignIn extends Component {
         setCookie('token', token);
         history.push('/inicjatywy/edit');
         addNotification('Zalogowano', message, 'success');
-      })
-      .catch(({ response }) => {
+      }, ({ response }) => {
         addNotification('Wystąpił błąd', response.data.message, 'error');
       });
   }

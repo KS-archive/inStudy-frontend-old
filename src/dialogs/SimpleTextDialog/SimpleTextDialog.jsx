@@ -7,14 +7,14 @@ import { EditDialog } from '../../js/globalStyles';
 export default class SimpleTextDialog extends Component {
   constructor(props) {
     super(props);
-    const { _id, content, title } = this.props.data;
+    const { id, content, title } = this.props.data;
     this.state = {
       title: title || undefined,
       content: content || undefined,
       errors: {},
     };
 
-    this.isEditModal = !!_id;
+    this.isEditModal = !!id;
     this.toValidate = {
       title: { required: true },
       content: { required: true },
@@ -24,22 +24,23 @@ export default class SimpleTextDialog extends Component {
   }
 
   componentWillMount() {
-    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { closeDialog, data: { id }, setModalFunctions } = this.props;
     const { handleSubmit, remove } = this;
-    setModalFunctions(_id, handleSubmit, closeDialog, remove);
+    setModalFunctions(id, handleSubmit, closeDialog, remove);
   }
 
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    const { data: { _id }, kind, closeDialog } = this.props;
-    const extendValues = { ...values, _id, kind };
-    console.log(extendValues);
+    const { data, kind, closeDialog } = this.props;
+    const id = data.id ? { id: data.id } : {};
+    const extendValues = { ...values, ...id, kind };
+    this.props.submit(extendValues);
     closeDialog();
   }
 
   remove = () => {
-    console.log('removed!');
+    this.props.remove(this.props.data.id);
   }
 
   render() {

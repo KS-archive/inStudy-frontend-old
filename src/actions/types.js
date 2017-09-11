@@ -9,3 +9,7 @@ export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const DELETE_FILTER = 'DELETE_FILTER';
 
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
+
+export const ADD_MODULE = 'ADD_MODULE';
+export const UPDATE_MODULE = 'UPDATE_MODULE';
+export const DELETE_MODULE = 'DELETE_MODULE';
