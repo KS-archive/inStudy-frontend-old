@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import validate from '../../js/validation';
+import { getTokenHeader } from '../../js/utils';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
 import { Form } from './ChangePasswordDialog_styles';
@@ -24,24 +25,16 @@ export default class ChangePasswordDialog extends Component {
     this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
-  changePassword = (password) => {
-    const url = `${__ROOT_URL__}api/modules`;
-    const headers = getTokenHeader();
-    console.log(password);
-    axios.post(url, password, { headers }).then((data) => {
-      console.log(data);
-    });
-  }
-
   handleSubmit = () => { validate(this, this.submit); }
 
-  submit = (values) => {
-    console.log(values);
-    // const { data, kind, closeDialog, submit } = this.props;
-    // const id = data.id ? { id: data.id } : {};
-    // const extendValues = { ...values, ...id, kind };
-    // submit(extendValues);
-    // closeDialog();
+  submit = (password) => {
+    console.log(password);
+    const url = `${__ROOT_URL__}api/modules`;
+    const headers = getTokenHeader();
+    axios.post(url, password, { headers }).then((data) => {
+      console.log(data);
+      this.props.closeDialog();
+    });
   }
 
   render() {
