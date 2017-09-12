@@ -24,6 +24,12 @@ const validation = {
     }
     return null;
   },
+  equalPasswords: (value, fieldToCompare, comp) => {
+    if (value !== comp.state[fieldToCompare]) {
+      return 'Oba hasła muszą być identyczne';
+    }
+    return null;
+  },
 };
 
 // export default (validate, values, haveErrors, noErrors) => {
@@ -34,7 +40,7 @@ export default (comp, successCallback) => {
     errors[key] = null;
     Object.keys(comp.toValidate[key]).map((innerKey) => {
       if (!errors[key]) {
-        errors[key] = validation[innerKey](toValidate[key], comp.toValidate[key][innerKey]);
+        errors[key] = validation[innerKey](toValidate[key], comp.toValidate[key][innerKey], comp);
       }
     });
   });

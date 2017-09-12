@@ -3,6 +3,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MainColorsDialog from '../../dialogs/MainColorsDialog/MainColorsDialog';
+import ChangePasswordDialog from '../../dialogs/ChangePasswordDialog/ChangePasswordDialog';
 import { getRandomInt } from '../../js/utils';
 import accesibleModules from '../../js/constants/accesibleModules';
 import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, StyledReactTooltip, SpecialBtn, Icon, Filler, EditIconSet } from './EditSidebar_styles';
@@ -148,7 +149,7 @@ export default class EditSidebar extends Component {
                 }
                 <MenuItem primaryText="Edytuj tagi" onClick={this.changeTags} />
                 <MenuItem primaryText="Edytuj kolory" onClick={() => { this.setState({ dialog: 'colors' }); }} />
-                <MenuItem primaryText="Zmień hasło" onClick={this.changeColors} />
+                <MenuItem primaryText="Zmień hasło" onClick={() => { this.setState({ dialog: 'password' }); }} />
                 <MenuItem primaryText="Wyloguj" onClick={logout} />
               </IconMenu>
             </BottomIcons>
@@ -161,6 +162,12 @@ export default class EditSidebar extends Component {
             sidebar={sidebar}
             closeDialog={this.closeDialog}
             data={colors}
+          />
+        }
+        {(dialog === 'password') &&
+          <ChangePasswordDialog
+            sidebar={sidebar}
+            closeDialog={this.closeDialog}
           />
         }
       </div>
