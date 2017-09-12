@@ -24,7 +24,6 @@ export function updateModule(module) {
 
   return (dispatch) => {
     request.then((data) => {
-      console.log(data.data.data);
       dispatch({
         type: UPDATE_MODULE,
         payload: data.data.data,
@@ -34,18 +33,16 @@ export function updateModule(module) {
 }
 
 export function deleteModule(id) {
-  console.log(id);
-  const url = `${__ROOT_URL__}api/modules`;
+  const url = `${__ROOT_URL__}api/modules/${id}`;
   const headers = getTokenHeader();
-  const request = axios.delete(url, id, { headers });
+  const request = axios.delete(url, { headers });
 
   return (dispatch) => {
     request.then((data) => {
-      console.log('data');
-      // dispatch({
-      //   type: DELETE_MODULE,
-      //   payload: data,
-      // });
+      dispatch({
+        type: DELETE_MODULE,
+        payload: data.data.data,
+      });
     });
   };
 }

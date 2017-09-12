@@ -77,7 +77,6 @@ class EditProfile extends Component {
   }
 
   deleteModule = (id) => {
-    console.log(id);
     this.props.deleteModule(id);
   }
 
@@ -86,8 +85,7 @@ class EditProfile extends Component {
   }
 
   changeLogo = (value) => {
-    console.log(value);
-    this.props.changeLogo(value);
+    this.props.changeLogo(value.image[0]);
     this.closeDialog();
   }
 

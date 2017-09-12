@@ -67,16 +67,18 @@ export function getPublicCircle(circleURL) {
 }
 
 export function changeLogo(file) {
-  const url = `${__ROOT_URL__}api/user/getInfo`;
+  const url = `${__ROOT_URL__}api/file/send_logo`;
   const headers = getTokenHeader();
   const request = axios.post(url, file, { headers });
+  console.log(file);
 
   return (dispatch) => {
     request.then(({ data }) => {
-      dispatch({
-        type: CHANGE_LOGO,
-        payload: data.user,
-      });
+      console.log(data);
+      // dispatch({
+      //   type: CHANGE_LOGO,
+      //   payload: data.user,
+      // });
     });
   };
 }

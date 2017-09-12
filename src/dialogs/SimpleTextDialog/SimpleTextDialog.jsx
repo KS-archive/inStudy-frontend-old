@@ -32,15 +32,16 @@ export default class SimpleTextDialog extends Component {
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    const { data, kind, closeDialog } = this.props;
+    const { data, kind, closeDialog, submit } = this.props;
     const id = data.id ? { id: data.id } : {};
     const extendValues = { ...values, ...id, kind };
-    this.props.submit(extendValues);
+    submit(extendValues);
     closeDialog();
   }
 
   remove = () => {
     this.props.remove(this.props.data.id);
+    this.props.closeDialog();
   }
 
   render() {

@@ -11,7 +11,7 @@ import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon
 export default class SocialsDialog extends Component {
   constructor(props) {
     super(props);
-    const { _id, content, title, color } = this.props.data;
+    const { id, content, title, color } = this.props.data;
     this.state = {
       content: content || [],
       title: title || undefined,
@@ -20,7 +20,7 @@ export default class SocialsDialog extends Component {
       dialogData: null,
       errors: {},
     };
-    this.isEditModal = !!_id;
+    this.isEditModal = !!id;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: true },
@@ -30,22 +30,24 @@ export default class SocialsDialog extends Component {
   }
 
   componentWillMount() {
-    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { closeDialog, data: { id }, setModalFunctions } = this.props;
     const { handleSubmit, remove, openColorsDialog } = this;
-    setModalFunctions(_id, handleSubmit, closeDialog, remove, openColorsDialog);
+    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog);
   }
 
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    const { data: { _id }, kind, closeDialog } = this.props;
-    const extendValues = { ...values, _id, kind };
-    console.log(extendValues);
+    const { data, kind, closeDialog, submit } = this.props;
+    const id = data.id ? { id: data.id } : {};
+    const extendValues = { ...values, ...id, kind };
+    submit(extendValues);
     closeDialog();
   }
 
   remove = () => {
-    console.log('removed!');
+    this.props.remove(this.props.data.id);
+    this.props.closeDialog();
   }
 
   closeDialog = () => {
