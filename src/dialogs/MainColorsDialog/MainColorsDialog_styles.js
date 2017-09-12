@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Dialog from 'material-ui/Dialog';
+import ChromePicker from 'react-color/lib/components/chrome/Chrome';
 import { colorPalette } from '../../js/constants/styles';
 
 export const StyledDialog = styled(Dialog)`
@@ -14,7 +15,7 @@ export const StyledDialog = styled(Dialog)`
 
   > div > div {
     box-sizing: border-box;
-    width: 550px !important;
+    width: 400px !important;
     max-width: unset !important;
   }
 
@@ -32,6 +33,7 @@ export const StyledDialog = styled(Dialog)`
     flex-direction: column !important;
     justify-content: flex-end;
     border: none !important;
+    padding-bottom: 0 !important;
 
     &::-webkit-scrollbar-track {
       box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -73,44 +75,30 @@ export const StyledDialog = styled(Dialog)`
 export const Form = styled.form`
   box-sizing: border-box;
   display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
   width: 100%;
+  min-height: 60px;
 `;
 
-export const Fields = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 54px;
-  padding-bottom: 30px;
-
-  &:last-child {
-    padding-bottom: 0;
-  }
+export const StyledChromePicker = styled(ChromePicker)`
+  z-index: 1000;
+  position: absolute !important;
+  top: 160px;
+  left: ${props => props.moveRight};
 `;
 
-export const ColorName = styled.div`
-  min-width: 150px;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: ${colorPalette.textColor};
-`;
-
-export const ColorValues = styled.div`
-  display: flex;
-  align-items: center;
-  min-height: 44px;
-  margin-left: 30px;
+export const Cover = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 `;
 
 export const ColorValue = styled.div`
   position: relative;
   box-sizing: border-box;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 2px;
   margin-right: 10px;
   border: 3px solid #fff;

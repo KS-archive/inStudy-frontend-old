@@ -1,7 +1,7 @@
 import axios from 'axios';
 import map from 'lodash/map';
 import { getTokenHeader } from '../js/utils';
-import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, CHANGE_LOGO, CHANGE_CARD_DATA } from './types';
+import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE } from './types';
 // import circle from '../reducers/activeCircle_reducer(mock)';
 // import circles from '../reducers/circles_reducer(mock)';
 
@@ -64,37 +64,4 @@ export function getPublicCircle(circleURL) {
   //   type: FETCH_PUBLIC_CIRCLE,
   //   payload: circle,
   // };
-}
-
-export function changeLogo(file) {
-  const url = `${__ROOT_URL__}api/file/send_logo`;
-  const headers = getTokenHeader();
-  const request = axios.post(url, file, { headers });
-  console.log(file);
-
-  return (dispatch) => {
-    request.then(({ data }) => {
-      console.log(data);
-      // dispatch({
-      //   type: CHANGE_LOGO,
-      //   payload: data.user,
-      // });
-    });
-  };
-}
-
-export function changeCardData(newData, callback) {
-  const url = `${__ROOT_URL__}api/edit/basics`;
-  const headers = getTokenHeader();
-  const request = axios.put(url, newData, { headers });
-
-  return (dispatch) => {
-    request.then(({ data }) => {
-      dispatch({
-        type: CHANGE_CARD_DATA,
-        payload: newData,
-      });
-      callback();
-    });
-  };
 }

@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
 import { cities, types, categories } from '../../js/constants/filterData';
-import { changeCardData } from '../../actions/circles';
+import { changeCardData } from '../../actions/circleEdit';
 import { EditDialog } from '../../js/globalStyles';
 import { StyledField, Form } from './CardEditDialog_styles';
 

@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MainColorsDialog from '../../dialogs/MainColorsDialog/MainColorsDialog';
 import { getRandomInt } from '../../js/utils';
 import accesibleModules from '../../js/constants/accesibleModules';
 import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, StyledReactTooltip, SpecialBtn, Icon, Filler, EditIconSet } from './EditSidebar_styles';
 
 export default class EditSidebar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dialog: null,
+    };
+  }
+
   changeOrder = () => {
     this.props.changeOrder(this.props.modules);
+  }
+
+  closeDialog = () => {
+    this.setState({ dialog: null });
   }
 
   renderIcon = (module) => {
@@ -107,7 +122,8 @@ export default class EditSidebar extends Component {
   }
 
   render() {
-    const { sidebar, toggleSidebar } = this.props;
+    const { sidebar, toggleSidebar, modules, logout, colors } = this.props;
+    const { dialog } = this.state;
     const mode = this.props.mode;
     const arrowDirection = sidebar ? 'left' : 'right';
 
@@ -122,12 +138,31 @@ export default class EditSidebar extends Component {
             {this.renderModules(mode)}
             <BottomIcons>
               {this.renderSpecialBtn(mode)}
-              <Icon className="fa fa-arrows-v" aria-hidden="true" onClick={this.changeOrder} />
+              <IconMenu
+                iconButtonElement={<IconButton><Icon className="fa fa-cog" aria-hidden="true" /></IconButton>}
+                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+              >
+                {(modules.length > 1) &&
+                  <MenuItem primaryText="Zmień kolejność modułów" onClick={this.changeOrder} />
+                }
+                <MenuItem primaryText="Edytuj tagi" onClick={this.changeTags} />
+                <MenuItem primaryText="Edytuj kolory" onClick={() => { this.setState({ dialog: 'colors' }); }} />
+                <MenuItem primaryText="Zmień hasło" onClick={this.changeColors} />
+                <MenuItem primaryText="Wyloguj" onClick={logout} />
+              </IconMenu>
             </BottomIcons>
           </Wrapper>
         </Container>
         <Filler open={sidebar} onClick={toggleSidebar} />
         <StyledReactTooltip place="right" effect="solid" />
+        {(dialog === 'colors') &&
+          <MainColorsDialog
+            sidebar={sidebar}
+            closeDialog={this.closeDialog}
+            data={colors}
+          />
+        }
       </div>
     );
   }

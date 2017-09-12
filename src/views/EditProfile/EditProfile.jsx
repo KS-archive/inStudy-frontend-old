@@ -10,8 +10,10 @@ import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
-import { getActiveCircle, changeLogo } from '../../actions/circles';
+import { getActiveCircle } from '../../actions/circles';
+import { getCookie, deleteCookie } from '../../js/cookies';
 import { addModule, updateModule, deleteModule } from '../../actions/modules';
+import { changeLogo, changeBackground, changeCardData, changeSocials } from '../../actions/circleEdit';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
 
@@ -34,7 +36,11 @@ class EditProfile extends Component {
   }
 
   componentWillMount() {
-    this.props.getActiveCircle();
+    if (getCookie('token')) {
+      this.props.getActiveCircle();
+    } else {
+      this.logout();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,6 +53,11 @@ class EditProfile extends Component {
   setModalFunctions = (id, submit, cancel, remove, changeColors) => {
     remove = id && remove;
     this.setState({ modalFunctions: { submit, cancel, remove, changeColors } });
+  }
+
+  logout = () => {
+    deleteCookie('token');
+    this.props.history.push('/');
   }
 
   openDialog = (name, data) => {
@@ -80,7 +91,8 @@ class EditProfile extends Component {
     this.props.deleteModule(id);
   }
 
-  changeSocials = (value) => {
+  changeSocials = (values) => {
+    this.props.changeSocials(values);
     this.closeDialog();
   }
 
@@ -90,7 +102,7 @@ class EditProfile extends Component {
   }
 
   changeBackground = (value) => {
-    console.log(value);
+    this.props.changeBackground(value.image[0]);
     this.closeDialog();
   }
 
@@ -139,6 +151,7 @@ class EditProfile extends Component {
             changeContent={(state) => { this.setState(state); }}
             toggleSidebar={() => { this.setState({ sidebar: !sidebar }); }}
             changeOrder={(toReorder) => { this.openDialog('reorder', toReorder); }}
+            logout={this.logout}
             {...EditSidebarData}
             {...activeCircle}
           />
@@ -207,7 +220,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getActiveCircle, changeLogo, addModule, updateModule, deleteModule }, dispatch);
+  return bindActionCreators({ getActiveCircle, addModule, updateModule, deleteModule, changeLogo, changeBackground, changeCardData, changeSocials }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
