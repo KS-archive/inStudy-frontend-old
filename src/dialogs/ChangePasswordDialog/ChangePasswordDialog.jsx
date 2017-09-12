@@ -27,7 +27,8 @@ export default class ChangePasswordDialog extends Component {
 
   handleSubmit = () => { validate(this, this.submit); }
 
-  submit = (password) => {
+  submit = (value) => {
+    const password = value.newPassword;
     console.log(password);
     const url = `${__ROOT_URL__}api/modules`;
     const headers = getTokenHeader();
