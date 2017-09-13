@@ -10,18 +10,18 @@ export default class ChangePasswordDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldPassword: '',
-      newPassword: '',
-      repeatNewPassword: '',
+      oldpassword: '',
+      newpassword: '',
+      repeatnewpassword: '',
       errors: {},
     };
 
     this.toValidate = {
-      oldPassword: { required: true },
-      newPassword: { required: true },
-      repeatNewPassword: { required: true, equalPasswords: 'newPassword' },
+      oldpassword: { required: true },
+      newpassword: { required: true },
+      repeatnewpassword: { required: true, equalPasswords: 'newpassword' },
     };
-    this.values = ['oldPassword', 'newPassword'];
+    this.values = ['oldpassword', 'newpassword'];
     this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
@@ -34,6 +34,7 @@ export default class ChangePasswordDialog extends Component {
     axios.put(url, values, { headers }).then(
       (data) => {
         console.log(data);
+        // TODO: Zrobic notyfikacje
         this.props.closeDialog();
       }, (err) => {
         console.log(err);
@@ -55,9 +56,9 @@ export default class ChangePasswordDialog extends Component {
         isSidebar={sidebar}
       >
         <Form>
-          {renderTextField(this, 'Obecne hasło', 'oldPassword', true, type)}
-          {renderTextField(this, 'Nowe hasło', 'newPassword', true, type)}
-          {renderTextField(this, 'Powtórz nowe hasło', 'repeatNewPassword', true, type)}
+          {renderTextField(this, 'Obecne hasło', 'oldpassword', true, type)}
+          {renderTextField(this, 'Nowe hasło', 'newpassword', true, type)}
+          {renderTextField(this, 'Powtórz nowe hasło', 'repeatnewpassword', true, type)}
         </Form>
       </EditDialog>
     );

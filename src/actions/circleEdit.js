@@ -57,19 +57,17 @@ export function changeCardData(newData, callback) {
   };
 }
 
-export function changeSocials(module) {
-  const url = `${__ROOT_URL__}api/modules`;
+export function changeSocials(socials) {
+  const url = `${__ROOT_URL__}api/user/socials`;
   const headers = getTokenHeader();
-  console.log(module);
-  const request = axios.post(url, module, { headers });
+  const request = axios.put(url, socials, { headers });
 
   return (dispatch) => {
-    request.then((data) => {
-      console.log(data);
-      // dispatch({
-      //   type: CHANGE_SOCIALS,
-      //   payload: data,
-      // });
+    request.then(() => {
+      dispatch({
+        type: CHANGE_SOCIALS,
+        payload: socials.socials,
+      });
     });
   };
 }

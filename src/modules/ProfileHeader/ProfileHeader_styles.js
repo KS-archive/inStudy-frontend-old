@@ -12,6 +12,9 @@ export const Background = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  background-image: url(${props => props.backgroundImage ? props.backgroundImage : '/img/hero_bg.svg'});
+  background-color: ${props => !props.backgroundImage && props.color};
+  background-blend-mode: ${props => !props.backgroundImage && 'multiply'};
 
   @media (min-width: 1440px) {
     height: 600px;
@@ -288,6 +291,7 @@ export const Social = styled.a`
     width: 40px;
     height: 40px;
     border-radius: 100%;
+    color: inherit;
     transition: all 0.3s;
 
     &:hover {

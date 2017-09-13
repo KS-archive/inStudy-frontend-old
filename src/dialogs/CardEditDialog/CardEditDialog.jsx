@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
+import omit from 'lodash/omit';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import MenuItem from 'material-ui/MenuItem';
@@ -40,7 +41,7 @@ class CardEditDialog extends Component {
 
   onSubmit = (values) => {
     const { changeCardData, closeDialog } = this.props;
-    changeCardData(values, closeDialog);
+    changeCardData(omit(values, 'date'), closeDialog);
   }
 
   setUniversities = (cityId) => {
@@ -75,7 +76,6 @@ class CardEditDialog extends Component {
   }
 
   renderSelectField(name, label, items, changefc) {
-    console.log(this.props.data[name].toString());
     const fieldAttrs = {
       name,
       component: SelectField,

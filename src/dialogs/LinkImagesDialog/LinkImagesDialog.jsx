@@ -60,7 +60,7 @@ export default class LinkImagesDialog extends Component {
   addDetails = () => {
     this.setState({
       dialog: 'elementDetails',
-      dialogData: null,
+      dialogData: {},
     });
   }
 
@@ -135,6 +135,7 @@ export default class LinkImagesDialog extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { closeDialog, open, sidebar, colors } = this.props;
     const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {

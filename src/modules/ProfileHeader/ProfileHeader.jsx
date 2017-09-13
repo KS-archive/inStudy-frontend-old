@@ -26,18 +26,11 @@ export default class ProfileHeader extends PureComponent {
 
   render() {
     const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, colors, editable, socials } = this.props;
-    const backgroundStyle = (backgroundImg)
-      ? { backgroundImage: backgroundImg }
-      : {
-        backgroundImage: 'url(/img/hero_bg.svg)',
-        backgroundColor: colors[0],
-        backgroundBlendMode: 'multiply',
-      };
     const cardEditData = { name, type, category, subcategory, university, city, email, phone, dateCreated, motto };
-
+    console.log(backgroundImg);
     return (
       <div>
-        <Background editable={editable} style={{ ...backgroundStyle }} />
+        <Background editable={editable} color={colors[0]} backgroundImage={backgroundImg} />
         {editable &&
           <BackgroundEditIcon
             className="fa fa-pencil-square-o"
