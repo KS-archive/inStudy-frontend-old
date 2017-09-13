@@ -11,7 +11,7 @@ import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elemen
 export default class MembersTilesDialog extends Component {
   constructor(props) {
     super(props);
-    const { _id, content, title, color, type, startGray, rowsLimit, randomize } = this.props.data;
+    const { id, content, title, color, type, startGray, rowsLimit, randomize } = this.props.data;
     this.state = {
       content: content || [],
       title: title || undefined,
@@ -24,7 +24,7 @@ export default class MembersTilesDialog extends Component {
       dialogData: null,
       errors: {},
     };
-    this.isEditModal = !!_id;
+    this.isEditModal = !!id;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: true },
@@ -35,22 +35,26 @@ export default class MembersTilesDialog extends Component {
   }
 
   componentWillMount() {
-    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { closeDialog, data, setModalFunctions } = this.props;
+    const id = data.id || Date.now();
     const { handleSubmit, remove, openColorsDialog } = this;
-    setModalFunctions(_id, handleSubmit, closeDialog, remove, openColorsDialog);
+    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog);
     this.types = accessibleModules.find(el => el.kind === 'MembersTiles').types;
+    this.setState({ id });
   }
 
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    const { data: { _id }, kind } = this.props;
-    const extendValues = { ...values, _id, kind };
-    console.log(extendValues);
+    const { kind, submit } = this.props;
+    const id = this.state.id;
+    const extendValues = { ...values, id, kind };
+    submit(extendValues);
   }
 
   remove = () => {
-    console.log('removed!');
+    this.props.remove(this.props.data.id);
+    this.props.closeDialog();
   }
 
   closeDialog = () => {
@@ -73,13 +77,14 @@ export default class MembersTilesDialog extends Component {
 
   modifyElements = (values) => {
     this.closeDialog();
-    const { index, firstname, surname, role, description, socials, coverImage } = values;
+    console.log(values);
+    const { id, index, firstname, surname, role, description, socials, coverImage } = values;
     const content = [...this.state.content];
 
     if (index || index === 0) { // Edit
-      content[index] = { firstname, surname, role, description, socials, coverImage };
+      content[index] = { id, firstname, surname, role, description, socials, coverImage };
     } else { // Add
-      content.push({ firstname, surname, role, description, socials, coverImage });
+      content.push({ id, firstname, surname, role, description, socials, coverImage });
     }
 
     this.setState({ content });
@@ -105,12 +110,12 @@ export default class MembersTilesDialog extends Component {
   );
 
   renderElement = (el, index) => {
-    const { coverImage, firstname, surname, role, _id } = el;
-    const imgSrc = (typeof coverImage === 'string') ? coverImage : coverImage.preview;
+    const { coverImage, firstname, surname, role, id } = el;
     const fullName = `${firstname} ${surname}`;
+    console.log(index);
     return (
-      <Element key={_id || fullName}>
-        <img src={imgSrc} alt="" />
+      <Element key={id}>
+        <img src={coverImage} alt="" />
         <ElementContent>
           <Name>{fullName}</Name>
           {(role) &&
@@ -142,7 +147,7 @@ export default class MembersTilesDialog extends Component {
 
   render() {
     const { closeDialog, open, sidebar, colors } = this.props;
-    const { dialog, dialogData, content } = this.state;
+    const { dialog, dialogData, content, id } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
@@ -190,6 +195,7 @@ export default class MembersTilesDialog extends Component {
         {dialog === 'memberDetails' &&
           <MemberDetailsDialog
             submit={this.modifyElements}
+            id={id}
             {...dialogAttrs}
           />
         }

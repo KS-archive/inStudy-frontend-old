@@ -6,6 +6,7 @@ import validate from '../../../js/validation';
 import socialsList from '../../../js/constants/socials';
 import ImageDialog from '../../ImageDialog/ImageDialog';
 import SocialsDialog from '../../SocialsDialog/SocialsDialog';
+import { getTokenHeader } from '../../../js/utils';
 import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
 import { EditDialog } from '../../../js/globalStyles';
 import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, LabelHeader, SocialsWrapper, Social, AddSocial } from './MemberDetailsDialog_styles';
@@ -13,16 +14,16 @@ import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElemen
 export default class MemberDetailsDialog extends Component {
   constructor(props) {
     super(props);
-    const { coverImage, description, firstname, surname, role, socials, index } = this.props.data;
+    const { coverImage, description, firstname, surname, role, socials, id, index } = this.props.data;
     this.state = {
       index,
-      preview: coverImage && (coverImage.preview || coverImage),
+      id: id || Date.now(),
       firstname: firstname || '',
       surname: surname || '',
       role: role || '',
       description: description || '',
       socials: socials || [],
-      coverImage: coverImage || {},
+      coverImage: coverImage || '',
       dialog: false,
       errors: {},
     };
@@ -30,7 +31,7 @@ export default class MemberDetailsDialog extends Component {
       firstname: { required: true },
       surname: { required: true },
     };
-    this.values = ['index', 'firstname', 'surname', 'role', 'description', 'socials', 'coverImage'];
+    this.values = ['id', 'index', 'firstname', 'surname', 'role', 'description', 'socials', 'coverImage'];
     this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
@@ -60,6 +61,7 @@ export default class MemberDetailsDialog extends Component {
   handleSubmit = () => { validate(this, this.submit); }
 
   sendingFunction = (values) => {
+    console.log(values);
     this.props.submit(values);
     this.props.closeDialog();
   }
@@ -68,10 +70,20 @@ export default class MemberDetailsDialog extends Component {
     this.setState({ dialog: false });
   }
 
-  modifyImage = ({ image }) => {
-    this.closeDialog();
-    if (image) {
-      this.setState({ coverImage: image[0], preview: image[0].preview });
+  modifyImage = (value) => {
+    if (value.image) {
+      const url = `${__ROOT_URL__}api/file/send`;
+      let headers = getTokenHeader();
+      headers = { ...headers, 'content-type': 'multipart/form-data' };
+
+      const formData = new FormData();
+      formData.append('image', value.image[0]);
+      formData.append('id', this.props.id);
+
+      axios.post(url, formData, { headers }).then((data) => {
+        this.setState({ coverImage: data.data.data });
+        this.closeDialog();
+      });
     }
   }
 
@@ -91,8 +103,7 @@ export default class MemberDetailsDialog extends Component {
 
   render() {
     const { closeDialog, sidebar, open } = this.props;
-    const { preview, socials, coverImage, dialog } = this.state;
-    const imagePreview = preview || '';
+    const { socials, coverImage, dialog } = this.state;
 
     return (
       <EditDialog
@@ -112,12 +123,12 @@ export default class MemberDetailsDialog extends Component {
           <MediaWrapper>
             <MediaElement>
               <LabelHeader>Zdjęcie</LabelHeader>
-              <ImagePreview preview={preview} onClick={() => { this.setState({ dialog: 'image' }); }}>
-                {(imagePreview)
-                  ? <img src={imagePreview} alt="Podgląd obrazu" />
+              <ImagePreview preview={coverImage} onClick={() => { this.setState({ dialog: 'image' }); }}>
+                {(coverImage)
+                  ? <img src={coverImage} alt="Podgląd obrazu" />
                   : <i className="fa fa-plus" aria-hidden="true" />
                 }
-                {(imagePreview) &&
+                {(coverImage) &&
                   <ImagePreviewOverlay>
                     <i className="fa fa-pencil-square-o" aria-hidden="true" />
                   </ImagePreviewOverlay>
@@ -147,7 +158,7 @@ export default class MemberDetailsDialog extends Component {
             height={265}
             maxSize={200000}
             title="Modyfikuj zdjęcie"
-            data={coverImage.preview || coverImage}
+            data={coverImage}
             sidebar={sidebar}
           />
         }

@@ -63,9 +63,10 @@ export const Image = styled.div`
 export const Name = styled.h3`
   margin-bottom: 5px;
   font-size: 24px;
-  color: ${colorPalette.textColor};
+  text-align: center;
   font-weight: 500;
   line-height: 1.3;
+  color: ${colorPalette.textColor};
 
   &:hover {
     cursor: pointer;

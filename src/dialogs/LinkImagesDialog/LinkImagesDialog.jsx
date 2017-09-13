@@ -53,7 +53,8 @@ export default class LinkImagesDialog extends Component {
   }
 
   remove = () => {
-    console.log('removed!');
+    this.props.remove(this.props.data.id);
+    this.props.closeDialog();
   }
 
   closeDialog = () => {

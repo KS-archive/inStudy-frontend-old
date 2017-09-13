@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 265px;
   border-radius: 2px 2px 0 0;
   box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
   filter: ${props => props.grayScale && 'grayscale(1)'};

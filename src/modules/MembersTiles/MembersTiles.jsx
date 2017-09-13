@@ -10,7 +10,24 @@ import { List, More } from './MembersTiles_styles';
 export default class MembersTiles extends Component {
   constructor(props) {
     super(props);
-    const { randomize, content, startGray, rowsLimit, type } = this.props;
+
+    this.state = {
+      showAll: false,
+      dialog: false,
+      dialogData: {},
+    };
+  }
+
+  componentWillMount() {
+    this.initialize(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.initialize(nextProps);
+  }
+
+  initialize = (props) => {
+    const { randomize, content, startGray, rowsLimit, type } = props;
     switch (type) {
       case 0: this.type = {
         memberComponent: MembersTile,
@@ -22,19 +39,15 @@ export default class MembersTiles extends Component {
         memberComponent: MembersTile3,
       }; break;
     }
-
-    this.state = {
-      showAll: false,
+    this.setState({
       noLimit: content.length <= 4 * rowsLimit,
       elements: randomize ? shuffle(content) : content,
       grayScale: startGray,
-      dialog: false,
-      dialogData: {},
-    };
+    });
   }
 
   openDialog = (id) => {
-    const dialogData = this.props.content.filter(tile => (tile._id === id));
+    const dialogData = this.props.content.filter(tile => (tile.id === id));
     this.setState({ dialog: true, dialogData: dialogData[0] });
   }
 
@@ -49,10 +62,10 @@ export default class MembersTiles extends Component {
 
     return elements.map((tile, index) => {
       const isInLimit = (index < rowsLimit * 4 || showAll || !rowsLimit);
-      const openDialog = () => { this.openDialog(tile._id); };
+      const openDialog = () => { this.openDialog(tile.id); };
       const attrs = { grayScale, mainColors, openDialog, roleColor: color, ...tile };
-
-      return (isInLimit) && <MemberComponent key={tile._id} {...attrs} />;
+      const key = tile.coverImage.substr(-15);
+      return (isInLimit) && <MemberComponent key={key} {...attrs} />;
     });
   }
 
