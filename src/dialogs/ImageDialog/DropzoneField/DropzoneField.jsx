@@ -33,6 +33,9 @@ export default class DropzoneField extends Component {
           maxSize={this.props.maxSize}
           onDrop={this.onDrop}
           onDropRejected={this.rejectImage}
+          inputProps={{
+            encType: 'multipart/form-data',
+          }}
         >
           <Text>Upuść tutaj plik ze zdjęciem</Text>
         </StyledDropzone>

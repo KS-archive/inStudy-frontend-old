@@ -23,6 +23,7 @@ export default function (state = {}, action) {
       return { ...state, socials: action.payload };
 
     case CHANGE_COLORS:
+    console.log(action.payload);
       return { ...state, colors: action.payload };
 
     case CHANGE_TAGS:

@@ -10,36 +10,39 @@ export default class ChangePasswordDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPassword: '',
+      oldPassword: '',
       newPassword: '',
       repeatNewPassword: '',
       errors: {},
     };
 
     this.toValidate = {
-      currentPassword: { required: true },
+      oldPassword: { required: true },
       newPassword: { required: true },
       repeatNewPassword: { required: true, equalPasswords: 'newPassword' },
     };
-    this.values = ['newPassword'];
+    this.values = ['oldPassword', 'newPassword'];
     this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
   handleSubmit = () => { validate(this, this.submit); }
 
-  submit = (value) => {
-    const password = value.newPassword;
-    console.log(password);
-    const url = `${__ROOT_URL__}api/modules`;
+  submit = (values) => {
+    console.log(values);
+    const url = `${__ROOT_URL__}api/user/password`;
     const headers = getTokenHeader();
-    axios.post(url, password, { headers }).then((data) => {
-      console.log(data);
-      this.props.closeDialog();
-    });
+    axios.put(url, values, { headers }).then(
+      (data) => {
+        console.log(data);
+        this.props.closeDialog();
+      }, (err) => {
+        console.log(err);
+      });
   }
 
   render() {
     const { closeDialog, sidebar } = this.props;
+    const type = { type: 'password' };
 
     return (
       <EditDialog
@@ -52,9 +55,9 @@ export default class ChangePasswordDialog extends Component {
         isSidebar={sidebar}
       >
         <Form>
-          {renderTextField(this, 'Obecne hasło', 'currentPassword')}
-          {renderTextField(this, 'Nowe hasło', 'newPassword')}
-          {renderTextField(this, 'Powtórz nowe hasło', 'repeatNewPassword')}
+          {renderTextField(this, 'Obecne hasło', 'oldPassword', true, type)}
+          {renderTextField(this, 'Nowe hasło', 'newPassword', true, type)}
+          {renderTextField(this, 'Powtórz nowe hasło', 'repeatNewPassword', true, type)}
         </Form>
       </EditDialog>
     );

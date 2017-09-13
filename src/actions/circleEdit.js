@@ -4,34 +4,37 @@ import { CHANGE_LOGO, CHANGE_BACKGROUND, CHANGE_CARD_DATA, CHANGE_SOCIALS, CHANG
 
 export function changeLogo(file) {
   const url = `${__ROOT_URL__}api/file/send_logo`;
-  const headers = getTokenHeader();
-  console.log(file);
-  const request = axios.post(url, file, { headers });
+  let headers = getTokenHeader();
+  headers = { ...headers, 'content-type': 'multipart/form-data' };
+  const formData = new FormData();
+  formData.append('image', file);
+  const request = axios.post(url, formData, { headers });
 
   return (dispatch) => {
     request.then((data) => {
-      console.log(data);
-      // dispatch({
-      //   type: CHANGE_LOGO,
-      //   payload: data,
-      // });
+      dispatch({
+        type: CHANGE_LOGO,
+        payload: data.data.data,
+      });
     });
   };
 }
 
-export function changeBackground(module) {
-  const url = `${__ROOT_URL__}api/modules`;
-  const headers = getTokenHeader();
-  console.log(module);
-  const request = axios.post(url, module, { headers });
+export function changeBackground(file) {
+  const url = `${__ROOT_URL__}api/file/send_background`;
+  let headers = getTokenHeader();
+  headers = { ...headers, 'content-type': 'multipart/form-data' };
+  const formData = new FormData();
+  formData.append('image', file);
+  const request = axios.post(url, formData, { headers });
 
   return (dispatch) => {
     request.then((data) => {
       console.log(data);
-      // dispatch({
-      //   type: CHANGE_BACKGROUND,
-      //   payload: data,
-      // });
+      dispatch({
+        type: CHANGE_BACKGROUND,
+        payload: data.data.data,
+      });
     });
   };
 }
@@ -70,19 +73,17 @@ export function changeSocials(module) {
   };
 }
 
-export function changeColors(module) {
-  const url = `${__ROOT_URL__}api/modules`;
+export function changeColors(colors) {
+  const url = `${__ROOT_URL__}api/user/colors`;
   const headers = getTokenHeader();
-  console.log(module);
-  const request = axios.post(url, module, { headers });
+  const request = axios.put(url, { colors }, { headers });
 
   return (dispatch) => {
-    request.then((data) => {
-      console.log(data);
-      // dispatch({
-      //   type: CHANGE_COLORS,
-      //   payload: data,
-      // });
+    request.then(() => {
+      dispatch({
+        type: CHANGE_COLORS,
+        payload: colors,
+      });
     });
   };
 }

@@ -129,6 +129,7 @@ class EditProfile extends Component {
   }
 
   render() {
+    console.log(this.props.activeCircle.colors);
     if (this.props.activeCircle._id) {
       const { dialog, sidebar, mode, dialogData, modalFunctions, editingModule, header, modules } = this.state;
       const { activeCircle } = this.props;
