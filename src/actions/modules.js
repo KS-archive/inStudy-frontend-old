@@ -8,11 +8,11 @@ export function addModule(module, successCallback, errorCallback) {
   const request = axios.post(url, module, { headers });
 
   return (dispatch) => {
-    request.then(({ data: { data } }) => {
+    request.then((data) => {
       successCallback();
       dispatch({
         type: ADD_MODULE,
-        payload: data,
+        payload: data.data.data,
       });
     }, () => { errorCallback(); });
   };

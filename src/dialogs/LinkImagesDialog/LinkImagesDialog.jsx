@@ -11,7 +11,7 @@ import { Container, Checkboxes, StyledCheckbox, Types, Type, Elements } from './
 export default class LinkImagesDialog extends Component {
   constructor(props) {
     super(props);
-    const { _id, content, title, color, type, startGray, rowsLimit, randomize } = this.props.data;
+    const { id, content, title, color, type, startGray, rowsLimit, randomize } = this.props.data;
     this.state = {
       content: content || [],
       title: title || undefined,
@@ -24,7 +24,7 @@ export default class LinkImagesDialog extends Component {
       dialogData: null,
       errors: {},
     };
-    this.isEditModal = !!_id;
+    this.isEditModal = !!id;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: 'Musisz dodać co najmniej jeden element do galerii' },
@@ -35,18 +35,21 @@ export default class LinkImagesDialog extends Component {
   }
 
   componentWillMount() {
-    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { closeDialog, data, setModalFunctions } = this.props;
     const { handleSubmit, remove, openColorsDialog } = this;
-    setModalFunctions(_id, handleSubmit, closeDialog, remove, openColorsDialog);
+    const id = data.id || Date.now();
+    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog);
     this.types = accessibleModules.find(el => el.kind === 'LinkImages').types;
+    this.setState({ id });
   }
 
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    const { data: { _id }, kind } = this.props;
-    const extendValues = { ...values, _id, kind };
-    console.log(extendValues);
+    const { kind, submit } = this.props;
+    const id = this.state.id;
+    const extendValues = { ...values, id, kind };
+    submit(extendValues);
   }
 
   remove = () => {
@@ -105,10 +108,9 @@ export default class LinkImagesDialog extends Component {
   );
 
   renderElement = (el, index) => {
-    const imgSrc = (typeof el.src === 'string') ? el.src : el.src.preview;
     return (
       <Image key={index}>
-        <img src={imgSrc} alt="" />
+        <img src={el.src} alt="" />
         <ImageOverlay>
           <ImageOptions>
             <i
@@ -137,7 +139,7 @@ export default class LinkImagesDialog extends Component {
   render() {
     console.log(this.props);
     const { closeDialog, open, sidebar, colors } = this.props;
-    const { dialog, dialogData, content } = this.state;
+    const { dialog, dialogData, content, id } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
@@ -185,6 +187,7 @@ export default class LinkImagesDialog extends Component {
         {dialog === 'elementDetails' &&
           <ImageDetailsDialog
             submit={this.modifyElements}
+            id={id}
             {...dialogAttrs}
           />
         }

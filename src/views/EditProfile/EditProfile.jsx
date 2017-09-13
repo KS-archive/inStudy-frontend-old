@@ -90,9 +90,11 @@ class EditProfile extends Component {
     const updateSuccess = () => { addNotification('Zaktualizowano!', 'Moduł został zaktualizowany', 'success'); this.closeDialog(); };
     const addSuccess = () => { addNotification('Dodano!', 'Moduł został dodany', 'success'); this.closeDialog(); };
 
-    if (values.id) {
+    if (values.id && typeof values.id === 'string') {
+      console.log('obj');
       this.props.updateModule(values, updateSuccess, updateError);
     } else {
+      console.log('obj2');
       this.props.addModule(values, addSuccess, addError);
     }
   }

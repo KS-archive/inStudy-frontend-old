@@ -8,7 +8,21 @@ import { Container, Toggle } from './LinkImages_styles';
 export default class LinkImages extends Component {
   constructor(props) {
     super(props);
-    const { randomize, content, startGray, rowsLimit, type } = this.props;
+    this.state = {
+      showAll: false,
+    };
+  }
+
+  componentWillMount() {
+    this.initialize(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.initialize(nextProps);
+  }
+
+  initialize = (props) => {
+    const { randomize, content, startGray, rowsLimit, type } = props;
     switch (type) {
       case 0: this.type = {
         elementsInRow: 4,
@@ -19,13 +33,11 @@ export default class LinkImages extends Component {
         imageComponent: LinkImage2,
       }; break;
     }
-
-    this.state = {
+    this.setState({
       noLimit: content.length <= this.type.elementsInRow * rowsLimit,
       elements: randomize ? shuffle(content) : content,
       grayScale: startGray,
-      showAll: false,
-    };
+    });
   }
 
   toggleList = () => {
@@ -63,13 +75,13 @@ export default class LinkImages extends Component {
   }
 
   render() {
-    const { title, rowsLimit, content } = this.props;
+    const { title, rowsLimit } = this.props;
     const { noLimit } = this.state;
     return (
       <div>
         <SectionHeader>{title}</SectionHeader>
         <Container>
-          {this.renderElement(content)}
+          {this.renderElement()}
         </Container>
         {(rowsLimit !== 0 && !noLimit) && this.renderToggleLink() }
       </div>
