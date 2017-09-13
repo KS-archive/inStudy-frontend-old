@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import connect from 'react-redux/lib/connect/connect';
@@ -13,7 +13,7 @@ import { Container, Content, Form, Header, ButtonContainer, Recovery, Bottom, Bo
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
-class SignIn extends Component {
+class SignIn extends PureComponent {
   onSubmit = (values) => {
     const { history, addNotification } = this.props;
     axios.post('http://localhost:8080/api/user/login', values)

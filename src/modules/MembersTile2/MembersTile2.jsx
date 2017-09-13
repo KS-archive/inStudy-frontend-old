@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import socialsList from '../../js/constants/socials';
 import { Container, Image, Name, Role, Socials, Social } from './MembersTile2_styles';
 
-export default class MembersTile2 extends Component {
+export default class MembersTile2 extends PureComponent {
   renderSocials = () => this.props.socials.map((social, index) => {
     const icon = socialsList[social.id].iconName;
     return (

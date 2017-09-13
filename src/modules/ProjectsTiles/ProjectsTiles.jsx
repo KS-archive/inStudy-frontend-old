@@ -71,7 +71,7 @@ export default class ProjectsTiles extends Component {
   }
 
   renderLabel = (label, color) => {
-    const isActive = label === this.props.activeLabel;
+    const isActive = label === this.state.activeLabel;
     const setActive = () => { this.setActiveLabel(label); };
     return <Label key={label} active={isActive} color={color} onClick={setActive}>{label}</Label>;
   }

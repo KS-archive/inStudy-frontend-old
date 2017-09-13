@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Container, Name, Labels, Label } from './ProjectsTile_styles';
 
-export default class ProjectsTile extends Component {
+export default class ProjectsTile extends PureComponent {
   componentWillMount() {
     const { mainColors, labelColors } = this.props;
     this.labels = {
@@ -22,14 +22,6 @@ export default class ProjectsTile extends Component {
         color: mainColors[labelColors[4]],
       },
     };
-  }
-
-  shouldComponentUpdate(nextProps) {
-    const propsToCheck = ['images', 'coverImage', 'description', 'header', 'labelColors', 'labels', 'name', 'socials'];
-    propsToCheck.map((prop) => {
-      if (this.props[prop] !== nextProps[prop]) return true;
-    });
-    return false;
   }
 
   renderLabel = (labelName) => {

@@ -8,6 +8,7 @@ export const Labels = styled.div`
 `;
 
 export const Label = styled.div`
+  box-sizing: border-box;
   padding-bottom: 5px;
   margin: 0 12px 15px;
   font-size: 14px;

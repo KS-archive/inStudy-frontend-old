@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { updateFilter } from '../../actions/filters';
 
-class Filter extends Component {
+class Filter extends PureComponent {
   changeHandler = (event, key, value) => {
     const { updateFilter, changeHandler, id } = this.props;
     updateFilter(id, value);

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyledRaisedButton } from '../../js/globalStyles';
 import { Container, Content, Header } from './ConfirmEmail_styles';
 
-export default class ConfirmEmail extends Component {
+export default class ConfirmEmail extends PureComponent {
   render() {
     return (
       <Container>

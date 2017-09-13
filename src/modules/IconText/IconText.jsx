@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { SectionHeader } from '../../js/globalStyles';
 import { Wrapper, Container, Element, Icon, Title, Description } from './IconText_styles';
 
-export default class IconText extends Component {
+export default class IconText extends PureComponent {
   renderIcons = (elements, iconColor) =>
     elements.map(({ title, icon, description }) => (
       <Element key={title}>

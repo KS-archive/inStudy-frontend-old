@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import { detectIE } from '../../js/utils';
 import { Container, Content, Logo, Text, Buttons, StyledRaisedButton } from './Hero_styles';
 
-class Hero extends Component {
+class Hero extends PureComponent {
   render() {
     return (
       <Container isIE={detectIE()}>

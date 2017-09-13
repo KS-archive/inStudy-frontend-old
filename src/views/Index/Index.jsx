@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router';
 import connect from 'react-redux/lib/connect/connect';
 import NotificationSystem from 'react-notification-system';
 import Nav from '../../components/Nav/Nav';
 import { Container, Body } from './Index_styles';
 
-class Index extends Component {
+class Index extends PureComponent {
   componentDidMount() {
     this._notificationSystem = this.notificationSystem;
   }
