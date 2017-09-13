@@ -11,7 +11,7 @@ import { Container, Checkboxes, StyledCheckbox, LabelHeader, Elements, Element, 
 export default class ProjectsTilesDialog extends Component {
   constructor(props) {
     super(props);
-    const { _id, content, title, colors, startGray, rowsLimit, randomize } = this.props.data;
+    const { id, content, title, colors, startGray, rowsLimit, randomize } = this.props.data;
     this.state = {
       content: content || [],
       title: title || undefined,
@@ -24,7 +24,7 @@ export default class ProjectsTilesDialog extends Component {
       editingIndex: null,
       errors: {},
     };
-    this.isEditModal = !!_id;
+    this.isEditModal = !!id;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: true },
@@ -35,22 +35,26 @@ export default class ProjectsTilesDialog extends Component {
   }
 
   componentWillMount() {
-    const { closeDialog, data: { _id }, setModalFunctions } = this.props;
+    const { closeDialog, data, setModalFunctions } = this.props;
+    const id = data.id || Date.now();
     const { handleSubmit, remove, openColorsDialog } = this;
-    setModalFunctions(_id, handleSubmit, closeDialog, remove, openColorsDialog);
-    this.types = accessibleModules.find(el => el.kind === 'MembersTiles').types;
+    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog);
+    this.types = accessibleModules.find(el => el.kind === 'ProjectsTiles').types;
+    this.setState({ id });
   }
 
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    const { data: { _id }, kind } = this.props;
-    const extendValues = { ...values, _id, kind };
-    console.log(extendValues);
+    const { kind, submit } = this.props;
+    const id = this.state.id;
+    const extendValues = { ...values, id, kind };
+    submit(extendValues);
   }
 
   remove = () => {
-    console.log('removed!');
+    this.props.remove(this.props.data.id);
+    this.props.closeDialog();
   }
 
   closeDialog = () => {
@@ -100,11 +104,10 @@ export default class ProjectsTilesDialog extends Component {
   }
 
   renderElement = (el, index) => {
-    const { coverImage, _id, title } = el;
-    const imgSrc = (typeof coverImage === 'string') ? coverImage : coverImage.preview;
+    const { coverImage, id, title } = el;
     return (
-      <Element key={_id || title}>
-        <img src={imgSrc} alt="" />
+      <Element key={id}>
+        <img src={coverImage} alt="" />
         <ElementContent>
           <Name>
             {`${title.length > 60
@@ -137,7 +140,7 @@ export default class ProjectsTilesDialog extends Component {
 
   render() {
     const { closeDialog, open, sidebar, colors } = this.props;
-    const { dialog, dialogData, content } = this.state;
+    const { dialog, dialogData, content, id } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
@@ -183,6 +186,7 @@ export default class ProjectsTilesDialog extends Component {
         {dialog === 'projectDetails' &&
           <ProjectDetailsDialog
             submit={this.modifyElements}
+            id={id}
             {...dialogAttrs}
           />
         }

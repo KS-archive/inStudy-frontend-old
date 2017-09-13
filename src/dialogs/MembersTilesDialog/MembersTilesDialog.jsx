@@ -46,6 +46,7 @@ export default class MembersTilesDialog extends Component {
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
+    console.log(values);
     const { kind, submit } = this.props;
     const id = this.state.id;
     const extendValues = { ...values, id, kind };
@@ -77,7 +78,6 @@ export default class MembersTilesDialog extends Component {
 
   modifyElements = (values) => {
     this.closeDialog();
-    console.log(values);
     const { id, index, firstname, surname, role, description, socials, coverImage } = values;
     const content = [...this.state.content];
 
@@ -112,7 +112,6 @@ export default class MembersTilesDialog extends Component {
   renderElement = (el, index) => {
     const { coverImage, firstname, surname, role, id } = el;
     const fullName = `${firstname} ${surname}`;
-    console.log(index);
     return (
       <Element key={id}>
         <img src={coverImage} alt="" />
@@ -154,7 +153,7 @@ export default class MembersTilesDialog extends Component {
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-    console.log(this.props);
+
     return (
       <EditDialog
         open={open}

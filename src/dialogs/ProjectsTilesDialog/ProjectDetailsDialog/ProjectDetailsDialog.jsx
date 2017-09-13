@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import without from 'lodash/without';
 import validate from '../../../js/validation';
 import socialsList from '../../../js/constants/socials';
 import ImageDialog from '../../ImageDialog/ImageDialog';
 import SocialsDialog from '../../SocialsDialog/SocialsDialog';
+import { getTokenHeader } from '../../../js/utils';
 import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
 import { EditDialog, LabelHeader, Image, ImageOverlay, ImageOptions } from '../../../js/globalStyles';
 import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, SocialsWrapper, Social, AddSocial, GalleryWrapper } from './ProjectDetailsDialog_styles';
@@ -12,11 +14,11 @@ import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElemen
 export default class ProjectDetailsDialog extends Component {
   constructor(props) {
     super(props);
-    const { coverImage, images, description, title, header, labels, socials, index } = this.props.data;
+    const { coverImage, images, description, title, header, labels, socials, id, index } = this.props.data;
     this.state = {
       index,
-      preview: coverImage && (coverImage.preview || coverImage),
-      coverImage: coverImage || {},
+      id: id || Date.now(),
+      coverImage: coverImage || '',
       images: images || [],
       title: title || '',
       header: header || '',
@@ -31,9 +33,9 @@ export default class ProjectDetailsDialog extends Component {
     this.toValidate = {
       title: { required: true },
       description: { required: true },
-      preview: { required: 'Kafelek projektowy musi posiadać zdjęcie główne' },
+      coverImage: { required: 'Kafelek projektowy musi posiadać zdjęcie główne' },
     };
-    this.values = ['coverImage', 'images', 'title', 'header', 'labels', 'description', 'socials'];
+    this.values = ['id', 'index', 'coverImage', 'images', 'title', 'header', 'labels', 'description', 'socials'];
     this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
@@ -56,7 +58,7 @@ export default class ProjectDetailsDialog extends Component {
   updateImageDialog = (image, index) => {
     this.setState({
       dialog: 'image',
-      dialogData: Array.isArray(image) ? image[0].preview : image,
+      dialogData: image,
       editingIndex: index,
     });
   }
@@ -65,27 +67,39 @@ export default class ProjectDetailsDialog extends Component {
     const { coverImage } = this.state;
     this.setState({
       dialog: 'image',
-      dialogData: (typeof coverImage === 'object') ? coverImage.preview : coverImage,
+      dialogData: coverImage,
       editingIndex: 'cover',
     });
   }
 
-  modifyImages = ({ image }) => {
-    if (image) {
-      const { editingIndex } = this.state;
-      if (editingIndex === 'cover') {
-        this.setState({ coverImage: image[0], preview: image[0].preview });
-      } else {
-        const images = [...this.state.images];
-        if (editingIndex || editingIndex === 0) { // Edit
-          images[editingIndex] = image;
-        } else { // Add
-          images.push(image);
+  modifyImage = (value) => {
+    if (value.image) {
+      const url = `${__ROOT_URL__}api/file/send`;
+      let headers = getTokenHeader();
+      headers = { ...headers, 'content-type': 'multipart/form-data' };
+
+      const formData = new FormData();
+      formData.append('image', value.image[0]);
+      formData.append('id', this.props.id);
+
+      axios.post(url, formData, { headers }).then((data) => {
+        const { editingIndex } = this.state;
+        console.log(editingIndex);
+        console.log(data.data.data);
+        if (editingIndex === 'cover') {
+          this.setState({ coverImage: data.data.data });
+        } else {
+          const images = [...this.state.images];
+          if (editingIndex || editingIndex === 0) { // Edit
+            images[editingIndex] = data.data.data;
+          } else { // Add
+            images.push(data.data.data);
+          }
+          this.setState({ images });
         }
-        this.setState({ images });
-      }
+        this.closeDialog();
+      });
     }
-    this.closeDialog();
   }
 
   deleteImage = (image) => {
@@ -108,10 +122,10 @@ export default class ProjectDetailsDialog extends Component {
   }
 
   renderImage = (image, index) => {
-    const imgSrc = (typeof image === 'string') ? image : image[0].preview;
+    console.log(image);
     return (
       <Image key={index}>
-        <img src={imgSrc} alt="" />
+        <img src={image} alt="" />
         <ImageOverlay>
           <ImageOptions>
             <i
@@ -132,9 +146,8 @@ export default class ProjectDetailsDialog extends Component {
 
   render() {
     const { closeDialog, sidebar, open } = this.props;
-    const { preview, socials, dialogData, dialog, images } = this.state;
-    const imagePreview = preview || '';
-    const dialogTitle = imagePreview ? 'Modyfikuj kafelek projektowy' : 'Dodaj kafelek projektowy';
+    const { coverImage, socials, dialogData, dialog, images } = this.state;
+    const dialogTitle = 'Modyfikuj kafelek projektowy';
     const multilineAttrs = {
       multiLine: true,
       rows: 1,
@@ -157,12 +170,12 @@ export default class ProjectDetailsDialog extends Component {
           <MediaWrapper>
             <MediaElement>
               <LabelHeader>Zdjęcie główne</LabelHeader>
-              <ImagePreview preview={preview} onClick={this.updateCoverImageDialog}>
-                {(imagePreview)
-                  ? <img src={imagePreview} alt="" />
+              <ImagePreview coverImage={coverImage} onClick={this.updateCoverImageDialog}>
+                {(coverImage)
+                  ? <img src={coverImage} alt="" />
                   : <i className="fa fa-plus" aria-hidden="true" />
                 }
-                {(imagePreview) &&
+                {(coverImage) &&
                   <ImagePreviewOverlay>
                     <i className="fa fa-pencil-square-o" aria-hidden="true" />
                   </ImagePreviewOverlay>
@@ -193,7 +206,7 @@ export default class ProjectDetailsDialog extends Component {
         {(dialog === 'image') &&
           <ImageDialog
             open
-            submitFunction={this.modifyImages}
+            submitFunction={this.modifyImage}
             closeDialog={this.closeDialog}
             width={265}
             height={265}
