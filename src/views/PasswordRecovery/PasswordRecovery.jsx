@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import { StyledRaisedButton } from '../../js/globalStyles';
 import { Container, Content, Form, Header, ButtonContainer } from './PasswordRecovery_styles';
 
-class PasswordRecovery extends Component {
+class PasswordRecovery extends PureComponent {
   onSubmit = (values) => {
     console.log(values);
   }

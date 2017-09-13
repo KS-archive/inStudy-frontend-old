@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import find from 'lodash/find';
 import { cities, types, categories } from '../../js/constants/filterData';
 import { Container, LogoContainer, Logo, Name, Category, BottomLine, UniversityLogo, InfoIcons, InfoIcon, TypeIcon, ReactTooltip } from './circleCard_styles';
 import { CircleFlags } from '../../js/constants/circleDetails';
 
-export default class CircleCard extends Component {
+export default class CircleCard extends PureComponent {
   componentWillMount() {
     const { city, university, type, category, subcategory } = this.props;
     this.universityName = find(cities[city].universities, u => u.id === university.toString()).name;

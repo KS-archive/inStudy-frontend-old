@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
@@ -9,7 +9,7 @@ import { getPublicCircle } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './PublicProfile_styles';
 
-class PublicProfile extends Component {
+class PublicProfile extends PureComponent {
   componentWillMount() {
     this.props.getPublicCircle(this.props.match.params.url);
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import TextField from 'redux-form-material-ui/lib/TextField';
@@ -7,7 +7,7 @@ import { Container, Content, Form, Header, ButtonContainer } from './PasswordRec
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
-class PasswordRecoveryNew extends Component {
+class PasswordRecoveryNew extends PureComponent {
   onSubmit = (values) => {
     console.log(values);
   }

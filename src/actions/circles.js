@@ -2,7 +2,7 @@ import axios from 'axios';
 import map from 'lodash/map';
 import { getTokenHeader } from '../js/utils';
 import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE } from './types';
-// import circle from '../reducers/activeCircle_reducer(mock)';
+import circle from '../reducers/activeCircle_reducer(mock)';
 // import circles from '../reducers/circles_reducer(mock)';
 
 export function getCircles(page, limit, query, city, university, type, category, subcategory) {
@@ -49,19 +49,19 @@ export function getActiveCircle() {
 }
 
 export function getPublicCircle(circleURL) {
-  const url = `${__ROOT_URL__}api/circle?circle=${circleURL}`;
-  const request = axios.get(url);
-
-  return (dispatch) => {
-    request.then(({ data }) => {
-      dispatch({
-        type: FETCH_PUBLIC_CIRCLE,
-        payload: data.data,
-      });
-    });
-  };
-  // return {
-  //   type: FETCH_PUBLIC_CIRCLE,
-  //   payload: circle,
+  // const url = `${__ROOT_URL__}api/circle?circle=${circleURL}`;
+  // const request = axios.get(url);
+  //
+  // return (dispatch) => {
+  //   request.then(({ data }) => {
+  //     dispatch({
+  //       type: FETCH_PUBLIC_CIRCLE,
+  //       payload: data.data,
+  //     });
+  //   });
   // };
+  return {
+    type: FETCH_PUBLIC_CIRCLE,
+    payload: circle,
+  };
 }
