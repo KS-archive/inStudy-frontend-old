@@ -15,7 +15,10 @@ class Hero extends Component {
               label="Odkryj inicjatywy"
               onClick={() => { this.props.history.push('/inicjatywy'); }}
             />
-            <StyledRaisedButton label="O projekcie" />
+            <StyledRaisedButton
+              label="Załóż konto"
+              onClick={() => { this.props.history.push('/rejestracja'); }}
+            />
           </Buttons>
         </Content>
       </Container>

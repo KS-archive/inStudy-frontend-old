@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import MenuItem from 'material-ui/MenuItem';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
+import { getCookie, deleteCookie } from '../../js/cookies';
 import { Header, AppLogo, LoggedUser, UserLogo, IconMenu } from './Nav_styles';
 
 class Nav extends Component {
@@ -10,8 +11,8 @@ class Nav extends Component {
     super(props);
     this.state = {
       open: false,
-      value: '',
       pathname: '',
+      logged: getCookie('token'),
     };
   }
 
@@ -20,14 +21,23 @@ class Nav extends Component {
     this.setState({ pathname });
   }
 
-  componentDidUpdate() {
-    const { pathname } = this.props.location;
-    if (pathname !== this.state.pathname) this.setState({ pathname });
+  componentWillReceiveProps(nextProps) {
+    const { pathname } = nextProps.location;
+    console.log(pathname);
+    if (pathname !== this.state.pathname) this.setState({ pathname, logged: getCookie('token') });
   }
 
   handleRoute = (e, value) => {
-    this.setState({ value });
-    this.props.history.push(value);
+    if (value === 'wyloguj') {
+      this.logout();
+    } else {
+      this.props.history.push(value);
+    }
+  }
+
+  logout = () => {
+    deleteCookie('token');
+    this.props.history.push('/');
   }
 
   renderLogo() {
@@ -58,13 +68,13 @@ class Nav extends Component {
   }
 
   render() {
-    const path = this.state.pathname;
+    const { logged, pathname } = this.state;
     const transparentMode = (
-      path === '/'
-      || ((path === '/rejestracja'
-      || path === '/logowanie'
-      || path.includes('/odzyskiwanie_hasla')
-      || path.includes('/potwierdz_email'))
+      pathname === '/'
+      || ((pathname === '/rejestracja'
+      || pathname === '/logowanie'
+      || pathname.includes('/odzyskiwanie_hasla')
+      || pathname.includes('/potwierdz_email'))
       && window.innerWidth > 800
       && window.innerHeight > 900));
     return (
@@ -77,14 +87,14 @@ class Nav extends Component {
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
             onChange={this.handleRoute}
-            value={this.state.value}
+            value={this.state.pathname}
           >
             <MenuItem primaryText="Strona główna" value="/" />
             <MenuItem primaryText="Lista kół" value="/inicjatywy" />
-            <MenuItem primaryText="Logowanie" value="/logowanie" />
-            <MenuItem primaryText="Rejestracja" value="/rejestracja" />
-            <MenuItem primaryText="Nowe hasło" value="/odzyskiwanie_hasla/123" />
-            <MenuItem primaryText="Potwierdzenie maila" value="/potwierdz_email/123" />
+            {!logged && <MenuItem primaryText="Zaloguj się" value="/logowanie" />}
+            {!logged && <MenuItem primaryText="Zarejestruj się" value="/rejestracja" />}
+            {logged && <MenuItem primaryText="Edytuj profil" value="/inicjatywy/edit" />}
+            {logged && <MenuItem primaryText="Wyloguj się" value="wyloguj" />}
           </IconMenu>
         </Header>
       </div>

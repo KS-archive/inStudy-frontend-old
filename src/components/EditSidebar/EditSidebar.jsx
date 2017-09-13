@@ -18,6 +18,7 @@ export default class EditSidebar extends Component {
   }
 
   changeOrder = () => {
+    this.props.changeContent({ mode: 'Ustawienia' });
     this.props.changeOrder(this.props.modules);
   }
 
@@ -41,6 +42,7 @@ export default class EditSidebar extends Component {
         <SidebarIcon>
           <IconComponent />
         </SidebarIcon>
+        <StyledReactTooltip place="right" effect="solid" />
       </IconWrapper>
     );
   }
@@ -119,8 +121,24 @@ export default class EditSidebar extends Component {
             <SpecialBtn className="fa fa-arrow-left" aria-hidden="true" onClick={() => { this.props.changeContent({ mode: 'Moduły' }); }} />
           </div>
         );
+
+      case 'Ustawienia':
+        return (
+          <div>
+            <SpecialBtn
+              className="fa fa-arrow-left"
+              aria-hidden="true"
+              onClick={() => { this.props.changeContent({ mode: 'Moduły' }); this.props.closeDialog(); }}
+            />
+          </div>
+        );
       default: return null;
     }
+  }
+
+  enterSettings = (dialogName) => {
+    this.props.changeContent({ mode: 'Ustawienia' });
+    this.setState({ dialog: dialogName });
   }
 
   render() {
@@ -148,16 +166,15 @@ export default class EditSidebar extends Component {
                 {(modules.length > 1) &&
                   <MenuItem primaryText="Zmień kolejność modułów" onClick={this.changeOrder} />
                 }
-                <MenuItem primaryText="Edytuj tagi" onClick={() => { this.setState({ dialog: 'tags' }); }} />
-                <MenuItem primaryText="Edytuj kolory" onClick={() => { this.setState({ dialog: 'colors' }); }} />
-                <MenuItem primaryText="Zmień hasło" onClick={() => { this.setState({ dialog: 'password' }); }} />
+                <MenuItem primaryText="Edytuj tagi" onClick={() => { this.enterSettings('tags'); }} />
+                <MenuItem primaryText="Edytuj kolory" onClick={() => { this.enterSettings('colors'); }} />
+                <MenuItem primaryText="Zmień hasło" onClick={() => { this.enterSettings('password'); }} />
                 <MenuItem primaryText="Wyloguj" onClick={logout} />
               </IconMenu>
             </BottomIcons>
           </Wrapper>
         </Container>
         <Filler open={sidebar} onClick={toggleSidebar} />
-        <StyledReactTooltip place="right" effect="solid" />
         {(dialog === 'colors') &&
           <MainColorsDialog
             sidebar={sidebar}

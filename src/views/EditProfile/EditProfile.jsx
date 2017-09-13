@@ -24,7 +24,7 @@ class EditProfile extends Component {
       dialog: null,
       dialogData: {},
       sidebar: true,
-      mode: 'Moduły', // Moduły, Dodaj moduł, Edycja modułu, Dodawanie modułu
+      mode: 'Moduły', // Moduły, Dodaj moduł, Edycja modułu, Dodawanie modułu, Ustawienia
       editingModule: null,
       modalFunctions: {
         submit: null,
@@ -147,6 +147,7 @@ class EditProfile extends Component {
         <Container>
           <EditSidebar
             openDialog={this.openDialog}
+            closeDialog={this.closeDialog}
             changeContent={(state) => { this.setState(state); }}
             toggleSidebar={() => { this.setState({ sidebar: !sidebar }); }}
             changeOrder={(toReorder) => { this.openDialog('reorder', toReorder); }}
