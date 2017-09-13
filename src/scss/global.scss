@@ -1,4 +1,3 @@
-@import './variables';
 @import './socials';
 
 /* CSS reset and defaults */
@@ -21,7 +20,7 @@ body {
   font-family: 'Roboto', 'Arial', sans-serif;
   font-weight: 300;
   font-size: 16px;
-  color: $primary-text-color;
+  color: #212121;
   line-height: 1;
 }
 ol, ul {
@@ -46,14 +45,5 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: $secondary-text-color;
-}
-
-.body__sectionHeader {
-  margin: 0 auto 50px;
-  font-size: 32px;
-  font-weight: 900;
-  line-height: 1.3;
-  text-align: center;
-  color: $primary-text-color;
+	background-color: #757575;
 }

@@ -4,7 +4,8 @@ import MembersTile from '../MembersTile/MembersTile';
 import MembersTile2 from '../MembersTile2/MembersTile2';
 import MembersTile3 from '../MembersTile3/MembersTile3';
 import MembersDialog from '../../dialogs/MembersDialog/MembersDialog';
-import './membersTiles.scss';
+import { SectionHeader } from '../../js/globalStyles';
+import { List, More } from './MembersTiles_styles';
 
 export default class MembersTiles extends Component {
   constructor(props) {
@@ -60,13 +61,13 @@ export default class MembersTiles extends Component {
     const { showAll, dialog, dialogData } = this.state;
 
     return (
-      <div className="membersTiles__wrapper">
-        <h1 className="body__sectionHeader">{title}</h1>
-        <div className="membersTiles__list">
+      <div>
+        <SectionHeader>{title}</SectionHeader>
+        <List>
           {this.renderTiles()}
-        </div>
+        </List>
         {(!showAll && rowsLimit !== 0) &&
-          <div className="membersTiles__more" onClick={() => { this.setState({ showAll: true }); }}>...</div>
+          <More onClick={() => { this.setState({ showAll: true }); }}>...</More>
         }
         <MembersDialog
           closeDialog={this.closeDialog}

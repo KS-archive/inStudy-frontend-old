@@ -1,7 +1,29 @@
 import React, { Component } from 'react';
-import './projectsTile.scss';
+import { Container, Name, Labels, Label } from './ProjectsTile_styles';
 
 export default class ProjectsTile extends Component {
+  componentWillMount() {
+    const { mainColors, labelColors } = this.props;
+    this.labels = {
+      aktualne: {
+        text: 'Aktualny',
+        color: mainColors[labelColors[1]],
+      },
+      archiwalne: {
+        text: 'Archiwalny',
+        color: mainColors[labelColors[2]],
+      },
+      otwarte: {
+        text: 'Otwarty',
+        color: mainColors[labelColors[3]],
+      },
+      cykliczne: {
+        text: 'Cykliczny',
+        color: mainColors[labelColors[4]],
+      },
+    };
+  }
+
   shouldComponentUpdate(nextProps) {
     const propsToCheck = ['images', 'coverImage', 'description', 'header', 'labelColors', 'labels', 'name', 'socials'];
     propsToCheck.map((prop) => {
@@ -10,30 +32,20 @@ export default class ProjectsTile extends Component {
     return false;
   }
 
-  generateLabels = (labels) => {
-    const { mainColors, labelColors } = this.props;
-    return labels.map((label) => {
-      let text = '';
-      let color = '';
-      switch (label) {
-        case 'aktualne': text = 'Aktualny'; color = mainColors[labelColors[1]]; break;
-        case 'archiwalne': text = 'Archiwalny'; color = mainColors[labelColors[2]]; break;
-        case 'otwarte': text = 'Otwarty'; color = mainColors[labelColors[3]]; break;
-        case 'cykliczne': text = 'Cykliczny'; color = mainColors[labelColors[4]]; break;
-        default: return null;
-      }
-      return <div key={text} className="projectsTile__label" style={{ backgroundColor: color }}>{text}</div>;
-    });
+  renderLabel = (labelName) => {
+    const label = this.labels[labelName];
+    return <Label key={label.text} backgroundColor={label.color}>{label.text}</Label>;
   }
 
   render() {
+    const { coverImage, openDialog, title, labels } = this.props;
     return (
-      <div className="projectsTile__container" style={{ backgroundImage: `url(${this.props.coverImage})` }} onClick={this.props.openDialog}>
-        <div className="projectsTile__name">{this.props.title}</div>
-        <div className="projectsTile__labels">
-          {this.generateLabels(this.props.labels)}
-        </div>
-      </div>
+      <Container backgroundImage={coverImage} onClick={openDialog}>
+        <Name>{title}</Name>
+        <Labels>
+          {labels.map(label => this.renderLabel(label))}
+        </Labels>
+      </Container>
     );
   }
 }
