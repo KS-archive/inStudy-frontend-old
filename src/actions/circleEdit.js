@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getTokenHeader } from '../js/utils';
 import { CHANGE_LOGO, CHANGE_BACKGROUND, CHANGE_CARD_DATA, CHANGE_SOCIALS, CHANGE_COLORS, CHANGE_TAGS } from './types';
 
-export function changeLogo(file) {
+export function changeLogo(file, successCallback, errorCallback) {
   const url = `${__ROOT_URL__}api/file/send_logo`;
   let headers = getTokenHeader();
   headers = { ...headers, 'content-type': 'multipart/form-data' };
@@ -12,11 +12,12 @@ export function changeLogo(file) {
 
   return (dispatch) => {
     request.then((data) => {
+      successCallback();
       dispatch({
         type: CHANGE_LOGO,
         payload: data.data.data,
       });
-    });
+    }, () => { errorCallback(); });
   };
 }
 
@@ -57,18 +58,19 @@ export function changeCardData(newData, callback) {
   };
 }
 
-export function changeSocials(socials) {
+export function changeSocials(socials, successCallback, errorCallback) {
   const url = `${__ROOT_URL__}api/user/socials`;
   const headers = getTokenHeader();
   const request = axios.put(url, socials, { headers });
 
   return (dispatch) => {
     request.then(() => {
+      successCallback();
       dispatch({
         type: CHANGE_SOCIALS,
         payload: socials.socials,
       });
-    });
+    }, () => { errorCallback(); });
   };
 }
 

@@ -10,6 +10,7 @@ import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
+import { addNotification } from '../../actions/notifications';
 import { getActiveCircle } from '../../actions/circles';
 import { getCookie, deleteCookie } from '../../js/cookies';
 import { addModule, updateModule, deleteModule } from '../../actions/modules';
@@ -37,8 +38,12 @@ class EditProfile extends Component {
 
   componentWillMount() {
     if (getCookie('token')) {
-      this.props.getActiveCircle();
+      this.props.getActiveCircle(() => {
+        this.props.addNotification('Wylogowano', 'Zostałeś wylogowany ze względu na długi brak aktywności na koncie', 'info');
+        this.logout();
+      });
     } else {
+      this.props.addNotification('Wystąpił błąd', 'Nie udało nam się odnaleźć Twojego konta. Spróbuj zalogować się ponownie', 'error');
       this.logout();
     }
   }
@@ -79,24 +84,41 @@ class EditProfile extends Component {
   }
 
   submitModule = (values) => {
+    const { addNotification } = this.props;
+    const updateError = () => { addNotification('Wystąpił błąd', 'Moduł nie został zaktualizowany', 'error'); };
+    const addError = () => { addNotification('Wystąpił błąd', 'Moduł nie został dodany', 'error'); };
+    const updateSuccess = () => { addNotification('Zaktualizowano!', 'Moduł został zaktualizowany', 'success'); this.closeDialog(); };
+    const addSuccess = () => { addNotification('Dodano!', 'Moduł został dodany', 'success'); this.closeDialog(); };
+
     if (values.id) {
-      this.props.updateModule(values, this.closeDialog);
+      this.props.updateModule(values, updateSuccess, updateError);
     } else {
-      this.props.addModule(values, this.closeDialog);
+      this.props.addModule(values, addSuccess, addError);
     }
   }
 
   deleteModule = (id) => {
-    this.props.deleteModule(id);
+    this.props.deleteModule(
+      id,
+      () => { this.props.addNotification('Usunięto!', 'Moduł został usunięty', 'success'); },
+      () => { this.props.addNotification('Wystąpił błąd', 'Błąd podczas usuwania modułu', 'error'); },
+    );
   }
 
   changeSocials = (values) => {
-    this.props.changeSocials(values);
-    this.closeDialog();
+    this.props.changeSocials(
+      values,
+      () => { this.props.addNotification('Zaktualizowano!', 'Social media zostały zaktualizowane', 'success'); this.closeDialog(); },
+      () => { this.props.addNotification('Wystąpił błąd', 'Social media nie zostały zmienione', 'error'); },
+    );
   }
 
   changeLogo = (value) => {
-    this.props.changeLogo(value.image[0]);
+    this.props.changeLogo(
+      value.image[0],
+      () => { this.props.addNotification('Zaktualizowano!', 'Logo zostało zaktualizowane', 'success'); this.closeDialog(); },
+      () => { this.props.addNotification('Wystąpił błąd', 'Logo nie zostało zmienione', 'error'); },
+    );
     this.closeDialog();
   }
 
@@ -220,7 +242,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getActiveCircle, addModule, updateModule, deleteModule, changeLogo, changeBackground, changeCardData, changeSocials }, dispatch);
+  return bindActionCreators({ getActiveCircle, addModule, updateModule, deleteModule, changeLogo, changeBackground, changeCardData, changeSocials, addNotification }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

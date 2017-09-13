@@ -19,6 +19,7 @@ class Index extends PureComponent {
     this._notificationSystem.addNotification({
       ...notification,
       position: 'tc',
+      autoDismiss: 8,
     });
   };
 

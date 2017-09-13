@@ -28,7 +28,7 @@ export function getCircles(page, limit, query, city, university, type, category,
   // };
 }
 
-export function getActiveCircle() {
+export function getActiveCircle(errCallback) {
   const url = `${__ROOT_URL__}api//user/getInfo`;
   const headers = getTokenHeader();
   const request = axios.post(url, null, { headers });
@@ -40,7 +40,7 @@ export function getActiveCircle() {
         type: FETCH_ACTIVE_CIRCLE,
         payload: data.user,
       });
-    });
+    }, () => { errCallback(); });
   };
   // return {
   //   type: FETCH_ACTIVE_CIRCLE,
