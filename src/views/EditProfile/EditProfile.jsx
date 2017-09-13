@@ -65,11 +65,10 @@ class EditProfile extends Component {
   }
 
   closeDialog = () => {
-    const mode = this.state.mode === 'Dodawanie modułu' ? 'Dodaj moduł' : 'Moduły';
     this.setState({
       dialog: null,
       editingModule: null,
-      mode,
+      mode: 'Moduły',
       modalFunctions: {
         submit: null,
         cancel: null,
@@ -81,9 +80,9 @@ class EditProfile extends Component {
 
   submitModule = (values) => {
     if (values.id) {
-      this.props.updateModule(values);
+      this.props.updateModule(values, this.closeDialog);
     } else {
-      this.props.addModule(values);
+      this.props.addModule(values, this.closeDialog);
     }
   }
 
@@ -129,7 +128,6 @@ class EditProfile extends Component {
   }
 
   render() {
-    console.log(this.props.activeCircle.colors);
     if (this.props.activeCircle._id) {
       const { dialog, sidebar, mode, dialogData, modalFunctions, editingModule, header, modules } = this.state;
       const { activeCircle } = this.props;

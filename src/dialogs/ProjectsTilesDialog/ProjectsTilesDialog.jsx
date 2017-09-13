@@ -44,10 +44,9 @@ export default class ProjectsTilesDialog extends Component {
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    const { data: { _id }, kind, closeDialog } = this.props;
+    const { data: { _id }, kind } = this.props;
     const extendValues = { ...values, _id, kind };
     console.log(extendValues);
-    closeDialog();
   }
 
   remove = () => {

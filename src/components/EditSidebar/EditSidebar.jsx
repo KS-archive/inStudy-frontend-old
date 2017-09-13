@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import ChangeTagsDialog from '../../dialogs/ChangeTagsDialog/ChangeTagsDialog';
 import MainColorsDialog from '../../dialogs/MainColorsDialog/MainColorsDialog';
 import ChangePasswordDialog from '../../dialogs/ChangePasswordDialog/ChangePasswordDialog';
 import { getRandomInt } from '../../js/utils';
@@ -123,7 +124,7 @@ export default class EditSidebar extends Component {
   }
 
   render() {
-    const { sidebar, toggleSidebar, modules, logout, colors } = this.props;
+    const { sidebar, toggleSidebar, modules, logout, colors, tags } = this.props;
     const { dialog } = this.state;
     const mode = this.props.mode;
     const arrowDirection = sidebar ? 'left' : 'right';
@@ -147,7 +148,7 @@ export default class EditSidebar extends Component {
                 {(modules.length > 1) &&
                   <MenuItem primaryText="Zmień kolejność modułów" onClick={this.changeOrder} />
                 }
-                <MenuItem primaryText="Edytuj tagi" onClick={this.changeTags} />
+                <MenuItem primaryText="Edytuj tagi" onClick={() => { this.setState({ dialog: 'tags' }); }} />
                 <MenuItem primaryText="Edytuj kolory" onClick={() => { this.setState({ dialog: 'colors' }); }} />
                 <MenuItem primaryText="Zmień hasło" onClick={() => { this.setState({ dialog: 'password' }); }} />
                 <MenuItem primaryText="Wyloguj" onClick={logout} />
@@ -168,6 +169,13 @@ export default class EditSidebar extends Component {
           <ChangePasswordDialog
             sidebar={sidebar}
             closeDialog={this.closeDialog}
+          />
+        }
+        {(dialog === 'tags') &&
+          <ChangeTagsDialog
+            sidebar={sidebar}
+            closeDialog={this.closeDialog}
+            data={tags}
           />
         }
       </div>

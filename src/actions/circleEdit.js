@@ -42,6 +42,7 @@ export function changeBackground(file) {
 export function changeCardData(newData, callback) {
   const url = `${__ROOT_URL__}api/edit/basics`;
   const headers = getTokenHeader();
+  console.log(newData);
   const request = axios.put(url, newData, { headers });
 
   return (dispatch) => {
@@ -88,19 +89,18 @@ export function changeColors(colors) {
   };
 }
 
-export function changeTags(module) {
-  const url = `${__ROOT_URL__}api/modules`;
+export function changeTags(tags, callback) {
+  const url = `${__ROOT_URL__}api/user/tags`;
   const headers = getTokenHeader();
-  console.log(module);
-  const request = axios.post(url, module, { headers });
+  const request = axios.put(url, tags, { headers });
 
   return (dispatch) => {
     request.then((data) => {
-      console.log(data);
-      // dispatch({
-      //   type: CHANGE_TAGS,
-      //   payload: data,
-      // });
+      callback();
+      dispatch({
+        type: CHANGE_TAGS,
+        payload: tags.tags,
+      });
     });
   };
 }

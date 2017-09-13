@@ -25,7 +25,12 @@ class CardEditDialog extends Component {
 
   componentDidUpdate() {
     if (!this.initialized) {
-      const { name, email, phone, date, motto, city, university, type, category, subcategory, dateCreated } = this.props;
+      const { name, email, phone, date, motto, dateCreated } = this.props;
+      const city = this.props.city.toString();
+      const university = this.props.city.toString();
+      const type = this.props.city.toString();
+      const category = this.props.city.toString();
+      const subcategory = this.props.city.toString();
 
       this.props.initialize({ name, email, phone, date, motto, city, university, type, category, subcategory, dateCreated });
 
@@ -70,6 +75,7 @@ class CardEditDialog extends Component {
   }
 
   renderSelectField(name, label, items, changefc) {
+    console.log(this.props.data[name].toString());
     const fieldAttrs = {
       name,
       component: SelectField,

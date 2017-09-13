@@ -38,11 +38,10 @@ export default class SocialsDialog extends Component {
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    const { data, kind, closeDialog, submit } = this.props;
+    const { data, kind, submit } = this.props;
     const id = data.id ? { id: data.id } : {};
     const extendValues = { ...values, ...id, kind };
     submit(extendValues);
-    closeDialog();
   }
 
   remove = () => {
