@@ -16,5 +16,6 @@ export const DELETE_MODULE = 'DELETE_MODULE';
 
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const DELETE_FILTER = 'DELETE_FILTER';
+export const UPDATE_QUERY = 'UPDATE_QUERY';
 
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';

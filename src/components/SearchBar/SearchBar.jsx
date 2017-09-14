@@ -1,62 +1,36 @@
 import React, { Component } from 'react';
+import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
+import axios from 'axios';
 import AutoComplete from 'material-ui/AutoComplete';
 import IconButton from 'material-ui/IconButton';
-import Paper from 'material-ui/Paper';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { grey500 } from 'material-ui/styles/colors';
+import { updateQuery } from '../../actions/filters';
+import { Container, SearchContainer, SearchIconWrapper, CloseIconWrapper } from './SearchBar_styles';
 
-const getStyles = (props, state) => {
-  const { value } = state;
-  const nonEmpty = value.length > 0;
-
-  return {
-    root: {
-      height: 60,
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    iconButtonClose: {
-      style: {
-        transform: nonEmpty ? 'scale(1, 1)' : 'scale(0, 0)',
-        transition: 'transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-      },
-      iconStyle: {
-        opacity: nonEmpty ? 1 : 0,
-        transition: 'opacity 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-      },
-    },
-    iconButtonSearch: {
-      style: {
-        transform: nonEmpty ? 'scale(0, 0)' : 'scale(1, 1)',
-        transition: 'transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-        marginRight: -48,
-      },
-      iconStyle: {
-        opacity: nonEmpty ? 0 : 1,
-        transition: 'opacity 200ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-      },
-    },
-    searchContainer: {
-      margin: 'auto 16px',
-      width: '100%',
-    },
-  };
-};
-
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       focus: false,
       active: false,
-      value: '',
+      searchText: this.props.query || '',
+      suggestions: [],
     };
   }
 
-  onRequestSearch() {
-    console.log('onRequestSearch');
+  componentWillMount() {
+    const query = this.state.searchText || '*';
+    const url = `${__ROOT_URL__}api/circles_tooltip?query=${query}&limit=3`;
+    axios.get(url).then(
+      (data) => { this.setState({ suggestions: data.data.data }); },
+    );
+  }
+
+  onRequestSearch = (chosenRequest) => {
+    this.props.updateQuery(chosenRequest);
   }
 
   handleFocus = () => {
@@ -65,59 +39,66 @@ export default class SearchBar extends Component {
 
   handleBlur = () => {
     this.setState({ focus: false });
-    if (this.state.value.trim().length === 0) this.setState({ value: '' });
+    this.props.updateQuery(this.props.searchText);
   }
 
-  handleInput = (e) => {
-    this.setState({ value: e });
+  handleInput = (searchText) => {
+    this.setState({ searchText });
   }
 
   handleCancel = () => {
-    this.setState({ active: false, value: '' });
+    this.setState({ active: false, searchText: '' });
   }
 
-  handleKeyPressed = (e) => {
-    if (e.charCode === 13) this.onRequestSearch();
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !this.props.searchText) {
+      this.props.updateQuery(this.props.searchText);
+    }
   }
 
   render() {
-    const styles = getStyles(this.props, this.state);
-    const { value } = this.state;
-    const data = ['Koło Naukowe Web Designu', 'Koło Naukowe Design Thinking', 'Koło Noukowe Brandico', 'Forum Edukacji Biznesowej', 'Hossa Pro Capital', 'WIGGOR']
+    const { searchText, suggestions } = this.state;
+    const nonEmpty = searchText.length > 0;
 
     return (
-      <Paper zDepth={1} style={{ ...styles.root }} >
-        <div style={styles.searchContainer}>
+      <Container>
+        <SearchContainer>
           <AutoComplete
             onBlur={() => this.handleBlur()}
-            searchText={value}
+            searchText={searchText}
             onUpdateInput={this.handleInput}
-            onKeyPress={this.handleKeyPressed}
+            onNewRequest={this.onRequestSearch}
+            onKeyPress={this.handleKeyPress}
             onFocus={() => this.handleFocus()}
             fullWidth
+            openOnFocus
             underlineShow={false}
-            // filter={AutoComplete.noFilter} Odkomentowac jak sugestie będą z backendu.
+            // filter={AutoComplete.noFilter}
             filter={AutoComplete.fuzzyFilter}
-            maxSearchResults={3}
-            dataSource={data}
+            maxSearchResults={5}
+            dataSource={suggestions}
             hintText="Wyszukaj inicjatywy"
           />
-        </div>
-        <IconButton
-          onTouchTap={this.onRequestSearch}
-          iconStyle={styles.iconButtonSearch.iconStyle}
-          style={styles.iconButtonSearch.style}
-        >
-          <SearchIcon color={grey500} />
-        </IconButton>
-        <IconButton
-          onTouchTap={() => this.handleCancel()}
-          iconStyle={styles.iconButtonClose.iconStyle}
-          style={styles.iconButtonClose.style}
-        >
-          <CloseIcon color={grey500} />
-        </IconButton>
-      </Paper>
+        </SearchContainer>
+        <SearchIconWrapper nonEmpty={nonEmpty} onTouchTap={this.onRequestSearch}>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <CloseIconWrapper nonEmpty={nonEmpty} onTouchTap={() => this.handleCancel()}>
+          <CloseIcon />
+        </CloseIconWrapper>
+      </Container>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    query: state.query,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ updateQuery }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

@@ -1,21 +1,23 @@
 import axios from 'axios';
-import map from 'lodash/map';
 import { getTokenHeader } from '../js/utils';
 import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE } from './types';
 // import circle from '../reducers/activeCircle_reducer(mock)';
 // import circles from '../reducers/circles_reducer(mock)';
 
-export function getCircles(page, limit, query, city, university, type, category, subcategory) {
-  const optionalParams = { query, city, university, type, category, subcategory };
-  let urlDetails = '';
-  map(optionalParams, (value, key) => {
-    if (value) urlDetails += `&${key}=${key}`;
+export function getCircles(page, limit, query, filters) {
+  const queryString = query && `&query=${query}`;
+  console.log(query);
+  let filtersDetails = '';
+  Object.keys(filters).map((filter) => {
+    filtersDetails += `&${filter}=${filters[filter]}`;
   });
-  const url = `${__ROOT_URL__}api/circles?page=${page}&limit=${limit}${urlDetails}`;
+  const url = `${__ROOT_URL__}api/circles?page=${page}&limit=${limit}${queryString}${filtersDetails}`;
+  console.log(url);
   const request = axios.get(url);
 
   return (dispatch) => {
     request.then(({ data }) => {
+      console.log(data);
       dispatch({
         type: GET_CIRCLES,
         payload: data,
@@ -28,7 +30,7 @@ export function getCircles(page, limit, query, city, university, type, category,
   // };
 }
 
-export function getActiveCircle(errCallback) {
+export function getActiveCircle(errorCallback) {
   const url = `${__ROOT_URL__}api//user/getInfo`;
   const headers = getTokenHeader();
   const request = axios.post(url, null, { headers });
@@ -40,7 +42,7 @@ export function getActiveCircle(errCallback) {
         type: FETCH_ACTIVE_CIRCLE,
         payload: data.user,
       });
-    }, () => { errCallback(); });
+    }, () => { errorCallback(); });
   };
   // return {
   //   type: FETCH_ACTIVE_CIRCLE,

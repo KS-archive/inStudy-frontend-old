@@ -8,11 +8,11 @@ import { Background, BackgroundEditIcon, Card, CardEditIcon, MainData, LogoConta
 export default class ProfileHeader extends PureComponent {
   componentWillMount() {
     const { city, university, type, category, subcategory } = this.props;
-    this.cityName = cities[city].name;
-    this.universityName = find(cities[city].universities, u => u.id === university.toString()).name;
-    this.typeName = types[type].name;
-    this.categoryName = categories[category].name;
-    this.subcategoryName = find(categories[category].subcategories, s => s.id === subcategory.toString()).name;
+    this.cityName = cities[city.toString()].name;
+    this.universityName = find(cities[city.toString()].universities, u => u.id === university.toString()).name;
+    this.typeName = types[type.toString()].name;
+    this.categoryName = categories[category.toString()].name;
+    this.subcategoryName = find(categories[category.toString()].subcategories, s => s.id === subcategory.toString()).name;
   }
 
   renderSocials = socialsObj => map(socialsObj, (social, index) => {
@@ -27,6 +27,7 @@ export default class ProfileHeader extends PureComponent {
   render() {
     const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, colors, editable, socials } = this.props;
     const cardEditData = { name, type, category, subcategory, university, city, email, phone, dateCreated, motto };
+
     return (
       <div>
         <Background editable={editable} color={colors[0]} backgroundImage={backgroundImg} />

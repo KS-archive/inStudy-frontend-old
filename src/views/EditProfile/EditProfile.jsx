@@ -167,6 +167,7 @@ class EditProfile extends Component {
         setModalFunctions: this.setModalFunctions,
         colors: this.props.activeCircle.colors,
       };
+      console.log(header);
 
       return (
         <Container>
@@ -181,12 +182,14 @@ class EditProfile extends Component {
             {...activeCircle}
           />
           <MainContainer>
-            <ProfileHeader
-              openDialog={this.openDialog}
-              closeDialog={this.closeDialog}
-              editable
-              {...header}
-            />
+            {header &&
+              <ProfileHeader
+                openDialog={this.openDialog}
+                closeDialog={this.closeDialog}
+                editable
+                {...header}
+              />
+            }
             {(modules) &&
               modules.map((module, index) =>
                 this.renderModule(module, header.colors, index))
