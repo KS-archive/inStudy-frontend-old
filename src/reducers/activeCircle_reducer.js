@@ -1,4 +1,4 @@
-import { FETCH_ACTIVE_CIRCLE, ADD_MODULE, UPDATE_MODULE, DELETE_MODULE, CHANGE_LOGO, CHANGE_BACKGROUND, CHANGE_CARD_DATA, CHANGE_SOCIALS, CHANGE_COLORS, CHANGE_TAGS } from '../actions/types';
+import { FETCH_ACTIVE_CIRCLE, ADD_MODULE, UPDATE_MODULE, DELETE_MODULE, CHANGE_LOGO, CHANGE_BACKGROUND, CHANGE_CARD_DATA, CHANGE_SOCIALS, CHANGE_COLORS, CHANGE_TAGS, REORDER_MODULES } from '../actions/types';
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -8,6 +8,7 @@ export default function (state = {}, action) {
     case ADD_MODULE:
     case UPDATE_MODULE:
     case DELETE_MODULE:
+    case REORDER_MODULES:
       return { ...state, modules: action.payload };
 
     case CHANGE_LOGO:
@@ -23,7 +24,6 @@ export default function (state = {}, action) {
       return { ...state, socials: action.payload };
 
     case CHANGE_COLORS:
-    console.log(action.payload);
       return { ...state, colors: action.payload };
 
     case CHANGE_TAGS:

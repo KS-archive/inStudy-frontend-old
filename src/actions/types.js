@@ -8,6 +8,7 @@ export const CHANGE_CARD_DATA = 'CHANGE_CARD_DATA';
 export const CHANGE_SOCIALS = 'CHANGE_SOCIALS';
 export const CHANGE_COLORS = 'CHANGE_COLORS';
 export const CHANGE_TAGS = 'CHANGE_TAGS';
+export const REORDER_MODULES = 'REORDER_MODULES';
 
 export const ADD_MODULE = 'ADD_MODULE';
 export const UPDATE_MODULE = 'UPDATE_MODULE';

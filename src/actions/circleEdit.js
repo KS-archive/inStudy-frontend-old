@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getTokenHeader } from '../js/utils';
-import { CHANGE_LOGO, CHANGE_BACKGROUND, CHANGE_CARD_DATA, CHANGE_SOCIALS, CHANGE_COLORS, CHANGE_TAGS } from './types';
+import { CHANGE_LOGO, CHANGE_BACKGROUND, CHANGE_CARD_DATA, CHANGE_SOCIALS, CHANGE_COLORS, CHANGE_TAGS, REORDER_MODULES } from './types';
 
 export function changeLogo(file, successCallback, errorCallback) {
   const url = `${__ROOT_URL__}api/file/send_logo`;
@@ -102,5 +102,21 @@ export function changeTags(tags, callback) {
         payload: tags.tags,
       });
     });
+  };
+}
+
+export function reorderModules(modules, successCallback, errorCallback) {
+  const url = `${__ROOT_URL__}api/modules_order`;
+  const headers = getTokenHeader();
+  const request = axios.put(url, { modules }, { headers });
+
+  return (dispatch) => {
+    request.then(() => {
+      successCallback();
+      dispatch({
+        type: REORDER_MODULES,
+        payload: modules,
+      });
+    }, () => { errorCallback(); });
   };
 }

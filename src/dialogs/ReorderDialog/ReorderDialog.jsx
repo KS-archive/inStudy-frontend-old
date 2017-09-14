@@ -36,7 +36,6 @@ export default class ReorderDialog extends Component {
 
   handleSubmit = () => {
     this.props.submitFunction(this.state.elements);
-    this.props.closeDialog();
   }
 
   render() {

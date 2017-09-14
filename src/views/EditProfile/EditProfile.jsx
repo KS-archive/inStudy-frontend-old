@@ -14,7 +14,7 @@ import { addNotification } from '../../actions/notifications';
 import { getActiveCircle } from '../../actions/circles';
 import { getCookie, deleteCookie } from '../../js/cookies';
 import { addModule, updateModule, deleteModule } from '../../actions/modules';
-import { changeLogo, changeBackground, changeCardData, changeSocials } from '../../actions/circleEdit';
+import { changeLogo, changeBackground, changeCardData, changeSocials, reorderModules } from '../../actions/circleEdit';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
 
@@ -119,7 +119,6 @@ class EditProfile extends Component {
       () => { this.props.addNotification('Zaktualizowano!', 'Logo zostało zaktualizowane', 'success'); this.closeDialog(); },
       () => { this.props.addNotification('Wystąpił błąd', 'Logo nie zostało zmienione', 'error'); },
     );
-    this.closeDialog();
   }
 
   changeBackground = (value) => {
@@ -128,7 +127,11 @@ class EditProfile extends Component {
   }
 
   reorderModules = (values) => {
-    this.setState({ modules: values });
+    this.props.reorderModules(
+      values,
+      () => { this.props.addNotification('Zaktualizowano!', 'Kolejność modółów została zmieniona', 'success'); this.closeDialog(); },
+      () => { this.props.addNotification('Wystąpił błąd', 'Kolejność modółów nie została zmieniona', 'error'); },
+    );
   }
 
   renderModule = (module, colors) => {
@@ -242,7 +245,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getActiveCircle, addModule, updateModule, deleteModule, changeLogo, changeBackground, changeCardData, changeSocials, addNotification }, dispatch);
+  return bindActionCreators({ getActiveCircle, addModule, updateModule, deleteModule, changeLogo, changeBackground, changeCardData, changeSocials, addNotification, reorderModules }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
