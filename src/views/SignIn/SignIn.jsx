@@ -16,7 +16,7 @@ const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 class SignIn extends PureComponent {
   onSubmit = (values) => {
     const { history, addNotification } = this.props;
-    axios.post('http://localhost:8080/api/user/login', values)
+    axios.post(`${__ROOT_URL__}api/user/login`, values)
       .then((res) => {
         const { token, message } = res.data;
         setCookie('token', token);

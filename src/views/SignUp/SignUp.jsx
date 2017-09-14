@@ -24,7 +24,7 @@ class SignUp extends Component {
   }
 
   onSubmit = (values) => {
-    axios.post('http://localhost:8080/api/user/register', values).then((res) => {
+    axios.post(`${__ROOT_URL__}api/user/register`, values).then((res) => {
       this.props.addNotification('Zarejestrowano', res.data.message, 'success');
       this.props.history.push('/');
     }, ({ response }) => {
