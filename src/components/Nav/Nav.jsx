@@ -23,7 +23,6 @@ class Nav extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { pathname } = nextProps.location;
-    console.log(pathname);
     if (pathname !== this.state.pathname) this.setState({ pathname, logged: getCookie('token') });
   }
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import shuffle from 'lodash/shuffle';
 import omit from 'lodash/omit';
-import isEmpty from 'lodash/isEmpty';
 import ProjectsTile from '../ProjectsTile/ProjectsTile';
 import ProjectDialog from '../../dialogs/ProjectDialog/ProjectDialog';
 import { SectionHeader } from '../../js/globalStyles';

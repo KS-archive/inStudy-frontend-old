@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import without from 'lodash/without';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import validate from '../../../js/validation';
 import socialsList from '../../../js/constants/socials';
 import ImageDialog from '../../ImageDialog/ImageDialog';
 import SocialsDialog from '../../SocialsDialog/SocialsDialog';
+import projectLabels from '../../../js/constants/projectLabels';
 import { getTokenHeader } from '../../../js/utils';
 import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
 import { EditDialog, LabelHeader, Image, ImageOverlay, ImageOptions } from '../../../js/globalStyles';
 import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, SocialsWrapper, Social, AddSocial, GalleryWrapper } from './ProjectDetailsDialog_styles';
+
+const availableLabels = ['Aktualny', 'Archiwalny', 'Otwarty', 'Cykliczny'];
 
 export default class ProjectDetailsDialog extends Component {
   constructor(props) {
@@ -45,6 +50,8 @@ export default class ProjectDetailsDialog extends Component {
   }
 
   handleSubmit = () => { validate(this, this.submit); }
+
+  handleLabelChange = (event, index, labels) => { this.setState({ labels }); };
 
   closeDialog = () => {
     this.setState({
@@ -109,6 +116,16 @@ export default class ProjectDetailsDialog extends Component {
     this.setState({ socials });
   }
 
+  renderLabelsList = () => Object.keys(projectLabels).map(name => (
+    <MenuItem
+      key={name}
+      insetChildren
+      checked={this.state.labels && this.state.labels.indexOf(name) > -1}
+      value={name}
+      primaryText={projectLabels[name].text}
+    />
+  ));
+
   renderSocial = (social, index) => {
     const icon = socialsList[social.id].iconName;
     return (
@@ -140,7 +157,7 @@ export default class ProjectDetailsDialog extends Component {
 
   render() {
     const { closeDialog, sidebar, open } = this.props;
-    const { coverImage, socials, dialogData, dialog, images } = this.state;
+    const { coverImage, socials, dialogData, dialog, images, labels } = this.state;
     const dialogTitle = 'Modyfikuj kafelek projektowy';
     const multilineAttrs = {
       multiLine: true,
@@ -159,6 +176,15 @@ export default class ProjectDetailsDialog extends Component {
       >
         <Container>
           {renderTextField(this, 'Nazwa', 'title')}
+          <SelectField
+            multiple
+            fullWidth
+            floatingLabelText="Tagi"
+            value={labels}
+            onChange={this.handleLabelChange}
+          >
+            {this.renderLabelsList()}
+          </SelectField>
           {renderTextField(this, 'Nagłówek', 'header', true, multilineAttrs)}
           {renderTextField(this, 'Opis szczegółowy', 'description', true, multilineAttrs)}
           <MediaWrapper>
