@@ -71,7 +71,7 @@ export default class MembersTiles extends Component {
 
   render() {
     const { title, rowsLimit, mainColors, color } = this.props;
-    const { showAll, dialog, dialogData } = this.state;
+    const { showAll, dialog, dialogData, noLimit } = this.state;
 
     return (
       <div>
@@ -79,7 +79,7 @@ export default class MembersTiles extends Component {
         <List>
           {this.renderTiles()}
         </List>
-        {(!showAll && rowsLimit !== 0) &&
+        {(!showAll && rowsLimit !== 0 && !noLimit) &&
           <More onClick={() => { this.setState({ showAll: true }); }}>...</More>
         }
         <MembersDialog

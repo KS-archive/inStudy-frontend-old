@@ -40,7 +40,6 @@ export default class ProjectDetailsDialog extends Component {
   }
 
   submit = (values) => {
-    console.log(values);
     this.props.submit(values);
     this.props.closeDialog();
   }
@@ -84,8 +83,6 @@ export default class ProjectDetailsDialog extends Component {
 
       axios.post(url, formData, { headers }).then((data) => {
         const { editingIndex } = this.state;
-        console.log(editingIndex);
-        console.log(data.data.data);
         if (editingIndex === 'cover') {
           this.setState({ coverImage: data.data.data });
         } else {
@@ -121,28 +118,25 @@ export default class ProjectDetailsDialog extends Component {
     );
   }
 
-  renderImage = (image, index) => {
-    console.log(image);
-    return (
-      <Image key={index}>
-        <img src={image} alt="" />
-        <ImageOverlay>
-          <ImageOptions>
-            <i
-              className="fa fa-pencil-square-o"
-              aria-hidden="true"
-              onClick={() => { this.updateImageDialog(image, index); }}
-            />
-            <i
-              className="fa fa-trash-o"
-              aria-hidden="true"
-              onClick={() => { this.deleteImage(image); }}
-            />
-          </ImageOptions>
-        </ImageOverlay>
-      </Image>
-    );
-  }
+  renderImage = (image, index) => (
+    <Image key={index}>
+      <img src={image} alt="" />
+      <ImageOverlay>
+        <ImageOptions>
+          <i
+            className="fa fa-pencil-square-o"
+            aria-hidden="true"
+            onClick={() => { this.updateImageDialog(image, index); }}
+          />
+          <i
+            className="fa fa-trash-o"
+            aria-hidden="true"
+            onClick={() => { this.deleteImage(image); }}
+          />
+        </ImageOptions>
+      </ImageOverlay>
+    </Image>
+  );
 
   render() {
     const { closeDialog, sidebar, open } = this.props;

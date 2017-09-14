@@ -27,7 +27,6 @@ export default class ProfileHeader extends PureComponent {
   render() {
     const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, colors, editable, socials } = this.props;
     const cardEditData = { name, type, category, subcategory, university, city, email, phone, dateCreated, motto };
-    console.log(backgroundImg);
     return (
       <div>
         <Background editable={editable} color={colors[0]} backgroundImage={backgroundImg} />
