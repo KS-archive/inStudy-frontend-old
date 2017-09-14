@@ -124,15 +124,15 @@ export const BottomLine = styled.div`
 `;
 
 export const UniversityLogo = styled.img`
-  max-width: 50px;
+  max-width: 70px;
   max-height: 30px;
   text-indent: -9999px;
   ${media.medium`
-    max-width: 60px;
+    max-width: 80px;
     max-height: 40px;
   `}
   ${media.small`
-    max-width: 70px;
+    max-width: 100px;
     max-height: 45px;
   `}
 `;

@@ -1,5 +1,6 @@
 export const cities = {
   1: {
+    id: '1',
     name: 'Wrocław',
     universities: [
       {
@@ -24,22 +25,27 @@ export const cities = {
 
 export const types = {
   1: {
+    id: '1',
     name: 'Koło Naukowe',
     icon: 'K',
   },
   2: {
+    id: '2',
     name: 'Organizacja',
     icon: 'O',
   },
   3: {
+    id: '3',
     name: 'Fundacja',
     icon: 'F',
   },
   4: {
+    id: '4',
     name: 'Stowarzyszenie',
     icon: 'S',
   },
   5: {
+    id: '5',
     name: 'Inny',
     icon: 'I',
   },
@@ -47,6 +53,7 @@ export const types = {
 
 export const categories = {
   1: {
+    id: '1',
     name: 'Humanistyczne',
     subcategories: [
       {
@@ -80,6 +87,7 @@ export const categories = {
     ],
   },
   2: {
+    id: '2',
     name: 'Medyczne',
     subcategories: [
       {
@@ -105,6 +113,7 @@ export const categories = {
     ],
   },
   3: {
+    id: '3',
     name: 'Przyrodnicze',
     subcategories: [
       {
@@ -162,6 +171,7 @@ export const categories = {
     ],
   },
   4: {
+    id: '4',
     name: 'Społeczne',
     subcategories: [
       {
@@ -215,6 +225,7 @@ export const categories = {
     ],
   },
   5: {
+    id: '5',
     name: 'Sportowe',
     subcategories: [
       {
@@ -244,6 +255,7 @@ export const categories = {
     ],
   },
   6: {
+    id: '6',
     name: 'Sztuka',
     subcategories: [
       {
@@ -273,6 +285,7 @@ export const categories = {
     ],
   },
   7: {
+    id: '7',
     name: 'Ścisłe',
     subcategories: [
       {
@@ -298,6 +311,7 @@ export const categories = {
     ],
   },
   8: {
+    id: '8',
     name: 'Techniczne',
     subcategories: [
       {

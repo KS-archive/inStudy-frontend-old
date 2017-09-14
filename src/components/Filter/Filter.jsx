@@ -32,7 +32,7 @@ class Filter extends PureComponent {
         disabled={!items}
       >
         {items && Object.keys(items).map(key =>
-          <MenuItem key={key} value={key} primaryText={items[key].name} />,
+          <MenuItem key={items[key].id} value={items[key].id} primaryText={items[key].name} />,
         )}
       </SelectField>
     );

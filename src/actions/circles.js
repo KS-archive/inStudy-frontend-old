@@ -6,10 +6,11 @@ import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE } from './types';
 
 export function getCircles(page, limit, query, filters) {
   const queryString = query && `&query=${query}`;
-  console.log(query);
   let filtersDetails = '';
   Object.keys(filters).map((filter) => {
-    filtersDetails += `&${filter}=${filters[filter]}`;
+    if (filters[filter]) {
+      filtersDetails += `&${filter}=${filters[filter]}`;
+    }
   });
   const url = `${__ROOT_URL__}api/circles?page=${page}&limit=${limit}${queryString}${filtersDetails}`;
   console.log(url);

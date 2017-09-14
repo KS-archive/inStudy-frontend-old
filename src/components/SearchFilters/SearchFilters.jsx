@@ -72,31 +72,31 @@ class SearchFilters extends Component {
         <Wrapper>
           <Filters>
             <Filter
-              id={'cities'}
+              id={'city'}
               label="Miasto"
               items={cities}
               changeHandler={(id) => { this.setUniversities(id); }}
             />
             <Filter
-              id={'universities'}
+              id={'university'}
               label="Uczelnia"
               items={universities}
               multiple
             />
             <Filter
-              id={'types'}
+              id={'type'}
               label="Typ aktywności"
               items={types}
               multiple
             />
             <Filter
-              id={'categories'}
+              id={'category'}
               label="Kategoria"
               items={categories}
               changeHandler={(id) => { this.setSubcategories(id); }}
             />
             <Filter
-              id={'subcategories'}
+              id={'subcategory'}
               label="Podkategoria"
               items={subcategories}
               multiple
