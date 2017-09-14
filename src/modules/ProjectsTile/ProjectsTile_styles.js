@@ -14,11 +14,13 @@ export const Container = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(${props => props.backgroundImage});
+  filter: ${props => props.grayScale && 'grayscale(1)'};
   transition: all 0.3s;
 
   &:hover {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.19) 0 10px 30px, rgba(0, 0, 0, 0.23) 0 6px 10px;
+    filter: grayscale(0);
   }
 
   @media (min-width: 1201px) {

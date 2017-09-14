@@ -60,11 +60,13 @@ export default class ProjectsTiles extends Component {
 
   initialize = (props) => {
     const { randomize, content, startGray, rowsLimit } = props;
-    const labels = this.getLabels(content);
+    const elements = randomize ? shuffle(content) : content;
+    const labels = this.getLabels(elements);
+
     this.setState({
       activeLabel: 'wszystkie',
       noLimit: content.length <= 3 * rowsLimit,
-      elements: randomize ? shuffle(content) : content,
+      elements,
       grayScale: startGray,
       labels,
     });
@@ -81,13 +83,13 @@ export default class ProjectsTiles extends Component {
 
   renderTiles = () => {
     const { rowsLimit, mainColors, colors } = this.props;
-    const { labels, activeLabel, showAll, elements } = this.state;
+    const { labels, activeLabel, showAll, elements, grayScale } = this.state;
 
     return labels[activeLabel].map((id, index) => {
       const tile = elements.filter(el => (el.id === id))[0];
       const key = tile.id;
       const openDialog = () => { this.openDialog(key); };
-      const attrs = { key, mainColors, openDialog, labelColors: colors, ...tile };
+      const attrs = { key, mainColors, openDialog, grayScale, labelColors: colors, ...tile };
 
       return (index < rowsLimit * 3 || showAll || !rowsLimit) && <ProjectsTile {...attrs} />;
     });

@@ -11,9 +11,9 @@ export default class ProjectsTile extends PureComponent {
   }
 
   render() {
-    const { coverImage, openDialog, title, labels } = this.props;
+    const { coverImage, openDialog, title, labels, grayScale } = this.props;
     return (
-      <Container backgroundImage={coverImage} onClick={openDialog}>
+      <Container backgroundImage={coverImage} onClick={openDialog} grayScale={grayScale}>
         <Name>{title}</Name>
         <Labels>
           {labels.map(label => this.renderLabel(label))}
