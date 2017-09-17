@@ -1,167 +1,126 @@
 import React, { Component } from 'react';
-import reduxForm from 'redux-form/lib/reduxForm';
-import omit from 'lodash/omit';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'redux-form-material-ui/lib/TextField';
-import SelectField from 'redux-form-material-ui/lib/SelectField';
+import validate from '../../js/validation';
 import { cities, types, categories } from '../../js/constants/filterData';
+import { renderActionButtons } from '../../js/renderHelpers';
 import { changeCardData } from '../../actions/circleEdit';
 import { EditDialog } from '../../js/globalStyles';
-import { StyledField, Form } from './CardEditDialog_styles';
-
-const required = value => (value == null ? 'To pole jest wymagane' : undefined);
+import { inputStyle } from '../../js/constants/styles';
+import { StyledTextField, StyledSelectField, Form } from './CardEditDialog_styles';
 
 class CardEditDialog extends Component {
   constructor(props) {
     super(props);
+    const { name, type, category, subcategory, city, university, email, phone, dateCreated, motto } = this.props.data;
     this.state = {
+      name,
+      type,
+      category,
+      subcategory,
+      city,
+      university,
+      email,
+      phone: phone || undefined,
+      dateCreated: dateCreated || undefined,
+      motto: motto || undefined,
+      errors: {},
       universities: cities[this.props.city].universities,
       subcategories: categories[this.props.category].subcategories,
     };
-    this.initialized = false;
-  }
-
-  componentDidUpdate() {
-    if (!this.initialized) {
-      const { name, email, phone, date, motto, dateCreated } = this.props;
-      const city = this.props.city.toString();
-      const university = this.props.city.toString();
-      const type = this.props.city.toString();
-      const category = this.props.city.toString();
-      const subcategory = this.props.city.toString();
-
-      this.props.initialize({ name, email, phone, date, motto, city, university, type, category, subcategory, dateCreated });
-
-      this.initialized = true;
-    }
-  }
-
-  onSubmit = (values) => {
-    const { changeCardData, closeDialog } = this.props;
-    changeCardData(omit(values, 'date'), closeDialog);
+    this.toValidate = {
+      name: { required: true },
+      type: { required: true },
+      category: { required: true },
+      subcategory: { required: true },
+      city: { required: true },
+      university: { required: true },
+      email: { required: true },
+    };
+    this.values = ['name', 'type', 'category', 'subcategory', 'city', 'university', 'email', 'phone', 'dateCreated', 'motto'];
+    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
   setUniversities = (cityId) => {
-    this.props.change('university', null);
     const universities = cities[cityId].universities;
-    this.setState({ universities });
+    this.setState({ universities, university: undefined });
   }
 
   setSubcategories = (categoryId) => {
-    this.props.change('subcategory', null);
     const subcategories = categories[categoryId].subcategories;
-    this.setState({ subcategories });
+    this.setState({ subcategories, subcategory: undefined });
   }
 
-  makeActivityInfoUpdateHandler = () => {
-    this.activityFormButton.click();
+  submit = (values) => {
+    console.log(this.props);
+    this.props.changeCardData(values, this.props.closeDialog);
   }
 
-  renderTextField(name, label, type, isRequired) {
+  handleSubmit = () => { validate(this, this.submit); }
+
+  renderTextField(name, label) {
+    const { errors } = this.state;
+    const attrs = {
+      floatingLabelText: label,
+      value: this.state[name],
+      onChange: (e) => { this.setState({ [name]: e.target.value }); },
+      errorText: errors[name],
+      ...inputStyle,
+    };
+    return <StyledTextField {...attrs} />;
+  }
+
+  renderSelectField(name, floatingLabelText, items, changeFc = () => {}) {
+    const { errors } = this.state;
+    const onChange = (event, index, value) => {
+      this.setState({ [name]: value }, () => { changeFc(value); });
+    };
+    const value = this.state[name] && this.state[name].toString();
+    const errorText = errors[name];
+    const attrs = { floatingLabelText, errorText, value, onChange, ...inputStyle };
+
     return (
-      <StyledField
-        name={name}
-        type={type}
-        component={TextField}
-        floatingLabelText={label}
-        floatingLabelFocusStyle={{ fontWeight: 500 }}
-        floatingLabelShrinkStyle={{ fontWeight: 900 }}
-        style={{ fontWeight: 500 }}
-        validate={isRequired ? required : null}
-      />
+      <StyledSelectField {...attrs}>
+        {Object.keys(items).map(key => (
+          <MenuItem key={items[key].id} value={items[key].id} primaryText={items[key].name} />
+        ))}
+      </StyledSelectField>
     );
   }
 
-  renderSelectField(name, label, items, changefc) {
-    const fieldAttrs = {
-      name,
-      component: SelectField,
-      floatingLabelText: label,
-      floatingLabelFocusStyle: { fontWeight: 500 },
-      floatingLabelShrinkStyle: { fontWeight: 500 },
-      style: { fontWeight: 500 },
-      onChange: changefc,
-      validate: required,
-    };
-    return (items && items.length !== 0)
-      ? (
-        <StyledField {...fieldAttrs}>
-          {Object.keys(items).map(key =>
-            <MenuItem key={items[key].id} value={items[key].id} primaryText={items[key].name} />)
-          }
-        </StyledField>
-      )
-      : <StyledField {...fieldAttrs} disabled />;
-  }
-
   render() {
-    const { handleSubmit, closeDialog, submitting, pristine, destroy, open, sidebar } = this.props;
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        disabled={pristine || submitting}
-        onTouchTap={() => { closeDialog(); destroy(); }}
-      />,
-      <FlatButton
-        label="Zapisz zmiany"
-        onTouchTap={this.makeActivityInfoUpdateHandler}
-        disabled={submitting}
-        primary
-      />,
-    ];
-
+    const { closeDialog, open, sidebar } = this.props;
+    const { universities, subcategories } = this.state;
     return (
       <EditDialog
         open={open}
-        onRequestClose={() => { closeDialog(); destroy(); }}
-        actions={actions}
+        onRequestClose={closeDialog}
+        actions={this.actions}
         title="Edytuj podstawowe dane"
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
       >
-        <Form onSubmit={handleSubmit(this.onSubmit)}>
-          {this.renderTextField('name', 'Nazwa aktywności', 'text', true)}
+        <Form>
+          {this.renderTextField('name', 'Nazwa aktywności')}
           {this.renderSelectField('type', 'Typ aktywności', types)}
-          {this.renderSelectField('category', 'Kategoria', categories, (e, key) => { this.setSubcategories(key); })}
-          {this.renderSelectField('subcategory', 'Podkategoria', this.state.subcategories)}
-          {this.renderSelectField('city', 'Miasto', cities, (e, key) => { this.setUniversities(key); })}
-          {this.renderSelectField('university', 'Uczelnia', this.state.universities)}
-          {this.renderTextField('email', 'E-mail', 'text', true)}
-          {this.renderTextField('phone', 'Telefon', 'text')}
-          {this.renderTextField('dateCreated', 'Data założenia', 'text')}
-          {this.renderTextField('motto', 'Motto', 'text')}
-          <button style={{ visibility: 'hidden', position: 'fixed' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />
+          {this.renderSelectField('category', 'Kategoria', categories, this.setSubcategories)}
+          {this.renderSelectField('subcategory', 'Podkategoria', subcategories)}
+          {this.renderSelectField('city', 'Miasto', cities, this.setUniversities)}
+          {this.renderSelectField('university', 'Uczelnia', universities)}
+          {this.renderTextField('email', 'E-mail')}
+          {this.renderTextField('phone', 'Telefon')}
+          {this.renderTextField('dateCreated', 'Data założenia')}
+          {this.renderTextField('motto', 'Motto')}
         </Form>
       </EditDialog>
     );
   }
 }
 
-function validate(values) {
-  const errors = {};
-
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Błędny adres email';
-  }
-
-  return errors;
-}
-
-function mapStateToProps(state) {
-  return {
-    selectHelpers: state.selectHelpers,
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ changeCardData }, dispatch);
 }
 
-export default reduxForm({
-  validate,
-  form: 'CardEditDialogForm',
-})(connect(mapStateToProps, mapDispatchToProps)(CardEditDialog));
+export default connect(null, mapDispatchToProps)(CardEditDialog);

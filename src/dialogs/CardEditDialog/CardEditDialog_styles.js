@@ -1,8 +1,19 @@
 import styled from 'styled-components';
-import Field from 'redux-form/lib/Field';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
 import { media } from '../../js/constants/styles';
 
-export const StyledField = styled(Field)`
+export const StyledTextField = styled(TextField)`
+  width: 400px !important;
+  ${media.large`
+    width: 310px !important;
+  `}
+  ${media.medium`
+    width: 420px !important;
+  `}
+`;
+
+export const StyledSelectField = styled(SelectField)`
   width: 400px !important;
   ${media.large`
     width: 310px !important;

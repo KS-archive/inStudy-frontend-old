@@ -6,7 +6,6 @@ import { CircleFlags } from '../../js/constants/circleDetails';
 
 export default class CircleCard extends PureComponent {
   componentWillMount() {
-    console.log(this.props);
     const { city, university, type, category, subcategory } = this.props;
     this.universityName = find(cities[city.toString()].universities, u => u.id === university.toString()).name;
     this.typeName = types[type.toString()].name;

@@ -85,6 +85,10 @@ export const StyledRaisedButton = styled(RaisedButton)`
   &:first-child {
     margin-right: 20px !important;
 
+    @media (max-width: 470px) {
+      margin-right: 30px !important;
+    }
+
     > button > div > div > span {
       color: ${colorPalette.primary2Color} !important;
     }

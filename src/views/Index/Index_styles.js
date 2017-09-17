@@ -6,6 +6,7 @@ export const Container = styled.div`
 
 export const Body = styled.div`
   overflow-x: hidden;
+  overflow-y: hidden;
   min-height: ${props => props.isNormalPath
     ? 'calc(100vh - 60px)'
     : '100vh'};
