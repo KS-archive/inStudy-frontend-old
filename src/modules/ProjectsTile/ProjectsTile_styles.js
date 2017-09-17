@@ -10,17 +10,27 @@ export const Container = styled.div`
   margin-bottom: 30px;
   margin-right: 30px;
   box-shadow: rgba(0, 0, 0, 0.16) 0 3px 10px, rgba(0, 0, 0, 0.23) 0 3px 10px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url(${props => props.backgroundImage});
-  filter: ${props => props.grayScale && 'grayscale(1)'};
   transition: all 0.3s;
 
   &:hover {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.19) 0 10px 30px, rgba(0, 0, 0, 0.23) 0 6px 10px;
-    filter: grayscale(0);
+
+    &::before {
+      filter: grayscale(0);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url("${props => props.backgroundImage}") no-repeat center/cover;
+    filter: ${props => props.grayScale && 'grayscale(1)'};
+    transition: all 0.3s;
   }
 
   @media (min-width: 1201px) {

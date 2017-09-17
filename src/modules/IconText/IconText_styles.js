@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Linkify from 'linkifyjs/react';
 import { colorPalette, media } from '../../js/constants/styles';
 
 export const Wrapper = styled.div`
@@ -45,10 +46,20 @@ export const Title = styled.h3`
   `}
 `;
 
-export const Description = styled.p`
+export const Description = styled(Linkify)`
+  display: inline-block;
   color: ${colorPalette.accent3Color};
   line-height: 1.5;
   ${media.medium`
     font-size: 18px;
   `}
+
+  a {
+    color: ${props => props.linkColor} !important;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
 `;

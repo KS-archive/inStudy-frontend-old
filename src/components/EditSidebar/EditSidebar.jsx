@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import isEqual from 'lodash/isEqual';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -7,13 +8,14 @@ import MainColorsDialog from '../../dialogs/MainColorsDialog/MainColorsDialog';
 import ChangePasswordDialog from '../../dialogs/ChangePasswordDialog/ChangePasswordDialog';
 import { getRandomInt } from '../../js/utils';
 import accesibleModules from '../../js/constants/accesibleModules';
-import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, StyledReactTooltip, SpecialBtn, Icon, Filler, EditIconSet } from './EditSidebar_styles';
+import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, StyledReactTooltip, SpecialBtn, Icon, Filler, EditIconSet, ShadowTop, ShadowBottom } from './EditSidebar_styles';
 
 export default class EditSidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dialog: null,
+      shadows: {},
     };
   }
 
@@ -24,6 +26,19 @@ export default class EditSidebar extends Component {
 
   closeDialog = () => {
     this.setState({ dialog: null });
+  }
+
+  handleScroll = (values) => {
+    const shadows = {};
+
+    if (values.clientHeight !== values.scrollHeight && this.props.sidebar) {
+      shadows.top = (values.top !== 0);
+      shadows.bottom = (values.top !== 1);
+    }
+
+    if (!isEqual(shadows, this.state.shadows)) {
+      this.setState({ shadows });
+    }
   }
 
   renderIcon = (module) => {
@@ -49,23 +64,31 @@ export default class EditSidebar extends Component {
 
   renderModules = (mode) => {
     const { submit, cancel, remove, changeColors } = this.props.modalFunctions;
+    const attrs = {
+      onUpdate: this.handleScroll,
+    };
+
     switch (mode) {
       case 'Moduły':
         return (
-          <Modules>
+          <Modules {...attrs}>
+            {this.state.shadows.top && <ShadowTop />}
             {this.props.modules.map(module => this.renderIcon(module))}
+            {this.state.shadows.bottom && <ShadowBottom />}
           </Modules>
         );
 
       case 'Dodaj moduł':
         return (
-          <Modules>
+          <Modules {...attrs}>
+            {this.state.shadows.top && <ShadowTop />}
             {accesibleModules.map(module => this.renderIcon(module))}
+            {this.state.shadows.bottom && <ShadowBottom />}
           </Modules>
         );
       case 'Edycja modułu':
         return (
-          <Modules>
+          <Modules {...attrs}>
             <IconWrapper>
               <SidebarIcon>
                 <this.props.editingModule />
@@ -85,7 +108,7 @@ export default class EditSidebar extends Component {
         );
       case 'Dodawanie modułu':
         return (
-          <Modules>
+          <Modules {...attrs}>
             <IconWrapper>
               <SidebarIcon>
                 <this.props.editingModule />

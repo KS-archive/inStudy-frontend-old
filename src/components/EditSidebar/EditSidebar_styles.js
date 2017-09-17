@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
-import { colorPalette, media } from '../../js/constants/styles';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { colorPalette, media, navHeight, sidebarWidth } from '../../js/constants/styles';
+
+const titleHeight = 50;
 
 export const Container = styled.div`
   z-index: 2001;
   position: fixed;
-  top: 60px;
-  left: ${props => props.open ? 0 : '-120px'};
-  width: 120px;
-  height: 100vh;
+  top: ${navHeight}px;
+  left: ${props => props.open ? 0 : `-${sidebarWidth}px`};
+  width: ${sidebarWidth}px;
+  height: calc(100vh - ${navHeight}px);
   background-color: ${colorPalette.primary2Color};
   box-shadow: rgba(0, 0, 0, 0.16) 0 3px 10px, rgba(0, 0, 0, 0.23) 0 3px 10px;
   transition: all 0.3s linear;
@@ -25,8 +28,8 @@ export const Container = styled.div`
 export const ContainerArrow = styled.div`
   z-index: 0;
   position: fixed;
-  top: 100px;
-  left: 120px;
+  top: ${navHeight + 40}px;
+  left: ${sidebarWidth}px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,72 +51,65 @@ export const ContainerArrow = styled.div`
 `;
 
 export const Wrapper = styled.div`
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 20px 15px;
 `;
 
 export const Title = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 15px;
+  box-sizing: border-box;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  width: 100%;
-  height: 50px;
-  font-size: 18px;
+  height: ${titleHeight}px;
+  padding: 0 10px;
+  font-size: 15px;
+  font-weight: 500;
   line-height: 1.3;
   text-transform: uppercase;
   text-align: center;
   color: #fff;
 `;
 
-export const Modules = styled.div`
-  overflow-y: scroll;
-  overflow-x: hidden;
+export const Modules = styled(Scrollbars)`
+  position: relative;
+  top: ${titleHeight + 15}px;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-height: calc(100vh - 310px);
-  margin: 20px 0;
+  height: calc(100vh - ${navHeight}px - ${titleHeight}px - 140px) !important;
+  width: ${sidebarWidth - 20}px !important;
 
-  &::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-color: trensparent;
-  }
-
-  &::-webkit-scrollbar {
-    width: 8px;
-    background-color: trensparent;
-    transition: all 0.3s;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: rgba(#fff, 0.2);
-    transition: all 0.3s;
-
-    &:hover {
-      background-color: rgba(#fff, 0.8);
-    }
+  > div {
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 `;
 
 export const IconWrapper = styled.div`
-  position: relative;
-  left: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 60px;
-  max-height: 60px;
-  min-width: 60px;
-  min-height: 60px;
+  max-width: 55px;
+  max-height: 55px;
+  min-width: 55px;
+  min-height: 55px;
   border-radius: 100%;
-  margin-bottom: 30px;
+  margin-top: 15px;
   background-color: #fff;
   font-size: 24px;
   color: ${colorPalette.primary2Color};
@@ -121,7 +117,7 @@ export const IconWrapper = styled.div`
   transition: all 0.3s;
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 20px;
   }
 
   &:hover {
@@ -132,15 +128,13 @@ export const IconWrapper = styled.div`
 
 export const SidebarIcon = styled.div`
   > svg {
-    max-width: 30px;
-    max-height: 30px;
+    max-width: 24px;
+    max-height: 24px;
     fill: ${colorPalette.primary2Color};
   }
 `;
 
 export const EditIconSet = styled.div`
-  position: relative;
-  left: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,12 +147,17 @@ export const EditIconSet = styled.div`
 `;
 
 export const BottomIcons = styled.div`
-  position: relative;
-  bottom: 70px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: auto;
+
+  button {
+    padding: 0 !important;
+  }
 `;
 
 export const StyledReactTooltip = styled(ReactTooltip)`
@@ -168,7 +167,7 @@ export const StyledReactTooltip = styled(ReactTooltip)`
 `;
 
 export const SpecialBtn = styled.i`
-  font-size: 36px;
+  font-size: 30px;
   color: #fff;
   transition: all 0.3s;
 
@@ -178,7 +177,7 @@ export const SpecialBtn = styled.i`
 `;
 
 export const Icon = styled.i`
-  margin-top: 20px;
+  margin-top: 15px !important;
   font-size: 30px;
   color: #fff;
   transition: all 0.3s;
@@ -205,4 +204,23 @@ export const Filler = styled.div`
   ${media.small`
     display: none;
   `}
+`;
+
+export const ShadowTop = styled.div`
+  z-index: -1;
+  position: fixed;
+  left: 15px;
+  height: 10px;
+  width: 80px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+`;
+
+export const ShadowBottom = styled.div`
+  z-index: -1;
+  position: fixed;
+  bottom: 120px;
+  left: 15px;
+  height: 10px;
+  width: 80px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
 `;

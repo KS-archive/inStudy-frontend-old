@@ -8,7 +8,7 @@ export default class IconText extends PureComponent {
       <Element key={title}>
         <Icon className={`fa fa-${icon}`} color={iconColor} />
         <Title>{title}</Title>
-        <Description>{description}</Description>
+        <Description linkColor={iconColor}>{description}</Description>
       </Element>
     ));
 

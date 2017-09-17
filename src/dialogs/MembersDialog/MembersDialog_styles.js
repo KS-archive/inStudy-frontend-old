@@ -17,7 +17,8 @@ export const StyledDialog = styled(Dialog)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px !important;
+    padding: 50px !important;
+    border-radius: 2px;
     background-color: #fff;
     ${media.small`
       padding: 20px !important;
@@ -76,8 +77,14 @@ export const Line = styled.div`
 export const Description = styled.p`
   display: ${props => !props.display && 'none'};
   font-size: 18px;
+  text-align: center;
   line-height: 1.3;
   color: ${colorPalette.accent3Color};
+
+  span:not(:last-child) {
+    display: block;
+    padding-bottom: 10px;
+  }
 `;
 
 export const Socials = styled.div`

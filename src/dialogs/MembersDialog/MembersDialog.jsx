@@ -3,6 +3,8 @@ import socialsList from '../../js/constants/socials';
 import { StyledDialog, Image, Name, Role, Line, Description, Socials, SocialCircle } from './MembersDialog_styles';
 
 export default class MembersDialog extends Component {
+  parseNewLine = text => text && text.split('\n').map((item, i) => <span key={i}>{item}<br /></span>);
+
   renderSocials = () => this.props.socials.map((social, index) => {
     const icon = socialsList[social.id].iconName;
     return (
@@ -24,8 +26,8 @@ export default class MembersDialog extends Component {
         <Image src={coverImage} />
         <Name>{`${firstname} ${surname}`}</Name>
         <Role display={role} color={color}>{role}</Role>
-        <Line display={socials && socials.length !== 0 && description} />
-        <Description display={description}>{description}</Description>
+        <Line display={(socials && socials.length) !== 0 || description} />
+        <Description display={description}>{this.parseNewLine(description)}</Description>
         {(socials && socials.length !== 0) &&
           <Socials>{this.renderSocials()}</Socials>
         }

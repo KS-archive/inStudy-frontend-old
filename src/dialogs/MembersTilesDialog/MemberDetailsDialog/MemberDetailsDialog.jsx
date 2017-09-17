@@ -110,7 +110,7 @@ export default class MemberDetailsDialog extends Component {
         open={open}
         onRequestClose={closeDialog}
         actions={this.actions}
-        title="Edytuj element galerii"
+        title="Edytuj kafelek osobowy"
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}
@@ -119,7 +119,7 @@ export default class MemberDetailsDialog extends Component {
           {renderTextField(this, 'Imię', 'firstname')}
           {renderTextField(this, 'Nazwisko', 'surname')}
           {renderTextField(this, 'Rola', 'role')}
-          {renderTextField(this, 'Opis', 'description')}
+          {renderTextField(this, 'Opis', 'description', true, { multiLine: true })}
           <MediaWrapper>
             <MediaElement>
               <LabelHeader>Zdjęcie</LabelHeader>

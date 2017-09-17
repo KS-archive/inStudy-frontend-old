@@ -69,3 +69,6 @@ export const media = {
     }
   `,
 };
+
+export const navHeight = 60;
+export const sidebarWidth = 110;
