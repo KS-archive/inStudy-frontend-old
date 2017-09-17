@@ -7,13 +7,30 @@ import { Background, BackgroundEditIcon, Card, CardEditIcon, MainData, LogoConta
 
 export default class ProfileHeader extends PureComponent {
   componentWillMount() {
-    const { city, university, type, category, subcategory } = this.props;
-    this.cityName = cities[city.toString()].name;
-    this.universityName = find(cities[city.toString()].universities, u => u.id === university.toString()).name;
-    this.typeName = types[type.toString()].name;
-    this.categoryName = categories[category.toString()].name;
-    this.subcategoryName = find(categories[category.toString()].subcategories, s => s.id === subcategory.toString()).name;
+    this.initialize(this.props);
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.initialize(nextProps);
+  }
+
+  initialize = (props) => {
+    const { city, university, type, category, subcategory } = props;
+    this.setState({
+      cityName: this.decodeId(cities, city),
+      universityName: this.findAndDecodeId(cities, city, 'universities', university),
+      typeName: this.decodeId(types, type),
+      categoryName: this.decodeId(categories, category),
+      subcategoryName: this.findAndDecodeId(categories, category, 'subcategories', subcategory),
+    });
+  }
+
+  decodeId = (arr, id) => arr[id.toString()].name;
+
+  findAndDecodeId = (arr, id, name, id2) =>
+    find(arr[id.toString()][name],
+      u => u.id === id2.toString(),
+    ).name;
 
   renderSocials = socialsObj => map(socialsObj, (social, index) => {
     const icon = socialsList[social.id].iconName;
@@ -26,6 +43,7 @@ export default class ProfileHeader extends PureComponent {
 
   render() {
     const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, colors, editable, socials } = this.props;
+    const { cityName, universityName, typeName, categoryName, subcategoryName } = this.state;
     const cardEditData = { name, type, category, subcategory, university, city, email, phone, dateCreated, motto };
 
     return (
@@ -58,18 +76,18 @@ export default class ProfileHeader extends PureComponent {
             <DataContainer>
               <CircleName>{name}</CircleName>
               <Labels>
-                <Label style={{ backgroundColor: colors[0] }}>{this.typeName}</Label>
-                <Label style={{ backgroundColor: colors[2] }}>{this.categoryName}</Label>
-                <Label style={{ backgroundColor: colors[2] }}>{this.subcategoryName}</Label>
+                <Label style={{ backgroundColor: colors[0] }}>{typeName}</Label>
+                <Label style={{ backgroundColor: colors[2] }}>{categoryName}</Label>
+                <Label style={{ backgroundColor: colors[2] }}>{subcategoryName}</Label>
               </Labels>
               <TextContainer>
                 <TextRow>
                   <Name>Uczelnia</Name>
-                  <Value>{this.universityName}</Value>
+                  <Value>{universityName}</Value>
                 </TextRow>
                 <TextRow>
                   <Name>Miasto</Name>
-                  <Value>{this.cityName}</Value>
+                  <Value>{cityName}</Value>
                 </TextRow>
                 <TextRow>
                   <Name>E-mail</Name>

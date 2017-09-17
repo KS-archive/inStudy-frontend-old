@@ -6,6 +6,7 @@ import validate from '../../js/validation';
 import { cities, types, categories } from '../../js/constants/filterData';
 import { renderActionButtons } from '../../js/renderHelpers';
 import { changeCardData } from '../../actions/circleEdit';
+import { addNotification } from '../../actions/notifications';
 import { EditDialog } from '../../js/globalStyles';
 import { inputStyle } from '../../js/constants/styles';
 import { StyledTextField, StyledSelectField, Form } from './CardEditDialog_styles';
@@ -53,8 +54,11 @@ class CardEditDialog extends Component {
   }
 
   submit = (values) => {
-    console.log(this.props);
-    this.props.changeCardData(values, this.props.closeDialog);
+    this.props.changeCardData(
+      values,
+      () => { this.props.addNotification('Zaktualizowano!', 'Podstawowe dane koła zostały zmienione', 'success'); this.props.closeDialog(); this.props.renderCircle(); },
+      () => { this.props.addNotification('Wystąpił błąd', 'Podstawowe dane koła nie zostały zmienione', 'error'); },
+    );
   }
 
   handleSubmit = () => { validate(this, this.submit); }
@@ -120,7 +124,7 @@ class CardEditDialog extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ changeCardData }, dispatch);
+  return bindActionCreators({ changeCardData, addNotification }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(CardEditDialog);

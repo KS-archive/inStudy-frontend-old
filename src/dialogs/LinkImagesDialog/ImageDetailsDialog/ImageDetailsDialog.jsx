@@ -88,7 +88,7 @@ export default class ImageDetailsDialog extends Component {
             closeDialog={this.closeDialog}
             width={266}
             height={150}
-            maxSize={200000}
+            maxSize={300000}
             title="Modyfikuj zdjęcie"
             data={src}
             sidebar={sidebar}

@@ -15,15 +15,13 @@ const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
 class SignIn extends PureComponent {
   onSubmit = (values) => {
-    const { history, addNotification } = this.props;
     axios.post(`${__ROOT_URL__}api/user/login`, values)
       .then((res) => {
-        const { token, message } = res.data;
-        setCookie('token', token);
-        history.push('/inicjatywy/edit');
-        addNotification('Zalogowano', message, 'success');
-      }, ({ response }) => {
-        addNotification('Wystąpił błąd', response.data.message, 'error');
+        setCookie('token', res.data.token);
+        this.props.history.push('/inicjatywy/edit');
+        this.props.addNotification('Zalogowano', 'Zostałeś zalogowany', 'success');
+      }, () => {
+        this.props.addNotification('Wystąpił błąd', 'Podano nieprawidłowy e-mail lub hasło', 'error');
       });
   }
 

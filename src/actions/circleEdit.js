@@ -21,7 +21,7 @@ export function changeLogo(file, successCallback, errorCallback) {
   };
 }
 
-export function changeBackground(file) {
+export function changeBackground(file, successCallback, errorCallback) {
   const url = `${__ROOT_URL__}api/file/send_background`;
   let headers = getTokenHeader();
   headers = { ...headers, 'content-type': 'multipart/form-data' };
@@ -31,30 +31,29 @@ export function changeBackground(file) {
 
   return (dispatch) => {
     request.then((data) => {
-      console.log(data);
+      successCallback();
       dispatch({
         type: CHANGE_BACKGROUND,
         payload: data.data.data,
       });
-    });
+    }, () => { errorCallback(); });
   };
 }
 
-export function changeCardData(newData, callback) {
+export function changeCardData(newData, successCallback, errorCallback) {
   const url = `${__ROOT_URL__}api/edit/basics`;
   const headers = getTokenHeader();
   console.log(newData);
   const request = axios.put(url, newData, { headers });
 
   return (dispatch) => {
-    request.then((data) => {
-      console.log(data);
+    request.then(() => {
+      successCallback();
       dispatch({
         type: CHANGE_CARD_DATA,
         payload: newData,
       });
-      callback();
-    });
+    }, () => { errorCallback(); });
   };
 }
 

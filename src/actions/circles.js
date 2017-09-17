@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getTokenHeader } from '../js/utils';
-import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE } from './types';
+import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, REMOVE_ACTIVE_CIRCLE, REMOVE_PUBLIC_CIRCLE } from './types';
 // import circle from '../reducers/activeCircle_reducer(mock)';
 // import circles from '../reducers/circles_reducer(mock)';
 
@@ -51,6 +51,13 @@ export function getActiveCircle(errorCallback) {
   // };
 }
 
+export function removeActiveCircle() {
+  return {
+    type: REMOVE_ACTIVE_CIRCLE,
+    payload: {},
+  };
+}
+
 export function getPublicCircle(circleURL) {
   const url = `${__ROOT_URL__}api/circle?circle=${circleURL}`;
   const request = axios.get(url);
@@ -67,4 +74,11 @@ export function getPublicCircle(circleURL) {
   //   type: FETCH_PUBLIC_CIRCLE,
   //   payload: circle,
   // };
+}
+
+export function removePublicCircle() {
+  return {
+    type: REMOVE_PUBLIC_CIRCLE,
+    payload: {},
+  };
 }

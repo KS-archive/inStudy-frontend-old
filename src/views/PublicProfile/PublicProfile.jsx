@@ -5,13 +5,17 @@ import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import accessibleModules from '../../js/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
-import { getPublicCircle } from '../../actions/circles';
+import { getPublicCircle, removePublicCircle } from '../../actions/circles';
 import { MainContainer } from '../../js/globalStyles';
 import { Container, Wrapper } from './PublicProfile_styles';
 
 class PublicProfile extends PureComponent {
   componentWillMount() {
     this.props.getPublicCircle(this.props.match.params.url);
+  }
+
+  componentWillUnmount() {
+    this.props.removePublicCircle();
   }
 
   renderModule = (module, colors) => {
@@ -50,7 +54,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getPublicCircle }, dispatch);
+  return bindActionCreators({ getPublicCircle, removePublicCircle }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublicProfile);

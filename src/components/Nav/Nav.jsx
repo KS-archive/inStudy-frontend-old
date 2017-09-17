@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
 import { withRouter } from 'react-router';
 import MenuItem from 'material-ui/MenuItem';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
+import { removeActiveCircle } from '../../actions/circles';
 import { getCookie, deleteCookie } from '../../js/cookies';
 import { Header, AppLogo, LoggedUser, UserLogo, IconMenu } from './Nav_styles';
 
@@ -36,6 +39,8 @@ class Nav extends Component {
 
   logout = () => {
     deleteCookie('token');
+    this.props.removeActiveCircle();
+    this.setState({ logged: false });
     this.props.history.push('/');
   }
 
@@ -101,4 +106,10 @@ class Nav extends Component {
   }
 }
 
-export default withRouter(Nav);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ removeActiveCircle }, dispatch);
+}
+
+export default withRouter(
+  connect(null, mapDispatchToProps)(Nav),
+);

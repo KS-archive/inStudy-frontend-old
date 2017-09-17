@@ -148,7 +148,7 @@ export default class ProjectsTilesDialog extends Component {
       data: dialogData,
     };
     const colorNames = ['Aktywny filtr', 'Filtr „Aktualne”', 'Filtr „Archiwalne”', 'Filtr „Otwarte”', 'Filtr „Cykliczne”'];
-    const dialogTitle = this.isEditModal ? 'Edytuj moduł „Kafelki projektowe' : 'Dodaj moduł „Kafelki projektowe';
+    const dialogTitle = this.isEditModal ? 'Edytuj moduł „Kafelki projektowe”' : 'Dodaj moduł „Kafelki projektowe”';
 
     return (
       <EditDialog

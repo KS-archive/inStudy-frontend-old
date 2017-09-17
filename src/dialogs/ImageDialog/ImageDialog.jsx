@@ -1,32 +1,24 @@
 import React, { Component } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
-import FlatButton from 'material-ui/FlatButton';
 import ReactTooltip from 'react-tooltip';
 import DropzoneField from './DropzoneField/DropzoneField';
+import { renderActionButtons } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
 import { Form, InfoIcon } from './ImageDialog_styles';
 
 class ImageDialog extends Component {
+  actions = renderActionButtons(
+    () => { this.props.closeDialog(); this.props.destroy(); },
+    () => { this.makeActivityInfoUpdateHandler(); },
+  );
+
   makeActivityInfoUpdateHandler = () => {
     this.activityFormButton.click();
   }
 
   render() {
-    const { handleSubmit, closeDialog, submitting, pristine, destroy, open, sidebar, data, title, width, height, maxSize } = this.props;
-    const actions = [
-      <FlatButton
-        label="Anuluj"
-        disabled={pristine || submitting}
-        onTouchTap={() => { closeDialog(); destroy(); }}
-      />,
-      <FlatButton
-        label="Zapisz"
-        onTouchTap={this.makeActivityInfoUpdateHandler}
-        disabled={submitting}
-        primary
-      />,
-    ];
+    const { handleSubmit, closeDialog, destroy, open, sidebar, data, title, width, height, maxSize } = this.props;
     const tooltip = `
       <p style="font-weight: 500; margin-bottom: 5px;">Wymiary na stronie:</p>
       <p>${width} x ${height} px</p>
@@ -34,12 +26,13 @@ class ImageDialog extends Component {
       <p style="font-weight: 500; margin-bottom: 5px;">Maksymalny rozmiar:</p>
       <p>${maxSize / 1000} KB</p>
     `;
+    console.log(this.actions);
 
     return (
       <EditDialog
         open={open}
         onRequestClose={() => { closeDialog(); destroy(); }}
-        actions={actions}
+        actions={this.actions}
         title={title}
         autoScrollBodyContent
         repositionOnUpdate={false}

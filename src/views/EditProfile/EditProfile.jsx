@@ -11,7 +11,7 @@ import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import { addNotification } from '../../actions/notifications';
-import { getActiveCircle } from '../../actions/circles';
+import { getActiveCircle, removeActiveCircle } from '../../actions/circles';
 import { getCookie, deleteCookie } from '../../js/cookies';
 import { addModule, updateModule, deleteModule } from '../../actions/modules';
 import { changeLogo, changeBackground, changeCardData, changeSocials, reorderModules } from '../../actions/circleEdit';
@@ -37,15 +37,7 @@ class EditProfile extends Component {
   }
 
   componentWillMount() {
-    if (getCookie('token')) {
-      this.props.getActiveCircle(() => {
-        this.props.addNotification('Wylogowano', 'Zostałeś wylogowany ze względu na długi brak aktywności na koncie', 'info');
-        this.logout();
-      });
-    } else {
-      this.props.addNotification('Wystąpił błąd', 'Nie udało nam się odnaleźć Twojego konta. Spróbuj zalogować się ponownie', 'error');
-      this.logout();
-    }
+    this.renderCircle();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -62,6 +54,7 @@ class EditProfile extends Component {
 
   logout = () => {
     deleteCookie('token');
+    this.props.removeActiveCircle();
     this.props.history.push('/');
   }
 
@@ -116,14 +109,17 @@ class EditProfile extends Component {
   changeLogo = (value) => {
     this.props.changeLogo(
       value.image[0],
-      () => { this.props.addNotification('Zaktualizowano!', 'Logo zostało zaktualizowane', 'success'); this.closeDialog(); },
+      () => { this.props.addNotification('Zaktualizowano!', 'Logo zostało zaktualizowane', 'success'); this.closeDialog(); this.renderCircle(); },
       () => { this.props.addNotification('Wystąpił błąd', 'Logo nie zostało zmienione', 'error'); },
     );
   }
 
   changeBackground = (value) => {
-    this.props.changeBackground(value.image[0]);
-    this.closeDialog();
+    this.props.changeBackground(
+      value.image[0],
+      () => { this.props.addNotification('Zaktualizowano!', 'Zdjęcie w tle zostało zaktualizowane', 'success'); this.closeDialog(); this.renderCircle(); },
+      () => { this.props.addNotification('Wystąpił błąd', 'Zdjęcie w tle nie zostało zmienione', 'error'); },
+    );
   }
 
   reorderModules = (values) => {
@@ -132,6 +128,18 @@ class EditProfile extends Component {
       () => { this.props.addNotification('Zaktualizowano!', 'Kolejność modółów została zmieniona', 'success'); this.closeDialog(); },
       () => { this.props.addNotification('Wystąpił błąd', 'Kolejność modółów nie została zmieniona', 'error'); },
     );
+  }
+
+  renderCircle = () => {
+    if (getCookie('token')) {
+      this.props.getActiveCircle(() => {
+        this.props.addNotification('Wylogowano', 'Zostałeś wylogowany ze względu na długi brak aktywności na koncie', 'info');
+        this.logout();
+      });
+    } else {
+      this.props.addNotification('Wystąpił błąd', 'Nie udało nam się odnaleźć Twojego konta. Spróbuj zalogować się ponownie', 'error');
+      this.logout();
+    }
   }
 
   renderModule = (module, colors) => {
@@ -197,7 +205,7 @@ class EditProfile extends Component {
           </MainContainer>
           {(dialog === 'card') &&
           <CardEditDialog
-            fetchCircle={this.props.getActiveCircle}
+            renderCircle={this.renderCircle}
             {...dialogData}
             {...moduleData}
           />
@@ -208,7 +216,7 @@ class EditProfile extends Component {
               submitFunction={this.changeLogo}
               width={310}
               height={310}
-              maxSize={100000}
+              maxSize={200000}
               title="Edytuj logo"
               {...moduleData}
             />
@@ -218,7 +226,7 @@ class EditProfile extends Component {
               submitFunction={this.changeBackground}
               width={1920}
               height={540}
-              maxSize={200000}
+              maxSize={400000}
               title="Edytuj zdjęcie w tle"
               {...moduleData}
             />
@@ -248,7 +256,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getActiveCircle, addModule, updateModule, deleteModule, changeLogo, changeBackground, changeCardData, changeSocials, addNotification, reorderModules }, dispatch);
+  return bindActionCreators({ getActiveCircle, addModule, updateModule, deleteModule, changeLogo, changeBackground, changeCardData, changeSocials, addNotification, reorderModules, removeActiveCircle }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

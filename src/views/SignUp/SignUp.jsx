@@ -28,7 +28,11 @@ class SignUp extends Component {
       this.props.addNotification('Zarejestrowano', res.data.message, 'success');
       this.props.history.push('/');
     }, ({ response }) => {
-      this.props.addNotification('Wystąpił błąd', response.data.message, 'error');
+      if (response.status === 409) {
+        this.props.addNotification('Wystąpił błąd', 'Podany e-mail już znajduje się w naszej bazie', 'error');
+      } else {
+        this.props.addNotification('Wystąpił błąd', response.data.message, 'error');
+      }
     });
   }
 
@@ -98,7 +102,7 @@ class SignUp extends Component {
             {this.renderSelectField('type', 'Typ aktywności', types)}
             {this.renderSelectField('category', 'Kategoria', categories, (e, key) => { this.setSubcategories(key); })}
             {this.renderSelectField('subcategory', 'Podkategoria', this.state.subcategories)}
-            {this.renderTextField('tags', 'Tagi')}
+            {this.renderTextField('tags', 'Tagi (oddzielone przecinkami)')}
             <ButtonContainer>
               <StyledRaisedButton
                 label="Zarejestruj się"
