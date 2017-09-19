@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { getTokenHeader } from '../js/utils';
 import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, REMOVE_ACTIVE_CIRCLE, REMOVE_PUBLIC_CIRCLE } from './types';
-// import circle from '../reducers/activeCircle_reducer(mock)';
-// import circles from '../reducers/circles_reducer(mock)';
 
 export function getCircles(page, limit, query, filters) {
   const queryString = query && `&query=${query}`;
@@ -13,22 +11,16 @@ export function getCircles(page, limit, query, filters) {
     }
   });
   const url = `${__ROOT_URL__}api/circles?page=${page}&limit=${limit}${queryString}${filtersDetails}`;
-  console.log(url);
   const request = axios.get(url);
 
   return (dispatch) => {
     request.then(({ data }) => {
-      console.log(data);
       dispatch({
         type: GET_CIRCLES,
         payload: data,
       });
     });
   };
-  // return {
-  //   type: GET_CIRCLES,
-  //   payload: circles,
-  // };
 }
 
 export function getActiveCircle(errorCallback) {
@@ -38,17 +30,12 @@ export function getActiveCircle(errorCallback) {
 
   return (dispatch) => {
     request.then(({ data }) => {
-      console.log(data);
       dispatch({
         type: FETCH_ACTIVE_CIRCLE,
         payload: data.user,
       });
     }, () => { errorCallback(); });
   };
-  // return {
-  //   type: FETCH_ACTIVE_CIRCLE,
-  //   payload: circle,
-  // };
 }
 
 export function removeActiveCircle() {
@@ -70,10 +57,6 @@ export function getPublicCircle(circleURL) {
       });
     });
   };
-  // return {
-  //   type: FETCH_PUBLIC_CIRCLE,
-  //   payload: circle,
-  // };
 }
 
 export function removePublicCircle() {

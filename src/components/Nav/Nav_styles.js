@@ -17,9 +17,6 @@ export const Header = styled.div`
   background-color: ${props => props.transparent
     ? 'rgba(0, 0, 0, 0)'
     : colorPalette.primary2Color};
-  box-shadow: ${props => props.transparent
-    ? 'none'
-    : '0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.27)'};
   margin-top: ${props => props.transparent && '30px'};
 
   @media (max-width: 500px) {

@@ -3,12 +3,15 @@ import { Container, Content, MainNumber, Description, Button } from './Error404_
 
 export default class Error404 extends Component {
   render() {
-    return(
+    return (
       <Container>
         <Content>
           <MainNumber>404</MainNumber>
           <Description>Strona o podanym adresie nie istnieje</Description>
-          <Button label="Powrót na stronę główną"></Button>
+          <Button
+            label="Powrót na stronę główną"
+            onClick={() => { this.props.history.push('/'); }}
+          />
         </Content>
       </Container>
     );

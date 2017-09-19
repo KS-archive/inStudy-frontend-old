@@ -8,7 +8,7 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
 import { removeActiveCircle } from '../../actions/circles';
 import { getCookie, deleteCookie } from '../../js/cookies';
-import { Header, AppLogo, LoggedUser, UserLogo, IconMenu } from './Nav_styles';
+import { Header, AppLogo, IconMenu } from './Nav_styles';
 
 class Nav extends Component {
   constructor(props) {
@@ -31,7 +31,6 @@ class Nav extends Component {
   }
 
   handleRoute = (e, value) => {
-    console.log(value);
     if (value === 'wyloguj') {
       this.logout();
     } else {
@@ -59,28 +58,9 @@ class Nav extends Component {
     return null;
   }
 
-  // renderUserLogo() {
-  //   const path = this.state.pathname;
-  //   (path !== '/'
-  //   && path !== '/rejestracja'
-  //   && path !== '/logowanie'
-  //   && !path.includes('/odzyskiwanie_hasla')
-  //   && !path.includes('/potwierdz_email'))
-  //   && (
-  //     <LoggedUser>
-  //       <UserLogo src="http://via.placeholder.com/100x100" alt="to replace" />
-  //     </LoggedUser>
-  //     );
-  // }
-
   render() {
     const { logged, pathname } = this.state;
-    const transparentMode = (
-      pathname === '/'
-      || ((pathname === '/rejestracja'
-      || pathname === '/logowanie'
-      || pathname.includes('/odzyskiwanie_hasla')
-      || pathname.includes('/potwierdz_email'))));
+    const transparentMode = (pathname === '/');
     const menuAttrs = {
       iconButtonElement: (
         <IconButton iconStyle={{ minWidth: 30, minHeight: 30, marginTop: -2 }}>
@@ -91,7 +71,7 @@ class Nav extends Component {
       targetOrigin: { horizontal: 'right', vertical: 'top' },
       onChange: this.handleRoute,
       value: this.state.pathname,
-    }
+    };
 
     return (
       <div>
@@ -101,7 +81,7 @@ class Nav extends Component {
           <MediaQuery minDeviceWidth={701}>
             <IconMenu {...menuAttrs}>
               <MenuItem primaryText="Strona główna" value="/" />
-              <MenuItem primaryText="Lista kół" value="/inicjatywy" />
+              <MenuItem primaryText="Lista inicjatyw" value="/inicjatywy" />
               {!logged && <MenuItem primaryText="Zaloguj się" value="/logowanie" />}
               {!logged && <MenuItem primaryText="Zarejestruj się" value="/rejestracja" />}
               {logged && <MenuItem primaryText="Edytuj profil" value="/inicjatywy/edit" />}

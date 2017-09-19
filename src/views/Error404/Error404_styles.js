@@ -24,13 +24,23 @@ export const Content = styled.div`
 export const MainNumber = styled.h1`
   font-size: 300px;
   font-weight: 300;
+
+  @media (max-width: 600px) {
+    font-size: 150px;
+  }
 `;
 
 export const Description = styled.p`
   margin-bottom: 60px;
+  padding: 0 20px;
   font-size: 32px;
   line-height: 1.3;
   font-weight: 300;
+  text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 24px;
+  }
 `;
 
 export const Button = styled(RaisedButton)`
@@ -40,7 +50,6 @@ export const Button = styled(RaisedButton)`
   align-items: center;
   width: 300px;
   font-weight: 500;
-
   border: 1px solid #fff !important;
   box-shadow: none !important;
   background-color: transparent !important;

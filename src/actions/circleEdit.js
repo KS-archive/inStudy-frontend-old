@@ -43,7 +43,6 @@ export function changeBackground(file, successCallback, errorCallback) {
 export function changeCardData(newData, successCallback, errorCallback) {
   const url = `${__ROOT_URL__}api/edit/basics`;
   const headers = getTokenHeader();
-  console.log(newData);
   const request = axios.put(url, newData, { headers });
 
   return (dispatch) => {

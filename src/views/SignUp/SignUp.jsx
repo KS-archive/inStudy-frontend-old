@@ -98,8 +98,8 @@ class SignUp extends Component {
             {this.renderTextField('password2', 'Powtórz hasło', 'password')}
             {this.renderSelectField('city', 'Miasto', cities, (e, key) => { this.setUniversities(key); })}
             {this.renderSelectField('university', 'Uczelnia', this.state.universities)}
-            {this.renderTextField('name', 'Nazwa aktywności', 'text')}
-            {this.renderSelectField('type', 'Typ aktywności', types)}
+            {this.renderTextField('name', 'Nazwa inicjatywy', 'text')}
+            {this.renderSelectField('type', 'Typ inicjatywy', types)}
             {this.renderSelectField('category', 'Kategoria', categories, (e, key) => { this.setSubcategories(key); })}
             {this.renderSelectField('subcategory', 'Podkategoria', this.state.subcategories)}
             {this.renderTextField('tags', 'Tagi (oddzielone przecinkami)')}

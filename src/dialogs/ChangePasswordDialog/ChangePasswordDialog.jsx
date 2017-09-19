@@ -28,12 +28,10 @@ export default class ChangePasswordDialog extends Component {
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    console.log(values);
     const url = `${__ROOT_URL__}api/user/password`;
     const headers = getTokenHeader();
     axios.put(url, values, { headers }).then(
       (data) => {
-        console.log(data);
         // TODO: Zrobic notyfikacje
         this.props.closeDialog();
       }, (err) => {

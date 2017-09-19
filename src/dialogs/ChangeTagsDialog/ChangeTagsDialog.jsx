@@ -36,7 +36,6 @@ class ChangeTagsDialog extends Component {
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    console.log(values);
     this.props.changeTags(values, this.props.closeDialog);
   }
 

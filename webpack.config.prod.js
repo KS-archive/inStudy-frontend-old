@@ -2,6 +2,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ShakePlugin = require('webpack-common-shake').Plugin;
 const webpack = require('webpack');
+const WebpackStrip = require('webpack-strip');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -18,7 +19,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.(js|jsx)$/,
-      loaders: ['babel-loader'],
+      loaders: ['babel-loader', WebpackStrip.loader('debug', 'console.log', 'console.warn')],
       exclude: /node_modules/,
     }, {
       test: /\.scss$/,
@@ -70,7 +71,7 @@ module.exports = {
     }),
 
     new webpack.DefinePlugin({
-      __ROOT_URL__: JSON.stringify("http://konradszwarc.pl/"),
+      __ROOT_URL__: JSON.stringify("https://instudy.pl/"),
     }),
 
     new ShakePlugin(),

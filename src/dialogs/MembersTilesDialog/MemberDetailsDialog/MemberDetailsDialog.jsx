@@ -15,6 +15,7 @@ export default class MemberDetailsDialog extends Component {
   constructor(props) {
     super(props);
     const { coverImage, description, firstname, surname, role, socials, id, index } = this.props.data;
+    console.log(id);
     this.state = {
       index,
       id: id || Date.now(),

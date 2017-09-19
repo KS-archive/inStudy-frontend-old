@@ -3,6 +3,7 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
+import DocumentMeta from 'react-document-meta';
 import accessibleModules from '../../js/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import { getPublicCircle, removePublicCircle } from '../../actions/circles';
@@ -21,7 +22,7 @@ class PublicProfile extends PureComponent {
   renderModule = (module, colors) => {
     const ModuleComponent = accessibleModules.find(el => el.kind === module.kind).component;
     return (
-      <Wrapper key={module._id}>
+      <Wrapper key={module.id}>
         <ModuleComponent {...module} mainColors={colors} />
       </Wrapper>
     );
@@ -29,11 +30,16 @@ class PublicProfile extends PureComponent {
 
   render() {
     const { publicCircle } = this.props;
+    const meta = {
+      title: `${publicCircle.name} - inStudy`,
+    };
+
     if (publicCircle._id) {
       const header = omit(publicCircle, ['modules']);
       const modules = pick(publicCircle, ['modules']).modules;
       return (
         <Container>
+          <DocumentMeta {...meta} />
           <MainContainer>
             <ProfileHeader {...header} editable={false} />
             {(modules) &&

@@ -111,7 +111,6 @@ export default class SocialsDialog extends Component {
       closeDialog: this.closeDialog,
       data: dialogData,
     };
-    console.log(this.props);
 
     return (
       <EditDialog

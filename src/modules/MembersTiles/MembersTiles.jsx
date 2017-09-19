@@ -64,8 +64,7 @@ export default class MembersTiles extends Component {
       const isInLimit = (index < rowsLimit * 4 || showAll || !rowsLimit);
       const openDialog = () => { this.openDialog(tile.id); };
       const attrs = { grayScale, mainColors, openDialog, roleColor: color, ...tile };
-      const key = tile.coverImage.substr(-15);
-      return (isInLimit) && <MemberComponent key={key} {...attrs} />;
+      return (isInLimit) && <MemberComponent key={tile.id} {...attrs} />;
     });
   }
 

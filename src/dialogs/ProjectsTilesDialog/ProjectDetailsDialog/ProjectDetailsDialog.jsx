@@ -14,8 +14,6 @@ import { renderActionButtons, renderTextField } from '../../../js/renderHelpers'
 import { EditDialog, LabelHeader, Image, ImageOverlay, ImageOptions } from '../../../js/globalStyles';
 import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, SocialsWrapper, Social, AddSocial, GalleryWrapper } from './ProjectDetailsDialog_styles';
 
-const availableLabels = ['Aktualny', 'Archiwalny', 'Otwarty', 'Cykliczny'];
-
 export default class ProjectDetailsDialog extends Component {
   constructor(props) {
     super(props);
@@ -175,7 +173,7 @@ export default class ProjectDetailsDialog extends Component {
         isSidebar={sidebar}
       >
         <Container>
-          {renderTextField(this, 'Nazwa', 'title')}
+          {renderTextField(this, 'Nazwa (tytuł) kafelka', 'title')}
           <SelectField
             multiple
             fullWidth
@@ -185,7 +183,7 @@ export default class ProjectDetailsDialog extends Component {
           >
             {this.renderLabelsList()}
           </SelectField>
-          {renderTextField(this, 'Nagłówek', 'header', true, multilineAttrs)}
+          {renderTextField(this, 'Podtytuł', 'header', true, multilineAttrs)}
           {renderTextField(this, 'Opis szczegółowy', 'description', true, multilineAttrs)}
           <MediaWrapper>
             <MediaElement>
