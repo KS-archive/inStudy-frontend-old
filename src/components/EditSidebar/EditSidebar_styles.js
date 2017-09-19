@@ -199,10 +199,22 @@ export const Filler = styled.div`
   right: 0;
   bottom: 0;
   z-index: 100;
+  box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.3);
   visibility: ${props => props.open ? 'visible' : 'hidden'};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: transparent;
+  transition: all 0.3s;
   ${media.small`
-    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
   `}
 `;
 

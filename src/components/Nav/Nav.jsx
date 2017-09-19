@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import { withRouter } from 'react-router';
+import MediaQuery from 'react-responsive';
 import MenuItem from 'material-ui/MenuItem';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
@@ -30,6 +31,7 @@ class Nav extends Component {
   }
 
   handleRoute = (e, value) => {
+    console.log(value);
     if (value === 'wyloguj') {
       this.logout();
     } else {
@@ -57,19 +59,19 @@ class Nav extends Component {
     return null;
   }
 
-  renderUserLogo() {
-    const path = this.state.pathname;
-    (path !== '/'
-    && path !== '/rejestracja'
-    && path !== '/logowanie'
-    && !path.includes('/odzyskiwanie_hasla')
-    && !path.includes('/potwierdz_email'))
-    && (
-      <LoggedUser>
-        <UserLogo src="http://via.placeholder.com/100x100" alt="to replace" />
-      </LoggedUser>
-      );
-  }
+  // renderUserLogo() {
+  //   const path = this.state.pathname;
+  //   (path !== '/'
+  //   && path !== '/rejestracja'
+  //   && path !== '/logowanie'
+  //   && !path.includes('/odzyskiwanie_hasla')
+  //   && !path.includes('/potwierdz_email'))
+  //   && (
+  //     <LoggedUser>
+  //       <UserLogo src="http://via.placeholder.com/100x100" alt="to replace" />
+  //     </LoggedUser>
+  //     );
+  // }
 
   render() {
     const { logged, pathname } = this.state;
@@ -78,28 +80,40 @@ class Nav extends Component {
       || ((pathname === '/rejestracja'
       || pathname === '/logowanie'
       || pathname.includes('/odzyskiwanie_hasla')
-      || pathname.includes('/potwierdz_email'))
-      && window.innerWidth > 800
-      && window.innerHeight > 900));
+      || pathname.includes('/potwierdz_email'))));
+    const menuAttrs = {
+      iconButtonElement: (
+        <IconButton iconStyle={{ minWidth: 30, minHeight: 30, marginTop: -2 }}>
+          <MenuIcon color="#fff" />
+        </IconButton>
+      ),
+      anchorOrigin: { horizontal: 'right', vertical: 'top' },
+      targetOrigin: { horizontal: 'right', vertical: 'top' },
+      onChange: this.handleRoute,
+      value: this.state.pathname,
+    }
+
     return (
       <div>
         <Header transparent={transparentMode}>
           {this.renderLogo()}
-          {this.renderUserLogo()}
-          <IconMenu
-            iconButtonElement={<IconButton iconStyle={{ minWidth: 30, minHeight: 30, marginTop: -2 }}><MenuIcon color="#fff" /></IconButton>}
-            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-            onChange={this.handleRoute}
-            value={this.state.pathname}
-          >
-            <MenuItem primaryText="Strona główna" value="/" />
-            <MenuItem primaryText="Lista kół" value="/inicjatywy" />
-            {!logged && <MenuItem primaryText="Zaloguj się" value="/logowanie" />}
-            {!logged && <MenuItem primaryText="Zarejestruj się" value="/rejestracja" />}
-            {logged && <MenuItem primaryText="Edytuj profil" value="/inicjatywy/edit" />}
-            {logged && <MenuItem primaryText="Wyloguj się" value="wyloguj" />}
-          </IconMenu>
+          {/* {this.renderUserLogo()} */}
+          <MediaQuery minDeviceWidth={701}>
+            <IconMenu {...menuAttrs}>
+              <MenuItem primaryText="Strona główna" value="/" />
+              <MenuItem primaryText="Lista kół" value="/inicjatywy" />
+              {!logged && <MenuItem primaryText="Zaloguj się" value="/logowanie" />}
+              {!logged && <MenuItem primaryText="Zarejestruj się" value="/rejestracja" />}
+              {logged && <MenuItem primaryText="Edytuj profil" value="/inicjatywy/edit" />}
+              {logged && <MenuItem primaryText="Wyloguj się" value="wyloguj" />}
+            </IconMenu>
+          </MediaQuery>
+          <MediaQuery maxDeviceWidth={700}>
+            <IconMenu {...menuAttrs}>
+              <MenuItem primaryText="Strona główna" value="/" />
+              <MenuItem primaryText="Lista kół" value="/inicjatywy" />
+            </IconMenu>
+          </MediaQuery>
         </Header>
       </div>
     );

@@ -85,7 +85,9 @@ export default class EditSidebar extends Component {
             </BottomIcons>
           </Wrapper>
         </Container>
-        <Filler open={sidebar} onClick={toggleSidebar} />
+        <Filler open={sidebar} onClick={toggleSidebar}>
+          Aby móc edytować profil musisz zwiększyć rozmiar okna przeglądarki
+        </Filler>
         {(dialog === 'colors') &&
           <MainColorsDialog
             sidebar={sidebar}

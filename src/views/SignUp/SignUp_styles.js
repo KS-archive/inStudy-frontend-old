@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 120px);
   width: 100%;
   background-color: ${colorPalette.primary2Color};
 
