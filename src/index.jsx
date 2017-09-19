@@ -30,6 +30,7 @@ import PublicProfile from './views/PublicProfile/PublicProfile';
 import EditProfile from './views/EditProfile/EditProfile';
 import PasswordRecoveryNew from './views/PasswordRecoveryNew/PasswordRecoveryNew';
 import ConfirmEmail from './views/ConfirmEmail/ConfirmEmail';
+import Error404 from './views/Error404/Error404';
 
 import { colorPalette } from './js/constants/styles';
 
@@ -70,7 +71,8 @@ ReactDOM.render(
             <Route path="/potwierdz_email/:token" component={ConfirmEmail} />
             <Route path="/rejestracja" component={SignUp} />
             <Route path="/logowanie" component={SignIn} />
-            <Route path="/" component={Hero} />
+            <Route path="/" exact component={Hero} />
+            <Route component={Error404} />
           </Switch>
         </Index>
       </BrowserRouter>

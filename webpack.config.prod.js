@@ -70,7 +70,7 @@ module.exports = {
     }),
 
     new webpack.DefinePlugin({
-      __ROOT_URL__: JSON.stringify("http://localhost:8080/"),
+      __ROOT_URL__: JSON.stringify("http://konradszwarc.pl/"),
     }),
 
     new ShakePlugin(),
