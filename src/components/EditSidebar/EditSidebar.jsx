@@ -3,12 +3,12 @@ import isEqual from 'lodash/isEqual';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import renderMiddle from './helpers/renderMiddle';
+import renderSpecialBtn from './helpers/renderSpecialBtn';
 import ChangeTagsDialog from '../../dialogs/ChangeTagsDialog/ChangeTagsDialog';
 import MainColorsDialog from '../../dialogs/MainColorsDialog/MainColorsDialog';
 import ChangePasswordDialog from '../../dialogs/ChangePasswordDialog/ChangePasswordDialog';
-import { getRandomInt } from '../../js/utils';
-import accesibleModules from '../../js/constants/accesibleModules';
-import { Container, ContainerArrow, Wrapper, Title, Modules, IconWrapper, SidebarIcon, BottomIcons, StyledReactTooltip, SpecialBtn, Icon, Filler, EditIconSet, ShadowTop, ShadowBottom } from './EditSidebar_styles';
+import { Container, ContainerArrow, Wrapper, Title, BottomIcons, Icon, Filler } from './EditSidebar_styles';
 
 export default class EditSidebar extends Component {
   constructor(props) {
@@ -41,124 +41,6 @@ export default class EditSidebar extends Component {
     }
   }
 
-  renderIcon = (module) => {
-    const key = Date.now() + getRandomInt(1000, 9999);
-    const IconComponent = (module.icon)
-      ? module.icon // Add new module
-      : accesibleModules.filter(m => (m.kind === module.kind))[0].icon; // Edit existing module
-    const moduleData = (module.icon) ? {} : module;
-    const handleClick = () => {
-      this.props.openDialog(module.kind, moduleData);
-      this.props.changeContent({ mode: (module.icon) ? 'Dodawanie modułu' : 'Edycja modułu', editingModule: IconComponent });
-    };
-    const dataTip = (module.icon) ? module.name : module.title;
-    return (
-      <IconWrapper key={key} data-tip={dataTip} onClick={handleClick}>
-        <SidebarIcon>
-          <IconComponent />
-        </SidebarIcon>
-        <StyledReactTooltip place="right" effect="solid" />
-      </IconWrapper>
-    );
-  }
-
-  renderModules = (mode) => {
-    const { submit, cancel, remove, changeColors } = this.props.modalFunctions;
-    const attrs = {
-      onUpdate: this.handleScroll,
-    };
-
-    switch (mode) {
-      case 'Moduły':
-        return (
-          <Modules {...attrs}>
-            {this.state.shadows.top && <ShadowTop />}
-            {this.props.modules.map(module => this.renderIcon(module))}
-            {this.state.shadows.bottom && <ShadowBottom />}
-          </Modules>
-        );
-
-      case 'Dodaj moduł':
-        return (
-          <Modules {...attrs}>
-            {this.state.shadows.top && <ShadowTop />}
-            {accesibleModules.map(module => this.renderIcon(module))}
-            {this.state.shadows.bottom && <ShadowBottom />}
-          </Modules>
-        );
-      case 'Edycja modułu':
-        return (
-          <Modules {...attrs}>
-            <IconWrapper>
-              <SidebarIcon>
-                <this.props.editingModule />
-              </SidebarIcon>
-            </IconWrapper>
-            <EditIconSet>
-              <Icon className="fa fa-check" aria-hidden="true" onClick={submit} />
-              <Icon className="fa fa-ban" aria-hidden="true" onClick={cancel} />
-              <Icon className="fa fa-trash-o" aria-hidden="true" onClick={remove} />
-            </EditIconSet>
-            <EditIconSet>
-              {changeColors &&
-                <Icon className="fa fa-paint-brush" aria-hidden="true" onClick={changeColors} />
-              }
-            </EditIconSet>
-          </Modules>
-        );
-      case 'Dodawanie modułu':
-        return (
-          <Modules {...attrs}>
-            <IconWrapper>
-              <SidebarIcon>
-                <this.props.editingModule />
-              </SidebarIcon>
-            </IconWrapper>
-            <EditIconSet>
-              <Icon className="fa fa-check" aria-hidden="true" onClick={submit} />
-              <Icon className="fa fa-ban" aria-hidden="true" onClick={cancel} />
-            </EditIconSet>
-            <EditIconSet>
-              {changeColors &&
-                <Icon className="fa fa-paint-brush" aria-hidden="true" onClick={changeColors} />
-              }
-            </EditIconSet>
-          </Modules>
-        );
-      default: return null;
-    }
-  }
-
-  renderSpecialBtn = (mode) => {
-    switch (mode) {
-      case 'Moduły':
-        return (
-          <div>
-            <SpecialBtn className="fa fa-plus" aria-hidden="true" onClick={() => { this.props.changeContent({ mode: 'Dodaj moduł' }); }} />
-          </div>
-        );
-
-      case 'Dodaj moduł':
-        return (
-          <div>
-            <SpecialBtn className="fa fa-arrow-left" aria-hidden="true" onClick={() => { this.props.changeContent({ mode: 'Moduły' }); }} />
-          </div>
-        );
-
-      case 'Ustawienia':
-        return (
-          <div>
-            <SpecialBtn
-              className="fa fa-arrow-left"
-              aria-hidden="true"
-              onClick={() => { this.props.changeContent({ mode: 'Moduły' }); this.props.closeDialog(); }}
-            />
-          </div>
-        );
-      default: return null;
-    }
-  }
-
   enterSettings = (dialogName) => {
     this.props.changeContent({ mode: 'Ustawienia' });
     this.setState({ dialog: dialogName });
@@ -169,6 +51,12 @@ export default class EditSidebar extends Component {
     const { dialog } = this.state;
     const mode = this.props.mode;
     const arrowDirection = sidebar ? 'left' : 'right';
+    const iconButtonElement = (
+      <IconButton>
+        <Icon className="fa fa-cog" aria-hidden="true" />
+      </IconButton>
+    );
+    const origin = { horizontal: 'left', vertical: 'bottom' };
 
     return (
       <div>
@@ -178,13 +66,13 @@ export default class EditSidebar extends Component {
           </ContainerArrow>
           <Wrapper>
             <Title>{mode}</Title>
-            {this.renderModules(mode)}
+            {renderMiddle(mode, this)}
             <BottomIcons>
-              {this.renderSpecialBtn(mode)}
+              {renderSpecialBtn(mode, this)}
               <IconMenu
-                iconButtonElement={<IconButton><Icon className="fa fa-cog" aria-hidden="true" /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                iconButtonElement={iconButtonElement}
+                anchorOrigin={origin}
+                targetOrigin={origin}
               >
                 {(modules.length > 1) &&
                   <MenuItem primaryText="Zmień kolejność modułów" onClick={this.changeOrder} />

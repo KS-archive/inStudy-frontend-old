@@ -26,7 +26,6 @@ class ImageDialog extends Component {
       <p style="font-weight: 500; margin-bottom: 5px;">Maksymalny rozmiar:</p>
       <p>${maxSize / 1000} KB</p>
     `;
-    console.log(this.actions);
 
     return (
       <EditDialog
