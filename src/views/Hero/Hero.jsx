@@ -1,12 +1,32 @@
 import React, { PureComponent } from 'react';
 import muiThemeable from 'material-ui/styles/muiThemeable';
+import Granim from 'granim';
 import { detectIE } from '../../js/utils';
-import { Container, Content, Logo, Text, Buttons, StyledRaisedButton } from './Hero_styles';
+import { Background, Container, Content, Logo, Text, Buttons, StyledRaisedButton } from './Hero_styles';
 
 class Hero extends PureComponent {
+  componentDidMount() {
+    this.granim = new Granim(this.bgConfig);
+  }
+
+  bgConfig = {
+    element: '#background',
+    opacity: [0.88, 0.92, 0.96],
+    direction: 'top-bottom',
+    states: {
+      'default-state': {
+        gradients: [
+          ['#101D7D', '#202D7D', '#1D3093'],
+        ],
+        transitionSpeed: 10000,
+      },
+    },
+  }
+
   render() {
     return (
       <Container isIE={detectIE()}>
+        <Background id="background" />
         <Content>
           <Logo src="./img/logo-instudy-rectangle.png" alt="Logo inStudy" />
           <Text>Więcej niż studia!</Text>

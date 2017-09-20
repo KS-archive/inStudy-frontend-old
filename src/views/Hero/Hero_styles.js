@@ -2,14 +2,23 @@ import styled from 'styled-components';
 import RaisedButton from 'material-ui/RaisedButton';
 import { colorPalette } from '../../js/constants/styles';
 
+export const Background = styled.canvas`
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+`;
+
 export const Container = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: ${props => props.isIE && `${colorPalette.primary2Color}`};
 
   &::before {
     content: '';
@@ -19,13 +28,11 @@ export const Container = styled.div`
     left: 0;
     right: 0;
     z-index: -1;
-    background-image: url('/img/hero_bg.svg');
+    background-image: url('/img/hero-background.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-color: ${colorPalette.primary2Color};
-    background-blend-mode: multiply;
-    filter: contrast(120%) saturate(75%) brightness(110%);
+    opacity: 0.6;
   }
 `;
 

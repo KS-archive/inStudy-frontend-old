@@ -25,6 +25,7 @@ export default class ProjectsTilesDialog extends Component {
       errors: {},
     };
     this.isEditModal = !!id;
+    this.moduleName = accessibleModules.find(m => m.kind === 'ProjectsTiles').name;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: true },
@@ -148,14 +149,13 @@ export default class ProjectsTilesDialog extends Component {
       data: dialogData,
     };
     const colorNames = ['Aktywny filtr', 'Filtr „Aktualne”', 'Filtr „Archiwalne”', 'Filtr „Otwarte”', 'Filtr „Cykliczne”'];
-    const dialogTitle = this.isEditModal ? 'Edytuj moduł „Kafelki projektowe”' : 'Dodaj moduł „Kafelki projektowe”';
 
     return (
       <EditDialog
         open={open}
         onRequestClose={closeDialog}
         actions={this.actions}
-        title={dialogTitle}
+        title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł „${this.moduleName}”`}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}

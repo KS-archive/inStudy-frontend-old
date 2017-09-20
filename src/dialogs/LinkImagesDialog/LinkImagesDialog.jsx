@@ -25,6 +25,7 @@ export default class LinkImagesDialog extends Component {
       errors: {},
     };
     this.isEditModal = !!id;
+    this.moduleName = accessibleModules.find(m => m.kind === 'LinkImages').name;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: 'Musisz dodać co najmniej jeden element do galerii' },
@@ -108,27 +109,25 @@ export default class LinkImagesDialog extends Component {
     </Type>
   );
 
-  renderElement = (el, index) => {
-    return (
-      <Image key={index}>
-        <img src={el.src} alt="" />
-        <ImageOverlay>
-          <ImageOptions>
-            <i
-              className="fa fa-pencil-square-o"
-              aria-hidden="true"
-              onClick={() => { this.editDetails(el, index); }}
-            />
-            <i
-              className="fa fa-trash-o"
-              aria-hidden="true"
-              onClick={() => { this.deleteElement(el); }}
-            />
-          </ImageOptions>
-        </ImageOverlay>
-      </Image>
-    );
-  }
+  renderElement = (el, index) => (
+    <Image key={index}>
+      <img src={el.src} alt="" />
+      <ImageOverlay>
+        <ImageOptions>
+          <i
+            className="fa fa-pencil-square-o"
+            aria-hidden="true"
+            onClick={() => { this.editDetails(el, index); }}
+          />
+          <i
+            className="fa fa-trash-o"
+            aria-hidden="true"
+            onClick={() => { this.deleteElement(el); }}
+          />
+        </ImageOptions>
+      </ImageOverlay>
+    </Image>
+  );
 
   renderCheckbox = (label, stateName) => {
     const checked = this.state[stateName];
@@ -138,7 +137,6 @@ export default class LinkImagesDialog extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { closeDialog, open, sidebar, colors } = this.props;
     const { dialog, dialogData, content, id } = this.state;
     const dialogAttrs = {
@@ -153,7 +151,7 @@ export default class LinkImagesDialog extends Component {
         open={open}
         onRequestClose={closeDialog}
         actions={this.actions}
-        title={this.isEditModal ? 'Edytuj moduł „Galeria”' : 'Dodaj moduł „Galeria”'}
+        title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł „${this.moduleName}”`}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}

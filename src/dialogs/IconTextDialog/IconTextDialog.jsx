@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
 import validate from '../../js/validation';
+import accessibleModules from '../../js/constants/accesibleModules';
 import AddIconText from './AddIconText/AddIconText';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
@@ -21,6 +22,7 @@ export default class IconTextDialog extends Component {
       errors: {},
     };
     this.isEditModal = !!id;
+    this.moduleName = accessibleModules.find(m => m.kind === 'IconText').name;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: true },
@@ -120,7 +122,7 @@ export default class IconTextDialog extends Component {
         open={open}
         onRequestClose={closeDialog}
         actions={this.actions}
-        title={this.isEditModal ? 'Edytuj moduł „Kolumny tekstowe”' : 'Dodaj moduł „Kolumny tekstowe”'}
+        title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł „${this.moduleName}”`}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}

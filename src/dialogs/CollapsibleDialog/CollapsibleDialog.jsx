@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
 import validate from '../../js/validation';
+import accessibleModules from '../../js/constants/accesibleModules';
 import AddCollapsible from './AddCollapsible/AddCollapsible';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './CollapsibleDialog_styles';
 
-export default class SocialsDialog extends Component {
+export default class CollapsibleDialog extends Component {
   constructor(props) {
     super(props);
     const { content, title, color, id } = this.props.data;
@@ -21,6 +22,7 @@ export default class SocialsDialog extends Component {
       errors: {},
     };
     this.isEditModal = !!id;
+    this.moduleName = accessibleModules.find(m => m.kind === 'Collapsible').name;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: true },
@@ -117,7 +119,7 @@ export default class SocialsDialog extends Component {
         open={open}
         onRequestClose={closeDialog}
         actions={this.actions}
-        title={this.isEditModal ? 'Edytuj moduł „Lista rozwijana”' : 'Dodaj moduł „Lista rozwijana”'}
+        title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł „${this.moduleName}”`}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}

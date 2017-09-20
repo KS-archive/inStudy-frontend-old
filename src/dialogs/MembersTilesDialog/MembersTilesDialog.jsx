@@ -25,6 +25,7 @@ export default class MembersTilesDialog extends Component {
       errors: {},
     };
     this.isEditModal = !!id;
+    this.moduleName = accessibleModules.find(m => m.kind === 'MembersTiles').name;
     this.toValidate = {
       title: { required: true },
       content: { noEmptyArr: true },
@@ -46,7 +47,6 @@ export default class MembersTilesDialog extends Component {
   handleSubmit = () => { validate(this, this.submit); }
 
   submit = (values) => {
-    console.log(values);
     const { kind, submit } = this.props;
     const id = this.state.id;
     const extendValues = { ...values, id, kind };
@@ -159,7 +159,7 @@ export default class MembersTilesDialog extends Component {
         open={open}
         onRequestClose={closeDialog}
         actions={this.actions}
-        title={this.isEditModal ? 'Edytuj moduł „Kafelki osobowe”' : 'Dodaj moduł „Kafelki osobowe”'}
+        title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł „${this.moduleName}”`}
         autoScrollBodyContent
         repositionOnUpdate={false}
         isSidebar={sidebar}

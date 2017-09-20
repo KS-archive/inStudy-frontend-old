@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import validate from '../../js/validation';
-import accesibleModules from '../../js/constants/accesibleModules';
+import accessibleModules from '../../js/constants/accesibleModules';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { Form } from './SimpleTextDialog_styles';
 import { EditDialog } from '../../js/globalStyles';
@@ -8,15 +8,14 @@ import { EditDialog } from '../../js/globalStyles';
 export default class SimpleTextDialog extends Component {
   constructor(props) {
     super(props);
-    const { id, content, title, kind } = this.props.data;
+    const { id, content, title } = this.props.data;
     this.state = {
       title: title || undefined,
       content: content || undefined,
       errors: {},
     };
-
     this.isEditModal = !!id;
-    this.moduleName = accesibleModules.find(m => m.kind === kind).name;
+    this.moduleName = accessibleModules.find(m => m.kind === 'SimpleText').name;
     this.toValidate = {
       title: { required: true },
       content: { required: true },
