@@ -32,7 +32,7 @@ export const Container = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    opacity: 0.6;
+    opacity: 0.8;
   }
 `;
 

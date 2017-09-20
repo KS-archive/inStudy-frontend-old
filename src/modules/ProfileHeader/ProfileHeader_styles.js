@@ -29,7 +29,7 @@ export const BackgroundEditIcon = styled.i`
   position: absolute;
   right: 30px;
   top: 90px;
-  font-size: 36px;
+  font-size: 36px !important;
   color: #fff;
   opacity: 0.6;
   transition: opacity 0.3s;
@@ -56,7 +56,7 @@ export const CardEditIcon = styled.i`
   position: absolute;
   top: 30px;
   right: 30px;
-  font-size: 36px;
+  font-size: 36px !important;
   color: ${colorPalette.accent3Color};
   opacity: 0.6;
   transition: opacity 0.3s;

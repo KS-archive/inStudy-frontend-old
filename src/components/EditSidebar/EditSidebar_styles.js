@@ -167,7 +167,7 @@ export const StyledReactTooltip = styled(ReactTooltip)`
 `;
 
 export const SpecialBtn = styled.i`
-  font-size: 30px;
+  font-size: 30px !important;
   color: #fff;
   transition: all 0.3s;
 
@@ -178,7 +178,7 @@ export const SpecialBtn = styled.i`
 
 export const Icon = styled.i`
   margin-top: 15px !important;
-  font-size: 30px;
+  font-size: 30px !important;
   color: #fff;
   transition: all 0.3s;
 

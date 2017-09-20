@@ -64,7 +64,7 @@ export const IconImageWrapper = styled.div`
 `;
 
 export const IconImage = styled.i`
-  font-size: 24px;
+  font-size: 24px !important;
   text-align: center;
   color: ${colorPalette.primary1Color};
 `;

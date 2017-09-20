@@ -87,7 +87,7 @@ export const Icons = styled.div`
 `;
 
 export const Icon = styled.i`
-  font-size: 20px;
+  font-size: 20px !important;
   color: ${colorPalette.accent3Color};
   transition: all 0.3s;
 

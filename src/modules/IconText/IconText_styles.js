@@ -31,7 +31,7 @@ export const Element = styled.div`
 
 export const Icon = styled.i`
   margin-bottom: 30px;
-  font-size: 48px;
+  font-size: 48px !important;
   color: ${props => props.color};
 `;
 

@@ -39,7 +39,7 @@ export const IconImageWrapper = styled.div`
 `;
 
 export const IconImage = styled.i`
-  font-size: inherit;
+  font-size: inherit !important;
   text-align: center;
   color: inherit;
 `;
