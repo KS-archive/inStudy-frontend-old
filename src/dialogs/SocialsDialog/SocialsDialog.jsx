@@ -16,9 +16,18 @@ class SocialsDialog extends Component {
     this.activityFormButton.click();
   }
 
+  submit = (values) => {
+    values.socials.map((social) => {
+      if (!social.link.includes('http')) {
+        social.link = `http://${social.link}`;
+      }
+    });
+    this.props.submitFunction(values);
+    this.props.destroy();
+  }
+
   render() {
-    const { handleSubmit, closeDialog, open, sidebar } = this.props;
-    console.log(this.props);
+    const { handleSubmit, closeDialog, open, sidebar, destroy } = this.props;
 
     return (
       <EditDialog
@@ -31,7 +40,7 @@ class SocialsDialog extends Component {
         isSidebar={sidebar}
       >
         <Form
-          onSubmit={handleSubmit((values) => { this.props.submitFunction(values); destroy(); })}
+          onSubmit={handleSubmit(this.submit)}
         >
           <FieldArray name="socials" component={RenderSocials} initialize={this.props.data} />
           <button style={{ visibility: 'hidden', position: 'fixed' }} type="submit" ref={(button) => { this.activityFormButton = button; }} />

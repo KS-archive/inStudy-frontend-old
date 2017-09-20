@@ -7,6 +7,10 @@ import { inputStyle } from '../../../js/constants/styles';
 import { StyledField, SocialFields, DeleteSocial, AddSocialFields } from './RenderSocials_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);
+const link = (value) => {
+  const isLinkRegExp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  return value.match(isLinkRegExp) ? undefined : 'Błędny format linku';
+};
 
 export default class renderSocials extends Component {
   componentWillMount() {
@@ -21,12 +25,11 @@ export default class renderSocials extends Component {
       name,
       component: isSelectField ? SelectField : TextField,
       floatingLabelText: label,
-      validate: required,
       ...inputStyle,
     };
     return (isSelectField)
       ? (
-        <StyledField {...FieldAttrs} >
+        <StyledField {...FieldAttrs} validate={required} >
           {Object.keys(items).map(key => (
             <MenuItem
               key={key}
@@ -36,7 +39,7 @@ export default class renderSocials extends Component {
           }
         </StyledField>
       )
-      : <StyledField {...FieldAttrs} />;
+      : <StyledField {...FieldAttrs} validate={[required, link]} />;
   }
 
   render() {
