@@ -3,10 +3,8 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import axios from 'axios';
 import AutoComplete from 'material-ui/AutoComplete';
-import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
-import { grey500 } from 'material-ui/styles/colors';
 import { updateQuery } from '../../actions/filters';
 import { Container, SearchContainer, SearchIconWrapper, CloseIconWrapper } from './SearchBar_styles';
 
@@ -48,6 +46,7 @@ class SearchBar extends Component {
 
   handleCancel = () => {
     this.setState({ active: false, searchText: '' });
+    this.props.updateQuery('');
   }
 
   handleKeyPress = (e) => {

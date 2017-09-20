@@ -24,6 +24,7 @@ class Hero extends PureComponent {
   }
 
   render() {
+    const isMobile = (window.screen.width <= 700);
     return (
       <Container isIE={detectIE()}>
         <Background id="background" />
@@ -35,10 +36,12 @@ class Hero extends PureComponent {
               label="Odkryj inicjatywy"
               onClick={() => { this.props.history.push('/inicjatywy'); }}
             />
-            <StyledRaisedButton
-              label="Załóż konto"
-              onClick={() => { this.props.history.push('/rejestracja'); }}
-            />
+            {!isMobile &&
+              <StyledRaisedButton
+                label="Załóż konto"
+                onClick={() => { this.props.history.push('/rejestracja'); }}
+              />
+            }
           </Buttons>
         </Content>
       </Container>

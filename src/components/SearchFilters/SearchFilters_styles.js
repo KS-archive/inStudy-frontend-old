@@ -21,6 +21,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Filters = styled.div`
+  position: relative;
+  top: -30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -45,10 +47,10 @@ export const RemoveFilters = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: flex-end;
-  width: 256px;
+  width: 310px;
   height: 63px;
   padding-bottom: 5px;
-  margin: 0 20px;
+  margin-top: 10px;
   color: ${props => props.anyActive
     ? colorPalette.textColor
     : '#bbb'};

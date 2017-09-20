@@ -17,7 +17,7 @@ export const cities = {
       },
       {
         id: '4',
-        name: 'Uniwersytet SWPS',
+        name: 'Uniwersytet SWPS - Wrocław',
       },
     ],
   },

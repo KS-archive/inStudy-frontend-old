@@ -30,7 +30,7 @@ class Filter extends PureComponent {
         onChange={this.changeHandler}
         value={filterValue}
         multiple={multiple}
-        style={{ minWidth: 200, margin: '0 20px 20px' }}
+        style={{ minWidth: 310, marginTop: 10 }}
         underlineStyle={underlineStyle}
         disabled={!items}
       >

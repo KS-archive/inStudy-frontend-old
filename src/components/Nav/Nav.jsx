@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import { withRouter } from 'react-router';
-import MediaQuery from 'react-responsive';
 import MenuItem from 'material-ui/MenuItem';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
@@ -72,28 +71,20 @@ class Nav extends Component {
       onChange: this.handleRoute,
       value: this.state.pathname,
     };
+    const isMobile = (window.screen.width <= 700);
 
     return (
       <div>
         <Header transparent={transparentMode}>
           {this.renderLogo()}
-          {/* {this.renderUserLogo()} */}
-          <MediaQuery minDeviceWidth={701}>
-            <IconMenu {...menuAttrs}>
-              <MenuItem primaryText="Strona główna" value="/" />
-              <MenuItem primaryText="Lista inicjatyw" value="/inicjatywy" />
-              {!logged && <MenuItem primaryText="Zaloguj się" value="/logowanie" />}
-              {!logged && <MenuItem primaryText="Zarejestruj się" value="/rejestracja" />}
-              {logged && <MenuItem primaryText="Edytuj profil" value="/inicjatywy/edit" />}
-              {logged && <MenuItem primaryText="Wyloguj się" value="wyloguj" />}
-            </IconMenu>
-          </MediaQuery>
-          <MediaQuery maxDeviceWidth={700}>
-            <IconMenu {...menuAttrs}>
-              <MenuItem primaryText="Strona główna" value="/" />
-              <MenuItem primaryText="Lista kół" value="/inicjatywy" />
-            </IconMenu>
-          </MediaQuery>
+          <IconMenu {...menuAttrs}>
+            <MenuItem primaryText="Strona główna" value="/" />
+            <MenuItem primaryText="Lista inicjatyw" value="/inicjatywy" />
+            {!logged && !isMobile && <MenuItem primaryText="Zaloguj się" value="/logowanie" />}
+            {!logged && !isMobile && <MenuItem primaryText="Zarejestruj się" value="/rejestracja" />}
+            {logged && !isMobile && <MenuItem primaryText="Edytuj profil" value="/inicjatywy/edit" />}
+            {logged && !isMobile && <MenuItem primaryText="Wyloguj się" value="wyloguj" />}
+          </IconMenu>
         </Header>
       </div>
     );

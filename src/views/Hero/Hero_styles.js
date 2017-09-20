@@ -37,6 +37,8 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
+  position: relative;
+  top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,20 +49,22 @@ export const Logo = styled.img`
   height: 250px;
   margin-bottom: 50px;
 
-  @media (max-height: 800px) {
-    width: 150px;
-    height: 150px;
+  @media (max-width: 470px) {
+    width: 200px;
+    height: 200px;
     margin-bottom: 30px;
   }
 `;
 
 export const Text = styled.h1`
+  padding: 0 20px;
   margin-bottom: 40px;
   font-size: 48px;
   color: #fff;
   text-align: center;
+  line-height: 1.3;
 
-  @media (max-height: 800px) {
+  @media (max-width: 600px) {
     margin-bottom: 40px;
     font-size: 36px;
   }
@@ -84,27 +88,26 @@ export const StyledRaisedButton = styled(RaisedButton)`
   font-weight: 500;
 
   @media (max-width: 470px) {
-    margin-top: 20px;
     margin-right: 30px !important;
     margin-left: 30px !important;
   }
 
   &:first-child {
-    margin-right: 20px !important;
-
-    @media (max-width: 470px) {
-      margin-right: 30px !important;
-    }
-
     > button > div > div > span {
       color: ${colorPalette.primary2Color} !important;
     }
   }
 
-  &:last-child {
+  &:nth-last-child(-n+2):first-child ~ &:nth-child(2) {
+    margin-left: 20px !important;
     border: 1px solid #fff !important;
     box-shadow: none !important;
     background-color: transparent !important;
+
+    @media (max-width: 470px) {
+      margin-top: 20px !important;
+      margin-left: 30px !important;
+    }
 
     > button {
       background-color: transparent !important;
