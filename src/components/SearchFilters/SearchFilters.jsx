@@ -3,6 +3,7 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import { hasAnyValue } from '../../js/utils';
 import Filter from '../Filter/Filter';
 import { deleteFilter } from '../../actions/filters';
 import { cities, types, categories } from '../../js/constants/filterData';
@@ -28,9 +29,12 @@ class SearchFilters extends Component {
   componentWillReceiveProps(nextProps) {
     let activeFilters = 0;
     const filters = nextProps.filters;
-    Object.keys(filters).forEach((key) => {
-      if ((Array.isArray(filters) && filters[key].length > 0) || !Array.isArray(filters)) activeFilters += 1;
-    });
+    if (hasAnyValue(filters)) {
+      Object.keys(filters).forEach((key) => {
+        const isArray = Array.isArray(filters[key]);
+        activeFilters += ((isArray && filters[key].length > 0) || !isArray) ? 1 : 0;
+      });
+    }
     this.setState({ activeFilters });
   }
 
@@ -39,12 +43,14 @@ class SearchFilters extends Component {
   }
 
   setUniversities = (cityId) => {
-    const universities = cities[cityId].universities;
+    const universities = cities[cityId] && cities[cityId].universities;
+    this.props.deleteFilter('university');
     this.setState({ universities });
   }
 
   setSubcategories = (categoryId) => {
-    const subcategories = categories[categoryId].subcategories;
+    const subcategories = categories[categoryId] && categories[categoryId].subcategories;
+    this.props.deleteFilter('subcategory');
     this.setState({ subcategories });
   }
 
@@ -65,42 +71,22 @@ class SearchFilters extends Component {
     });
   }
 
+  renderFilter = (id, label, items, changeHandler, multiple = false) => {
+    const attrs = { id, label, items, changeHandler, multiple };
+    return <Filter {...attrs} />;
+  };
+
   render() {
     const { open, filtersHeight, activeFilters, universities, subcategories } = this.state;
     return (
       <Container style={{ height: (open) ? filtersHeight : 20 }}>
         <Wrapper>
           <Filters>
-            <Filter
-              id={'city'}
-              label="Miasto"
-              items={cities}
-              changeHandler={(id) => { this.setUniversities(id); }}
-            />
-            <Filter
-              id={'university'}
-              label="Uczelnia"
-              items={universities}
-              multiple
-            />
-            <Filter
-              id={'type'}
-              label="Typ aktywności"
-              items={types}
-              multiple
-            />
-            <Filter
-              id={'category'}
-              label="Kategoria"
-              items={categories}
-              changeHandler={(id) => { this.setSubcategories(id); }}
-            />
-            <Filter
-              id={'subcategory'}
-              label="Podkategoria"
-              items={subcategories}
-              multiple
-            />
+            {this.renderFilter('city', 'Miasto', cities, (id) => { this.setUniversities(id); })}
+            {this.renderFilter('university', 'Uczelnia', universities, null, true)}
+            {this.renderFilter('type', 'Typ aktywności', types, null, true)}
+            {this.renderFilter('category', 'Kategoria', categories, (id) => { this.setSubcategories(id); })}
+            {this.renderFilter('subcategory', 'Podkategoria', subcategories, null, true)}
             <RemoveFilters anyActive={activeFilters > 0} onClick={this.clearFilters}>
               Wyczyść filtry
             </RemoveFilters>

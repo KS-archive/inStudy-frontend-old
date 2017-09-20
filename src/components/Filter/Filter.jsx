@@ -7,15 +7,18 @@ import { updateFilter } from '../../actions/filters';
 
 class Filter extends PureComponent {
   changeHandler = (event, key, value) => {
-    const { updateFilter, changeHandler, id } = this.props;
-    updateFilter(id, value);
+    const { changeHandler, id } = this.props;
+    this.props.updateFilter(id, value);
     if (changeHandler) changeHandler(value);
   }
 
   render() {
     const { label, items, multiple, filters, id } = this.props;
     const filterValue = filters[id];
-    const isActive = (filterValue && !Array.isArray(filterValue)) || (Array.isArray(filterValue) && filterValue.length > 0);
+    const isActive =
+      (filterValue && !Array.isArray(filterValue))
+      || (Array.isArray(filterValue)
+      && filterValue.length > 0);
     const underlineStyle = (isActive)
       ? { borderBottomWidth: '2px', borderBottomColor: '#303F9F' }
       : { borderBottomWidth: '1px', borderBottomColor: '#bbbbbb' };
@@ -23,7 +26,7 @@ class Filter extends PureComponent {
     return (
       <SelectField
         floatingLabelText={label}
-        floatingLabelStyle={(isActive) ? { fontWeight: '500', color: '#303F9F' } : {}}
+        floatingLabelStyle={(isActive && items) ? { fontWeight: '500', color: '#303F9F' } : {}}
         onChange={this.changeHandler}
         value={filterValue}
         multiple={multiple}
@@ -31,9 +34,17 @@ class Filter extends PureComponent {
         underlineStyle={underlineStyle}
         disabled={!items}
       >
-        {items && Object.keys(items).map(key =>
-          <MenuItem key={items[key].id} value={items[key].id} primaryText={items[key].name} />,
-        )}
+        {(!multiple && filterValue) &&
+          <MenuItem value={null} primaryText="" />
+        }
+        {items && Object.keys(items).map(key => (
+          <MenuItem
+            key={items[key].id}
+            value={items[key].id}
+            primaryText={items[key].name}
+            checked={multiple && filterValue && filterValue.indexOf(items[key].id) > -1}
+          />
+        ))}
       </SelectField>
     );
   }

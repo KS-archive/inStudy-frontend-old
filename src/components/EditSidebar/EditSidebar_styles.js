@@ -64,7 +64,7 @@ export const Title = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  top: 15px;
+  top: 20px;
   box-sizing: border-box;
   display: flex;
   align-items: flex-start;

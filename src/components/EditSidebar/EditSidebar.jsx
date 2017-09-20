@@ -25,7 +25,9 @@ export default class EditSidebar extends Component {
   }
 
   closeDialog = () => {
-    this.setState({ dialog: null });
+    this.setState({ dialog: null }, () => {
+      this.props.changeContent({ mode: 'Moduły' });
+    });
   }
 
   handleScroll = (values) => {
