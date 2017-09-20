@@ -20,8 +20,14 @@ class Nav extends Component {
   }
 
   componentWillMount() {
-    const { pathname } = this.props.location;
-    this.setState({ pathname });
+    const location = window.location;
+    if (!location.protocol.includes('https') && location.hostname !== 'localhost') {
+      const newOrigin = location.origin.replace('http', 'https');
+      location.replace(`${newOrigin}${location.pathname}`);
+    } else {
+      const { pathname } = this.props.location;
+      this.setState({ pathname });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
