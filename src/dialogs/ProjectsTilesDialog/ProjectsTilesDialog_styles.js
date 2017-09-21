@@ -53,7 +53,7 @@ export const Element = styled.div`
   width: 333px;
   min-height: 100px;
   max-height: 100px;
-  margin: 26px 13px 0;
+  margin: 26px 10px 0;
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
   font-size: 24px;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CollapsibleElement from '../CollapsibleElement/CollapsibleElement';
+import CollapsibleElement from './CollapsibleElement/CollapsibleElement';
 import { SectionHeader } from '../../js/globalStyles';
 import { Wrapper } from './Collapsible_styles';
 

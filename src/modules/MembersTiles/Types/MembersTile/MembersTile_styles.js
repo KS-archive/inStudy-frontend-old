@@ -1,14 +1,16 @@
 import styled from 'styled-components';
-import { media, colorPalette } from '../../js/constants/styles';
+import { media } from '../../../../js/constants/styles';
 
 export const Container = styled.div`
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 265px;
-  border-radius: 2px 2px 0 0;
+  position: relative;
+  width: 265px;
+  height: 265px;
   box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(${props => props.backgroundImage});
   filter: ${props => props.grayScale && 'grayscale(1)'};
   transition: all 0.3s;
 
@@ -33,6 +35,7 @@ export const Container = styled.div`
   `}
   ${media.medium__large`
     width: 273px;
+    height: 273px;
     margin-right: 40px;
     margin-bottom: 40px;
 
@@ -41,6 +44,7 @@ export const Container = styled.div`
   `}
   ${media.small__medium`
     width: 310px;
+    height: 310px;
     margin-right: 40px;
     margin-bottom: 40px;
 
@@ -48,86 +52,60 @@ export const Container = styled.div`
   `}
   ${media.small`
     width: 300px;
+    height: 300px;
     margin-bottom: 40px;
   `}
 `;
 
-export const Image = styled.div`
-  width: 265px;
-  height: 265px;
-  border-radius: 2px 2px 0 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url(${props => props.backgroundImage});
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  ${media.medium__large`
-    width: 273px;
-    height: 273px;
-  `}
-  ${media.small__medium`
-    width: 310px;
-    height: 310px;
-  `}
-  ${media.small`
-    width: 300px;
-    height: 300px;
-  `}
-`;
-
-export const Data = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  padding: 20px 5px;
-
-  &:hover {
-    cursor: pointer;
-  }
+export const DataContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 93%);
 `;
 
 export const Name = styled.h3`
   margin-bottom: 5px;
   font-size: 24px;
-  color: ${colorPalette.textColor};
-  text-align: center;
+  color: #fff;
   font-weight: 500;
   line-height: 1.3;
 `;
 
 export const Role = styled.p`
-  text-align: center;
-  line-height: 1.3;
-  color: ${props => props.color};
+  color: #fff;
+  opacity: 0;
+  font-size: 0;
+  transition: font-size 0.2s ease, opacity 0.2s ease 0.2s;
+  ${Container}:hover & {
+    font-size: 16px;
+    opacity: 1;
+  }
 `;
 
 export const Socials = styled.div`
+  position: absolute;
+  right: -130px;
+  top: 18px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 45px;
-  margin-top: auto;
+  justify-content: flex-end;
+  padding: 10px 15px;
+  border-radius: 10px 0 0 10px;
   font-size: 24px;
   text-align: center;
-  background-color: #eef1fe;
-  color: ${colorPalette.accent3Color};
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
   transition: all 0.3s;
-
-  &:hover {
-    cursor: default !important;
+  ${Container}:hover & {
+    right: 0;
   }
 `;
 
 export const Social = styled.a`
   margin-right: 15px;
-
-  &:hover {
-    cursor: pointer;
-  }
 
   &:last-child {
     margin-right: 0;

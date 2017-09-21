@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import shuffle from 'lodash/shuffle';
-import MembersTile from '../MembersTile/MembersTile';
-import MembersTile2 from '../MembersTile2/MembersTile2';
-import MembersTile3 from '../MembersTile3/MembersTile3';
+import MembersTile from './Types/MembersTile/MembersTile';
+import MembersTile2 from './Types/MembersTile2/MembersTile2';
+import MembersTile3 from './Types/MembersTile3/MembersTile3';
 import MembersDialog from '../../dialogs/MembersDialog/MembersDialog';
 import { SectionHeader } from '../../js/globalStyles';
 import { List, More } from './MembersTiles_styles';

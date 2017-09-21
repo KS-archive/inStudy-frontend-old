@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Linkify from 'linkifyjs/react';
-import { colorPalette } from '../../js/constants/styles';
+import { colorPalette } from '../../../js/constants/styles';
 
 export const Element = styled.div`
   display: flex;

@@ -119,9 +119,6 @@ export const EditDialog = styled(Dialog)`
   /* Dialog content */
   > div > div > div > div:first-of-type {
     box-sizing: border-box !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-end;
     border: none !important;
 
     &::-webkit-scrollbar-track {

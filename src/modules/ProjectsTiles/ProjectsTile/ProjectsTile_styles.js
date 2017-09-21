@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media } from '../../js/constants/styles';
+import { media } from '../../../js/constants/styles';
 
 export const Container = styled.div`
   position: relative;

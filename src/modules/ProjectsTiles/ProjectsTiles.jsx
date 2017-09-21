@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import shuffle from 'lodash/shuffle';
 import omit from 'lodash/omit';
-import ProjectsTile from '../ProjectsTile/ProjectsTile';
+import ProjectsTile from './ProjectsTile/ProjectsTile';
 import ProjectDialog from '../../dialogs/ProjectDialog/ProjectDialog';
 import { SectionHeader } from '../../js/globalStyles';
 import { Labels, Label, List, More } from './ProjectsTiles_styles';
@@ -65,7 +65,7 @@ export default class ProjectsTiles extends Component {
 
     this.setState({
       activeLabel: 'wszystkie',
-      noLimit: content.length <= 3 * rowsLimit,
+      noLimit: (rowsLimit === 0) || content.length <= 3 * rowsLimit,
       elements,
       grayScale: startGray,
       labels,
@@ -91,7 +91,7 @@ export default class ProjectsTiles extends Component {
       const openDialog = () => { this.openDialog(key); };
       const attrs = { key, mainColors, openDialog, grayScale, labelColors: colors, ...tile };
 
-      return (index < rowsLimit * 3 || showAll || !rowsLimit) && <ProjectsTile {...attrs} />;
+      return (index < rowsLimit * 3 || showAll || !(+rowsLimit)) && <ProjectsTile {...attrs} />;
     });
   }
 
@@ -107,7 +107,7 @@ export default class ProjectsTiles extends Component {
     const { mainColors, colors, title, rowsLimit } = this.props;
     const { labels, showAll, dialog, dialogData, noLimit } = this.state;
     const showAllTiles = () => { this.setState({ showAll: true }); };
-    const anyLabels = Object.values(omit(labels, ['wszystkie'])).reduce((acc, curr) => +acc + curr.length);
+    const anyLabels = Object.values(omit(labels, ['wszystkie'])).reduce((acc, curr) => acc + curr.length, 0);
 
     return (
       <div>
