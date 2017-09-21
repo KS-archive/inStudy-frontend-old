@@ -7,7 +7,8 @@
   "scripts": {
     "start": "webpack --watch",
     "clean": "rimraf ./../build",
-    "build": "npm run clean && webpack --config webpack.config.prod.js -p"
+    "build": "npm run clean && webpack --config webpack.config.prod.js -p",
+    "dev": "npm run clean && webpack --config webpack.config.dev.js -p"
   },
   "author": "Konrad Szwarc",
   "license": "ISC",
