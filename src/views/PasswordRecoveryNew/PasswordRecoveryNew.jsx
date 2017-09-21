@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react';
+import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
+import axios from 'axios';
 import TextField from 'redux-form-material-ui/lib/TextField';
+import { addNotification } from '../../actions/notifications';
 import { StyledRaisedButton } from '../../js/globalStyles';
 import { Container, Content, Form, Header, ButtonContainer } from './PasswordRecoveryNew_styles';
 
@@ -9,7 +13,20 @@ const required = value => (value == null ? 'To pole jest wymagane' : undefined);
 
 class PasswordRecoveryNew extends PureComponent {
   onSubmit = (values) => {
-    console.log(values);
+    const url = `${__ROOT_URL__}api/user/recoverypassword`;
+    const data = {
+      token: this.props.match.params.token,
+      newpassword: values.password,
+    };
+    axios.post(url, data).then(
+      () => {
+        this.props.addNotification('Zmieniono!', 'Twoje hasło zostało zmienione.', 'success');
+        this.props.history.push('/logowanie');
+      },
+      (err) => {
+        this.props.addNotification('Wystąpił błąd', err.response.data.message, 'error');
+      },
+    );
   }
 
   renderTextField(name, label, type) {
@@ -64,7 +81,11 @@ function validate(values) {
   return errors;
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addNotification }, dispatch);
+}
+
 export default reduxForm({
   validate,
   form: 'PasswordRecoveryNewForm',
-})(PasswordRecoveryNew);
+})(connect(null, mapDispatchToProps)(PasswordRecoveryNew));

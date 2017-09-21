@@ -1,13 +1,26 @@
 import React, { PureComponent } from 'react';
+import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
+import axios from 'axios';
 import TextField from 'redux-form-material-ui/lib/TextField';
+import { addNotification } from '../../actions/notifications';
 import { StyledRaisedButton } from '../../js/globalStyles';
 import { Container, Content, Form, Header, ButtonContainer } from './PasswordRecovery_styles';
 
 class PasswordRecovery extends PureComponent {
   onSubmit = (values) => {
-    console.log(values);
+    const url = `${__ROOT_URL__}api/mail/recover/${values.email}`;
+    axios.post(url, null).then(
+      () => {
+        this.props.addNotification('Wysłano!', 'Na podany adres e-mail właśnie wysłaliśmy wiadomość z linkiem do odzyskiwania hasła', 'success');
+        this.props.history.push('/');
+      },
+      (err) => {
+        this.props.addNotification('Wystąpił błąd', err.response.data.message, 'error');
+      },
+    );
   }
 
   render() {
@@ -53,7 +66,11 @@ function validate(values) {
   return errors;
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addNotification }, dispatch);
+}
+
 export default reduxForm({
   validate,
   form: 'PasswordRecoveryForm',
-})(PasswordRecovery);
+})(connect(null, mapDispatchToProps)(PasswordRecovery));

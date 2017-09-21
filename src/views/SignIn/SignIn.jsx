@@ -20,8 +20,8 @@ class SignIn extends PureComponent {
         setCookie('token', res.data.token);
         this.props.history.push('/inicjatywy/edit');
         this.props.addNotification('Zalogowano', 'Zostałeś zalogowany', 'success');
-      }, () => {
-        this.props.addNotification('Wystąpił błąd', 'Podano nieprawidłowy e-mail lub hasło', 'error');
+      }, (err) => {
+        this.props.addNotification('Wystąpił błąd', err.response.data.message, 'error');
       });
   }
 
