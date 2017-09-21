@@ -29,6 +29,39 @@ export const StyledCheckbox = styled(Checkbox)`
   }
 `;
 
+export const Types = styled.div`
+  display: flex;
+  min-height: 50px;
+  margin-bottom: 20px;
+`;
+
+export const Type = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+  border: ${props => props.selected
+    ? `2px solid ${colorPalette.primary1Color}`
+    : `1px solid ${colorPalette.accent2Color}`};
+  border-radius: 2px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  > img {
+    max-width: 36px;
+    max-height: 36px;
+  }
+`;
+
 export const LabelHeader = styled.h4`
   margin: 20px 0 15px;
   font-size: 14px;

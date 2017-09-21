@@ -68,7 +68,7 @@ ReactDOM.render(
             <Route path="/inicjatywy" component={Circles} />
             <Route path="/odzyskiwanie_hasla/:token" component={PasswordRecoveryNew} />
             <Route path="/odzyskiwanie_hasla" component={PasswordRecovery} />
-            <Route path="/potwierdz_email/:token" component={ConfirmEmail} />
+            <Route path="/potwierdz_email" component={ConfirmEmail} />
             <Route path="/rejestracja" component={SignUp} />
             <Route path="/logowanie" component={SignIn} />
             <Route path="/" exact component={Hero} />

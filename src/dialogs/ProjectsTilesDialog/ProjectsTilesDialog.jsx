@@ -6,16 +6,17 @@ import accessibleModules from '../../js/constants/accesibleModules';
 import ProjectDetailsDialog from './ProjectDetailsDialog/ProjectDetailsDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
-import { Container, Checkboxes, StyledCheckbox, LabelHeader, Elements, Element, ElementContent, Name, ElementOptions } from './ProjectsTilesDialog_styles';
+import { Container, Checkboxes, StyledCheckbox, LabelHeader, Types, Type, Elements, Element, ElementContent, Name, ElementOptions } from './ProjectsTilesDialog_styles';
 
 export default class ProjectsTilesDialog extends Component {
   constructor(props) {
     super(props);
-    const { id, content, title, colors, startGray, rowsLimit, randomize } = this.props.data;
+    const { id, content, title, colors, startGray, rowsLimit, randomize, type } = this.props.data;
     this.state = {
       content: content || [],
       title: title || undefined,
       colors: colors || [2, 2, 4, 2, 2],
+      type: type || 0,
       startGray: startGray || false,
       rowsLimit: rowsLimit || 1,
       randomize: randomize || false,
@@ -31,7 +32,7 @@ export default class ProjectsTilesDialog extends Component {
       content: { noEmptyArr: true },
       rowsLimit: { required: true, naturalNumber: true },
     };
-    this.values = ['content', 'title', 'colors', 'startGray', 'rowsLimit', 'randomize'];
+    this.values = ['content', 'title', 'colors', 'type', 'startGray', 'rowsLimit', 'randomize'];
     this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
@@ -104,6 +105,16 @@ export default class ProjectsTilesDialog extends Component {
     this.setState({ dialog: 'colors', dialogData: [this.state.colors] });
   }
 
+  renderType = (type, index) => (
+    <Type
+      key={type.name}
+      selected={(index === this.state.type)}
+      onClick={() => { this.setState({ type: index }); }}
+    >
+      <img src={`/img/types_icons/${type.icon}`} alt={type.name} />
+    </Type>
+  );
+
   renderElement = (el, index) => {
     const { coverImage, id, title } = el;
     return (
@@ -167,6 +178,10 @@ export default class ProjectsTilesDialog extends Component {
             {this.renderCheckbox('Losowa kolejność', 'randomize')}
             {this.renderCheckbox('Szare przed najechaniem', 'startGray')}
           </Checkboxes>
+          <LabelHeader>Typ</LabelHeader>
+          <Types>
+            {this.types.map((type, i) => this.renderType(type, i))}
+          </Types>
           <LabelHeader>Elementy</LabelHeader>
           <Elements>
             {content.map((el, i) => this.renderElement(el, i))}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import shuffle from 'lodash/shuffle';
 import omit from 'lodash/omit';
 import ProjectsTile from './ProjectsTile/ProjectsTile';
+import ProjectsTile2 from './ProjectsTile2/ProjectsTile2';
 import ProjectDialog from '../../dialogs/ProjectDialog/ProjectDialog';
 import { SectionHeader } from '../../js/globalStyles';
 import { Labels, Label, List, More } from './ProjectsTiles_styles';
@@ -65,7 +66,31 @@ export default class ProjectsTiles extends Component {
 
     this.setState({
       activeLabel: 'wszystkie',
-      noLimit: (rowsLimit === 0) || content.length <= 3 * rowsLimit,
+      noLimit: content.length <= 3 * rowsLimit,
+      elements,
+      grayScale: startGray,
+      labels,
+    });
+  }
+
+  initialize = (props) => {
+    const { randomize, content, startGray, rowsLimit, type } = props;
+    const elements = randomize ? shuffle(content) : content;
+    const labels = this.getLabels(elements);
+
+    switch (type) {
+      case 1: this.type = {
+        elementsInRow: 2,
+        imageComponent: ProjectsTile2,
+      }; break;
+      default: this.type = {
+        elementsInRow: 3,
+        imageComponent: ProjectsTile,
+      }; break;
+    }
+    this.setState({
+      activeLabel: 'wszystkie',
+      noLimit: content.length <= this.type.elementsInRow * rowsLimit,
       elements,
       grayScale: startGray,
       labels,
@@ -82,6 +107,7 @@ export default class ProjectsTiles extends Component {
   }
 
   renderTiles = () => {
+    const Tile = this.type.imageComponent;
     const { rowsLimit, mainColors, colors } = this.props;
     const { labels, activeLabel, showAll, elements, grayScale } = this.state;
 
@@ -91,7 +117,7 @@ export default class ProjectsTiles extends Component {
       const openDialog = () => { this.openDialog(key); };
       const attrs = { key, mainColors, openDialog, grayScale, labelColors: colors, ...tile };
 
-      return (index < rowsLimit * 3 || showAll || !(+rowsLimit)) && <ProjectsTile {...attrs} />;
+      return (index < rowsLimit * 3 || showAll || !(+rowsLimit)) && <Tile {...attrs} />;
     });
   }
 

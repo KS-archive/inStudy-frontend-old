@@ -34,6 +34,16 @@ export default [
     icon: ProjectsTilesIcon,
     component: ProjectsTiles,
     dialog: ProjectsTilesDialog,
+    types: [
+      {
+        name: 'Kwadraty',
+        icon: 'project-tiles-1.png',
+      },
+      {
+        name: 'Wydarzenia z fb',
+        icon: 'project-tiles-2.png',
+      },
+    ],
   },
   {
     kind: 'IconText',
