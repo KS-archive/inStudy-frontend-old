@@ -3,14 +3,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // React Router
-import BrowserRouter from 'react-router-dom/BrowserRouter';
 import Route from 'react-router-dom/Route';
+import Router from 'react-router-dom/Router';
+import createBrowserHistory from 'history/createBrowserHistory';
 import Switch from 'react-router-dom/Switch';
 
 // Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+// Piwik
+import PiwikReactRouter from 'piwik-react-router';
 
 // Redux
 import Provider from 'react-redux/lib/components/Provider';
@@ -57,10 +61,16 @@ const muiTheme = getMuiTheme({
   },
 });
 
+const history = createBrowserHistory();
+const piwik = PiwikReactRouter({
+  url: 'stats13.mydevil.net',
+  siteId: 131,
+});
+
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
-      <BrowserRouter>
+      <Router history={piwik.connectToHistory(history)}>
         <Index>
           <Switch>
             <Route path="/inicjatywy/edit" component={EditProfile} />
@@ -75,6 +85,6 @@ ReactDOM.render(
             <Route component={Error404} />
           </Switch>
         </Index>
-      </BrowserRouter>
+      </Router>
     </Provider>
   </MuiThemeProvider>, document.querySelector('.container'));
