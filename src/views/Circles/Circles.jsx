@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import isEqual from 'lodash/isEqual';
+import DocumentMeta from 'react-document-meta';
 import { getCircles } from '../../actions/circles';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
@@ -55,8 +56,14 @@ class Circles extends Component {
   }
 
   render() {
+    const meta = {
+      title: 'inStudy - lista inicjatyw',
+      description: 'Wyszukaj inicjatywy z całego Wrocławia i odnajdź te, do których pragniesz dołączyć',
+    };
+
     return (
       <ContentWrapper>
+        <DocumentMeta {...meta} />
         <MainContainer>
           <SearchBar />
           <SearchFiltersContainer>

@@ -10,6 +10,7 @@ import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
+import DocumentMeta from 'react-document-meta';
 import { addNotification } from '../../actions/notifications';
 import { getActiveCircle, removeActiveCircle } from '../../actions/circles';
 import { getCookie, deleteCookie } from '../../js/cookies';
@@ -175,10 +176,13 @@ class EditProfile extends Component {
         setModalFunctions: this.setModalFunctions,
         colors: this.props.activeCircle.colors,
       };
-      console.log(header);
+      const meta = {
+        title: `Edytuj profil - ${activeCircle.name}`,
+      };
 
       return (
         <Container>
+          <DocumentMeta {...meta} />
           <EditSidebar
             openDialog={this.openDialog}
             closeDialog={this.closeDialog}

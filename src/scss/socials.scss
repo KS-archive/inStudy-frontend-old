@@ -42,7 +42,8 @@
   }
 }
 
-.social__codepen {
+.social__codepen,
+.social__code {
   &.textHover:hover {
     color: #000000;
     i { color: #000000; }

@@ -104,13 +104,19 @@ export const ActiveMiniImg = styled.div`
 `;
 
 export const TextContent = styled.div`
+  box-sizing: border-box;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   max-height: 95vh;
+  min-width: calc(100% - 415px);
   line-height: 1.3;
   padding: 0 10px;
+  ${media.large`
+    min-width: calc(100% - 330px);
+  `}
   ${media.medium`
+    min-width: 100%;
     overflow-y: unset;
     max-height: unset;
     padding: 0;
@@ -125,6 +131,9 @@ export const Name = styled.h1`
   ${media.large`
     font-size: 30px;
   `}
+  ${media.medium`
+    text-align: center;
+  `}
 `;
 
 export const Header = styled.h2`
@@ -134,12 +143,18 @@ export const Header = styled.h2`
   ${media.large`
     font-size: 20px;
   `}
+  ${media.medium`
+    text-align: center;
+  `}
 `;
 
 export const Description = styled.div`
   white-space: pre-wrap;
   line-height: 1.5;
   margin-bottom: 40px;
+  ${media.medium`
+    text-align: center;
+  `}
 
   h1,
   h2,
@@ -192,6 +207,7 @@ export const Socials = styled.div`
   padding-top: 40px;
   ${media.medium`
     align-items: flex-start;
+    justify-content: center;
     min-height: 80px;
     padding: 0;
   `}
@@ -210,6 +226,9 @@ export const SocialCircle = styled.a`
   text-align: center;
   color: #fff;
   transition: all 0.6s;
+  ${media.medium`
+    margin-left: 0;
+  `}
 
   &:hover {
     cursor: pointer;

@@ -30,6 +30,7 @@ export const ImageWrapper = styled.div`
   height: 277px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   background: url("${props => props.background}") no-repeat center/cover;
+  transition: all 0.3s;
   ${media.large`
     height: 214px;
   `}
@@ -40,6 +41,11 @@ export const ImageWrapper = styled.div`
     height: 47vw;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   `}
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 3px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 export const Label = styled.p`
@@ -76,4 +82,8 @@ export const Name = styled.div`
   line-height: 1.5;
   text-align: center;
   font-weight: 500;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

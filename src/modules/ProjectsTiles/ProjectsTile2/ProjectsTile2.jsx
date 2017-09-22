@@ -11,7 +11,7 @@ export default class ProjectsTile2 extends PureComponent {
   }
 
   render() {
-    const { coverImage, openDialog, title, labels, grayScale, header, description } = this.props;
+    const { coverImage, openDialog, title, labels, grayScale } = this.props;
 
     return (
       <Container>

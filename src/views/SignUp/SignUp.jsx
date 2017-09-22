@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
+import DocumentMeta from 'react-document-meta';
 import { addNotification } from '../../actions/notifications';
 import { cities, types, categories } from '../../js/constants/filterData';
 import { StyledRaisedButton } from '../../js/globalStyles';
@@ -87,9 +88,13 @@ class SignUp extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    const meta = {
+      title: 'inStudy - Rejestracja',
+    };
 
     return (
       <Container>
+        <DocumentMeta {...meta} />
         <Content>
           <Form onSubmit={handleSubmit(this.onSubmit)}>
             <Header>Rejestracja</Header>

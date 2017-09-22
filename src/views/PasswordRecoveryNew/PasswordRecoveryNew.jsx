@@ -5,6 +5,7 @@ import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import axios from 'axios';
 import TextField from 'redux-form-material-ui/lib/TextField';
+import DocumentMeta from 'react-document-meta';
 import { addNotification } from '../../actions/notifications';
 import { StyledRaisedButton } from '../../js/globalStyles';
 import { Container, Content, Form, Header, ButtonContainer } from './PasswordRecoveryNew_styles';
@@ -46,9 +47,13 @@ class PasswordRecoveryNew extends PureComponent {
 
   render() {
     const { handleSubmit } = this.props;
+    const meta = {
+      title: 'inStudy - odzyskieanie hasła',
+    };
 
     return (
       <Container>
+        <DocumentMeta {...meta} />
         <Content>
           <Form onSubmit={handleSubmit(this.onSubmit)}>
             <Header>Utwórz nowe hasło</Header>

@@ -36,6 +36,7 @@ export default class ProjectDialog extends Component {
 
   renderSocials = () => this.props.socials.map((social, index) => {
     const icon = socialsList[social.id].iconName;
+    console.log(icon);
     return (
       <SocialCircle
         className={`social__${icon} bg borderHover textHover`}

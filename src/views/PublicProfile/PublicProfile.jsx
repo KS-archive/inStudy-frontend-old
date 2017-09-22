@@ -32,6 +32,7 @@ class PublicProfile extends PureComponent {
     const { publicCircle } = this.props;
     const meta = {
       title: `${publicCircle.name} - inStudy`,
+      description: `Profil ${publicCircle.name} na portalu inStudy`,
     };
 
     if (publicCircle._id) {

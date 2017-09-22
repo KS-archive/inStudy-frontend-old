@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import Granim from 'granim';
+import DocumentMeta from 'react-document-meta';
 import { detectIE } from '../../js/utils';
 import { Background, Container, Content, Logo, Text, Buttons, StyledRaisedButton } from './Hero_styles';
 
@@ -25,8 +26,13 @@ class Hero extends PureComponent {
 
   render() {
     const isMobile = (window.screen.width <= 700);
+    const meta = {
+      title: 'inStudy - więcej niż studia!',
+      description: 'Największy portal gromadzący inicjatywy studenckie z całego Wrocławia. Wejdź i odnajdź ludzi, którzy uwielbiają to co Ty.',
+    };
     return (
       <Container isIE={detectIE()}>
+        <DocumentMeta {...meta} />
         <Background id="background" />
         <Content>
           <Logo src="./img/logo-instudy-rectangle.png" alt="Logo inStudy" />

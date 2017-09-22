@@ -24,6 +24,9 @@ class Nav extends Component {
     if (!location.protocol.includes('https') && location.hostname !== 'localhost') {
       const newOrigin = location.origin.replace('http', 'https');
       location.replace(`${newOrigin}${location.pathname}`);
+    } else if (location.href.includes('www.instudy.pl')) {
+      const newHref = location.href.replace('www.', '');
+      location.replace(newHref);
     } else {
       const { pathname } = this.props.location;
       this.setState({ pathname });

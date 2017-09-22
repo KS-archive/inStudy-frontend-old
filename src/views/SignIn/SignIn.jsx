@@ -6,6 +6,7 @@ import bindActionCreators from 'redux/lib/bindActionCreators';
 import axios from 'axios';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
+import DocumentMeta from 'react-document-meta';
 import { addNotification } from '../../actions/notifications';
 import { setCookie } from '../../js/cookies';
 import { StyledRaisedButton } from '../../js/globalStyles';
@@ -50,9 +51,13 @@ class SignIn extends PureComponent {
 
   render() {
     const { handleSubmit } = this.props;
+    const meta = {
+      title: 'inStudy - Logowanie',
+    };
 
     return (
       <Container>
+        <DocumentMeta {...meta} />
         <Content>
           <Form onSubmit={handleSubmit(this.onSubmit)}>
             <Header>Logowanie</Header>
