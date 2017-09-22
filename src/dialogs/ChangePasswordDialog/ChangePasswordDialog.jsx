@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import validate from '../../js/validation';
-import { getTokenHeader } from '../../js/utils';
-import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
-import { EditDialog } from '../../js/globalStyles';
+import validate from '../../utils/validation';
+import { getTokenHeader } from '../../utils/utils';
+import { renderActionButtons, renderTextField } from '../../utils/renderHelpers';
+import { EditDialog } from '../../utils/globalStyles';
 import { Form } from './ChangePasswordDialog_styles';
 
 export default class ChangePasswordDialog extends Component {

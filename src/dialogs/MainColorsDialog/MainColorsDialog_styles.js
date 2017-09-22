@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Dialog from 'material-ui/Dialog';
 import ChromePicker from 'react-color/lib/components/chrome/Chrome';
-import { colorPalette } from '../../js/constants/styles';
+import { colorPalette } from '../../utils/constants/styles';
 
 export const StyledDialog = styled(Dialog)`
   box-sizing: border-box;

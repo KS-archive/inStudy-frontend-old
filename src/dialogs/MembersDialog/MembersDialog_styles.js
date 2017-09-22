@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Dialog from 'material-ui/Dialog';
-import { colorPalette, media } from '../../js/constants/styles';
+import { colorPalette, media } from '../../utils/constants/styles';
 
 export const StyledDialog = styled(Dialog)`
   > div > div {

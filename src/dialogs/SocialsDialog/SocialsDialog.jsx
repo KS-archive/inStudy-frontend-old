@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import reduxForm from 'redux-form/lib/reduxForm';
 import FieldArray from 'redux-form/lib/FieldArray';
 import RenderSocials from './RenderSocials/RenderSocials';
-import { renderActionButtons } from '../../js/renderHelpers';
-import { EditDialog } from '../../js/globalStyles';
+import { renderActionButtons } from '../../utils/renderHelpers';
+import { EditDialog } from '../../utils/globalStyles';
 import { Form } from './SocialsDialog_styles';
 
 class SocialsDialog extends Component {

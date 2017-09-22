@@ -7,7 +7,7 @@ import axios from 'axios';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import DocumentMeta from 'react-document-meta';
 import { addNotification } from '../../actions/notifications';
-import { StyledRaisedButton } from '../../js/globalStyles';
+import { StyledRaisedButton } from '../../utils/globalStyles';
 import { Container, Content, Form, Header, ButtonContainer } from './PasswordRecovery_styles';
 
 class PasswordRecovery extends PureComponent {

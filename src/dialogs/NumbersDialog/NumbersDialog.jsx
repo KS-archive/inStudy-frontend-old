@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
-import validate from '../../js/validation';
-import accessibleModules from '../../js/constants/accesibleModules';
+import validate from '../../utils/validation';
+import accessibleModules from '../../utils/constants/accesibleModules';
 import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
-import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
-import { EditDialog } from '../../js/globalStyles';
+import { renderActionButtons, renderTextField } from '../../utils/renderHelpers';
+import { EditDialog } from '../../utils/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
 
 export default class NumbersDialog extends Component {

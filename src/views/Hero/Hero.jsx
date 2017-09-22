@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import Granim from 'granim';
 import DocumentMeta from 'react-document-meta';
-import { detectIE } from '../../js/utils';
+import { detectIE } from '../../utils/utils';
 import { Background, Container, Content, Logo, Text, Buttons, StyledRaisedButton } from './Hero_styles';
 
 class Hero extends PureComponent {

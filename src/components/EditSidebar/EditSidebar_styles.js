@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { colorPalette, media, navHeight, sidebarWidth } from '../../js/constants/styles';
+import { colorPalette, media, navHeight, sidebarWidth } from '../../utils/constants/styles';
 
 const titleHeight = 50;
 

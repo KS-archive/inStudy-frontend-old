@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Dialog from 'material-ui/Dialog';
-import { colorPalette } from '../../js/constants/styles';
+import { colorPalette } from '../../utils/constants/styles';
 
 export const StyledDialog = styled(Dialog)`
   box-sizing: border-box;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getTokenHeader } from '../js/utils';
+import { getTokenHeader } from '../utils/utils';
 import { ADD_MODULE, UPDATE_MODULE, DELETE_MODULE } from './types';
 
 export function addModule(module, successCallback, errorCallback) {

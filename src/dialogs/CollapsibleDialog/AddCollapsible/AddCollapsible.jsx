@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import validate from '../../../js/validation';
-import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
-import { EditDialog } from '../../../js/globalStyles';
+import validate from '../../../utils/validation';
+import { renderActionButtons, renderTextField } from '../../../utils/renderHelpers';
+import { EditDialog } from '../../../utils/globalStyles';
 import { Container } from './AddCollapsible_styles';
 
 export default class SocialsDialog extends Component {

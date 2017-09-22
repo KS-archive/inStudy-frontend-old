@@ -4,14 +4,14 @@ import axios from 'axios';
 import without from 'lodash/without';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import validate from '../../../js/validation';
-import socialsList from '../../../js/constants/socials';
+import validate from '../../../utils/validation';
+import socialsList from '../../../utils/constants/socials';
 import ImageDialog from '../../ImageDialog/ImageDialog';
 import SocialsDialog from '../../SocialsDialog/SocialsDialog';
-import projectLabels from '../../../js/constants/projectLabels';
-import { getTokenHeader } from '../../../js/utils';
-import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
-import { EditDialog, LabelHeader, Image, ImageOverlay, ImageOptions } from '../../../js/globalStyles';
+import projectLabels from '../../../utils/constants/projectLabels';
+import { getTokenHeader } from '../../../utils/utils';
+import { renderActionButtons, renderTextField } from '../../../utils/renderHelpers';
+import { EditDialog, LabelHeader, Image, ImageOverlay, ImageOptions } from '../../../utils/globalStyles';
 import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, SocialsWrapper, Social, AddSocial, GalleryWrapper } from './ProjectDetailsDialog_styles';
 
 export default class ProjectDetailsDialog extends Component {

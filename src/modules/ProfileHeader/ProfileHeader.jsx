@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import map from 'lodash/map';
 import find from 'lodash/find';
-import { cities, types, categories } from '../../js/constants/filterData';
-import socialsList from '../../js/constants/socials';
+import { cities, types, categories } from '../../utils/constants/filterData';
+import socialsList from '../../utils/constants/socials';
 import { Background, BackgroundEditIcon, Card, CardEditIcon, MainData, LogoContainer, Logo, LogoEditOverlay, DataContainer, CircleName, Labels, Label, TextContainer, TextRow, Name, Value, SocialsBar, SocialsContainer, SocialsEditOverlay, Social } from './ProfileHeader_styles';
 
 export default class ProfileHeader extends PureComponent {

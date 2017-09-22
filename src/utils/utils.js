@@ -1,4 +1,4 @@
-import { getCookie } from '../js/cookies';
+import { getCookie } from '../utils/cookies';
 
 export const detectIE = () => {
   const ua = window.navigator.userAgent;

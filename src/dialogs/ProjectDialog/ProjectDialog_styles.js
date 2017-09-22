@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorPalette, media } from '../../js/constants/styles';
+import { colorPalette, media } from '../../utils/constants/styles';
 
 export const Images = styled.div`
   width: 375px;

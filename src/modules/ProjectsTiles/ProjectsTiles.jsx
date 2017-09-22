@@ -4,7 +4,7 @@ import omit from 'lodash/omit';
 import ProjectsTile from './ProjectsTile/ProjectsTile';
 import ProjectsTile2 from './ProjectsTile2/ProjectsTile2';
 import ProjectDialog from '../../dialogs/ProjectDialog/ProjectDialog';
-import { SectionHeader } from '../../js/globalStyles';
+import { SectionHeader } from '../../utils/globalStyles';
 import { Labels, Label, List, More } from './ProjectsTiles_styles';
 
 export default class ProjectsTiles extends Component {

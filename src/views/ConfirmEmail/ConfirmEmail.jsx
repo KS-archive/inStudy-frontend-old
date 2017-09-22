@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import DocumentMeta from 'react-document-meta';
-import { StyledRaisedButton } from '../../js/globalStyles';
+import { StyledRaisedButton } from '../../utils/globalStyles';
 import { Container, Content, Header } from './ConfirmEmail_styles';
 
 export default class ConfirmEmail extends PureComponent {

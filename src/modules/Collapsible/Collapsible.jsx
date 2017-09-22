@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CollapsibleElement from './CollapsibleElement/CollapsibleElement';
-import { SectionHeader } from '../../js/globalStyles';
+import { SectionHeader } from '../../utils/globalStyles';
 import { Wrapper } from './Collapsible_styles';
 
 export default class Collapsible extends Component {

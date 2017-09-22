@@ -4,7 +4,7 @@ import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import DocumentMeta from 'react-document-meta';
-import accessibleModules from '../../js/constants/accesibleModules';
+import accessibleModules from '../../utils/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import EditSidebar from '../../components/EditSidebar/EditSidebar';
 import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
@@ -13,10 +13,10 @@ import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import { addNotification } from '../../actions/notifications';
 import { getActiveCircle, removeActiveCircle } from '../../actions/circles';
-import { getCookie, deleteCookie } from '../../js/cookies';
+import { getCookie, deleteCookie } from '../../utils/cookies';
 import { addModule, updateModule, deleteModule } from '../../actions/modules';
 import { changeLogo, changeBackground, changeCardData, changeSocials, reorderModules } from '../../actions/circleEdit';
-import { MainContainer } from '../../js/globalStyles';
+import { MainContainer } from '../../utils/globalStyles';
 import { Container, Wrapper } from './EditProfile_styles';
 
 class EditProfile extends Component {

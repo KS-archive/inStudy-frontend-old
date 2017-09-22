@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import IconButton from 'material-ui/IconButton';
-import { colorPalette } from '../../js/constants/styles';
+import { colorPalette } from '../../utils/constants/styles';
 
 export const Container = styled.div`
   box-sizing: border-box;

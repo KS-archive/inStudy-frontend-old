@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import validate from '../../js/validation';
-import accessibleModules from '../../js/constants/accesibleModules';
-import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
+import validate from '../../utils/validation';
+import accessibleModules from '../../utils/constants/accesibleModules';
+import { renderActionButtons, renderTextField } from '../../utils/renderHelpers';
 import { Form } from './SimpleTextDialog_styles';
-import { EditDialog } from '../../js/globalStyles';
+import { EditDialog } from '../../utils/globalStyles';
 
 export default class SimpleTextDialog extends Component {
   constructor(props) {

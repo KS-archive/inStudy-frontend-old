@@ -9,8 +9,8 @@ import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
 import DocumentMeta from 'react-document-meta';
 import { addNotification } from '../../actions/notifications';
-import { cities, types, categories } from '../../js/constants/filterData';
-import { StyledRaisedButton } from '../../js/globalStyles';
+import { cities, types, categories } from '../../utils/constants/filterData';
+import { StyledRaisedButton } from '../../utils/globalStyles';
 import { Container, Content, Form, Header, StyledField, ButtonContainer, Bottom, BottomText } from './SignUp_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);

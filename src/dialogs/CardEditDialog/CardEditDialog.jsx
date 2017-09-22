@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import MenuItem from 'material-ui/MenuItem';
-import validate from '../../js/validation';
-import { cities, types, categories } from '../../js/constants/filterData';
-import { renderActionButtons } from '../../js/renderHelpers';
+import validate from '../../utils/validation';
+import { cities, types, categories } from '../../utils/constants/filterData';
+import { renderActionButtons } from '../../utils/renderHelpers';
 import { changeCardData } from '../../actions/circleEdit';
 import { addNotification } from '../../actions/notifications';
-import { EditDialog } from '../../js/globalStyles';
-import { inputStyle } from '../../js/constants/styles';
+import { EditDialog } from '../../utils/globalStyles';
+import { inputStyle } from '../../utils/constants/styles';
 import { StyledTextField, StyledSelectField, Form } from './CardEditDialog_styles';
 
 class CardEditDialog extends Component {

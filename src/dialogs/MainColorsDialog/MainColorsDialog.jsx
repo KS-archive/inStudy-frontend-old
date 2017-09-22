@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import { changeColors } from '../../actions/circleEdit';
-import { renderActionButtons } from '../../js/renderHelpers';
+import { renderActionButtons } from '../../utils/renderHelpers';
 import { StyledDialog, Form, Cover, StyledChromePicker, ColorValue } from './MainColorsDialog_styles';
 
 class MainColorsDialog extends Component {

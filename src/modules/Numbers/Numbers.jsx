@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { SectionHeader } from '../../js/globalStyles';
+import { SectionHeader } from '../../utils/globalStyles';
 import { Wrapper, Container, Element, NumberField, Line, Description } from './Numbers_styles';
 
 export default class Numbers extends PureComponent {

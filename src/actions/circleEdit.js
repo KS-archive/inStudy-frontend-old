@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getTokenHeader } from '../js/utils';
+import { getTokenHeader } from '../utils/utils';
 import { CHANGE_LOGO, CHANGE_BACKGROUND, CHANGE_CARD_DATA, CHANGE_SOCIALS, CHANGE_COLORS, CHANGE_TAGS, REORDER_MODULES } from './types';
 
 export function changeLogo(file, successCallback, errorCallback) {

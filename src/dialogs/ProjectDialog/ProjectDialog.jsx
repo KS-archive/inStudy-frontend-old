@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import socialsList from '../../js/constants/socials';
-import { BasicDialog } from '../../js/globalStyles';
+import socialsList from '../../utils/constants/socials';
+import { BasicDialog } from '../../utils/globalStyles';
 import { Images, MainImage, Carousel, Arrow, CarouselWrapper, MiniImage, ActiveMiniImg, TextContent, Name, Header, Description, Socials, SocialCircle } from './ProjectDialog_styles';
 
 export default class ProjectDialog extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import fontAwesomeIcons from '../../js/constants/fontAwesomeIcons';
-import { EditDialog } from '../../js/globalStyles';
+import fontAwesomeIcons from '../../utils/constants/fontAwesomeIcons';
+import { EditDialog } from '../../utils/globalStyles';
 import { Container, IconWrapper, Icon } from './IconsDialog_styles';
 
 export default class IconsDialog extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
-import { renderActionButtons } from '../../js/renderHelpers';
-import { EditDialog } from '../../js/globalStyles';
+import { renderActionButtons } from '../../utils/renderHelpers';
+import { EditDialog } from '../../utils/globalStyles';
 import { Container, ListContainer, ListElement } from './ReorderDialog_styles';
 
 const SortableItem = SortableElement(({ value }) => (

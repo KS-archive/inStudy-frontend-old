@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import socialsList from '../../../../js/constants/socials';
+import socialsList from '../../../../utils/constants/socials';
 import { Container, Image, Data, Name, Role, Socials, Social } from './MembersTile3_styles';
 
 export default class MembersTile3 extends PureComponent {

@@ -7,7 +7,7 @@ import { getCircles } from '../../actions/circles';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import CircleCard from '../../components/CircleCard/CircleCard';
-import { MainContainer } from '../../js/globalStyles';
+import { MainContainer } from '../../utils/globalStyles';
 import { ContentWrapper, SearchFiltersContainer, CirclesList } from './Circles_styles';
 
 class Circles extends Component {

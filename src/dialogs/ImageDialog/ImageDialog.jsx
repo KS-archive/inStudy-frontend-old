@@ -3,8 +3,8 @@ import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import ReactTooltip from 'react-tooltip';
 import DropzoneField from './DropzoneField/DropzoneField';
-import { renderActionButtons } from '../../js/renderHelpers';
-import { EditDialog } from '../../js/globalStyles';
+import { renderActionButtons } from '../../utils/renderHelpers';
+import { EditDialog } from '../../utils/globalStyles';
 import { Form, InfoIcon } from './ImageDialog_styles';
 
 class ImageDialog extends Component {

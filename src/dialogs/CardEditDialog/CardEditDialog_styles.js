@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
-import { media } from '../../js/constants/styles';
+import { media } from '../../utils/constants/styles';
 
 export const StyledTextField = styled(TextField)`
   width: 400px !important;

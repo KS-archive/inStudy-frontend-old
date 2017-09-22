@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import ChipInput from 'material-ui-chip-input';
-import validate from '../../js/validation';
+import validate from '../../utils/validation';
 import { changeTags } from '../../actions/circleEdit';
-import { renderActionButtons } from '../../js/renderHelpers';
-import { EditDialog } from '../../js/globalStyles';
+import { renderActionButtons } from '../../utils/renderHelpers';
+import { EditDialog } from '../../utils/globalStyles';
 import { Form } from './ChangeTagsDialog_styles';
 
 class ChangeTagsDialog extends Component {

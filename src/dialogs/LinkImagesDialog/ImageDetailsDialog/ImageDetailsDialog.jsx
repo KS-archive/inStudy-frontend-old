@@ -3,9 +3,9 @@ import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
 import pick from 'lodash/pick';
 import ImageDialog from '../../ImageDialog/ImageDialog';
-import { getTokenHeader } from '../../../js/utils';
-import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
-import { EditDialog } from '../../../js/globalStyles';
+import { getTokenHeader } from '../../../utils/utils';
+import { renderActionButtons, renderTextField } from '../../../utils/renderHelpers';
+import { EditDialog } from '../../../utils/globalStyles';
 import { Container, ImagePreview, Editfields } from './ImageDetailsDialog_styles';
 
 export default class ImageDetailsDialog extends Component {

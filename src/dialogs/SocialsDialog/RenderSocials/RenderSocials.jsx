@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import SelectField from 'redux-form-material-ui/lib/SelectField';
-import socials from '../../../js/constants/socials';
-import { inputStyle } from '../../../js/constants/styles';
+import socials from '../../../utils/constants/socials';
+import { inputStyle } from '../../../utils/constants/styles';
 import { StyledField, SocialFields, DeleteSocial, AddSocialFields } from './RenderSocials_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);

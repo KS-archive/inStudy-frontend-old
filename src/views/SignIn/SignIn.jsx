@@ -8,8 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'redux-form-material-ui/lib/TextField';
 import DocumentMeta from 'react-document-meta';
 import { addNotification } from '../../actions/notifications';
-import { setCookie } from '../../js/cookies';
-import { StyledRaisedButton } from '../../js/globalStyles';
+import { setCookie } from '../../utils/cookies';
+import { StyledRaisedButton } from '../../utils/globalStyles';
 import { Container, Content, Form, Header, ButtonContainer, Recovery, Bottom, BottomText } from './SignIn_styles';
 
 const required = value => (value == null ? 'To pole jest wymagane' : undefined);

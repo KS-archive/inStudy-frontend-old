@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
-import validate from '../../../js/validation';
-import socialsList from '../../../js/constants/socials';
+import validate from '../../../utils/validation';
+import socialsList from '../../../utils/constants/socials';
 import ImageDialog from '../../ImageDialog/ImageDialog';
 import SocialsDialog from '../../SocialsDialog/SocialsDialog';
-import { getTokenHeader } from '../../../js/utils';
-import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
-import { EditDialog } from '../../../js/globalStyles';
+import { getTokenHeader } from '../../../utils/utils';
+import { renderActionButtons, renderTextField } from '../../../utils/renderHelpers';
+import { EditDialog } from '../../../utils/globalStyles';
 import { Container, ImagePreview, ImagePreviewOverlay, MediaWrapper, MediaElement, LabelHeader, SocialsWrapper, Social, AddSocial } from './MemberDetailsDialog_styles';
 
 export default class MemberDetailsDialog extends Component {

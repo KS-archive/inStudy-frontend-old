@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
-import validate from '../../js/validation';
+import validate from '../../utils/validation';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
-import accessibleModules from '../../js/constants/accesibleModules';
+import accessibleModules from '../../utils/constants/accesibleModules';
 import ProjectDetailsDialog from './ProjectDetailsDialog/ProjectDetailsDialog';
-import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
-import { EditDialog } from '../../js/globalStyles';
+import { renderActionButtons, renderTextField } from '../../utils/renderHelpers';
+import { EditDialog } from '../../utils/globalStyles';
 import { Container, Checkboxes, StyledCheckbox, LabelHeader, Types, Type, Elements, Element, ElementContent, Name, ElementOptions } from './ProjectsTilesDialog_styles';
 
 export default class ProjectsTilesDialog extends Component {

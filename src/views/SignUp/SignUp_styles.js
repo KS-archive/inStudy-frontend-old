@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Field from 'redux-form/lib/Field';
-import { colorPalette } from '../../js/constants/styles';
+import { colorPalette } from '../../utils/constants/styles';
 
 export const Container = styled.div`
   display: flex;

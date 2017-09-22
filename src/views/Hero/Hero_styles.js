@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import RaisedButton from 'material-ui/RaisedButton';
-import { colorPalette } from '../../js/constants/styles';
+import { colorPalette } from '../../utils/constants/styles';
 
 export const Background = styled.canvas`
   z-index: -1;

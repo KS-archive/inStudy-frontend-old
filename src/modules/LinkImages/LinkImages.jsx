@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import shuffle from 'lodash/shuffle';
 import LinkImage from './Types/LinkImage/LinkImage';
 import LinkImage2 from './Types/LinkImage2/LinkImage2';
-import { SectionHeader } from '../../js/globalStyles';
+import { SectionHeader } from '../../utils/globalStyles';
 import { Container, Toggle } from './LinkImages_styles';
 
 export default class LinkImages extends Component {

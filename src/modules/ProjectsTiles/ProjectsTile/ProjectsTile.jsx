@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import projectLabels from '../../../js/constants/projectLabels';
+import projectLabels from '../../../utils/constants/projectLabels';
 import { Container, Name, Labels, Label } from './ProjectsTile_styles';
 
 export default class ProjectsTile extends PureComponent {

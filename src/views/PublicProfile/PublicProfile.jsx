@@ -4,10 +4,10 @@ import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import DocumentMeta from 'react-document-meta';
-import accessibleModules from '../../js/constants/accesibleModules';
+import accessibleModules from '../../utils/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import { getPublicCircle, removePublicCircle } from '../../actions/circles';
-import { MainContainer } from '../../js/globalStyles';
+import { MainContainer } from '../../utils/globalStyles';
 import { Container, Wrapper } from './PublicProfile_styles';
 
 class PublicProfile extends PureComponent {

@@ -33,7 +33,7 @@ import PasswordRecoveryNew from './views/PasswordRecoveryNew/PasswordRecoveryNew
 import ConfirmEmail from './views/ConfirmEmail/ConfirmEmail';
 import Error404 from './views/Error404/Error404';
 
-import { colorPalette } from './js/constants/styles';
+import { colorPalette } from './utils/constants/styles';
 
 // Main styles import.
 import './scss/global.scss';

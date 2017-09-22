@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Field from 'redux-form/lib/Field';
-import { colorPalette, media } from '../../../js/constants/styles';
+import { colorPalette, media } from '../../../utils/constants/styles';
 
 export const StyledField = styled(Field)`
   width: 400px !important;

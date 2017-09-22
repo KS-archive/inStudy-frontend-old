@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import socialsList from '../../js/constants/socials';
+import socialsList from '../../utils/constants/socials';
 import { StyledDialog, Image, Name, Role, Line, Description, Socials, SocialCircle } from './MembersDialog_styles';
 
 export default class MembersDialog extends Component {

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
-import { colorPalette, media } from '../../../js/constants/styles';
+import { colorPalette, media } from '../../../utils/constants/styles';
 
 export const StyledDropzone = styled(Dropzone)`
   display: flex;

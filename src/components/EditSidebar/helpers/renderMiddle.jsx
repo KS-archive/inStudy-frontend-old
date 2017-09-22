@@ -1,6 +1,6 @@
 import React from 'react';
 import renderModuleIcon from './renderModuleIcon';
-import accesibleModules from '../../../js/constants/accesibleModules';
+import accesibleModules from '../../../utils/constants/accesibleModules';
 import { Modules, IconWrapper, SidebarIcon, Icon, EditIconSet, ShadowTop, ShadowBottom } from '../EditSidebar_styles';
 
 export default (mode, comp) => {

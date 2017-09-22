@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import IconsDialog from '../../IconsDialog/IconsDialog';
-import validate from '../../../js/validation';
-import { renderActionButtons, renderTextField } from '../../../js/renderHelpers';
-import { EditDialog } from '../../../js/globalStyles';
+import validate from '../../../utils/validation';
+import { renderActionButtons, renderTextField } from '../../../utils/renderHelpers';
+import { EditDialog } from '../../../utils/globalStyles';
 import { Container, LabelHeader, IconImageWrapper, IconImage } from './AddIconText_styles';
 
 export default class AddIconText extends Component {
