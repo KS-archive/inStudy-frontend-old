@@ -5,6 +5,7 @@ import validate from '../../js/validation';
 import accessibleModules from '../../js/constants/accesibleModules';
 import AddCollapsible from './AddCollapsible/AddCollapsible';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
+import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './CollapsibleDialog_styles';
@@ -33,8 +34,8 @@ export default class CollapsibleDialog extends Component {
 
   componentWillMount() {
     const { closeDialog, data: { id }, setModalFunctions } = this.props;
-    const { handleSubmit, remove, openColorsDialog } = this;
-    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog);
+    const { handleSubmit, remove, openColorsDialog, openReorderDialog } = this;
+    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog, openReorderDialog);
   }
 
   handleSubmit = () => { validate(this, this.submit); }
@@ -77,6 +78,14 @@ export default class CollapsibleDialog extends Component {
 
   openColorsDialog = () => {
     this.setState({ dialog: 'colors', dialogData: [this.state.color] });
+  }
+
+  openReorderDialog = () => {
+    this.setState({ dialog: 'reorder', dialogData: this.state.content });
+  }
+
+  reorderElements = (values) => {
+    this.setState({ content: values }, () => { this.closeDialog(); });
   }
 
   renderElement = (el, index) => (
@@ -145,6 +154,14 @@ export default class CollapsibleDialog extends Component {
             names={['Kolor kafelka']}
             mainColors={colors}
             {...dialogAttrs}
+          />
+        }
+        {dialog === 'reorder' &&
+          <ReorderDialog
+            {...dialogAttrs}
+            submitFunction={this.reorderElements}
+            title="Zmień kolejność elementów listy"
+            displayBy="title"
           />
         }
       </EditDialog>

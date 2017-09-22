@@ -13,9 +13,18 @@ const SortableItem = SortableElement(({ value }) => (
 
 export const SortableList = SortableContainer(({ elements, displayBy }) => (
   <ListContainer>
-    {elements.map((el, index) => (
-      <SortableItem key={`element-${index}`} index={index} value={el[displayBy]} />
-    ))}
+    {elements.map((el, index) => {
+      let value = el[displayBy];
+
+      if (displayBy.includes(',')) {
+        const arr = displayBy.split(',');
+        value = `${el[arr[0]]} ${el[arr[1]]}`;
+      }
+
+      return (
+        <SortableItem key={`element-${index}`} index={index} value={value} />
+      );
+    })}
   </ListContainer>
 ));
 

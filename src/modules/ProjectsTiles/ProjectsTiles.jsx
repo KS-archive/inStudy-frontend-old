@@ -145,7 +145,7 @@ export default class ProjectsTiles extends Component {
             </Labels>
           }
           <List>{this.renderTiles()}</List>
-          {(!showAll && rowsLimit !== 0 && !noLimit) && <More onClick={showAllTiles}>...</More>}
+          {(!showAll && rowsLimit !== '0' && !noLimit) && <More onClick={showAllTiles}>...</More>}
           {(dialog) && <ProjectDialog open closeDialog={this.closeDialog} {...dialogData} />}
         </div>
       </div>

@@ -3,6 +3,7 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
+import DocumentMeta from 'react-document-meta';
 import accessibleModules from '../../js/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import EditSidebar from '../../components/EditSidebar/EditSidebar';
@@ -10,7 +11,6 @@ import CardEditDialog from '../../dialogs/CardEditDialog/CardEditDialog';
 import SocialsDialog from '../../dialogs/SocialsDialog/SocialsDialog';
 import ImageDialog from '../../dialogs/ImageDialog/ImageDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
-import DocumentMeta from 'react-document-meta';
 import { addNotification } from '../../actions/notifications';
 import { getActiveCircle, removeActiveCircle } from '../../actions/circles';
 import { getCookie, deleteCookie } from '../../js/cookies';
@@ -23,17 +23,10 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialog: null,
       dialogData: {},
       sidebar: true,
       mode: 'Moduły', // Moduły, Dodaj moduł, Edycja modułu, Dodawanie modułu, Ustawienia
-      editingModule: null,
-      modalFunctions: {
-        submit: null,
-        cancel: null,
-        remove: null,
-        changeColors: null,
-      },
+      modalFunctions: {},
     };
   }
 
@@ -48,9 +41,9 @@ class EditProfile extends Component {
     });
   }
 
-  setModalFunctions = (id, submit, cancel, remove, changeColors) => {
+  setModalFunctions = (id, submit, cancel, remove, changeColors, changeOrder) => {
     remove = id && remove;
-    this.setState({ modalFunctions: { submit, cancel, remove, changeColors } });
+    this.setState({ modalFunctions: { submit, cancel, remove, changeColors, changeOrder } });
   }
 
   logout = () => {
@@ -73,6 +66,7 @@ class EditProfile extends Component {
         cancel: null,
         remove: null,
         changeColors: null,
+        changeOrder: null,
       },
     });
   }

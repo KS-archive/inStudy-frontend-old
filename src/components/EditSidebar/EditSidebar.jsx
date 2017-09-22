@@ -69,22 +69,24 @@ export default class EditSidebar extends Component {
           <Wrapper>
             <Title>{mode}</Title>
             {renderMiddle(mode, this)}
-            <BottomIcons>
-              {renderSpecialBtn(mode, this)}
-              <IconMenu
-                iconButtonElement={iconButtonElement}
-                anchorOrigin={origin}
-                targetOrigin={origin}
-              >
-                {(modules.length > 1) &&
-                  <MenuItem primaryText="Zmień kolejność modułów" onClick={this.changeOrder} />
-                }
-                <MenuItem primaryText="Edytuj tagi" onClick={() => { this.enterSettings('tags'); }} />
-                <MenuItem primaryText="Edytuj kolory" onClick={() => { this.enterSettings('colors'); }} />
-                <MenuItem primaryText="Zmień hasło" onClick={() => { this.enterSettings('password'); }} />
-                <MenuItem primaryText="Wyloguj" onClick={logout} />
-              </IconMenu>
-            </BottomIcons>
+            {(mode !== 'Edycja modułu' && mode !== 'Ustawienia') &&
+              <BottomIcons>
+                {renderSpecialBtn(mode, this)}
+                <IconMenu
+                  iconButtonElement={iconButtonElement}
+                  anchorOrigin={origin}
+                  targetOrigin={origin}
+                >
+                  {(modules.length > 1) &&
+                    <MenuItem primaryText="Zmień kolejność modułów" onClick={this.changeOrder} />
+                  }
+                  <MenuItem primaryText="Edytuj tagi" onClick={() => { this.enterSettings('tags'); }} />
+                  <MenuItem primaryText="Edytuj kolory" onClick={() => { this.enterSettings('colors'); }} />
+                  <MenuItem primaryText="Zmień hasło" onClick={() => { this.enterSettings('password'); }} />
+                  <MenuItem primaryText="Wyloguj" onClick={logout} />
+                </IconMenu>
+              </BottomIcons>
+            }
           </Wrapper>
         </Container>
         <Filler open={sidebar} onClick={toggleSidebar}>

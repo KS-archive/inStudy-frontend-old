@@ -5,6 +5,7 @@ import validate from '../../js/validation';
 import accessibleModules from '../../js/constants/accesibleModules';
 import AddIconText from './AddIconText/AddIconText';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
+import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
 import { EditDialog } from '../../js/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement, IconImageWrapper, IconImage } from './IconTextDialog_styles';
@@ -33,8 +34,8 @@ export default class IconTextDialog extends Component {
 
   componentWillMount() {
     const { closeDialog, data: { id }, setModalFunctions } = this.props;
-    const { handleSubmit, remove, openColorsDialog } = this;
-    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog);
+    const { handleSubmit, remove, openColorsDialog, openReorderDialog } = this;
+    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog, openReorderDialog);
   }
 
   handleSubmit = () => { validate(this, this.submit); }
@@ -77,6 +78,14 @@ export default class IconTextDialog extends Component {
 
   openColorsDialog = () => {
     this.setState({ dialog: 'colors', dialogData: [this.state.color] });
+  }
+
+  openReorderDialog = () => {
+    this.setState({ dialog: 'reorder', dialogData: this.state.content });
+  }
+
+  reorderIconText = (values) => {
+    this.setState({ content: values }, () => { this.closeDialog(); });
   }
 
   renderElement = (el, index) => (
@@ -148,6 +157,14 @@ export default class IconTextDialog extends Component {
             names={['Kolor ikony']}
             mainColors={colors}
             {...dialogAttrs}
+          />
+        }
+        {dialog === 'reorder' &&
+          <ReorderDialog
+            {...dialogAttrs}
+            submitFunction={this.reorderIconText}
+            title="Zmień kolejność kolumn"
+            displayBy="title"
           />
         }
       </EditDialog>

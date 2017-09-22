@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import without from 'lodash/without';
 import validate from '../../js/validation';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
+import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import accessibleModules from '../../js/constants/accesibleModules';
 import ImageDetailsDialog from './ImageDetailsDialog/ImageDetailsDialog';
 import { renderActionButtons, renderTextField } from '../../js/renderHelpers';
@@ -37,9 +38,9 @@ export default class LinkImagesDialog extends Component {
 
   componentWillMount() {
     const { closeDialog, data, setModalFunctions } = this.props;
-    const { handleSubmit, remove, openColorsDialog } = this;
+    const { handleSubmit, remove, openColorsDialog, openReorderDialog } = this;
     const id = data.id || Date.now();
-    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog);
+    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog, openReorderDialog);
     this.types = accessibleModules.find(el => el.kind === 'LinkImages').types;
     this.setState({ id });
   }
@@ -97,6 +98,14 @@ export default class LinkImagesDialog extends Component {
 
   openColorsDialog = () => {
     this.setState({ dialog: 'colors', dialogData: [this.state.color] });
+  }
+
+  openReorderDialog = () => {
+    this.setState({ dialog: 'reorder', dialogData: this.state.content });
+  }
+
+  reorderImages = (values) => {
+    this.setState({ content: values }, () => { this.closeDialog(); });
   }
 
   renderType = (type, index) => (
@@ -181,6 +190,14 @@ export default class LinkImagesDialog extends Component {
             names={['Kolor obramowania (typ 2)']}
             mainColors={colors}
             {...dialogAttrs}
+          />
+        }
+        {dialog === 'reorder' &&
+          <ReorderDialog
+            {...dialogAttrs}
+            submitFunction={this.reorderImages}
+            title="Zmień kolejność elementów galerii"
+            displayBy="link"
           />
         }
         {dialog === 'elementDetails' &&
