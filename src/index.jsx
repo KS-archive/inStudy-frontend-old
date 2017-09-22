@@ -3,8 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // React Router
-import BrowserRouter from 'react-router-dom/BrowserRouter';
 import Route from 'react-router-dom/Route';
+import Router from 'react-router-dom/Router';
+import createBrowserHistory from 'history/createBrowserHistory';
 import Switch from 'react-router-dom/Switch';
 
 // Material UI
@@ -57,10 +58,12 @@ const muiTheme = getMuiTheme({
   },
 });
 
+const customHistory = createBrowserHistory();
+
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
-      <BrowserRouter>
+      <Router history={customHistory}>
         <Index>
           <Switch>
             <Route path="/inicjatywy/edit" component={EditProfile} />
@@ -75,6 +78,6 @@ ReactDOM.render(
             <Route component={Error404} />
           </Switch>
         </Index>
-      </BrowserRouter>
+      </Router>
     </Provider>
   </MuiThemeProvider>, document.querySelector('.container'));
