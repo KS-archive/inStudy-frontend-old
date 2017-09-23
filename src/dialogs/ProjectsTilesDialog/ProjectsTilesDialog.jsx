@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
-import validate from '../../utils/validation';
 import valuesConfig from './valuesConfig';
 import { initializeDialog } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
@@ -20,20 +19,6 @@ export default class ProjectsTilesDialog extends Component {
 
   componentWillMount() {
     initializeDialog(this, 'ProjectsTiles', valuesConfig, true);
-  }
-
-  handleSubmit = () => { validate(this, this.submit); }
-
-  submit = (values) => {
-    const { kind, submit } = this.props;
-    const id = this.state.id;
-    const extendValues = { ...values, id, kind };
-    submit(extendValues);
-  }
-
-  remove = () => {
-    this.props.remove(this.props.data.id);
-    this.props.closeDialog();
   }
 
   closeDialog = () => {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import valuesConfig from './valuesConfig';
-import validate from '../../utils/validation';
 import { initializeDialog } from '../../utils/modulesHelpers';
 import { renderTextField } from '../../utils/renderHelpers';
 import { Form } from './SimpleTextDialog_styles';
@@ -9,20 +8,6 @@ import { EditDialog } from '../../utils/globalStyles';
 export default class SimpleTextDialog extends Component {
   componentWillMount() {
     initializeDialog(this, 'SimpleText', valuesConfig);
-  }
-
-  handleSubmit = () => { validate(this, this.submit); }
-
-  submit = (values) => {
-    const { data, kind, submit } = this.props;
-    const id = data.id ? { id: data.id } : {};
-    const extendValues = { ...values, ...id, kind };
-    submit(extendValues);
-  }
-
-  remove = () => {
-    this.props.remove(this.props.data.id);
-    this.props.closeDialog();
   }
 
   render() {

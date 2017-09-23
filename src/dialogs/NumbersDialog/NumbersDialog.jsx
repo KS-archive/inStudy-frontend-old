@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
-import validate from '../../utils/validation';
 import valuesConfig from './valuesConfig';
 import { initializeDialog } from '../../utils/modulesHelpers';
 import NewNumber from './NewNumber/NewNumber';
@@ -14,20 +13,6 @@ import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon
 export default class NumbersDialog extends Component {
   componentWillMount() {
     initializeDialog(this, 'Numbers', valuesConfig);
-  }
-
-  handleSubmit = () => { validate(this, this.submit); }
-
-  submit = (values) => {
-    const { data, kind, submit } = this.props;
-    const id = data.id ? { id: data.id } : {};
-    const extendValues = { ...values, ...id, kind };
-    submit(extendValues);
-  }
-
-  remove = () => {
-    this.props.remove(this.props.data.id);
-    this.props.closeDialog();
   }
 
   closeDialog = () => {

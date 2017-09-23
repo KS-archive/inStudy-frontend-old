@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
 import valuesConfig from './valuesConfig';
-import validate from '../../utils/validation';
 import { initializeDialog } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
@@ -13,20 +12,6 @@ import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elemen
 export default class MembersTilesDialog extends Component {
   componentWillMount() {
     initializeDialog(this, 'MembersTiles', valuesConfig, true);
-  }
-
-  handleSubmit = () => { validate(this, this.submit); }
-
-  submit = (values) => {
-    const { kind, submit } = this.props;
-    const id = this.state.id;
-    const extendValues = { ...values, id, kind };
-    submit(extendValues);
-  }
-
-  remove = () => {
-    this.props.remove(this.props.data.id);
-    this.props.closeDialog();
   }
 
   closeDialog = () => {
