@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import without from 'lodash/without';
-import indexOf from 'lodash/indexOf';
 import valuesConfig from './valuesConfig';
-import { initializeDialog } from '../../utils/modulesHelpers';
+import { initializeDialog, extendByBasicList } from '../../utils/modulesHelpers';
 import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
@@ -12,43 +10,8 @@ import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon
 
 export default class NumbersDialog extends Component {
   componentWillMount() {
-    initializeDialog(this, 'Numbers', valuesConfig);
-  }
-
-  closeDialog = () => {
-    this.setState({ dialog: false, dialogData: null });
-  }
-
-  deleteElement = (el) => {
-    const content = without(this.state.content, el);
-    this.setState({ content });
-  }
-
-  changeList = (el, dialogData) => {
-    let content;
-    const actualContent = this.state.content;
-    if (dialogData) {
-      const index = indexOf(actualContent, dialogData);
-      content = actualContent.map((item, i) => {
-        if (i === index) item = el;
-        return item;
-      });
-    } else {
-      content = [...actualContent, el];
-    }
-    this.setState({ content });
-  }
-
-  openColorsDialog = () => {
-    this.setState({ dialog: 'colors', dialogData: [this.state.color] });
-  }
-
-  openReorderDialog = () => {
-    this.setState({ dialog: 'reorder', dialogData: this.state.content });
-  }
-
-  reorderNumbers = (values) => {
-    this.setState({ content: values }, () => { this.closeDialog(); });
+    initializeDialog(this, 'Numbers', valuesConfig, ['colors', 'reorder']);
+    extendByBasicList(this);
   }
 
   renderElement = (el, index) => (
@@ -122,7 +85,7 @@ export default class NumbersDialog extends Component {
         {dialog === 'reorder' &&
           <ReorderDialog
             {...dialogAttrs}
-            submitFunction={this.reorderNumbers}
+            submitFunction={this.reorderElements}
             title="Zmień kolejność liczb"
             displayBy="number,description"
           />

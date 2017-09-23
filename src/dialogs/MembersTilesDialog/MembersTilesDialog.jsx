@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import without from 'lodash/without';
 import valuesConfig from './valuesConfig';
-import { initializeDialog } from '../../utils/modulesHelpers';
+import { initializeDialog, extendByBasicList } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import MemberDetailsDialog from './MemberDetailsDialog/MemberDetailsDialog';
@@ -11,11 +10,8 @@ import { Container, Checkboxes, StyledCheckbox, Types, Type, LabelHeader, Elemen
 
 export default class MembersTilesDialog extends Component {
   componentWillMount() {
-    initializeDialog(this, 'MembersTiles', valuesConfig, true);
-  }
-
-  closeDialog = () => {
-    this.setState({ dialog: false, dialogData: null });
+    initializeDialog(this, 'MembersTiles', valuesConfig, ['colors', 'reorder', 'types']);
+    extendByBasicList(this);
   }
 
   addDetails = () => {
@@ -30,37 +26,6 @@ export default class MembersTilesDialog extends Component {
       dialog: 'memberDetails',
       dialogData: { ...el, index },
     });
-  }
-
-  modifyElements = (values) => {
-    this.closeDialog();
-    const { id, index, firstname, surname, role, description, socials, coverImage } = values;
-    const content = [...this.state.content];
-
-    if (index || index === 0) { // Edit
-      content[index] = { id, firstname, surname, role, description, socials, coverImage };
-    } else { // Add
-      content.push({ id, firstname, surname, role, description, socials, coverImage });
-    }
-
-    this.setState({ content });
-  }
-
-  deleteElement = (el) => {
-    const content = without(this.state.content, el);
-    this.setState({ content });
-  }
-
-  openColorsDialog = () => {
-    this.setState({ dialog: 'colors', dialogData: [this.state.color] });
-  }
-
-  openReorderDialog = () => {
-    this.setState({ dialog: 'reorder', dialogData: this.state.content });
-  }
-
-  reorderTiles = (values) => {
-    this.setState({ content: values }, () => { this.closeDialog(); });
   }
 
   renderType = (type, index) => (
@@ -157,7 +122,7 @@ export default class MembersTilesDialog extends Component {
         }
         {dialog === 'memberDetails' &&
           <MemberDetailsDialog
-            submit={this.modifyElements}
+            submit={(el) => { this.changeList(el, dialogData); }}
             id={id}
             {...dialogAttrs}
           />
@@ -165,7 +130,7 @@ export default class MembersTilesDialog extends Component {
         {dialog === 'reorder' &&
           <ReorderDialog
             {...dialogAttrs}
-            submitFunction={this.reorderTiles}
+            submitFunction={this.reorderElements}
             title="Zmień kolejność kafelków osobowych"
             displayBy="firstname,surname"
           />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
 import valuesConfig from './valuesConfig';
-import { initializeDialog } from '../../utils/modulesHelpers';
+import { initializeDialog, extendByBasicList } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import ProjectDetailsDialog from './ProjectDetailsDialog/ProjectDetailsDialog';
@@ -10,23 +10,9 @@ import { EditDialog } from '../../utils/globalStyles';
 import { Container, Checkboxes, StyledCheckbox, LabelHeader, Types, Type, Elements, Element, ElementContent, Name, ElementOptions } from './ProjectsTilesDialog_styles';
 
 export default class ProjectsTilesDialog extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editingIndex: null,
-    };
-  }
-
   componentWillMount() {
-    initializeDialog(this, 'ProjectsTiles', valuesConfig, true);
-  }
-
-  closeDialog = () => {
-    this.setState({
-      dialog: false,
-      dialogData: null,
-      editingIndex: null,
-    });
+    initializeDialog(this, 'ProjectsTiles', valuesConfig, ['colors', 'reorder', 'types']);
+    extendByBasicList(this);
   }
 
   addDetails = () => {
@@ -36,43 +22,11 @@ export default class ProjectsTilesDialog extends Component {
     });
   }
 
-  editDetails = (el, index) => {
+  editDetails = (el) => {
     this.setState({
       dialog: 'projectDetails',
       dialogData: el,
-      editingIndex: index,
     });
-  }
-
-  modifyElements = (values) => {
-    this.closeDialog();
-    const { editingIndex } = this.state;
-    const content = [...this.state.content];
-
-    if (editingIndex || editingIndex === 0) { // Edit
-      content[editingIndex] = values;
-    } else { // Add
-      content.push(values);
-    }
-
-    this.setState({ content });
-  }
-
-  deleteElement = (el) => {
-    const content = without(this.state.content, el);
-    this.setState({ content });
-  }
-
-  openColorsDialog = () => {
-    this.setState({ dialog: 'colors', dialogData: [this.state.colors] });
-  }
-
-  openReorderDialog = () => {
-    this.setState({ dialog: 'reorder', dialogData: this.state.content });
-  }
-
-  reorderTiles = (values) => {
-    this.setState({ content: values }, () => { this.closeDialog(); });
   }
 
   renderType = (type, index) => (
@@ -171,14 +125,14 @@ export default class ProjectsTilesDialog extends Component {
         {dialog === 'reorder' &&
           <ReorderDialog
             {...dialogAttrs}
-            submitFunction={this.reorderTiles}
+            submitFunction={this.reorderElements}
             title="Zmień kolejność kafelków projektowych"
             displayBy="title"
           />
         }
         {dialog === 'projectDetails' &&
           <ProjectDetailsDialog
-            submit={this.modifyElements}
+            submit={(el) => { this.changeList(el, dialogData); }}
             id={id}
             {...dialogAttrs}
           />

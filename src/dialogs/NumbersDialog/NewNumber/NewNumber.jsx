@@ -25,7 +25,6 @@ export default class SocialsDialog extends Component {
 
   submit = (values) => {
     this.props.submit(values);
-    this.props.closeDialog();
   }
 
   render() {

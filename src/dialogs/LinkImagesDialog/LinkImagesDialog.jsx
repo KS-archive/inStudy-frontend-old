@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import without from 'lodash/without';
 import valuesConfig from './valuesConfig';
-import { initializeDialog } from '../../utils/modulesHelpers';
+import { initializeDialog, extendByBasicList } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import ImageDetailsDialog from './ImageDetailsDialog/ImageDetailsDialog';
@@ -11,11 +10,8 @@ import { Container, Checkboxes, StyledCheckbox, Types, Type, Elements } from './
 
 export default class LinkImagesDialog extends Component {
   componentWillMount() {
-    initializeDialog(this, 'LinkImages', valuesConfig, true);
-  }
-
-  closeDialog = () => {
-    this.setState({ dialog: false, dialogData: null });
+    initializeDialog(this, 'LinkImages', valuesConfig, ['colors', 'reorder', 'types']);
+    extendByBasicList(this);
   }
 
   addDetails = () => {
@@ -30,37 +26,6 @@ export default class LinkImagesDialog extends Component {
       dialog: 'elementDetails',
       dialogData: { ...el, index },
     });
-  }
-
-  modifyElements = (values) => {
-    this.closeDialog();
-    const { index, link, name, src } = values;
-    const content = [...this.state.content];
-
-    if (index || index === 0) { // Edit
-      content[index] = { name, src, link };
-    } else { // Add
-      content.push({ name, src, link });
-    }
-
-    this.setState({ content });
-  }
-
-  deleteElement = (el) => {
-    const content = without(this.state.content, el);
-    this.setState({ content });
-  }
-
-  openColorsDialog = () => {
-    this.setState({ dialog: 'colors', dialogData: [this.state.color] });
-  }
-
-  openReorderDialog = () => {
-    this.setState({ dialog: 'reorder', dialogData: this.state.content });
-  }
-
-  reorderImages = (values) => {
-    this.setState({ content: values }, () => { this.closeDialog(); });
   }
 
   renderType = (type, index) => (
@@ -150,14 +115,14 @@ export default class LinkImagesDialog extends Component {
         {dialog === 'reorder' &&
           <ReorderDialog
             {...dialogAttrs}
-            submitFunction={this.reorderImages}
+            submitFunction={this.reorderElements}
             title="Zmień kolejność elementów galerii"
             displayBy="link"
           />
         }
         {dialog === 'elementDetails' &&
           <ImageDetailsDialog
-            submit={this.modifyElements}
+            submit={(el) => { this.changeList(el, dialogData); }}
             id={id}
             {...dialogAttrs}
           />

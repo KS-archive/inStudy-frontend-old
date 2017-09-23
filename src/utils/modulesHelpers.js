@@ -1,8 +1,11 @@
+import without from 'lodash/without';
+import indexOf from 'lodash/indexOf';
+import isEmpty from 'lodash/isEmpty';
 import accessibleModules from './constants/accesibleModules';
 import validate from './validation';
 import { renderActionButtons } from './renderHelpers';
 
-export const initializeDialog = (comp, kind, valuesConfig, withTypes = false) => {
+export const initializeDialog = (comp, kind, valuesConfig, extend = []) => {
   // Set form values and validation.
   let state = {};
   comp.values = [];
@@ -28,9 +31,23 @@ export const initializeDialog = (comp, kind, valuesConfig, withTypes = false) =>
   // Determine is modal for edit contern or for add content.
   comp.isEditModal = !!comp.props.data.id;
 
-  // Set types of module if they exist.
-  if (withTypes) {
+  // Set types, reorder and colors change of module if they exist.
+  if (extend.includes('types')) {
     comp.types = accessibleModules.find(el => el.kind === kind).types;
+  }
+  if (extend.includes('reorder')) {
+    comp.openReorderDialog = () => {
+      comp.setState({ dialog: 'reorder', dialogData: comp.state.content });
+    };
+
+    comp.reorderElements = (values) => {
+      comp.setState({ content: values }, () => { comp.closeDialog(); });
+    };
+  }
+  if (extend.includes('colors')) {
+    comp.openColorsDialog = () => {
+      comp.setState({ dialog: 'colors', dialogData: [comp.state.color] });
+    };
   }
 
   // Submit function.
@@ -63,6 +80,28 @@ export const initializeDialog = (comp, kind, valuesConfig, withTypes = false) =>
   });
 };
 
-export const sth = () => {
-  console.log('obj');
+export const extendByBasicList = (comp) => {
+  comp.closeDialog = () => {
+    comp.setState({ dialog: false, dialogData: null });
+  };
+
+  comp.deleteElement = (el) => {
+    const content = without(comp.state.content, el);
+    comp.setState({ content });
+  };
+
+  comp.changeList = (el, dialogData) => {
+    let content;
+    const actualContent = comp.state.content;
+    if (isEmpty(dialogData)) {
+      content = [...actualContent, el];
+    } else {
+      const index = (dialogData.index === 0) ? 0 : dialogData.index || indexOf(actualContent, dialogData);
+      content = actualContent.map((item, i) => {
+        if (i === index) item = el;
+        return item;
+      });
+    }
+    comp.setState({ content }, () => { comp.closeDialog(); });
+  };
 };
