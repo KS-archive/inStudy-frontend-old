@@ -13,6 +13,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+// Analitics
+import ReactGA from 'react-ga';
+
 // Redux
 import Provider from 'react-redux/lib/components/Provider';
 import applyMiddleware from 'redux/lib/applyMiddleware';
@@ -59,11 +62,16 @@ const muiTheme = getMuiTheme({
 });
 
 const customHistory = createBrowserHistory();
+ReactGA.initialize('UA-106920408-1');
+const logPageView = () => {
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
+};
 
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
-      <Router history={customHistory}>
+      <Router history={customHistory} onUpdate={logPageView}>
         <Index>
           <Switch>
             <Route path="/inicjatywy/edit" component={EditProfile} />
