@@ -1,49 +1,25 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
 import validate from '../../utils/validation';
+import valuesConfig from './valuesConfig';
+import { initializeDialog } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
-import accessibleModules from '../../utils/constants/accesibleModules';
 import ProjectDetailsDialog from './ProjectDetailsDialog/ProjectDetailsDialog';
-import { renderActionButtons, renderTextField } from '../../utils/renderHelpers';
+import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog } from '../../utils/globalStyles';
 import { Container, Checkboxes, StyledCheckbox, LabelHeader, Types, Type, Elements, Element, ElementContent, Name, ElementOptions } from './ProjectsTilesDialog_styles';
 
 export default class ProjectsTilesDialog extends Component {
   constructor(props) {
     super(props);
-    const { id, content, title, colors, startGray, rowsLimit, randomize, type } = this.props.data;
     this.state = {
-      content: content || [],
-      title: title || undefined,
-      colors: colors || [2, 2, 4, 2, 2],
-      type: type || 0,
-      startGray: startGray || false,
-      rowsLimit: rowsLimit || 1,
-      randomize: randomize || false,
-      dialog: false,
-      dialogData: null,
       editingIndex: null,
-      errors: {},
     };
-    this.isEditModal = !!id;
-    this.moduleName = accessibleModules.find(m => m.kind === 'ProjectsTiles').name;
-    this.toValidate = {
-      title: { required: true },
-      content: { noEmptyArr: true },
-      rowsLimit: { required: true, naturalNumber: true },
-    };
-    this.values = ['content', 'title', 'colors', 'type', 'startGray', 'rowsLimit', 'randomize'];
-    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
   componentWillMount() {
-    const { closeDialog, data, setModalFunctions } = this.props;
-    const id = data.id || Date.now();
-    const { handleSubmit, remove, openColorsDialog, openReorderDialog } = this;
-    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog, openReorderDialog);
-    this.types = accessibleModules.find(el => el.kind === 'ProjectsTiles').types;
-    this.setState({ id });
+    initializeDialog(this, 'ProjectsTiles', valuesConfig, true);
   }
 
   handleSubmit = () => { validate(this, this.submit); }

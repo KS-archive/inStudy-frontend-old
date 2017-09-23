@@ -2,40 +2,18 @@ import React, { Component } from 'react';
 import without from 'lodash/without';
 import indexOf from 'lodash/indexOf';
 import validate from '../../utils/validation';
-import accessibleModules from '../../utils/constants/accesibleModules';
+import valuesConfig from './valuesConfig';
+import { initializeDialog } from '../../utils/modulesHelpers';
 import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
-import { renderActionButtons, renderTextField } from '../../utils/renderHelpers';
+import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog } from '../../utils/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
 
 export default class NumbersDialog extends Component {
-  constructor(props) {
-    super(props);
-    const { id, content, title, color } = this.props.data;
-    this.state = {
-      content: content || [],
-      title: title || undefined,
-      color: color || 2,
-      dialog: false,
-      dialogData: null,
-      errors: {},
-    };
-    this.isEditModal = !!id;
-    this.moduleName = accessibleModules.find(m => m.kind === 'Numbers').name;
-    this.toValidate = {
-      title: { required: true },
-      content: { noEmptyArr: true },
-    };
-    this.values = ['title', 'content', 'color'];
-    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
-  }
-
   componentWillMount() {
-    const { closeDialog, data: { id }, setModalFunctions } = this.props;
-    const { handleSubmit, remove, openColorsDialog, openReorderDialog } = this;
-    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog, openReorderDialog);
+    initializeDialog(this, 'Numbers', valuesConfig);
   }
 
   handleSubmit = () => { validate(this, this.submit); }

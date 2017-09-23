@@ -1,48 +1,18 @@
 import React, { Component } from 'react';
 import without from 'lodash/without';
 import validate from '../../utils/validation';
+import valuesConfig from './valuesConfig';
+import { initializeDialog } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
-import accessibleModules from '../../utils/constants/accesibleModules';
 import ImageDetailsDialog from './ImageDetailsDialog/ImageDetailsDialog';
-import { renderActionButtons, renderTextField } from '../../utils/renderHelpers';
+import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog, LabelHeader, Image, ImageOverlay, ImageOptions } from '../../utils/globalStyles';
 import { Container, Checkboxes, StyledCheckbox, Types, Type, Elements } from './LinkImagesDialog_styles';
 
 export default class LinkImagesDialog extends Component {
-  constructor(props) {
-    super(props);
-    const { id, content, title, color, type, startGray, rowsLimit, randomize } = this.props.data;
-    this.state = {
-      content: content || [],
-      title: title || undefined,
-      color: color || 2,
-      type: type || 0,
-      startGray: startGray || false,
-      rowsLimit: rowsLimit || 1,
-      randomize: randomize || false,
-      dialog: false,
-      dialogData: null,
-      errors: {},
-    };
-    this.isEditModal = !!id;
-    this.moduleName = accessibleModules.find(m => m.kind === 'LinkImages').name;
-    this.toValidate = {
-      title: { required: true },
-      content: { noEmptyArr: 'Musisz dodać co najmniej jeden element do galerii' },
-      rowsLimit: { required: true, naturalNumber: true },
-    };
-    this.values = ['content', 'title', 'color', 'type', 'startGray', 'rowsLimit', 'randomize'];
-    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
-  }
-
   componentWillMount() {
-    const { closeDialog, data, setModalFunctions } = this.props;
-    const { handleSubmit, remove, openColorsDialog, openReorderDialog } = this;
-    const id = data.id || Date.now();
-    setModalFunctions(id, handleSubmit, closeDialog, remove, openColorsDialog, openReorderDialog);
-    this.types = accessibleModules.find(el => el.kind === 'LinkImages').types;
-    this.setState({ id });
+    initializeDialog(this, 'LinkImages', valuesConfig, true);
   }
 
   handleSubmit = () => { validate(this, this.submit); }

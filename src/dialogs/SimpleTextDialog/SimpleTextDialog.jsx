@@ -1,33 +1,14 @@
 import React, { Component } from 'react';
+import valuesConfig from './valuesConfig';
 import validate from '../../utils/validation';
-import accessibleModules from '../../utils/constants/accesibleModules';
-import { renderActionButtons, renderTextField } from '../../utils/renderHelpers';
+import { initializeDialog } from '../../utils/modulesHelpers';
+import { renderTextField } from '../../utils/renderHelpers';
 import { Form } from './SimpleTextDialog_styles';
 import { EditDialog } from '../../utils/globalStyles';
 
 export default class SimpleTextDialog extends Component {
-  constructor(props) {
-    super(props);
-    const { id, content, title } = this.props.data;
-    this.state = {
-      title: title || undefined,
-      content: content || undefined,
-      errors: {},
-    };
-    this.isEditModal = !!id;
-    this.moduleName = accessibleModules.find(m => m.kind === 'SimpleText').name;
-    this.toValidate = {
-      title: { required: true },
-      content: { required: true },
-    };
-    this.values = ['title', 'content'];
-    this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
-  }
-
   componentWillMount() {
-    const { closeDialog, data: { id }, setModalFunctions } = this.props;
-    const { handleSubmit, remove } = this;
-    setModalFunctions(id, handleSubmit, closeDialog, remove);
+    initializeDialog(this, 'SimpleText', valuesConfig);
   }
 
   handleSubmit = () => { validate(this, this.submit); }
