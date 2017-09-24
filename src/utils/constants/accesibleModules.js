@@ -12,13 +12,13 @@ import NumbersIcon from '../../icons/module_icons/Mathematics';
 import CollapsibleIcon from '../../icons/module_icons/SixRowsLayoutInterfaceSymbol';
 import MembersTilesIcon from '../../icons/module_icons/Business';
 import LinkImagesIcon from '../../icons/module_icons/File';
-import SimpleTextDialog from '../../dialogs/SimpleTextDialog/SimpleTextDialog';
-import LinkImagesDialog from '../../dialogs/LinkImagesDialog/LinkImagesDialog';
-import NumbersDialog from '../../dialogs/NumbersDialog/NumbersDialog';
-import IconTextDialog from '../../dialogs/IconTextDialog/IconTextDialog';
-import CollapsibleDialog from '../../dialogs/CollapsibleDialog/CollapsibleDialog';
-import MembersTilesDialog from '../../dialogs/MembersTilesDialog/MembersTilesDialog';
-import ProjectsTilesDialog from '../../dialogs/ProjectsTilesDialog/ProjectsTilesDialog';
+import SimpleTextDialog from '../../dialogs/modules/SimpleTextDialog/SimpleTextDialog';
+import LinkImagesDialog from '../../dialogs/modules/LinkImagesDialog/LinkImagesDialog';
+import NumbersDialog from '../../dialogs/modules/NumbersDialog/NumbersDialog';
+import IconTextDialog from '../../dialogs/modules/IconTextDialog/IconTextDialog';
+import CollapsibleDialog from '../../dialogs/modules/CollapsibleDialog/CollapsibleDialog';
+import MembersTilesDialog from '../../dialogs/modules/MembersTilesDialog/MembersTilesDialog';
+import ProjectsTilesDialog from '../../dialogs/modules/ProjectsTilesDialog/ProjectsTilesDialog';
 
 export default [
   {

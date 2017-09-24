@@ -1,8 +1,8 @@
 import React from 'react';
-import CardEditDialog from '../../../dialogs/CardEditDialog/CardEditDialog';
-import SocialsDialog from '../../../dialogs/SocialsDialog/SocialsDialog';
-import ImageDialog from '../../../dialogs/ImageDialog/ImageDialog';
-import ReorderDialog from '../../../dialogs/ReorderDialog/ReorderDialog';
+import CardEditDialog from '../../../dialogs/editing/CardEditDialog/CardEditDialog';
+import SocialsDialog from '../../../dialogs/helpers/SocialsDialog/SocialsDialog';
+import ImageDialog from '../../../dialogs/helpers/ImageDialog/ImageDialog';
+import ReorderDialog from '../../../dialogs/helpers/ReorderDialog/ReorderDialog';
 
 export default (comp, moduleData) => {
   switch (comp.state.dialog) {

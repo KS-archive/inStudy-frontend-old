@@ -26,7 +26,7 @@ class SignUp extends Component {
       city: undefined,
       university: undefined,
       tags: undefined,
-      newsletter: false,
+      newsletter: true,
       errors: {},
       universities: [],
       subcategories: [],
@@ -130,9 +130,9 @@ class SignUp extends Component {
             {this.renderTextField('password2', 'Powtórz hasło', 'password')}
             {this.renderSelectField('city', 'Miasto', cities, this.setUniversities)}
             {this.renderSelectField('university', 'Uczelnia', universities)}
-            {this.renderSelectField('type', 'Typ inicjatywy', types)}
             {this.renderSelectField('category', 'Kategoria', categories, this.setSubcategories)}
             {this.renderSelectField('subcategory', 'Podkategoria', subcategories)}
+            {this.renderSelectField('type', 'Typ inicjatywy', types)}
             {this.renderTextField('tags', 'Tagi (oddzielone przecinkami)')}
             {this.renderCheckbox('Chcę otrzymywać wiadomości od inStudy dotyczące nowych funkcjonalności portalu', 'newsletter')}
             <ButtonContainer>

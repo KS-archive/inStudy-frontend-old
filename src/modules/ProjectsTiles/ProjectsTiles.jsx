@@ -3,7 +3,7 @@ import shuffle from 'lodash/shuffle';
 import omit from 'lodash/omit';
 import ProjectsTile from './ProjectsTile/ProjectsTile';
 import ProjectsTile2 from './ProjectsTile2/ProjectsTile2';
-import ProjectDialog from '../../dialogs/ProjectDialog/ProjectDialog';
+import ProjectDialog from '../../dialogs/forProfile/ProjectDialog/ProjectDialog';
 import { SectionHeader } from '../../utils/globalStyles';
 import { Labels, Label, List, More } from './ProjectsTiles_styles';
 

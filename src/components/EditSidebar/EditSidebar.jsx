@@ -5,9 +5,9 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import renderMiddle from './helpers/renderMiddle';
 import renderSpecialBtn from './helpers/renderSpecialBtn';
-import ChangeTagsDialog from '../../dialogs/ChangeTagsDialog/ChangeTagsDialog';
-import MainColorsDialog from '../../dialogs/MainColorsDialog/MainColorsDialog';
-import ChangePasswordDialog from '../../dialogs/ChangePasswordDialog/ChangePasswordDialog';
+import ChangeTagsDialog from '../../dialogs/editing/ChangeTagsDialog/ChangeTagsDialog';
+import MainColorsDialog from '../../dialogs/editing/MainColorsDialog/MainColorsDialog';
+import ChangePasswordDialog from '../../dialogs/editing/ChangePasswordDialog/ChangePasswordDialog';
 import { Container, ContainerArrow, Wrapper, Title, BottomIcons, Icon, Filler } from './EditSidebar_styles';
 
 export default class EditSidebar extends Component {
