@@ -61,12 +61,12 @@ const muiTheme = getMuiTheme({
   },
 });
 
-// ReactGA.initialize('UA-106920408-1');
+ReactGA.initialize('UA-106920408-1');
 const customHistory = createBrowserHistory();
 customHistory.listen((location) => {
   window.scrollTo(0, 0);
-  // ReactGA.set({ page: location.pathname });
-  // ReactGA.pageview(location.pathname);
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname);
 });
 
 ReactDOM.render(

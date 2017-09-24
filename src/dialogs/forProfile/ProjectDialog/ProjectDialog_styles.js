@@ -21,13 +21,22 @@ export const Images = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 250px;
-    max-height: 250px;
+    width: 100% !important;
+    min-height: 375px;
+    max-height: 375px;
+    ${media.small`
+      min-height: 300px;
+      max-height: 300px;
+    `}
 
     img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 99%;
+      max-height: 99%;
     }
+  }
+
+  .image-gallery-thumbnail > div > img {
+    max-height: 120px;
   }
 
   .image-gallery-right-nav,
