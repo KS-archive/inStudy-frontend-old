@@ -7,6 +7,7 @@
   "plugins": [
     "lodash",
     "syntax-dynamic-import",
-    "babel-plugin-styled-components"
+    "babel-plugin-styled-components",
+    "transform-runtime"
   ]
 }

@@ -37,7 +37,6 @@ export default class ProjectDialog extends Component {
   render() {
     const { open, closeDialog, title, header, description, socials } = this.props;
     const { images } = this.state;
-    console.log(this.state);
     return (
       <BasicDialog
         open={open}
