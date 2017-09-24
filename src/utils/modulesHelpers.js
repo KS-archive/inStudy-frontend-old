@@ -19,6 +19,10 @@ export const initializeDialog = (comp, kind, valuesConfig, extend = []) => {
     }
   });
 
+  comp.closeDialog = () => {
+    comp.setState({ dialog: false, dialogData: null });
+  };
+
   // Validation with submit callback.
   comp.handleSubmit = () => { validate(comp, comp.submit); };
 
@@ -60,6 +64,10 @@ export const initializeDialog = (comp, kind, valuesConfig, extend = []) => {
 
   // Remove function.
   comp.remove = () => {
+    comp.setState({ dialog: 'remove' });
+  };
+
+  comp.confirmRemove = () => {
     comp.props.remove(comp.props.data.id);
     comp.props.closeDialog();
   };
@@ -81,10 +89,6 @@ export const initializeDialog = (comp, kind, valuesConfig, extend = []) => {
 };
 
 export const extendByBasicList = (comp) => {
-  comp.closeDialog = () => {
-    comp.setState({ dialog: false, dialogData: null });
-  };
-
   comp.deleteElement = (el) => {
     const content = without(comp.state.content, el);
     comp.setState({ content });

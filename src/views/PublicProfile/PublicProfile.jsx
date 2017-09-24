@@ -11,7 +11,7 @@ import { MainContainer } from '../../utils/globalStyles';
 import { Container, Wrapper } from './PublicProfile_styles';
 
 class PublicProfile extends PureComponent {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getPublicCircle(this.props.match.params.url);
   }
 

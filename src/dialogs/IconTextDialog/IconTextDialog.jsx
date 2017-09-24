@@ -4,6 +4,7 @@ import { initializeDialog, extendByBasicList } from '../../utils/modulesHelpers'
 import AddIconText from './AddIconText/AddIconText';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
+import RemovingConfirm from '../../dialogs/RemovingConfirm/RemovingConfirm';
 import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog } from '../../utils/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement, IconImageWrapper, IconImage } from './IconTextDialog_styles';
@@ -91,6 +92,13 @@ export default class IconTextDialog extends Component {
             submitFunction={this.reorderElements}
             title="Zmień kolejność kolumn"
             displayBy="title"
+          />
+        }
+        {dialog === 'remove' &&
+          <RemovingConfirm
+            closeDialog={this.closeDialog}
+            remove={this.confirmRemove}
+            moduleName={this.moduleName}
           />
         }
       </EditDialog>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import without from 'lodash/without';
 import valuesConfig from './valuesConfig';
 import { initializeDialog, extendByBasicList } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
+import RemovingConfirm from '../../dialogs/RemovingConfirm/RemovingConfirm';
 import ProjectDetailsDialog from './ProjectDetailsDialog/ProjectDetailsDialog';
 import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog } from '../../utils/globalStyles';
@@ -135,6 +135,13 @@ export default class ProjectsTilesDialog extends Component {
             submit={(el) => { this.changeList(el, dialogData); }}
             id={id}
             {...dialogAttrs}
+          />
+        }
+        {dialog === 'remove' &&
+          <RemovingConfirm
+            closeDialog={this.closeDialog}
+            remove={this.confirmRemove}
+            moduleName={this.moduleName}
           />
         }
       </EditDialog>

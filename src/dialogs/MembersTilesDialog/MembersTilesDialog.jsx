@@ -3,6 +3,7 @@ import valuesConfig from './valuesConfig';
 import { initializeDialog, extendByBasicList } from '../../utils/modulesHelpers';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
+import RemovingConfirm from '../../dialogs/RemovingConfirm/RemovingConfirm';
 import MemberDetailsDialog from './MemberDetailsDialog/MemberDetailsDialog';
 import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog } from '../../utils/globalStyles';
@@ -133,6 +134,13 @@ export default class MembersTilesDialog extends Component {
             submitFunction={this.reorderElements}
             title="Zmień kolejność kafelków osobowych"
             displayBy="firstname,surname"
+          />
+        }
+        {dialog === 'remove' &&
+          <RemovingConfirm
+            closeDialog={this.closeDialog}
+            remove={this.confirmRemove}
+            moduleName={this.moduleName}
           />
         }
       </EditDialog>

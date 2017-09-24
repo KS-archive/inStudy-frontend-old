@@ -14,7 +14,7 @@ import { StyledTextField, StyledSelectField, Form } from './CardEditDialog_style
 class CardEditDialog extends Component {
   constructor(props) {
     super(props);
-    const { name, type, category, subcategory, city, university, email, phone, dateCreated, motto } = this.props.data;
+    const { name, type, category, subcategory, city, university, email, phone, dateCreated, motto, department, protectors } = this.props.data;
     this.state = {
       name,
       type,
@@ -26,6 +26,8 @@ class CardEditDialog extends Component {
       phone: phone || undefined,
       dateCreated: dateCreated || undefined,
       motto: motto || undefined,
+      department: department || undefined,
+      protectors: protectors || undefined,
       errors: {},
       universities: cities[this.props.city].universities,
       subcategories: categories[this.props.category].subcategories,
@@ -39,7 +41,7 @@ class CardEditDialog extends Component {
       university: { required: true },
       email: { required: true },
     };
-    this.values = ['name', 'type', 'category', 'subcategory', 'city', 'university', 'email', 'phone', 'dateCreated', 'motto'];
+    this.values = ['name', 'type', 'category', 'subcategory', 'city', 'university', 'email', 'phone', 'dateCreated', 'motto', 'department', 'protectors'];
     this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
@@ -113,6 +115,8 @@ class CardEditDialog extends Component {
           {this.renderSelectField('subcategory', 'Podkategoria', subcategories)}
           {this.renderSelectField('city', 'Miasto', cities, this.setUniversities)}
           {this.renderSelectField('university', 'Uczelnia', universities)}
+          {this.renderTextField('department', 'Wydział')}
+          {this.renderTextField('protectors', 'Opiekun/Opiekunowie')}
           {this.renderTextField('email', 'E-mail')}
           {this.renderTextField('phone', 'Telefon')}
           {this.renderTextField('dateCreated', 'Data założenia')}

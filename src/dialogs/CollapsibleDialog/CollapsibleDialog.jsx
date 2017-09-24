@@ -4,6 +4,7 @@ import { initializeDialog, extendByBasicList } from '../../utils/modulesHelpers'
 import AddCollapsible from './AddCollapsible/AddCollapsible';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
+import RemovingConfirm from '../../dialogs/RemovingConfirm/RemovingConfirm';
 import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog } from '../../utils/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './CollapsibleDialog_styles';
@@ -88,6 +89,13 @@ export default class CollapsibleDialog extends Component {
             submitFunction={this.reorderElements}
             title="Zmień kolejność elementów listy"
             displayBy="title"
+          />
+        }
+        {dialog === 'remove' &&
+          <RemovingConfirm
+            closeDialog={this.closeDialog}
+            remove={this.confirmRemove}
+            moduleName={this.moduleName}
           />
         }
       </EditDialog>
