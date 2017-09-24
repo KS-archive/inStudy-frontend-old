@@ -61,14 +61,13 @@ const muiTheme = getMuiTheme({
   },
 });
 
-const customHistory = createBrowserHistory();
 // ReactGA.initialize('UA-106920408-1');
-// const logPageView = () => {
-//   ReactGA.set({ page: window.location.pathname });
-//   ReactGA.pageview(window.location.pathname);
-// };
-
-// onUpdate={logPageView}
+const customHistory = createBrowserHistory();
+customHistory.listen((location) => {
+  window.scrollTo(0, 0);
+  // ReactGA.set({ page: location.pathname });
+  // ReactGA.pageview(location.pathname);
+});
 
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
