@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import { StyledDialog } from './RemovingConfirm_styles';
+import { StyledDialog } from './DiscardChangesConfirm_styles';
 
 
-export default class RemovingConfirm extends Component {
+export default class DiscardChangesConfirm extends Component {
   render() {
     const actions = [
       <FlatButton
-        label="Nie (pozostaw moduł)"
+        label="Nie (wróć do edycji)"
         primary
         onClick={this.props.closeDialog}
       />,
       <FlatButton
-        label="Tak (usuń moduł)"
+        label="Tak (anuluj zmiany)"
         primary
-        onClick={this.props.remove}
+        onClick={this.props.discard}
       />,
     ];
 
@@ -22,13 +22,13 @@ export default class RemovingConfirm extends Component {
       <div>
         <StyledDialog
           open
-          title="Potwierdzenie usuwania modułu"
+          title="Posiadasz niezapisane zmiany"
           actions={actions}
           modal={false}
           sidebar={this.props.sidebar}
           onRequestClose={this.props.closeDialog}
         >
-          {`Czy na pewno chcesz nieodwracalnie usunąć moduł „${this.props.moduleName}” i całą jego zawartość?`}
+          {'W module zostały wprowadzone zmiany, które nie zostały zapisane. Czy na pewno chcesz anulować wszystkie zmiany wprowadzone w module?'}
         </StyledDialog>
       </div>
     );

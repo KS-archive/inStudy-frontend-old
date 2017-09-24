@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import valuesConfig from './valuesConfig';
 import RemovingConfirm from '../../dialogs/RemovingConfirm/RemovingConfirm';
+import DiscardChangesConfirm from '../../dialogs/DiscardChangesConfirm/DiscardChangesConfirm';
 import { initializeDialog } from '../../utils/modulesHelpers';
 import { renderTextField } from '../../utils/renderHelpers';
 import { Form } from './SimpleTextDialog_styles';
@@ -12,7 +13,7 @@ export default class SimpleTextDialog extends Component {
   }
 
   render() {
-    const { actions, isEditModal, props: { closeDialog, open, sidebar } } = this;
+    const { props: { open, sidebar }, state: { dialog } } = this;
     const multilineAttrs = {
       multiLine: true,
       rows: 4,
@@ -21,22 +22,26 @@ export default class SimpleTextDialog extends Component {
     return (
       <EditDialog
         open={open}
-        onRequestClose={closeDialog}
-        actions={actions}
-        title={`${isEditModal ? 'Edytuj' : 'Dodaj'} moduł „${this.moduleName}”`}
-        autoScrollBodyContent
-        repositionOnUpdate={false}
         isSidebar={sidebar}
+        {...this.dialogArrts}
       >
         <Form>
           {renderTextField(this, 'Nazwa modułu', 'title')}
           {renderTextField(this, 'Treść', 'content', true, multilineAttrs)}
         </Form>
-        {this.state.dialog === 'remove' &&
+        {dialog === 'remove' &&
           <RemovingConfirm
             closeDialog={this.closeDialog}
             remove={this.confirmRemove}
             moduleName={this.moduleName}
+            sidebar={sidebar}
+          />
+        }
+        {dialog === 'discardChanges' &&
+          <DiscardChangesConfirm
+            closeDialog={this.closeDialog}
+            discard={this.closeDialogConfirm}
+            sidebar={sidebar}
           />
         }
       </EditDialog>

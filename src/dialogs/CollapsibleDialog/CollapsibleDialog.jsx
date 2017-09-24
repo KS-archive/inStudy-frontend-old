@@ -5,6 +5,7 @@ import AddCollapsible from './AddCollapsible/AddCollapsible';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import RemovingConfirm from '../../dialogs/RemovingConfirm/RemovingConfirm';
+import DiscardChangesConfirm from '../../dialogs/DiscardChangesConfirm/DiscardChangesConfirm';
 import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog } from '../../utils/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './CollapsibleDialog_styles';
@@ -41,8 +42,8 @@ export default class CollapsibleDialog extends Component {
   );
 
   render() {
-    const { closeDialog, open, sidebar, colors } = this.props;
-    const { dialog, dialogData } = this.state;
+    const { open, sidebar, colors } = this.props;
+    const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
@@ -53,17 +54,13 @@ export default class CollapsibleDialog extends Component {
     return (
       <EditDialog
         open={open}
-        onRequestClose={closeDialog}
-        actions={this.actions}
-        title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł „${this.moduleName}”`}
-        autoScrollBodyContent
-        repositionOnUpdate={false}
         isSidebar={sidebar}
+        {...this.dialogArrts}
       >
         <Container>
           {renderTextField(this, 'Tytuł (nagłówek modułu)', 'title')}
           <ElementsList>
-            {this.state.content && this.state.content.map(this.renderElement)}
+            {content && content.map(this.renderElement)}
           </ElementsList>
           <AddElement onClick={() => { this.setState({ dialog: 'element' }); }}>
             + Dodaj nowy element
@@ -96,6 +93,14 @@ export default class CollapsibleDialog extends Component {
             closeDialog={this.closeDialog}
             remove={this.confirmRemove}
             moduleName={this.moduleName}
+            sidebar={sidebar}
+          />
+        }
+        {dialog === 'discardChanges' &&
+          <DiscardChangesConfirm
+            closeDialog={this.closeDialog}
+            discard={this.closeDialogConfirm}
+            sidebar={sidebar}
           />
         }
       </EditDialog>

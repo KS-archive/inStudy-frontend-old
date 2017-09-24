@@ -5,6 +5,7 @@ import NewNumber from './NewNumber/NewNumber';
 import ColorsDialog from '../../dialogs/ColorsDialog/ColorsDialog';
 import ReorderDialog from '../../dialogs/ReorderDialog/ReorderDialog';
 import RemovingConfirm from '../../dialogs/RemovingConfirm/RemovingConfirm';
+import DiscardChangesConfirm from '../../dialogs/DiscardChangesConfirm/DiscardChangesConfirm';
 import { renderTextField } from '../../utils/renderHelpers';
 import { EditDialog } from '../../utils/globalStyles';
 import { Container, ElementsList, Card, Content, Title, Description, Icons, Icon, AddElement } from './NumbersDialog_styles';
@@ -41,7 +42,7 @@ export default class NumbersDialog extends Component {
   );
 
   render() {
-    const { closeDialog, open, sidebar, colors } = this.props;
+    const { open, sidebar, colors } = this.props;
     const { dialog, dialogData, content } = this.state;
     const dialogAttrs = {
       sidebar,
@@ -53,12 +54,8 @@ export default class NumbersDialog extends Component {
     return (
       <EditDialog
         open={open}
-        onRequestClose={closeDialog}
-        actions={this.actions}
-        title={`${this.isEditModal ? 'Edytuj' : 'Dodaj'} moduł „${this.moduleName}”`}
-        autoScrollBodyContent
-        repositionOnUpdate={false}
         isSidebar={sidebar}
+        {...this.dialogArrts}
       >
         <Container>
           {renderTextField(this, 'Tytuł (nagłówek modułu)', 'title')}
@@ -96,6 +93,14 @@ export default class NumbersDialog extends Component {
             closeDialog={this.closeDialog}
             remove={this.confirmRemove}
             moduleName={this.moduleName}
+            sidebar={sidebar}
+          />
+        }
+        {dialog === 'discardChanges' &&
+          <DiscardChangesConfirm
+            closeDialog={this.closeDialog}
+            discard={this.closeDialogConfirm}
+            sidebar={sidebar}
           />
         }
       </EditDialog>
