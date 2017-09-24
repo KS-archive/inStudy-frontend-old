@@ -65,6 +65,7 @@
     "react-dropzone": "^4.1.0",
     "react-ga": "^2.2.0",
     "react-helmet": "^5.2.0",
+    "react-image-gallery": "^0.8.3",
     "react-markdown": "^2.5.0",
     "react-notification-system": "^0.2.15",
     "react-redux": "^5.0.6",

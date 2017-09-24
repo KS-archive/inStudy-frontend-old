@@ -2,41 +2,26 @@ import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
 import socialsList from '../../utils/constants/socials';
 import { BasicDialog } from '../../utils/globalStyles';
-import { Images, MainImage, Carousel, Arrow, CarouselWrapper, MiniImage, ActiveMiniImg, TextContent, Name, Header, Description, Socials, SocialCircle } from './ProjectDialog_styles';
+import { Images, MainImage, StyledImageGallery, TextContent, Name, Header, Description, Socials, SocialCircle } from './ProjectDialog_styles';
 
 export default class ProjectDialog extends Component {
   constructor(props) {
     super(props);
     const { images, coverImage } = this.props;
+    const imagesArr = [coverImage, ...images];
+    const imagesObj = imagesArr.map((img) => {
+      return {
+        original: img,
+        thumbnail: img,
+      };
+    });
     this.state = {
-      mainImage: 0,
-      prevImage: (images.length > 1) && ((images.length > 2) ? (images.length - 1) : 1),
-      nextImage: (images.length > 1) && 1,
-      images: [coverImage, ...images],
+      images: imagesObj,
     };
-  }
-
-  carouselRight = () => {
-    const { mainImage, nextImage, images } = this.state;
-    this.setState({
-      prevImage: mainImage,
-      mainImage: nextImage,
-      nextImage: (nextImage >= images.length - 1) ? 0 : (nextImage + 1),
-    });
-  }
-
-  carouselLeft = () => {
-    const { prevImage, mainImage, images } = this.state;
-    this.setState({
-      prevImage: (prevImage <= 0) ? (images.length - 1) : (prevImage - 1),
-      mainImage: prevImage,
-      nextImage: mainImage,
-    });
   }
 
   renderSocials = () => this.props.socials.map((social, index) => {
     const icon = socialsList[social.id].iconName;
-    console.log(icon);
     return (
       <SocialCircle
         className={`social__${icon} bg borderHover textHover`}
@@ -51,7 +36,7 @@ export default class ProjectDialog extends Component {
 
   render() {
     const { open, closeDialog, title, header, description, socials } = this.props;
-    const { images, mainImage, prevImage, nextImage } = this.state;
+    const { images } = this.state;
     console.log(this.state);
     return (
       <BasicDialog
@@ -60,21 +45,14 @@ export default class ProjectDialog extends Component {
         autoScrollBodyContent
       >
         <Images>
-          <MainImage src={images[mainImage]} />
-          {(images.length > 1) &&
-            <Carousel>
-              <Arrow>
-                <i className="fa fa-angle-left" aria-hidden="true" onClick={this.carouselLeft} />
-              </Arrow>
-              <CarouselWrapper>
-                <MiniImage style={{ backgroundImage: `url(${images[prevImage]})` }} onClick={this.carouselLeft} />
-                <ActiveMiniImg style={{ backgroundImage: `url(${images[mainImage]})` }} />
-                <MiniImage style={{ backgroundImage: `url(${images[nextImage]})` }} onClick={this.carouselRight} />
-              </CarouselWrapper>
-              <Arrow>
-                <i className="fa fa-angle-right" aria-hidden="true" onClick={this.carouselRight} />
-              </Arrow>
-            </Carousel>
+          {images.length === 1
+            ? <MainImage src={images[0].original} />
+            : <StyledImageGallery
+              items={images}
+              slideInterval={2000}
+              showPlayButton={false}
+              showFullscreenButton={false}
+            />
           }
         </Images>
         <TextContent>

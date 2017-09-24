@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ImageGallery from 'react-image-gallery';
 import { colorPalette, media } from '../../utils/constants/styles';
 
 export const Images = styled.div`
@@ -15,6 +16,33 @@ export const Images = styled.div`
     width: 270px;
     max-width: 90vw;
   `}
+
+  .image-gallery-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    max-height: 250px;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .image-gallery-right-nav,
+  .image-gallery-left-nav {
+    padding: 0 15px;
+    font-size: 3em;
+
+    &:hover {
+      cursor: pointer;
+      &::before {
+        transition: all 0.3s;
+        color: #ddd !important;
+      }
+    }
+  }
 `;
 
 export const MainImage = styled.div`
@@ -37,70 +65,8 @@ export const MainImage = styled.div`
   `}
 `;
 
-export const Carousel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 375px;
-  height: 100px;
-  margin-top: 25px;
-  ${media.medium__large`
-    width: 300px;
-  `}
-  ${media.small`
-    display: none;
-  `}
-`;
-
-export const Arrow = styled.div`
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  i {
-    font-size: 24px;
-    color: ${colorPalette.accent2Color};
-  }
-`;
-
-export const CarouselWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 300px;
-  height: 100px;
-  ${media.medium__large`
-    width: 260px;
-  `}
-`;
-
-export const MiniImage = styled.div`
-  width: 70px;
-  height: 70px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0.5;
-  transition: all 0.3s;
-
-  &:hover {
-    cursor: pointer;
-    opacity: 0.7;
-  }
-`;
-
-export const ActiveMiniImg = styled.div`
-  width: 120px;
-  height: 100px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  transition: all 0.3s;
-  ${media.medium__large`
-    width: 100px;
-  `}
+export const StyledImageGallery = styled(ImageGallery)`
+  width: 100%;
 `;
 
 export const TextContent = styled.div`
