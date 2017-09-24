@@ -3,7 +3,7 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
-import DocumentMeta from 'react-document-meta';
+import Header from './Header';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import EditSidebar from '../../components/EditSidebar/EditSidebar';
 import modulesHandlers from './helpers/modulesHandlers';
@@ -71,13 +71,10 @@ class EditProfile extends Component {
         setModalFunctions: this.setModalFunctions,
         colors: this.props.activeCircle.colors,
       };
-      const meta = {
-        title: `Edytuj profil - ${activeCircle.name}`,
-      };
 
       return (
         <Container>
-          <DocumentMeta {...meta} />
+          <Header title={`Edytuj profil - ${activeCircle.name}`} />
           <EditSidebar
             openDialog={this.openDialog}
             closeDialog={this.closeDialog}

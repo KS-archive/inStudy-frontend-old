@@ -3,7 +3,7 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
-import DocumentMeta from 'react-document-meta';
+import Header from './Header';
 import accessibleModules from '../../utils/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import { getPublicCircle, removePublicCircle } from '../../actions/circles';
@@ -33,6 +33,10 @@ class PublicProfile extends PureComponent {
     const meta = {
       title: `${publicCircle.name} - inStudy`,
       description: `Profil ${publicCircle.name} na portalu inStudy`,
+      ogImage: publicCircle.og
+        ? `${__ROOT_URL__}img/upload/${publicCircle.og}`
+        : 'https://instudy.pl/img/Facebook-Open-Graph.jpg',
+      url: this.props.location.href,
     };
 
     if (publicCircle._id) {
@@ -40,7 +44,7 @@ class PublicProfile extends PureComponent {
       const modules = pick(publicCircle, ['modules']).modules;
       return (
         <Container>
-          <DocumentMeta {...meta} />
+          <Header {...meta} />
           <MainContainer>
             <ProfileHeader {...header} editable={false} />
             {(modules) &&

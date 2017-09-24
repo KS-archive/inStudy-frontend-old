@@ -1,17 +1,13 @@
 import React, { PureComponent } from 'react';
-import DocumentMeta from 'react-document-meta';
+import HelmetHeader from './Header';
 import { StyledRaisedButton } from '../../utils/globalStyles';
 import { Container, Content, Header } from './ConfirmEmail_styles';
 
 export default class ConfirmEmail extends PureComponent {
   render() {
-    const meta = {
-      title: 'inStudy - potwierdź e-mail',
-    };
-
     return (
       <Container>
-        <DocumentMeta {...meta} />
+        <HelmetHeader />
         <Content>
           <Header>Adres e-mail został potwierdzony. Możesz się zalogować</Header>
           <StyledRaisedButton

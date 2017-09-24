@@ -62,16 +62,18 @@ const muiTheme = getMuiTheme({
 });
 
 const customHistory = createBrowserHistory();
-ReactGA.initialize('UA-106920408-1');
-const logPageView = () => {
-  ReactGA.set({ page: window.location.pathname });
-  ReactGA.pageview(window.location.pathname);
-};
+// ReactGA.initialize('UA-106920408-1');
+// const logPageView = () => {
+//   ReactGA.set({ page: window.location.pathname });
+//   ReactGA.pageview(window.location.pathname);
+// };
+
+// onUpdate={logPageView}
 
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
-      <Router history={customHistory} onUpdate={logPageView}>
+      <Router history={customHistory}>
         <Index>
           <Switch>
             <Route path="/inicjatywy/edit" component={EditProfile} />
