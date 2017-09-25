@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media, colorPalette } from '../../../../js/constants/styles';
+import { media, colorPalette } from '../../../../utils/constants/styles';
 
 export const ImageLink = styled.a`
   box-sizing: border-box;

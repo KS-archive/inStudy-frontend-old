@@ -3,8 +3,8 @@ import shuffle from 'lodash/shuffle';
 import MembersTile from './Types/MembersTile/MembersTile';
 import MembersTile2 from './Types/MembersTile2/MembersTile2';
 import MembersTile3 from './Types/MembersTile3/MembersTile3';
-import MembersDialog from '../../dialogs/MembersDialog/MembersDialog';
-import { SectionHeader } from '../../js/globalStyles';
+import MembersDialog from '../../dialogs/forProfile/MembersDialog/MembersDialog';
+import { SectionHeader } from '../../utils/globalStyles';
 import { List, More } from './MembersTiles_styles';
 
 export default class MembersTiles extends Component {

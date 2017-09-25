@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorPalette } from '../../js/constants/styles';
+import { colorPalette } from '../../utils/constants/styles';
 
 export const Container = styled.div`
   text-align: center;

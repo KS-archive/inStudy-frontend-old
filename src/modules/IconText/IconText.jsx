@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { SectionHeader } from '../../js/globalStyles';
+import { SectionHeader } from '../../utils/globalStyles';
 import { Wrapper, Container, Element, Icon, Title, Description } from './IconText_styles';
 
 export default class IconText extends PureComponent {

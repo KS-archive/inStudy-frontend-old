@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import map from 'lodash/map';
 import find from 'lodash/find';
-import { cities, types, categories } from '../../js/constants/filterData';
-import socialsList from '../../js/constants/socials';
+import { cities, types, categories } from '../../utils/constants/filterData';
+import socialsList from '../../utils/constants/socials';
 import { Background, BackgroundEditIcon, Card, CardEditIcon, MainData, LogoContainer, Logo, LogoEditOverlay, DataContainer, CircleName, Labels, Label, TextContainer, TextRow, Name, Value, SocialsBar, SocialsContainer, SocialsEditOverlay, Social } from './ProfileHeader_styles';
 
 export default class ProfileHeader extends PureComponent {
@@ -42,9 +42,9 @@ export default class ProfileHeader extends PureComponent {
   });
 
   render() {
-    const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, colors, editable, socials } = this.props;
+    const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, department, protectors, colors, editable, socials } = this.props;
     const { cityName, universityName, typeName, categoryName, subcategoryName } = this.state;
-    const cardEditData = { name, type, category, subcategory, university, city, email, phone, dateCreated, motto };
+    const cardEditData = { name, type, category, subcategory, university, city, email, phone, dateCreated, motto, department, protectors };
 
     return (
       <div>
@@ -82,13 +82,23 @@ export default class ProfileHeader extends PureComponent {
               </Labels>
               <TextContainer>
                 <TextRow>
-                  <Name>Uczelnia</Name>
-                  <Value>{universityName}</Value>
-                </TextRow>
-                <TextRow>
                   <Name>Miasto</Name>
                   <Value>{cityName}</Value>
                 </TextRow>
+                <TextRow>
+                  <Name>Uczelnia</Name>
+                  <Value>{universityName}</Value>
+                </TextRow>
+                {(department) &&
+                <TextRow>
+                  <Name>Wydział</Name>
+                  <Value>{department}</Value>
+                </TextRow>}
+                {(protectors) &&
+                <TextRow>
+                  <Name>Opiekun</Name>
+                  <Value>{protectors}</Value>
+                </TextRow>}
                 <TextRow>
                   <Name>E-mail</Name>
                   <Value>{email}</Value>

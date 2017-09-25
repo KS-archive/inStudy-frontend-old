@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { SectionHeader } from '../../js/globalStyles';
+import { SectionHeader } from '../../utils/globalStyles';
 import { Container } from './SimpleText_styles';
 
 export default class SimpleText extends PureComponent {

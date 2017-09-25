@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import Field from 'redux-form/lib/Field';
-import { colorPalette } from '../../js/constants/styles';
+import TextField from 'redux-form-material-ui/lib/TextField';
+import SelectField from 'material-ui/SelectField';
+import Checkbox from 'material-ui/Checkbox';
+import { colorPalette, media } from '../../utils/constants/styles';
 
 export const Container = styled.div`
   display: flex;
@@ -58,17 +60,37 @@ export const Header = styled.h1`
   text-align: center;
 `;
 
-export const StyledField = styled(Field)`
-  &:nth-of-type(1) { order: 1; }
-  &:nth-of-type(2) { order: 3; }
-  &:nth-of-type(3) { order: 5; }
-  &:nth-of-type(4) { order: 7; }
-  &:nth-of-type(5) { order: 9; }
-  &:nth-of-type(6) { order: 2; }
-  &:nth-of-type(7) { order: 4; }
-  &:nth-of-type(8) { order: 6; }
-  &:nth-of-type(9) { order: 8; }
-  &:nth-of-type(10) { order: 10; }
+export const StyledTextField = styled(TextField)`
+  width: 295px !important;
+  font-weight: 500 !important;
+  ${media.small`
+    width: 270px !important;
+  `}
+`;
+
+export const StyledSelectField = styled(SelectField)`
+  width: 295px !important;
+  font-weight: 500 !important;
+  ${media.small`
+    width: 270px !important;
+  `}
+`;
+
+export const StyledCheckbox = styled(Checkbox)`
+  margin-top: 30px;
+  width: 100% !important;
+
+  label {
+    font-size: 16px;
+  }
+
+  @media (max-width: 800px) {
+    width: 295px !important;
+  }
+
+  ${media.small`
+    width: 270px !important;
+  `}
 `;
 
 export const ButtonContainer = styled.div`

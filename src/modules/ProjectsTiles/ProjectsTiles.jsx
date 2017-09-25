@@ -3,8 +3,8 @@ import shuffle from 'lodash/shuffle';
 import omit from 'lodash/omit';
 import ProjectsTile from './ProjectsTile/ProjectsTile';
 import ProjectsTile2 from './ProjectsTile2/ProjectsTile2';
-import ProjectDialog from '../../dialogs/ProjectDialog/ProjectDialog';
-import { SectionHeader } from '../../js/globalStyles';
+import ProjectDialog from '../../dialogs/forProfile/ProjectDialog/ProjectDialog';
+import { SectionHeader } from '../../utils/globalStyles';
 import { Labels, Label, List, More } from './ProjectsTiles_styles';
 
 export default class ProjectsTiles extends Component {
@@ -145,7 +145,7 @@ export default class ProjectsTiles extends Component {
             </Labels>
           }
           <List>{this.renderTiles()}</List>
-          {(!showAll && rowsLimit !== 0 && !noLimit) && <More onClick={showAllTiles}>...</More>}
+          {(!showAll && rowsLimit !== '0' && !noLimit) && <More onClick={showAllTiles}>...</More>}
           {(dialog) && <ProjectDialog open closeDialog={this.closeDialog} {...dialogData} />}
         </div>
       </div>

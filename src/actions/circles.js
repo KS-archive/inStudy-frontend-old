@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getTokenHeader } from '../js/utils';
+import { getTokenHeader } from '../utils/utils';
 import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, REMOVE_ACTIVE_CIRCLE, REMOVE_PUBLIC_CIRCLE } from './types';
 
 export function getCircles(page, limit, query, filters) {

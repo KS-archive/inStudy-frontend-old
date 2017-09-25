@@ -1,10 +1,10 @@
 import React from 'react';
 import renderModuleIcon from './renderModuleIcon';
-import accesibleModules from '../../../js/constants/accesibleModules';
+import accesibleModules from '../../../utils/constants/accesibleModules';
 import { Modules, IconWrapper, SidebarIcon, Icon, EditIconSet, ShadowTop, ShadowBottom } from '../EditSidebar_styles';
 
 export default (mode, comp) => {
-  const { submit, cancel, remove, changeColors } = comp.props.modalFunctions;
+  const { submit, cancel, remove, changeColors, changeOrder } = comp.props.modalFunctions;
   const attrs = {
     onUpdate: comp.handleScroll,
   };
@@ -43,6 +43,9 @@ export default (mode, comp) => {
           <EditIconSet>
             {changeColors &&
               <Icon className="fa fa-paint-brush" aria-hidden="true" onClick={changeColors} />
+            }
+            {changeOrder &&
+              <Icon className="fa fa-arrows-v" aria-hidden="true" onClick={changeOrder} />
             }
           </EditIconSet>
         </Modules>

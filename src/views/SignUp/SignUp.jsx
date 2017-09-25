@@ -1,30 +1,64 @@
 import React, { Component } from 'react';
-import reduxForm from 'redux-form/lib/reduxForm';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import axios from 'axios';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
-import TextField from 'redux-form-material-ui/lib/TextField';
-import SelectField from 'redux-form-material-ui/lib/SelectField';
-import DocumentMeta from 'react-document-meta';
+import HelmetHeader from './Header';
+import validate from '../../utils/validation';
+import { inputStyle } from '../../utils/constants/styles';
 import { addNotification } from '../../actions/notifications';
-import { cities, types, categories } from '../../js/constants/filterData';
-import { StyledRaisedButton } from '../../js/globalStyles';
-import { Container, Content, Form, Header, StyledField, ButtonContainer, Bottom, BottomText } from './SignUp_styles';
-
-const required = value => (value == null ? 'To pole jest wymagane' : undefined);
+import { cities, types, categories } from '../../utils/constants/filterData';
+import { StyledRaisedButton } from '../../utils/globalStyles';
+import { Container, Content, Form, Header, StyledTextField, StyledSelectField, StyledCheckbox, ButtonContainer, Bottom, BottomText } from './SignUp_styles';
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      universities: null,
-      subcategories: null,
+      name: undefined,
+      email: undefined,
+      password: undefined,
+      password2: undefined,
+      type: undefined,
+      category: undefined,
+      subcategory: undefined,
+      city: undefined,
+      university: undefined,
+      tags: undefined,
+      newsletter: true,
+      errors: {},
+      universities: [],
+      subcategories: [],
     };
+    this.toValidate = {
+      name: { required: true },
+      email: { required: true },
+      password: { required: true },
+      password2: { required: true, equalPasswords: 'password' },
+      type: { required: true },
+      category: { required: true },
+      subcategory: { required: true },
+      city: { required: true },
+      university: { required: true },
+      tags: { required: true },
+    };
+    this.values = ['name', 'type', 'category', 'subcategory', 'city', 'university', 'email', 'tags', 'password', 'password2', 'newsletter'];
   }
 
-  onSubmit = (values) => {
+  setUniversities = (cityId) => {
+    const universities = cities[cityId].universities;
+    this.setState({ universities, university: undefined });
+  }
+
+  setSubcategories = (categoryId) => {
+    const subcategories = categories[categoryId].subcategories;
+    this.setState({ subcategories, subcategory: undefined });
+  }
+
+  handleSubmit = () => { validate(this, this.submit); }
+
+  submit = (values) => {
     axios.post(`${__ROOT_URL__}api/user/register`, values).then((res) => {
       this.props.addNotification('Zarejestrowano', res.data.message, 'success');
       this.props.history.push('/');
@@ -37,82 +71,76 @@ class SignUp extends Component {
     });
   }
 
-  setUniversities = (cityId) => {
-    const universities = cities[cityId].universities;
-    this.props.change('university', null);
-    this.setState({ universities });
+  renderTextField(name, floatingLabelText, type) {
+    const { errors } = this.state;
+    const noError = { ...errors, [name]: undefined };
+    const attrs = {
+      type,
+      floatingLabelText,
+      value: this.state[name],
+      onChange: (e) => { this.setState({ [name]: e.target.value, errors: noError }); },
+      errorText: errors[name],
+      ...inputStyle,
+    };
+    return <StyledTextField {...attrs} />;
   }
 
-  setSubcategories = (categoryId) => {
-    const subcategories = categories[categoryId].subcategories;
-    this.props.change('subcategory', null);
-    this.setState({ subcategories });
-  }
+  renderSelectField(name, floatingLabelText, items, changeFc = () => {}) {
+    const { errors } = this.state;
+    const noError = { ...errors, [name]: undefined };
+    const attrs = {
+      floatingLabelText,
+      onChange: (event, index, value) => {
+        this.setState({ [name]: value, errors: noError }, () => { changeFc(value); });
+      },
+      value: this.state[name] && this.state[name].toString(),
+      errorText: errors[name],
+      disabled: (items.length === 0),
+      ...inputStyle,
+    };
 
-  renderTextField(name, label, type) {
     return (
-      <StyledField
-        name={name}
-        type={type}
-        component={TextField}
-        floatingLabelText={label}
-        floatingLabelFocusStyle={{ fontWeight: 500 }}
-        floatingLabelShrinkStyle={{ fontWeight: 900 }}
-        style={{ width: 295, fontWeight: 500 }}
-        validate={required}
-      />
+      <StyledSelectField {...attrs}>
+        {Object.keys(items).map(key => (
+          <MenuItem key={items[key].id} value={items[key].id} primaryText={items[key].name} />
+        ))}
+      </StyledSelectField>
     );
   }
 
-  renderSelectField(name, label, items, changefc) {
-    const fieldAttrs = {
-      name,
-      component: SelectField,
-      floatingLabelText: label,
-      floatingLabelFocusStyle: { fontWeight: 500 },
-      floatingLabelShrinkStyle: { fontWeight: 500 },
-      style: { width: 295, fontWeight: 500 },
-      onChange: changefc,
-      validate: required,
-    };
-    return (items && items.length !== 0)
-      ? (
-        <StyledField {...fieldAttrs}>
-          {Object.keys(items).map(key =>
-            <MenuItem key={items[key].id} value={items[key].id} primaryText={items[key].name} />)
-          }
-        </StyledField>
-      )
-      : <StyledField disabled {...fieldAttrs} />;
+  renderCheckbox = (label, stateName) => {
+    const checked = this.state[stateName];
+    const onCheck = () => { this.setState({ [stateName]: !checked }); };
+    const attrs = { label, checked, onCheck };
+    return <StyledCheckbox {...attrs} />;
   }
 
   render() {
-    const { handleSubmit } = this.props;
-    const meta = {
-      title: 'inStudy - Rejestracja',
-    };
+    const { universities, subcategories } = this.state;
 
     return (
       <Container>
-        <DocumentMeta {...meta} />
+        <HelmetHeader />
         <Content>
-          <Form onSubmit={handleSubmit(this.onSubmit)}>
+          <Form>
             <Header>Rejestracja</Header>
+            {this.renderTextField('name', 'Nazwa inicjatywy', 'text')}
             {this.renderTextField('email', 'E-mail', 'text')}
             {this.renderTextField('password', 'Hasło', 'password')}
             {this.renderTextField('password2', 'Powtórz hasło', 'password')}
-            {this.renderSelectField('city', 'Miasto', cities, (e, key) => { this.setUniversities(key); })}
-            {this.renderSelectField('university', 'Uczelnia', this.state.universities)}
-            {this.renderTextField('name', 'Nazwa inicjatywy', 'text')}
+            {this.renderSelectField('city', 'Miasto', cities, this.setUniversities)}
+            {this.renderSelectField('university', 'Uczelnia', universities)}
+            {this.renderSelectField('category', 'Kategoria', categories, this.setSubcategories)}
+            {this.renderSelectField('subcategory', 'Podkategoria', subcategories)}
             {this.renderSelectField('type', 'Typ inicjatywy', types)}
-            {this.renderSelectField('category', 'Kategoria', categories, (e, key) => { this.setSubcategories(key); })}
-            {this.renderSelectField('subcategory', 'Podkategoria', this.state.subcategories)}
             {this.renderTextField('tags', 'Tagi (oddzielone przecinkami)')}
+            {this.renderCheckbox('Chcę otrzymywać wiadomości od inStudy dotyczące nowych funkcjonalności portalu', 'newsletter')}
             <ButtonContainer>
               <StyledRaisedButton
                 label="Zarejestruj się"
                 type="submit"
                 primary
+                onClick={(e) => { e.preventDefault(); this.handleSubmit(); }}
               />
             </ButtonContainer>
           </Form>
@@ -130,33 +158,8 @@ class SignUp extends Component {
   }
 }
 
-function validate(values) {
-  const errors = {};
-
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Błędny adres email';
-  }
-  if (values.password !== values.password2) {
-    errors.password2 = 'Podano 2 różne hasła';
-  }
-  if (values.password && values.password.length < 8) {
-    errors.password = 'Hasło musi zawierać co najmniej 8 znaków';
-  }
-
-  return errors;
-}
-
-function mapStateToProps(state) {
-  return {
-    selectHelpers: state.selectHelpers,
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ addNotification }, dispatch);
 }
 
-export default reduxForm({
-  validate,
-  form: 'SignUpForm',
-})(connect(mapStateToProps, mapDispatchToProps)(SignUp));
+export default connect(null, mapDispatchToProps)(SignUp);

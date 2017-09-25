@@ -1,6 +1,6 @@
 import React from 'react';
-import { getRandomInt } from '../../../js/utils';
-import accesibleModules from '../../../js/constants/accesibleModules';
+import { getRandomInt } from '../../../utils/utils';
+import accesibleModules from '../../../utils/constants/accesibleModules';
 import { IconWrapper, SidebarIcon, StyledReactTooltip } from '../EditSidebar_styles';
 
 export default (module, comp) => {

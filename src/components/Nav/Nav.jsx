@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
 import { removeActiveCircle } from '../../actions/circles';
-import { getCookie, deleteCookie } from '../../js/cookies';
+import { getCookie, deleteCookie } from '../../utils/cookies';
 import { Header, AppLogo, IconMenu } from './Nav_styles';
 
 class Nav extends Component {

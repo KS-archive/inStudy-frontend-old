@@ -2,13 +2,12 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ShakePlugin = require('webpack-common-shake').Plugin;
 const webpack = require('webpack');
-const WebpackStrip = require('webpack-strip');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: ['babel-polyfill', './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, '../build'),
     publicPath: '/',

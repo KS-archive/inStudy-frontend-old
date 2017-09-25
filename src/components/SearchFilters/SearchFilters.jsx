@@ -3,10 +3,10 @@ import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
-import { hasAnyValue } from '../../js/utils';
+import { hasAnyValue } from '../../utils/utils';
 import Filter from '../Filter/Filter';
 import { deleteFilter } from '../../actions/filters';
-import { cities, types, categories } from '../../js/constants/filterData';
+import { cities, types, categories } from '../../utils/constants/filterData';
 import { Container, Wrapper, Filters, FilterLabel, RemoveFilters } from './SearchFilters_styles';
 
 class SearchFilters extends Component {

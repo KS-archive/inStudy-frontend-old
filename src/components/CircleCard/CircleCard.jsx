@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import find from 'lodash/find';
-import { cities, types, categories } from '../../js/constants/filterData';
+import { cities, types, categories } from '../../utils/constants/filterData';
 import { Container, LogoContainer, Logo, Name, Category, BottomLine, UniversityLogo, InfoIcons, InfoIcon, TypeIcon, ReactTooltip } from './circleCard_styles';
-import { CircleFlags } from '../../js/constants/circleDetails';
+import { CircleFlags } from '../../utils/constants/circleDetails';
 
 export default class CircleCard extends PureComponent {
   componentWillMount() {

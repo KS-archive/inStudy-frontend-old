@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Linkify from 'linkifyjs/react';
-import { colorPalette, media } from '../../js/constants/styles';
+import { colorPalette, media } from '../../utils/constants/styles';
 
 export const Wrapper = styled.div`
   margin-bottom: -60px;

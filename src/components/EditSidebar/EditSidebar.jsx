@@ -5,9 +5,9 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import renderMiddle from './helpers/renderMiddle';
 import renderSpecialBtn from './helpers/renderSpecialBtn';
-import ChangeTagsDialog from '../../dialogs/ChangeTagsDialog/ChangeTagsDialog';
-import MainColorsDialog from '../../dialogs/MainColorsDialog/MainColorsDialog';
-import ChangePasswordDialog from '../../dialogs/ChangePasswordDialog/ChangePasswordDialog';
+import ChangeTagsDialog from '../../dialogs/editing/ChangeTagsDialog/ChangeTagsDialog';
+import MainColorsDialog from '../../dialogs/editing/MainColorsDialog/MainColorsDialog';
+import ChangePasswordDialog from '../../dialogs/editing/ChangePasswordDialog/ChangePasswordDialog';
 import { Container, ContainerArrow, Wrapper, Title, BottomIcons, Icon, Filler } from './EditSidebar_styles';
 
 export default class EditSidebar extends Component {
@@ -69,22 +69,24 @@ export default class EditSidebar extends Component {
           <Wrapper>
             <Title>{mode}</Title>
             {renderMiddle(mode, this)}
-            <BottomIcons>
-              {renderSpecialBtn(mode, this)}
-              <IconMenu
-                iconButtonElement={iconButtonElement}
-                anchorOrigin={origin}
-                targetOrigin={origin}
-              >
-                {(modules.length > 1) &&
-                  <MenuItem primaryText="Zmień kolejność modułów" onClick={this.changeOrder} />
-                }
-                <MenuItem primaryText="Edytuj tagi" onClick={() => { this.enterSettings('tags'); }} />
-                <MenuItem primaryText="Edytuj kolory" onClick={() => { this.enterSettings('colors'); }} />
-                <MenuItem primaryText="Zmień hasło" onClick={() => { this.enterSettings('password'); }} />
-                <MenuItem primaryText="Wyloguj" onClick={logout} />
-              </IconMenu>
-            </BottomIcons>
+            {(mode !== 'Edycja modułu' && mode !== 'Ustawienia') &&
+              <BottomIcons>
+                {renderSpecialBtn(mode, this)}
+                <IconMenu
+                  iconButtonElement={iconButtonElement}
+                  anchorOrigin={origin}
+                  targetOrigin={origin}
+                >
+                  {(modules.length > 1) &&
+                    <MenuItem primaryText="Zmień kolejność modułów" onClick={this.changeOrder} />
+                  }
+                  <MenuItem primaryText="Edytuj tagi" onClick={() => { this.enterSettings('tags'); }} />
+                  <MenuItem primaryText="Edytuj kolory" onClick={() => { this.enterSettings('colors'); }} />
+                  <MenuItem primaryText="Zmień hasło" onClick={() => { this.enterSettings('password'); }} />
+                  <MenuItem primaryText="Wyloguj" onClick={logout} />
+                </IconMenu>
+              </BottomIcons>
+            }
           </Wrapper>
         </Container>
         <Filler open={sidebar} onClick={toggleSidebar}>

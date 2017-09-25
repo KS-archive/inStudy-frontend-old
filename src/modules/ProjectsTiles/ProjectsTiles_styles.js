@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorPalette, media } from '../../js/constants/styles';
+import { colorPalette, media } from '../../utils/constants/styles';
 
 export const Labels = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ export const Label = styled.div`
 
   &:hover {
     cursor: pointer;
-    border-bottom: 2px solid ${colorPalette.textColor};
+    border-bottom: ${props => props.active ? `2px solid ${props.color}` : `2px solid ${colorPalette.textColor}`};
   }
 
   ${media.medium`

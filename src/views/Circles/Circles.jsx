@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
 import bindActionCreators from 'redux/lib/bindActionCreators';
 import isEqual from 'lodash/isEqual';
-import DocumentMeta from 'react-document-meta';
+import Header from './Header';
 import { getCircles } from '../../actions/circles';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import CircleCard from '../../components/CircleCard/CircleCard';
-import { MainContainer } from '../../js/globalStyles';
+import { MainContainer } from '../../utils/globalStyles';
 import { ContentWrapper, SearchFiltersContainer, CirclesList } from './Circles_styles';
 
 class Circles extends Component {
@@ -56,14 +56,9 @@ class Circles extends Component {
   }
 
   render() {
-    const meta = {
-      title: 'inStudy - lista inicjatyw',
-      description: 'Wyszukaj inicjatywy z całego Wrocławia i odnajdź te, do których pragniesz dołączyć',
-    };
-
     return (
       <ContentWrapper>
-        <DocumentMeta {...meta} />
+        <Header />
         <MainContainer>
           <SearchBar />
           <SearchFiltersContainer>

@@ -13,8 +13,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-// Piwik
-import PiwikReactRouter from 'piwik-react-router';
+// Analitics
+import ReactGA from 'react-ga';
 
 // Redux
 import Provider from 'react-redux/lib/components/Provider';
@@ -36,7 +36,7 @@ import PasswordRecoveryNew from './views/PasswordRecoveryNew/PasswordRecoveryNew
 import ConfirmEmail from './views/ConfirmEmail/ConfirmEmail';
 import Error404 from './views/Error404/Error404';
 
-import { colorPalette } from './js/constants/styles';
+import { colorPalette } from './utils/constants/styles';
 
 // Main styles import.
 import './scss/global.scss';
@@ -61,16 +61,18 @@ const muiTheme = getMuiTheme({
   },
 });
 
-const history = createBrowserHistory();
-const piwik = PiwikReactRouter({
-  url: 'stats13.mydevil.net',
-  siteId: 131,
+ReactGA.initialize('UA-106920408-1');
+const customHistory = createBrowserHistory();
+customHistory.listen((location) => {
+  window.scrollTo(0, 0);
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname);
 });
 
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
-      <Router history={piwik.connectToHistory(history)}>
+      <Router history={customHistory}>
         <Index>
           <Switch>
             <Route path="/inicjatywy/edit" component={EditProfile} />
