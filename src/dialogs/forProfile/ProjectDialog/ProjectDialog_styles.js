@@ -199,7 +199,7 @@ export const SocialCircle = styled.a`
   margin-left: 20px;
   font-size: 20px;
   text-align: center;
-  color: #fff;
+  color: #fff !important;
   transition: all 0.6s;
   ${media.medium`
     margin-left: 0;

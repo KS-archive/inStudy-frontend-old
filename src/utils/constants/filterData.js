@@ -19,6 +19,10 @@ export const cities = {
         id: '4',
         name: 'Uniwersytet SWPS - Wrocław',
       },
+      {
+        id: '5',
+        name: 'Wyższa Szkoła Bankowa we Wrocławiu',
+      },
     ],
   },
 };

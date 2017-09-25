@@ -78,6 +78,9 @@ export const MainData = styled.div`
     flex-direction: column;
     align-items: center;
   `}
+  ${media.small`
+    padding: 40px 30px;
+  `}
 `;
 
 export const LogoContainer = styled.div`
@@ -93,13 +96,18 @@ export const LogoContainer = styled.div`
   `}
   ${media.small`
     max-width: 310px;
-    width: 95%;
+    max-height: 150px;
+    width: 90%;
+    margin-bottom: 30px;
   `}
 `;
 
 export const Logo = styled.img`
   max-width: 95%;
   max-height: 95%;
+  ${media.small`
+    max-height: 150px;
+  `}
 `;
 
 export const LogoEditOverlay = styled.div`
@@ -152,6 +160,9 @@ export const CircleName = styled.h1`
     width: 100%;
     text-align: center;
   `}
+  ${media.small`
+    font-size: 30px;
+  `}
 `;
 
 export const Labels = styled.div`
@@ -188,6 +199,10 @@ export const Label = styled.div`
       margin-right: 10px;
     }
   `}
+
+  ${media.small`
+    height: 40px;
+  `}
 `;
 
 export const TextContainer = styled.div`
@@ -209,7 +224,7 @@ export const TextRow = styled.div`
   ${media.small`
     flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   `}
 
   &:last-child {
@@ -227,7 +242,7 @@ export const Name = styled.p`
   ${media.small`
     min-width: unset;
     margin-bottom: 5px;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
   `}
 `;
@@ -242,7 +257,7 @@ export const Value = styled.p`
   `}
   ${media.small`
     width: unset;
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
   `}
 `;
@@ -252,17 +267,22 @@ export const SocialsBar = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100px;
+  min-height: 100px;
   background-color: ${props => props.backgroundColor};
 `;
 
 export const SocialsContainer = styled.div`
+  box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
+  padding: 0 20px;
 `;
 
 export const SocialsEditOverlay = styled.div`
+  margin: 10px 20px;
   font-size: 24px;
   text-align: center;
   color: #fff;
@@ -279,7 +299,7 @@ export const SocialsEditOverlay = styled.div`
 `;
 
 export const Social = styled.a`
-  margin-right: 40px;
+  margin: 10px 20px;
   font-size: 24px;
   text-align: center;
   color: #fff;
@@ -299,14 +319,4 @@ export const Social = styled.a`
       background-color: #fff;
     }
   }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  ${media.small`
-    &:nth-last-child(2) {
-      margin-right: 0;
-    }
-  `}
 `;
