@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Dialog from 'material-ui/Dialog';
-import { colorPalette } from '../../../utils/constants/styles';
+import { colorPalette, media } from '../../../utils/constants/styles';
 
 export const StyledDialog = styled(Dialog)`
   box-sizing: border-box;
@@ -16,6 +16,9 @@ export const StyledDialog = styled(Dialog)`
     box-sizing: border-box;
     width: 550px !important;
     max-width: unset !important;
+    ${media.small`
+      display: none !important;
+    `}
   }
 
   /* Dialog title */

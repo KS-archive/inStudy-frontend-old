@@ -172,7 +172,7 @@ export const ElementOptions = styled.div`
   color: ${colorPalette.accent3Color};
   transition: all 0.3s;
 
-  &:hover {
+  i:hover {
     cursor: pointer;
     color: ${colorPalette.textColor};
   }

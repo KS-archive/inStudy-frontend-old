@@ -215,6 +215,7 @@ export const Filler = styled.div`
   ${media.small`
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
+    z-index: 10000;
   `}
 `;
 
