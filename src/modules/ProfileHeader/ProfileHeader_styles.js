@@ -199,7 +199,6 @@ export const Label = styled.div`
       margin-right: 10px;
     }
   `}
-
   ${media.small`
     height: 40px;
   `}
