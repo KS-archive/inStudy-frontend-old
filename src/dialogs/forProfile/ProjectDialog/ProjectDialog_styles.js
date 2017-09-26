@@ -13,7 +13,7 @@ export const Images = styled.div`
     margin: 0 0 40px 0;
   `}
   ${media.small`
-    width: 270px;
+    width: 292px;
     max-width: 90vw;
   `}
 
@@ -30,13 +30,28 @@ export const Images = styled.div`
     `}
 
     img {
-      max-width: 99%;
-      max-height: 99%;
+      width: unset;
+      max-width: 375px;
+      max-height: 375px;
+      ${media.medium__large`
+        max-width: 300px;
+        max-height: 300px;
+      `}
+      ${media.small`
+        max-height: 290px;
+        max-width: 290px;
+      `}
     }
   }
 
-  .image-gallery-thumbnail > div > img {
-    max-height: 120px;
+  .image-gallery-thumbnail {
+    width: unset;
+
+    > div > img {
+      width: unset;
+      max-height: 120px;
+      max-width: 120px;
+    }
   }
 
   .image-gallery-right-nav,

@@ -34,8 +34,8 @@ class SignUp extends Component {
     this.toValidate = {
       name: { required: true },
       email: { required: true },
-      password: { required: true },
-      password2: { required: true, equalPasswords: 'password' },
+      password: { required: true, minLength: 8 },
+      password2: { required: true, equalPasswords: 'password', minLength: 8 },
       type: { required: true },
       category: { required: true },
       subcategory: { required: true },

@@ -11,6 +11,13 @@ const validation = {
     }
     return null;
   },
+  minLength: (value, length) => {
+    console.log(length);
+    if (value.length < length) {
+      return `Wartość w tym polu musi zawierać co najmniej ${length} znaków`;
+    }
+    return null;
+  },
   noEmptyArr: (values) => {
     if (!values || values.length === 0) {
       return 'Musisz dodać co najmniej jeden element';
