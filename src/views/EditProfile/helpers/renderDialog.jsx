@@ -37,7 +37,7 @@ export default (comp, moduleData) => {
         <ImageDialog
           submitFunction={comp.changeBackground}
           width={1920}
-          height={540}
+          height={600}
           maxSize={400000}
           title="Edytuj zdjęcie w tle"
           {...moduleData}

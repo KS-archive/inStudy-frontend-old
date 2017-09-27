@@ -77,7 +77,7 @@ export default class ProjectsTilesDialog extends Component {
 
   render() {
     const { open, sidebar, colors } = this.props;
-    const { dialog, dialogData, content, id } = this.state;
+    const { dialog, dialogData, content, id, type } = this.state;
     const dialogAttrs = {
       sidebar,
       open: true,
@@ -131,6 +131,7 @@ export default class ProjectsTilesDialog extends Component {
           <ProjectDetailsDialog
             submit={(el) => { this.changeList(el, dialogData); }}
             id={id}
+            type={type}
             {...dialogAttrs}
           />
         }

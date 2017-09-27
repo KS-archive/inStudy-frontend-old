@@ -154,7 +154,7 @@ export default class ProjectDetailsDialog extends Component {
   );
 
   render() {
-    const { closeDialog, sidebar, open } = this.props;
+    const { closeDialog, sidebar, open, type } = this.props;
     const { coverImage, socials, dialogData, dialog, images, labels } = this.state;
     const dialogTitle = 'Modyfikuj kafelek projektowy';
     const multilineAttrs = {
@@ -226,8 +226,8 @@ export default class ProjectDetailsDialog extends Component {
             open
             submitFunction={this.modifyImage}
             closeDialog={this.closeDialog}
-            width={265}
-            height={265}
+            width={(type === 0) ? 420 : 533}
+            height={(type === 0) ? 420 : 278}
             maxSize={300000}
             title="Modyfikuj zdjęcie"
             data={dialogData}
@@ -253,6 +253,7 @@ ProjectDetailsDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   sidebar: PropTypes.bool.isRequired,
   submit: PropTypes.func.isRequired,
+  type: PropTypes.number.isRequired,
   data: PropTypes.shape({
     coverImage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     description: PropTypes.string,

@@ -33,6 +33,7 @@ export const List = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   margin-top: 40px;
   ${media.medium`
     justify-content: center;
