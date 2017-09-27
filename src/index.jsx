@@ -35,6 +35,7 @@ import EditProfile from './views/EditProfile/EditProfile';
 import PasswordRecoveryNew from './views/PasswordRecoveryNew/PasswordRecoveryNew';
 import ConfirmEmail from './views/ConfirmEmail/ConfirmEmail';
 import Error404 from './views/Error404/Error404';
+import Instruction from './views/Instruction/Instruction';
 
 import { colorPalette } from './utils/constants/styles';
 
@@ -83,6 +84,7 @@ ReactDOM.render(
             <Route path="/potwierdz_email" component={ConfirmEmail} />
             <Route path="/rejestracja" component={SignUp} />
             <Route path="/logowanie" component={SignIn} />
+            <Route path="/instrukcja" component={Instruction} />
             <Route path="/" exact component={Hero} />
             <Route component={Error404} />
           </Switch>
