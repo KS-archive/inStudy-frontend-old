@@ -15,7 +15,7 @@ class Circles extends Component {
     super(props);
     this.state = {
       page: 0,
-      limit: 20,
+      limit: 100,
       query: this.props.query || '',
       filters: this.props.filters || {},
     };
