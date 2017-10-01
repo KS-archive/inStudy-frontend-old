@@ -4,13 +4,12 @@ import { colorPalette, media } from '../../utils/constants/styles';
 
 export const Container = styled.div`
   box-sizing: border-box;
+  position: relative;
+  top: -30px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 262px;
-  height: 350px;
-  margin-right: 30px;
-  margin-bottom: 30px;
+  width: 555px;
+  height: 191px;
+  margin-top: 30px;
   padding: 20px;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.16) 0 3px 10px, rgba(0, 0, 0, 0.23) 0 3px 10px;
@@ -22,39 +21,24 @@ export const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.19) 0 10px 30px, rgba(0, 0, 0, 0.23) 0 6px 10px;
   }
 
-  ${media.xx_large`
-    &:nth-child(4n) {
-      margin-right: 0;
-    }
-  `}
-  ${media.large__x_large`
-    &:nth-child(4n) {
-      margin-right: 0;
-    }
-  `}
-  ${media.medium__large`
-    margin-right: 57px;
+  &:nth-child(odd) {
+    margin-right: 30px;
+  }
 
-    &:nth-child(3n) {
-      margin-right: 0;
-    }
+  ${media.large`
+    width: 435px;
   `}
-  ${media.small__medium`
-    width: 300px;
-    height: 400px;
-    margin-right: 80px;
-
-    &:nth-child(2n) {
-      margin-right: 0;
-    }
+  ${media.medium`
+    width: 680px;
+    margin-right: 0 !important;
   `}
   ${media.small`
-    box-sizing: content-box !important;
-    border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
-    margin: 0 auto 30px;
-    width: 300px;
-    height: 450px;
+    width: 100%;
+  `}
+  ${media.x_small`
+    flex-direction: column;
+    align-items: center;
+    height: unset;
   `}
 `;
 
@@ -62,127 +46,154 @@ export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 220px;
   height: 150px;
-  width: 100%;
+  ${media.large`
+    min-width: 170px;
+  `}
+  ${media.medium`
+    min-width: 270px;
+  `}
   ${media.small`
-    height: 200px;
+    min-width: 150px;
+  `}
+  ${media.x_small`
+    max-height: 120px;
+    margin-bottom: 15px;
+    min-width: 100%;
   `}
 `;
 
 export const Logo = styled.img`
-  max-width: 100%;
+  max-width: 220px;
   max-height: 150px;
+  ${media.large`
+    max-width: 170px;
+  `}
+  ${media.medium`
+    max-width: 270px;
+  `}
   ${media.small`
-    max-height: 200px;
+    max-width: 150px;
+  `}
+  ${media.x_small`
+    max-height: 120px;
+    max-width: 100%;
+  `}
+`;
+
+export const ContentContainer = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 220px);
+  padding-left: 20px;
+  ${media.large`
+    width: calc(100% - 170px);
+  `}
+  ${media.medium`
+    width: calc(100% - 270px);
+  `}
+  ${media.small`
+    width: calc(100% - 150px);
+  `}
+  ${media.x_small`
+    width: 100%;
+    padding-left: 0;
   `}
 `;
 
 export const Name = styled.h3`
+  box-sizing: border-box;
   overflow-wrap: break-word;
-  max-width: 100%;
-  margin-top: 20px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
-  text-align: center;
   line-height: 1.3;
   color: ${colorPalette.textColor};
-  ${media.medium`
-    font-size: 22px;
+  ${media.large`
+    font-size: 18px;
   `}
-  ${media.small`
-    margin-top: 30px;
-    font-size: 24px;
+  ${media.x_small`
+    font-size: 16px;
+    text-align: center;
   `}
 `;
 
 export const Category = styled.p`
-  margin-top: 10px;
-  font-size: 14px;
-  text-align: center;
+  margin-top: 5px;
+  font-size: 16px;
   line-height: 1.3;
   color: ${colorPalette.accent3Color};
-  ${media.medium`
-    font-size: 16px;
+  ${media.large`
+    font-size: 14px;
   `}
-  ${media.small`
-    font-size: 18px;
+  ${media.x_small`
+    text-align: center;
   `}
 `;
 
 export const BottomLine = styled.div`
   margin-top: auto;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  height: 30px;
+  height: 40px;
+  ${media.x_small`
+    margin-top: 30px;
+  `}
+`;
+
+export const UniversityLogo = styled.div`
+  min-width: 140px;
+  height: 40px;
+  background: url("${props => props.background}") no-repeat;
+  background-position: left center;
+  background-size: contain;
+  ${media.large`
+    min-width: 100px;
+  `}
   ${media.medium`
-    height: 40px;
+    min-width: 145px;
   `}
   ${media.small`
-    height: 50px;
+    min-width: 100px;
+  `}
+  ${media.x_small`
+    min-width: 120px;
   `}
 `;
 
-export const UniversityLogo = styled.img`
-  max-width: 70px;
-  max-height: 30px;
-  text-indent: -9999px;
-  ${media.medium`
-    max-width: 80px;
-    max-height: 40px;
-  `}
-  ${media.small`
-    max-width: 100px;
-    max-height: 45px;
-  `}
-`;
-
-export const InfoIcons = styled.div`
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-`;
-
-export const InfoIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  margin-right: 10px;
-  background-color: ${colorPalette.primary1Color};
-  ${media.medium`
-    width: 40px;
-    height: 40px;
-  `}
-  ${media.small`
-    width: 45px;
-    height: 45px;
-  `}
-`;
-
-export const TypeIcon = styled.div`
+export const Flag = styled.div`
+  position: relative;
+  right: -21px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  background-color: ${colorPalette.accent1Color};
-  font-size: 18px;
-  font-weight: 500;
+  min-width: 130px;
+  height: 40px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+  font-size: 14px;
   text-align: center;
+  font-weight: 500;
+  text-transform: uppercase;
   color: #fff;
+  background-color: ${colorPalette.accent1Color};
+  ${media.large`
+    right: -16px;
+    min-width: 110px;
+    font-size: 12px;
+  `}
   ${media.medium`
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    right: -21px;
+    min-width: 140px;
+    font-size: 14px;
   `}
   ${media.small`
-    width: 45px;
-    height: 45px;
-    font-size: 24px;
+    min-width: 100px;
+    font-size: 12px;
+  `}
+  ${media.x_small`
+    min-height: 30px;
   `}
 `;
 
@@ -190,11 +201,4 @@ export const ReactTooltip = styled(Tooltip)`
   transition: opacity 0.6s !important;
   line-height: 1.3;
   &.show { opacity: 0.4 !important; }
-
-  ${media.medium`
-    font-size: 18px !important;
-  `}
-  ${media.small`
-    font-size: 20px !important;
-  `}
 `;
