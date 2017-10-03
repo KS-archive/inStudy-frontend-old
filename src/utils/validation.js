@@ -12,7 +12,6 @@ const validation = {
     return null;
   },
   minLength: (value, length) => {
-    console.log(length);
     if (value.length < length) {
       return `Wartość w tym polu musi zawierać co najmniej ${length} znaków`;
     }
@@ -34,6 +33,13 @@ const validation = {
   equalPasswords: (value, fieldToCompare, comp) => {
     if (value !== comp.state[fieldToCompare]) {
       return 'Oba hasła muszą być identyczne';
+    }
+    return null;
+  },
+  link: (value) => {
+    const isLinkRegExp = /^(?:ftp|http|https):\/\/(?:[\w\.\-\+]+:{0,1}[\w\.\-\+]*@)?(?:[a-z0-9\-\.]+)(?::[0-9]+)?(?:\/|\/(?:[\w#!:\.\?\+=&%@!\-\/\(\)]+)|\?(?:[\w#!:\.\?\+=&%@!\-\/\(\)]+))?$/;
+    if (!value.match(isLinkRegExp)) {
+      return 'Błędny format linku';
     }
     return null;
   },

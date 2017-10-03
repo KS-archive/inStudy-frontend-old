@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import valuesConfig from './valuesConfig';
+import ColorsDialog from '../../../dialogs/helpers/ColorsDialog/ColorsDialog';
 import RemovingConfirm from '../../../dialogs/helpers/RemovingConfirm/RemovingConfirm';
 import DiscardChangesConfirm from '../../../dialogs/helpers/DiscardChangesConfirm/DiscardChangesConfirm';
 import { initializeDialog } from '../../../utils/modulesHelpers';
 import { renderTextField } from '../../../utils/renderHelpers';
-import { Form } from './SimpleTextDialog_styles';
+import { Form, LabelHeader } from './SimpleTextDialog_styles';
 import { EditDialog } from '../../../utils/globalStyles';
 
 export default class SimpleTextDialog extends Component {
   componentWillMount() {
-    initializeDialog(this, 'SimpleText', valuesConfig);
+    initializeDialog(this, 'SimpleText', valuesConfig, ['colors']);
   }
 
   render() {
-    const { props: { open, sidebar }, state: { dialog } } = this;
+    const { props: { open, sidebar, colors }, state: { dialog, dialogData } } = this;
     const multilineAttrs = {
       multiLine: true,
-      rows: 4,
+      rows: 2,
     };
 
     return (
@@ -28,6 +29,9 @@ export default class SimpleTextDialog extends Component {
         <Form>
           {renderTextField(this, 'Nazwa modułu', 'title')}
           {renderTextField(this, 'Treść', 'content', true, multilineAttrs)}
+          <LabelHeader>Przycisk na dole</LabelHeader>
+          {renderTextField(this, 'Nazwa przycisku', 'buttonLabel')}
+          {renderTextField(this, 'Link dla przycisku', 'buttonLink')}
         </Form>
         {dialog === 'remove' &&
           <RemovingConfirm
@@ -42,6 +46,17 @@ export default class SimpleTextDialog extends Component {
             closeDialog={this.closeDialog}
             discard={this.closeDialogConfirm}
             sidebar={sidebar}
+          />
+        }
+        {dialog === 'colors' &&
+          <ColorsDialog
+            submit={(newColors) => { this.setState({ color: newColors[0] }); }}
+            names={['Kolor przycisku']}
+            mainColors={colors}
+            sidebar={sidebar}
+            closeDialog={this.closeDialog}
+            data={dialogData}
+            open
           />
         }
       </EditDialog>

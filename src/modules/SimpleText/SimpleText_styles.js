@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import RaisedButton from 'material-ui/RaisedButton';
 import { colorPalette } from '../../utils/constants/styles';
 
 export const Container = styled.div`
@@ -42,5 +43,28 @@ export const Container = styled.div`
     font-size: 20px;
     color: ${colorPalette.accent3Color};
     margin-bottom: 10px;
+  }
+`;
+
+export const StyledRaisedButton = styled(RaisedButton)`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 190px;
+  margin-top: 30px;
+  font-weight: 500;
+
+  > button {
+    background-color: ${props => props.color} !important;
+  }
+
+  > button > div > div:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  > button > div > div > span {
+    font-size: 16px !important;
+    color: #fff !important;
   }
 `;
