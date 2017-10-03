@@ -135,7 +135,7 @@ export const Category = styled.p`
 export const BottomLine = styled.div`
   margin-top: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 40px;
   ${media.x_small`
@@ -146,6 +146,7 @@ export const BottomLine = styled.div`
 export const UniversityLogo = styled.div`
   min-width: 140px;
   height: 40px;
+  margin-right: auto;
   background: url("${props => props.background}") no-repeat;
   background-position: left center;
   background-size: contain;
@@ -159,6 +160,7 @@ export const UniversityLogo = styled.div`
     min-width: 100px;
   `}
   ${media.x_small`
+    margin-right: 0;
     min-width: 120px;
   `}
 `;
@@ -193,6 +195,7 @@ export const Flag = styled.div`
     font-size: 12px;
   `}
   ${media.x_small`
+    margin-left: auto;
     min-height: 30px;
   `}
 `;

@@ -8,6 +8,7 @@ export const Container = styled.div`
   align-items: center;
   width: 265px;
   margin-bottom: 50px;
+  text-align: center;
   filter: ${props => props.grayScale && 'grayscale(1)'};
   transition: all 0.3s;
 
@@ -76,6 +77,7 @@ export const Name = styled.h3`
 export const Role = styled.p`
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.4;
   text-transform: uppercase;
   color: ${props => props.color};
 

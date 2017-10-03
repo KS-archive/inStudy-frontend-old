@@ -18,6 +18,7 @@ export const Container = styled.div`
 export const SearchContainer = styled.div`
   margin: auto 16px;
   width: 100%;
+  font-weight: 500;
 `;
 
 export const SearchIconWrapper = styled(IconButton)`

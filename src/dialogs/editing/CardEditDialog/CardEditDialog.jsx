@@ -9,12 +9,12 @@ import { changeCardData } from '../../../actions/circleEdit';
 import { addNotification } from '../../../actions/notifications';
 import { EditDialog } from '../../../utils/globalStyles';
 import { inputStyle } from '../../../utils/constants/styles';
-import { StyledTextField, StyledSelectField, Form } from './CardEditDialog_styles';
+import { StyledTextField, StyledSelectField, StyledCheckbox, Form } from './CardEditDialog_styles';
 
 class CardEditDialog extends Component {
   constructor(props) {
     super(props);
-    const { name, type, category, subcategory, city, university, email, phone, dateCreated, motto, department, protectors } = this.props.data;
+    const { name, type, category, subcategory, city, university, email, phone, dateCreated, motto, department, protectors, recruitment } = this.props.data;
     this.state = {
       name,
       type,
@@ -28,6 +28,7 @@ class CardEditDialog extends Component {
       motto: motto || undefined,
       department: department || undefined,
       protectors: protectors || undefined,
+      recruitment: recruitment || false,
       errors: {},
       universities: cities[this.props.city].universities,
       subcategories: categories[this.props.category].subcategories,
@@ -41,7 +42,7 @@ class CardEditDialog extends Component {
       university: { required: true },
       email: { required: true },
     };
-    this.values = ['name', 'type', 'category', 'subcategory', 'city', 'university', 'email', 'phone', 'dateCreated', 'motto', 'department', 'protectors'];
+    this.values = ['name', 'type', 'category', 'subcategory', 'city', 'university', 'email', 'phone', 'dateCreated', 'motto', 'department', 'protectors', 'recruitment'];
     this.actions = renderActionButtons(this.props.closeDialog, this.handleSubmit);
   }
 
@@ -95,6 +96,13 @@ class CardEditDialog extends Component {
     );
   }
 
+  renderCheckbox = (label, stateName) => {
+    const checked = this.state[stateName];
+    const onCheck = () => { this.setState({ [stateName]: !checked }); };
+    const attrs = { label, checked, onCheck };
+    return <StyledCheckbox {...attrs} />;
+  }
+
   render() {
     const { closeDialog, open, sidebar } = this.props;
     const { universities, subcategories } = this.state;
@@ -121,6 +129,7 @@ class CardEditDialog extends Component {
           {this.renderTextField('phone', 'Telefon')}
           {this.renderTextField('dateCreated', 'Data założenia')}
           {this.renderTextField('motto', 'Motto')}
+          {this.renderCheckbox('Trwa rekrutacja', 'recruitment')}
         </Form>
       </EditDialog>
     );

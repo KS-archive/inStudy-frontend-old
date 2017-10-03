@@ -12,7 +12,7 @@ export default class CircleCard extends PureComponent {
   }
 
   render() {
-    const { handleClick, logo, name } = this.props;
+    const { handleClick, logo, name, recruitment } = this.props;
     const logoSrc = logo || '/img/placeholders/logo.png';
     return (
       <Container onClick={handleClick}>
@@ -24,7 +24,9 @@ export default class CircleCard extends PureComponent {
           <Category>{`${this.categoryName}, ${this.subcategoryName}`}</Category>
           <BottomLine>
             <UniversityLogo data-tip={this.universityName} background={`/img/universities/${this.universityName}.png`} />
-            <Flag>Rekrutuje</Flag>
+            {(recruitment) &&
+              <Flag>Rekrutuje</Flag>
+            }
             <ReactTooltip effect="solid" />
           </BottomLine>
         </ContentContainer>
