@@ -11,11 +11,15 @@ export default class CircleCard extends PureComponent {
     this.subcategoryName = find(categories[category.toString()].subcategories, s => s.id === subcategory.toString()).name;
   }
 
+  handleClick = (e) => {
+    this.props.handleClick(e.button);
+  }
+
   render() {
-    const { handleClick, logo, name, recruitment } = this.props;
+    const { logo, name, recruitment } = this.props;
     const logoSrc = logo || '/img/placeholders/logo.png';
     return (
-      <Container onClick={handleClick}>
+      <Container onMouseDown={this.handleClick}>
         <LogoContainer>
           <Logo src={logoSrc} alt={`${name} - logo`} />
         </LogoContainer>

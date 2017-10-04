@@ -35,8 +35,12 @@ class Circles extends Component {
     }
   }
 
-  redirectToCircleView = (url) => {
-    this.props.history.push(`/inicjatywy/${url}`);
+  redirectToCircleView = (url, button) => {
+    if (button === 0) {
+      this.props.history.push(`/inicjatywy/${url}`);
+    } else {
+      window.open(`${__ROOT_URL__}inicjatywy/${url}`, '_blank');
+    }
   }
 
   updateCircles = () => {
@@ -49,7 +53,7 @@ class Circles extends Component {
     return (
       <CircleCard
         key={_id}
-        handleClick={() => { this.redirectToCircleView(url); }}
+        handleClick={(button) => { this.redirectToCircleView(url, button); }}
         {...circle}
       />
     );
