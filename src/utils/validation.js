@@ -38,7 +38,7 @@ const validation = {
   },
   link: (value) => {
     const isLinkRegExp = /^(?:ftp|http|https):\/\/(?:[\w\.\-\+]+:{0,1}[\w\.\-\+]*@)?(?:[a-z0-9\-\.]+)(?::[0-9]+)?(?:\/|\/(?:[\w#!:\.\?\+=&%@!\-\/\(\)]+)|\?(?:[\w#!:\.\?\+=&%@!\-\/\(\)]+))?$/;
-    if (!value.match(isLinkRegExp)) {
+    if (value && !value.match(isLinkRegExp)) {
       return 'Błędny format linku';
     }
     return null;
