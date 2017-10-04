@@ -181,7 +181,7 @@ export const Flag = styled.div`
   color: #fff;
   background-color: ${colorPalette.accent1Color};
   ${media.large`
-    right: -16px;
+    right: -18px;
     min-width: 110px;
     font-size: 12px;
   `}

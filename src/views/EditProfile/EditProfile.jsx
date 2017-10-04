@@ -59,6 +59,7 @@ class EditProfile extends Component {
   render() {
     if (this.props.activeCircle._id) {
       const { dialog, sidebar, mode, dialogData, modalFunctions, editingModule, header, modules } = this.state;
+      console.log(header);
       const { activeCircle } = this.props;
       const EditSidebarData = { sidebar, mode, editingModule, modalFunctions };
       const moduleData = {

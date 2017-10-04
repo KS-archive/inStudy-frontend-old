@@ -42,9 +42,9 @@ export default class ProfileHeader extends PureComponent {
   });
 
   render() {
-    const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, department, protectors, colors, editable, socials } = this.props;
+    const { backgroundImg, logo, name, type, category, subcategory, university, city, email, phone, dateCreated, motto, department, protectors, colors, editable, socials, recruitment } = this.props;
     const { cityName, universityName, typeName, categoryName, subcategoryName } = this.state;
-    const cardEditData = { name, type, category, subcategory, university, city, email, phone, dateCreated, motto, department, protectors };
+    const cardEditData = { name, type, category, subcategory, university, city, email, phone, dateCreated, motto, department, protectors, recruitment };
 
     return (
       <div>
