@@ -22,7 +22,9 @@ class Circles extends Component {
   }
 
   componentDidMount() {
-    this.updateCircles();
+    if (this.props.circles && this.props.circles.length === 0) {
+      this.updateCircles();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
