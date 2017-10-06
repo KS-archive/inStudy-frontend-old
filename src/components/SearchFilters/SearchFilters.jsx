@@ -21,25 +21,39 @@ class SearchFilters extends Component {
     };
   }
 
+  componentWillMount() {
+    if (hasAnyValue(this.props.filters)) {
+      const city = cities[this.props.filters.city];
+      const category = categories[this.props.filters.category];
+      this.setState({
+        universities: city && city.universities,
+        subcategories: category && category.subcategories,
+      }, () => { this.setFilters(this.props.filters); });
+    }
+  }
+
   componentDidMount() {
     window.addEventListener('resize', this.setFiltersHeight);
     this.setFiltersHeight();
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setFilters(nextProps.filters);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setFiltersHeight);
+  }
+
+  setFilters = (filters, callback) => {
     let activeFilters = 0;
-    const filters = nextProps.filters;
     if (hasAnyValue(filters)) {
       Object.keys(filters).forEach((key) => {
         const isArray = Array.isArray(filters[key]);
         activeFilters += ((isArray && filters[key].length > 0) || !isArray) ? 1 : 0;
       });
     }
-    this.setState({ activeFilters });
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.setFiltersHeight);
+    this.setState({ activeFilters }, callback);
   }
 
   setUniversities = (cityId) => {
@@ -57,8 +71,8 @@ class SearchFilters extends Component {
   setFiltersHeight = () => {
     const width = window.innerWidth;
     let filtersHeight = 221;
-    if (width <= 960) filtersHeight = 313;
-    if (width <= 674) filtersHeight = 560;
+    if (width <= 1200) filtersHeight = 313;
+    if (width <= 700) filtersHeight = 560;
     if (this.state.filtersHeight !== filtersHeight) {
       this.setState({ filtersHeight });
     }
