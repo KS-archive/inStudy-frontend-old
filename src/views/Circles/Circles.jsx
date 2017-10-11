@@ -14,26 +14,48 @@ class Circles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 0,
-      limit: 100,
       query: this.props.query || '',
       filters: this.props.filters || {},
     };
+
+    this.page = 0;
+    this.limit = 10;
+    this.isMore = true;
+    this.checkIsBottom = true;
+    this.showLoader = true;
   }
 
   componentDidMount() {
     if (this.props.circles && this.props.circles.length === 0) {
       this.updateCircles();
     }
+    window.addEventListener('scroll', this.isBottom);
   }
 
   componentWillReceiveProps(nextProps) {
     const { filters, query } = nextProps;
     if (!isEqual(filters, this.props.filters) || query !== this.props.query) {
+      this.page = 0;
+      this.isMore = true;
+      this.checkIsBottom = true;
+      this.showLoader = true;
       this.setState({
         query: query || '',
         filters: filters || {},
-      }, this.updateCircles);
+      }, () => { this.updateCircles(false); });
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.isBottom);
+  }
+
+  isBottom = () => {
+    const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+    if (isBottom && this.isMore && this.checkIsBottom) {
+      this.checkIsBottom = false;
+      this.showLoader = true;
+      this.updateCircles(true);
     }
   }
 
@@ -45,9 +67,11 @@ class Circles extends Component {
     }
   }
 
-  updateCircles = () => {
-    const { page, limit, query, filters } = this.state;
-    this.props.getCircles(page, limit, query, filters);
+  updateCircles = (extend) => {
+    console.log(this.state.filters);
+    const { page, limit } = this;
+    const { query, filters } = this.state;
+    this.props.getCircles(page, limit, query, filters, this, extend);
   }
 
   renderCircleCard = (circle) => {
@@ -73,10 +97,10 @@ class Circles extends Component {
             <SearchFilters />
           </SearchFiltersContainer>
           <CirclesList>
+            {this.showLoader && <StyledCircularProgress size={80} thickness={5} />}
             {(circles.length === 0)
-              ? <StyledCircularProgress size={80} thickness={5} />
-              // : circles.map(circle => this.renderCircleCard(circle))
-              : <StyledCircularProgress size={80} thickness={5} />
+              ? null
+              : circles.map(circle => this.renderCircleCard(circle))
             }
           </CirclesList>
         </MainContainer>

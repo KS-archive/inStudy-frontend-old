@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { getTokenHeader } from '../utils/utils';
-import { GET_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, REMOVE_ACTIVE_CIRCLE, REMOVE_PUBLIC_CIRCLE } from './types';
+import { GET_CIRCLES, EXTEND_CIRCLES, FETCH_PUBLIC_CIRCLE, FETCH_ACTIVE_CIRCLE, REMOVE_ACTIVE_CIRCLE, REMOVE_PUBLIC_CIRCLE } from './types';
 
-export function getCircles(page, limit, query, filters) {
+export function getCircles(page, limit, query, filters, comp, extend = true) {
   const queryString = query && `&query=${query}`;
   let filtersDetails = '';
   Object.keys(filters).map((filter) => {
@@ -15,10 +15,26 @@ export function getCircles(page, limit, query, filters) {
 
   return (dispatch) => {
     request.then(({ data }) => {
-      dispatch({
-        type: GET_CIRCLES,
-        payload: data,
-      });
+      if (comp) {
+        if (data.length !== comp.limit) {
+          comp.isMore = false;
+        }
+        comp.showLoader = false;
+        comp.checkIsBottom = true;
+        comp.page += 1;
+      }
+
+      if (extend) {
+        dispatch({
+          type: EXTEND_CIRCLES,
+          payload: data,
+        });
+      } else {
+        dispatch({
+          type: GET_CIRCLES,
+          payload: data,
+        });
+      }
     });
   };
 }
