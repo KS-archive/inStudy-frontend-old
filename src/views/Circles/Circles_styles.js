@@ -25,5 +25,5 @@ export const CirclesList = styled.div`
 `;
 
 export const StyledCircularProgress = styled(CircularProgress)`
-  margin-top: -20px;
+  margin-top: -10px;
 `;

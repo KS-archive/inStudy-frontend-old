@@ -19,7 +19,7 @@ export function getCircles(page, limit, query, filters, comp, extend = true) {
         if (data.length !== comp.limit) {
           comp.isMore = false;
         }
-        comp.showLoader = false;
+        comp.setState({ showLoader: false, showCircles: true });
         comp.checkIsBottom = true;
         comp.page += 1;
       }
