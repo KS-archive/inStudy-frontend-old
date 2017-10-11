@@ -8,7 +8,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import CircleCard from '../../components/CircleCard/CircleCard';
 import { MainContainer } from '../../utils/globalStyles';
-import { ContentWrapper, SearchFiltersContainer, CirclesList } from './Circles_styles';
+import { ContentWrapper, SearchFiltersContainer, CirclesList, StyledCircularProgress } from './Circles_styles';
 
 class Circles extends Component {
   constructor(props) {
@@ -62,6 +62,8 @@ class Circles extends Component {
   }
 
   render() {
+    const { circles } = this.props;
+
     return (
       <ContentWrapper>
         <Header />
@@ -71,7 +73,11 @@ class Circles extends Component {
             <SearchFilters />
           </SearchFiltersContainer>
           <CirclesList>
-            {this.props.circles.map(circle => this.renderCircleCard(circle))}
+            {(circles.length === 0)
+              ? <StyledCircularProgress size={80} thickness={5} />
+              // : circles.map(circle => this.renderCircleCard(circle))
+              : <StyledCircularProgress size={80} thickness={5} />
+            }
           </CirclesList>
         </MainContainer>
       </ContentWrapper>
