@@ -14,6 +14,7 @@ export const Background = styled.canvas`
 `;
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +55,12 @@ export const Logo = styled.img`
     height: 200px;
     margin-bottom: 30px;
   }
+
+  @media (max-height: 450px) and (orientation: landscape) {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+  }
 `;
 
 export const Text = styled.h1`
@@ -67,6 +74,11 @@ export const Text = styled.h1`
   @media (max-width: 600px) {
     margin-bottom: 40px;
     font-size: 36px;
+  }
+
+  @media (max-height: 450px) and (orientation: landscape) {
+    margin-bottom: 20px;
+    font-size: 30px;
   }
 `;
 
