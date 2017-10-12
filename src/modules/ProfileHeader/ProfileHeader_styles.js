@@ -4,7 +4,7 @@ import { colorPalette, media } from '../../utils/constants/styles';
 export const Background = styled.div`
   z-index: -1;
   position: absolute;
-  top: ${props => props.editable ? 0 : '60px'};
+  top: 0;
   right: 0;
   left: 0;
   width: 100%;

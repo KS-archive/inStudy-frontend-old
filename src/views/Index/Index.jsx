@@ -11,6 +11,7 @@ class Index extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.innerBody.scrollTop = 0;
     const notification = nextProps.notifications[nextProps.notifications.length - 1];
     if (this.props.notifications !== nextProps.notifications) this.addNotification(notification);
   }
@@ -35,7 +36,11 @@ class Index extends PureComponent {
     return (
       <Container>
         <Nav />
-        <Body isNormalPath={isNormalPath}>
+        <Body
+          isNormalPath={isNormalPath}
+          id="appContainer"
+          innerRef={(innerBody) => { this.innerBody = innerBody; }}
+        >
           {this.props.children}
         </Body>
         <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />

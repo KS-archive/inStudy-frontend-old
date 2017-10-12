@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import Route from 'react-router-dom/Route';
 import Router from 'react-router-dom/Router';
 import createBrowserHistory from 'history/createBrowserHistory';
-import Switch from 'react-router-dom/Switch';
+import { AnimatedSwitch } from 'react-router-transition';
 
 // Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -65,7 +65,6 @@ const muiTheme = getMuiTheme({
 ReactGA.initialize('UA-106920408-1');
 const customHistory = createBrowserHistory();
 customHistory.listen((location) => {
-  window.scrollTo(0, 0);
   ReactGA.set({ page: location.pathname });
   ReactGA.pageview(location.pathname);
 });
@@ -75,7 +74,12 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={customHistory}>
         <Index>
-          <Switch>
+          <AnimatedSwitch
+            atEnter={{ opacity: 0 }}
+            atLeave={{ opacity: 1 }}
+            atActive={{ opacity: 1 }}
+            className="switch-wrapper"
+          >
             <Route path="/inicjatywy/edit" component={EditProfile} />
             <Route path="/inicjatywy/:url" component={PublicProfile} />
             <Route path="/inicjatywy" component={Circles} />
@@ -87,7 +91,7 @@ ReactDOM.render(
             <Route path="/instrukcja" component={Instruction} />
             <Route path="/" exact component={Hero} />
             <Route component={Error404} />
-          </Switch>
+          </AnimatedSwitch>
         </Index>
       </Router>
     </Provider>

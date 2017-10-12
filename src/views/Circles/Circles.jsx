@@ -37,7 +37,11 @@ class Circles extends Component {
       }
       this.setState({ showLoader: false });
     }
-    window.addEventListener('scroll', this.isBottom);
+  }
+
+  componentDidMount() {
+    this.container = document.getElementById('appContainer');
+    this.container.addEventListener('scroll', this.isBottom);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,11 +60,11 @@ class Circles extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.isBottom);
+    this.container.removeEventListener('scroll', this.isBottom);
   }
 
   isBottom = () => {
-    const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+    const isBottom = window.innerHeight + this.container.scrollTop >= this.wrapper.offsetHeight;
     if (isBottom && this.isMore && this.checkIsBottom) {
       this.checkIsBottom = false;
       this.setState({ showLoader: true });
@@ -97,7 +101,7 @@ class Circles extends Component {
     const { circles } = this.props;
 
     return (
-      <ContentWrapper>
+      <ContentWrapper innerRef={(wrapper) => { this.wrapper = wrapper; }}>
         <Header />
         <MainContainer>
           <SearchBar />
@@ -105,7 +109,8 @@ class Circles extends Component {
             <SearchFilters />
           </SearchFiltersContainer>
           <CirclesList>
-            {(circles.length !== 0 && this.state.showCircles) && circles.map(circle => this.renderCircleCard(circle))}
+            {(circles.length !== 0 && this.state.showCircles) &&
+              circles.map(circle => this.renderCircleCard(circle))}
             {this.state.showLoader && <StyledCircularProgress size={80} thickness={5} />}
           </CirclesList>
         </MainContainer>
