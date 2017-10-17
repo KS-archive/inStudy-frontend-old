@@ -8,7 +8,7 @@ import accessibleModules from '../../utils/constants/accesibleModules';
 import ProfileHeader from '../../modules/ProfileHeader/ProfileHeader';
 import { getPublicCircle, removePublicCircle } from '../../actions/circles';
 import { MainContainer } from '../../utils/globalStyles';
-import { Container, Wrapper } from './PublicProfile_styles';
+import { Container, Wrapper, StyledCircularProgress } from './PublicProfile_styles';
 
 class PublicProfile extends PureComponent {
   componentDidMount() {
@@ -54,7 +54,11 @@ class PublicProfile extends PureComponent {
         </Container>
       );
     }
-    return null;
+    return (
+      <Container>
+        <StyledCircularProgress size={80} thickness={5} />
+      </Container>
+    );
   }
 }
 

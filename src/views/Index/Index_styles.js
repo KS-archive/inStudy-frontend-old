@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  position: relative;
   width: 100%;
 `;
 
 export const Body = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   overflow-x: hidden;
   overflow-y: auto;
   min-height: ${props => props.isNormalPath

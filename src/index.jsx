@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom';
 // React Router
 import Route from 'react-router-dom/Route';
 import Router from 'react-router-dom/Router';
+import Switch from 'react-router-dom/Switch';
 import createBrowserHistory from 'history/createBrowserHistory';
-import { AnimatedSwitch } from 'react-router-transition';
 
 // Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -74,12 +74,7 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={customHistory}>
         <Index>
-          <AnimatedSwitch
-            atEnter={{ opacity: 0 }}
-            atLeave={{ opacity: 1 }}
-            atActive={{ opacity: 1 }}
-            className="switch-wrapper"
-          >
+          <Switch>
             <Route path="/inicjatywy/edit" component={EditProfile} />
             <Route path="/inicjatywy/:url" component={PublicProfile} />
             <Route path="/inicjatywy" component={Circles} />
@@ -91,7 +86,7 @@ ReactDOM.render(
             <Route path="/instrukcja" component={Instruction} />
             <Route path="/" exact component={Hero} />
             <Route component={Error404} />
-          </AnimatedSwitch>
+          </Switch>
         </Index>
       </Router>
     </Provider>
